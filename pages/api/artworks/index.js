@@ -1,7 +1,7 @@
 import * as Handlers from "../../../helpers/api_helpers/artworks_helpers/artworks_handlers";
 import * as Methods from "../../../helpers/api_helpers/methods";
 
-export default async function handlerCategories(req, res) {
+export default async function handlerArtworks(req, res) {
   const method = req.method;
 
   switch (method) {
