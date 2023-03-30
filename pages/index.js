@@ -40,8 +40,8 @@ export default function Home() {
             dormitorio o el lugar que quieras, en tu espacio favorito.
           </code>
         </p>
-
-        <Components.BackButton href={"/art-details"} />
+{/* 
+        <Components.BackButton href={"/art-details"} /> */}
         <Chakra.Box
           as="h1"
           textAlign="center"
