@@ -1,4 +1,4 @@
-import * as Handlers from "../../../helpers/api_helpers/categories_helpers/categories_handlers"
+import * as Handlers from "../../../helpers/api_helpers/categories_helpers/categories_handlers";
 import * as Methods from "../../../helpers/api_helpers/methods";
 
 export default async function handlerCategories(req, res) {
