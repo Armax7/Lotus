@@ -1,3 +1,5 @@
+
+// The isObject function returns true if the value passed as an argument is an object and not an array, and false otherwise.
 export function isObject(object) {
   return (
     !!object &&
@@ -6,7 +8,7 @@ export function isObject(object) {
     object !== null
   );
 }
-
+// The "sortDescCompareFn" function returns a comparator function that can be used with the sort method of an array to sort the elements in ascending order based on their values.
 export function sortAscCompareFn() {
   return (a, b) => {
     if (a < b) {
@@ -17,7 +19,7 @@ export function sortAscCompareFn() {
     return 0;
   };
 }
-
+// The "sortDescCompareFn" function returns a comparator function that can be used with the sort method of an array to sort the elements in descending order based on their values.
 export function sortDescCompareFn(a, b) {
   return (a, b) => {
     if (a > b) {
@@ -28,7 +30,7 @@ export function sortDescCompareFn(a, b) {
     return 0;
   };
 }
-
+// The "isSpace" function returns true if the given string only contains whitespace characters or is empty, and false otherwise.
 export function isSpace(str) {
   return !str.replace(/\s/g, "").length;
 }
