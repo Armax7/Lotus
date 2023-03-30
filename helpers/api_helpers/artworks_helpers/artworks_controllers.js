@@ -13,7 +13,7 @@ export async function getArtworksById(id) {
     .from("artworks")
     .select("*")
     .eq("id", id);
-    
-  if (error) throw Error();
+
+  if (error) throw error;
   return artworks;
 }
