@@ -7,7 +7,7 @@ function NavBar({ classname, ...props }) {
 
   return (
     <Chakra.Flex as="nav" className={classname} {...props}>
-      <Link href="/Search">
+      <Link href="/search">
         <Chakra.Button bgColor="blackAlpha.800" color="red.600">
           Search
         </Chakra.Button>
