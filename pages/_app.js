@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider>
       <ReactQuery.QueryClientProvider client={queryClient}>
         <ReactQuery.Hydrate state={pageProps.dehydratedState}>
+          <Components.NavBar />
           <Component {...pageProps} />
           <Components.Footer/>
         </ReactQuery.Hydrate>
