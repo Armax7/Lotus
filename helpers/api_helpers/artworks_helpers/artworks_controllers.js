@@ -14,6 +14,6 @@ export async function getArtworksById(id) {
     .select("*")
     .eq("id", id);
     
-  if (error) return error;
+  if (error) throw Error();
   return artworks;
 }
