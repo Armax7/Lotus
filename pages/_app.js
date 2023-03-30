@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import { useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
-import * as Components from "../components"
+import * as Components from "../components";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new ReactQuery.QueryClient());
@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider>
       <ReactQuery.QueryClientProvider client={queryClient}>
         <ReactQuery.Hydrate state={pageProps.dehydratedState}>
-          <Components.NavBar/>
+          <Components.NavBar />
           <Component {...pageProps} />
         </ReactQuery.Hydrate>
       </ReactQuery.QueryClientProvider>
