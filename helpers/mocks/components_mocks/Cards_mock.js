@@ -10,7 +10,7 @@ let cardMock = {
   available: true,
   technique_id: 1,
   category_id: 0,
-  support: 3,
+  support_id: 3,
   stock: 1,
   author_id: 1,
 };
