@@ -5,7 +5,7 @@ export async function getAllImages(id) {
   const { data: images, error } = await supabase
   .from("art_showcase")
   .select("*")
-  .eq("artworks", id)
+  .eq("artwork_id", id)
 
   if (error) throw error;
 
