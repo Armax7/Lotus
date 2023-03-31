@@ -39,7 +39,7 @@ const Carousel = ({images, ...props}) => {
               left="4"
               transform="translateY(-50%)"
               onClick={handlePrevClick}
-              style={{ opacity: 0.3 }} // agregar estilo de transición
+              style={{ opacity: 0.2 }} 
             />
 
             <IconButton
@@ -50,7 +50,7 @@ const Carousel = ({images, ...props}) => {
               right="4"
               transform="translateY(-50%)"
               onClick={handleNextClick}
-              style={{opacity: 0.3 }}// agregar estilo de transición
+              style={{opacity: 0.2 }}
             />
           </>
         )}
