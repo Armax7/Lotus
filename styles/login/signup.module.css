@@ -3,3 +3,13 @@
     align-items: center;
     justify-content: space-between;
 }
+.HStack{
+    min-width: 370px;
+    width: 600px;
+}
+.form {
+    border-radius: 8px;
+  box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+  -webkit-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+  -moz-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+}

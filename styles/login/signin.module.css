@@ -1,17 +1,27 @@
-.separator{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.HStack{
+    min-width: 370px;
+    width: 600px;
 }
-.hr{
-    width: 150px;
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
-.separator_text{
-    color: #a0a0a0;
-    font-weight: bold;
+.hr {
+  width: 150px;
 }
-.auth{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.separator_text {
+  color: #a0a0a0;
+  font-weight: bold;
+}
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.form {
+    border-radius: 8px;
+  box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+  -webkit-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+  -moz-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
 }
