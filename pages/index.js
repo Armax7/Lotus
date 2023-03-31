@@ -50,7 +50,6 @@ export default function Home() {
         >
           ✨CUADROS DESTACADOS DE NUESTRA SELECCIÓN✨
         </Chakra.Box>
-        <Components.SearchBar/>
 
         <Components.CardContainer cards={artworks} columns={3} />
       </main>
