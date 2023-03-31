@@ -2,7 +2,6 @@ import * as Chakra from "@chakra-ui/react";
 import * as Utils from "../../helpers/utils";
 
 function CheckboxGroup({
-  title = "Select Options",
   options = ["option 1", "option 2", "option 3"],
   defaultValue: defaultValueProp = [],
   isDisabled: isDisabledProp = false,
