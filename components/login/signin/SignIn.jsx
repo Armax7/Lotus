@@ -49,9 +49,9 @@ export default function SignIn({ ...props }) {
               <hr className={style.hr} />
             </div>
 
-            <chakra.FormControl id="user">
-              <chakra.FormLabel>Username Or Email</chakra.FormLabel>
-              <chakra.Input placeholder="Username / Email" />
+            <chakra.FormControl id="email">
+              <chakra.FormLabel>Email</chakra.FormLabel>
+              <chakra.Input placeholder="user@email.com" />
             </chakra.FormControl>
 
             <chakra.FormControl id="passwordSignIn">
@@ -71,9 +71,7 @@ export default function SignIn({ ...props }) {
 
             <chakra.Button type="submit">Log in</chakra.Button>
 
-            <Link href="/ejemplo/descripcion" style={{ width: "100%" }}>
-              <chakra.Button style={{ width: "100%" }}>Sign up</chakra.Button>
-            </Link>
+            <chakra.Button style={{ width: "100%" }}>Sign up</chakra.Button>
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>

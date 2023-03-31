@@ -60,7 +60,7 @@ export default function SignUp({ ...props }) {
 
             <chakra.FormControl id="email">
               <chakra.FormLabel>Email</chakra.FormLabel>
-              <chakra.Input placeholder="user@gmail.com" />
+              <chakra.Input placeholder="user@email.com" />
             </chakra.FormControl>
 
             <chakra.FormControl id="passwordSignUp">
