@@ -1,7 +1,17 @@
 import { supabase } from "../../../lib/supabaseClient";
 
 
-export async function getAllImages(id) {
+export async function getAllImages() {
+  const { data: images, error } = await supabase
+  .from("art_showcase")
+  .select("*");
+
+  if (error) throw error;
+
+  return images;
+}
+
+export async function getImagesByArtworkId(id) {
   const { data: images, error } = await supabase
   .from("art_showcase")
   .select("*")

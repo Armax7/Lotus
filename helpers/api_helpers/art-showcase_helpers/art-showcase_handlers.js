@@ -3,8 +3,17 @@ import * as Controllers from "./art-showcase_controllers";
 
 export async function handleGet(req, res) {
   try {
-    const {id_art} = req.query
-    const images = await Controllers.getAllImages(id_art);
+    const images = await Controllers.getAllImages();
+    return res.status(200).json(images);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+export async function handleGetByArtworkId(req, res) {
+  try {
+    const {artwork_id} = req.query
+    const images = await Controllers.getImagesByArtworkId(artwork_id);
     return res.status(200).json(images);
   } catch (error) {
     return res.status(500).json({ error: error.message });
