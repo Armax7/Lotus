@@ -4,18 +4,13 @@ import style from "../../../styles/login/signup.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 
-export default function SignUp() {
+export default function SignUp({ ...props }) {
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log("sign up submit press with no functionality");
   }
   return (
-    <form
-      onSubmit={(e) => {
-        handleOnSubmit(e);
-      }}
-      className={style.form}
-    >
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
       <chakra.HStack className={style.HStack}>
         <chakra.Flex
           w="full"

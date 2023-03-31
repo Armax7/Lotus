@@ -4,15 +4,14 @@ import { FaFacebook } from "react-icons/fa";
 import style from "../../../styles/login/signin.module.css";
 import Link from "next/link";
 
-export default function SignIn() {
-
+export default function SignIn({ ...props }) {
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log("sign in submit press with no functionality");
   }
 
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
       <chakra.HStack className={style.HStack}>
         <chakra.Flex
           w="full"
@@ -69,13 +68,12 @@ export default function SignIn() {
               <chakra.Checkbox>Remember me</chakra.Checkbox>
               <chakra.Link>Forgot password</chakra.Link>
             </chakra.Stack>
-            
+
             <chakra.Button type="submit">Log in</chakra.Button>
 
             <Link href="/ejemplo/descripcion" style={{ width: "100%" }}>
               <chakra.Button style={{ width: "100%" }}>Sign up</chakra.Button>
             </Link>
-
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
