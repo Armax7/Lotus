@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import { Box, Image, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-const images = [
-  "https://picsum.photos/300/200?random=1",
-  "https://picsum.photos/300/200?random=2",
-  "https://picsum.photos/300/200?random=3",
-  "https://picsum.photos/300/200?random=4",
-  "https://picsum.photos/300/200?random=5",
-];
 
-const Carousel = () => {
+
+const Carousel = ({images, ...props}) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showArrows, setShowArrows] = useState(false);
 
@@ -23,15 +17,17 @@ const Carousel = () => {
   };
 
   return (
-    <Box position="relative" margin="20px">
+    
       <Box
-        position="absolute"
+        position="relative"
         left="0"
-        width="50%"
+        width="350px"
+        height="350px"
+        margin= "30px"
         onMouseEnter={() => setShowArrows(true)}
         onMouseLeave={() => setShowArrows(false)}
       >
-        <Image src={images[currentImage]} objectFit="cover" height="400px" />
+        <Image src={images[currentImage]} objectFit="cover" borderRadius= "8px" width= "100%" height="100%" />
 
         {showArrows && (
           <>
@@ -43,7 +39,7 @@ const Carousel = () => {
               left="4"
               transform="translateY(-50%)"
               onClick={handlePrevClick}
-              style={{ transition: "all 0.5s", opacity: 0.5 }} // agregar estilo de transición
+              style={{ opacity: 0.3 }} // agregar estilo de transición
             />
 
             <IconButton
@@ -54,12 +50,12 @@ const Carousel = () => {
               right="4"
               transform="translateY(-50%)"
               onClick={handleNextClick}
-              style={{ transition: "all 0.5s", opacity: 0.5 }}// agregar estilo de transición
+              style={{opacity: 0.3 }}// agregar estilo de transición
             />
           </>
         )}
       </Box>
-    </Box>
+    
   );
 };
 
