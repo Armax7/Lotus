@@ -84,8 +84,8 @@ export async function loggedStatus() {
  */
 export async function updateUserCredentials({ email, password }) {
   const { data, error } = await supabase.auth.updateUser({
-    email: "new@email.com",
-    password: "new-password",
+    email,
+    password,
   });
 
   if (error) throw error;
