@@ -1,14 +1,21 @@
 import * as chakra from "@chakra-ui/react";
 import style from "../../../styles/login/signup.module.css";
 
-export default function SignUp() {
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 
-  function handleOnSubmit(e){
-    e.preventDefault()
-    console.log("sign up submit press with no functionality")
+export default function SignUp() {
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    console.log("sign up submit press with no functionality");
   }
   return (
-    <form onSubmit={(e)=>{handleOnSubmit(e)}} className={style.form}>
+    <form
+      onSubmit={(e) => {
+        handleOnSubmit(e);
+      }}
+      className={style.form}
+    >
       <chakra.HStack className={style.HStack}>
         <chakra.Flex
           w="full"
@@ -20,7 +27,30 @@ export default function SignUp() {
         >
           <chakra.Stack w="full" maxW="md" spacing={4} p={6}>
             <chakra.Heading fontSize="2xl">Sign up</chakra.Heading>
-            <hr className={style.hr} />
+
+            <div className={style.separator}>
+              <hr className={style.hr} />
+              <p className={style.separator_text}>With</p>
+              <hr className={style.hr} />
+            </div>
+
+            <chakra.Stack>
+              <div className={style.auth}>
+                <chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                  Google
+                </chakra.Button>
+                <chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                  Facebook
+                </chakra.Button>
+              </div>
+            </chakra.Stack>
+
+            <div className={style.separator}>
+              <hr className={style.hr} />
+              <p className={style.separator_text}>Or</p>
+              <hr className={style.hr} />
+            </div>
+
             <div className={style.all_name_wrapper}>
               <chakra.FormControl id="firstName" style={{ margin: "2px" }}>
                 <chakra.FormLabel>First Name</chakra.FormLabel>
