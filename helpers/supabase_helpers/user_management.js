@@ -161,7 +161,7 @@ export async function getUserEmail() {
  *
  * @return {string} Name as string.
  */
-export async function userNameFull() {
+export async function getUserName() {
   try {
     const uuid = await getUserId();
     const { data, error } = await supabase
