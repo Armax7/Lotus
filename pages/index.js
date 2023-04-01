@@ -8,7 +8,7 @@ import * as QueryKeys from "../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFn from "../helpers/page_helpers/Home_helpers/query_fn";
 import * as Layouts from "../layouts";
 
-export default function Home({ Component, pageProps }) {
+export default function Home() {
   const queryClient = ReactQuery.useQueryClient();
 
   const {
