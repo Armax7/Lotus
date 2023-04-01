@@ -46,7 +46,6 @@ export default function SignIn({ ...props }) {
     const localData = {
       ...formData,
       email: formData.email.trim(),
-      password: formData.password.trim(),
     };
     setErrors(validate({ ...localData }));
     const currentErrors = validate(localData);
@@ -106,7 +105,7 @@ export default function SignIn({ ...props }) {
             </div>
 
             <chakra.FormControl
-              id="email"
+              id="emailSignIn"
               isInvalid={submitted && !!errors.email}
             >
               <chakra.FormLabel>Email</chakra.FormLabel>
