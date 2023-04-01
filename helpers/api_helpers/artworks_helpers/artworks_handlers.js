@@ -18,3 +18,13 @@ export async function handleGetById(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
+
+export async function handleGetByFilter(req, res) {
+  let body = req.query;
+  try {
+    const artworks = await Controllers.getArtworksFilteredByQuery(body);
+    return res.status(200).json(artworks);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
