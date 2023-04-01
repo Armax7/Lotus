@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
 
-import { FaShoppingCart } from "react-icons/fa";
+import * as Layouts from "../../layouts";
+import * as Components from "../../components";
 
-function NavBar({ classname, ...props }) {
+function NavBar({ artworks, techniques, categories, classname, ...props }) {
   const router = useRouter();
 
   return (
@@ -22,11 +24,15 @@ function NavBar({ classname, ...props }) {
           >
             <img src="/lotusIsotipo.svg" style={{ marginRight: "30px" }} />
 
-            <Chakra.Tab borderColor="#A7727D">Home</Chakra.Tab>
+            <Chakra.Tab id="home" borderColor="#A7727D">
+              Home
+            </Chakra.Tab>
 
-            <Chakra.Tab borderColor="#A7727D">Cuadros</Chakra.Tab>
+            <Chakra.Tab id="artworks" borderColor="#A7727D">
+              Cuadros
+            </Chakra.Tab>
 
-            <Chakra.Tab borderColor="#A7727D">
+            <Chakra.Tab id="cart" borderColor="#A7727D">
               {" "}
               Carrito <Chakra.Icon as={FaShoppingCart} ml={2} color="red.500" />
             </Chakra.Tab>
@@ -56,16 +62,15 @@ function NavBar({ classname, ...props }) {
             </Chakra.Button>
           </Chakra.TabList>
           <Chakra.TabPanels>
-            <Chakra.TabPanel> </Chakra.TabPanel>
-
-            <Chakra.TabPanel>
-              <p>Cuadro 1 </p>
-              <p>Cuadro 2 </p>
-              <p>Cuadro 3 </p>
-              <p>Cuadro 4 </p>
+            <Chakra.TabPanel id="home">
+              <Layouts.Home artworks={artworks} />
             </Chakra.TabPanel>
 
-            <Chakra.TabPanel>
+            <Chakra.TabPanel id="artworks">
+              <Layouts.Artworks artworks={artworks} />
+            </Chakra.TabPanel>
+
+            <Chakra.TabPanel id="cart">
               <p>Carrito!</p>
             </Chakra.TabPanel>
           </Chakra.TabPanels>

@@ -8,7 +8,7 @@ import * as QueryKeys from "../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFn from "../helpers/page_helpers/Home_helpers/query_fn";
 import * as Layouts from "../layouts";
 
-export default function Home() {
+export default function Home({ Component, pageProps }) {
   const queryClient = ReactQuery.useQueryClient();
 
   const {
@@ -29,7 +29,7 @@ export default function Home() {
     return <h1>Error: {artwork_error}</h1>;
   }
 
-  return <Layouts.Home artworks={artworks} />;
+  return <Components.NavBar artworks={artworks} />;
 }
 
 export async function getServerSideProps() {

@@ -17,7 +17,6 @@ function MyApp({ Component, pageProps }) {
             <meta name="description" content="Lotus Art Gallery" />
             <link rel="icon" href="/Lotus_Tab_logo.png" />
           </Head>
-          <Components.NavBar />
           <Component {...pageProps} />
           <Components.Footer />
         </ReactQuery.Hydrate>
