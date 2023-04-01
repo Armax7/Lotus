@@ -197,7 +197,9 @@ export default function SignUp({ ...props }) {
                 placeholder="Password"
               />
               {submitted && !!errors.password ? (
-                <Chakra.FormHelperText>{errors.password}</Chakra.FormHelperText>
+                <Chakra.FormHelperText>
+                  <Chakra.Box>{errors.password}</Chakra.Box>
+                </Chakra.FormHelperText>
               ) : (
                 <Chakra.FormHelperText>
                   Enter your password.
@@ -228,6 +230,39 @@ export default function SignUp({ ...props }) {
                 </Chakra.FormHelperText>
               )}
             </Chakra.FormControl>
+
+            {submitted && !!errors.password ? (
+              <Chakra.Box>
+                <Chakra.Alert status="error">
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertTitle>Password is invalid.</Chakra.AlertTitle>
+                </Chakra.Alert>
+                <Chakra.Alert status="info">
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertDescription>
+                    It should contain 8-16 characters
+                  </Chakra.AlertDescription>
+                </Chakra.Alert>
+                <Chakra.Alert status="info">
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertDescription>
+                    Must have at least one upper case and one lower case.
+                  </Chakra.AlertDescription>
+                </Chakra.Alert>
+                <Chakra.Alert status="info">
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertDescription>
+                    Must have a special character .!@#$%^&*
+                  </Chakra.AlertDescription>
+                </Chakra.Alert>
+                <Chakra.Alert status="info">
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertDescription>
+                    Must not have any whitespaces
+                  </Chakra.AlertDescription>
+                </Chakra.Alert>
+              </Chakra.Box>
+            ) : null}
 
             <Chakra.Button type="submit">Create Account</Chakra.Button>
           </Chakra.Stack>

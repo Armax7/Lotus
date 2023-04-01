@@ -30,7 +30,7 @@ function validate(inputs) {
   if (Utils.isSpace(inputs.password)) {
     errors["password"] = "Password is required";
   } else if (inputs.password && !inputs.password.match(PASSWORD_REGEX)) {
-    errors["password"] = "Password is invalid";
+    errors["password"] = "Password is invalid.";
   }
 
   if (
