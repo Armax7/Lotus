@@ -176,3 +176,20 @@ export async function getUserName() {
     return undefined;
   }
 }
+
+export async function postUserDetails({
+  id,
+  name,
+  image = null,
+  address = null,
+  is_banned = false,
+}) {
+  const { data, error } = await supabase
+    .from("user_details")
+    .insert({ id, name, image, address, is_banned })
+    .select();
+
+  if (error) throw error;
+
+  return data;
+}
