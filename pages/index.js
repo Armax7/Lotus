@@ -29,7 +29,7 @@ export default function Home() {
     return <h1>Error: {artwork_error}</h1>;
   }
 
-  return <Layouts.Home artworks={artworks} />;
+  return <Components.NavBar artworks={artworks} />;
 }
 
 export async function getServerSideProps() {
