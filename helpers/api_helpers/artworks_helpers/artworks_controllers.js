@@ -18,6 +18,16 @@ export async function getArtworksById(id) {
   return artworks;
 }
 
+export async function getArtworksName(name) {
+  let { data: artworks, error } = await supabase
+    .from("artworks")
+    .select("*")
+    .ilike("name", `%${name}%`);
+
+  if (error) throw error;
+  return artworks;
+}
+
 export async function getArtworksFilteredByQuery({
   name = null,
   technique_id = null,
