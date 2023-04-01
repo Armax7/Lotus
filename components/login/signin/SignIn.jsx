@@ -4,27 +4,31 @@ import { FaFacebook } from "react-icons/fa";
 import style from "../../../styles/login/signin.module.css";
 import Link from "next/link";
 
-export default function SignIn({ ...props }) {
+export default function SignIn( {className, ...props }) {
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log("sign in submit press with no functionality");
   }
 
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
-      <chakra.HStack className={style.HStack}>
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} >
+      <chakra.Box w="full" maxW="lg" spacing={8} p={8} bgColor="#F9F5E7" >
+      <chakra.HStack className={className} {...props}>
         <chakra.Flex
           w="full"
           h="full"
+         
           alignItems="center"
           justifyContent="center"
           borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
-          <chakra.Stack w="full" maxW="md" spacing={4} p={6}>
-            <chakra.Heading fontSize="2xl">
+          <chakra.Stack w="full" maxW="lg" spacing={8} p={8} >
+           <chakra.Box display="flex" justifyContent="center" alignItems="flex-end"> 
+            <chakra.Heading fontSize="2xl" >
               Sign in to your Account
             </chakra.Heading>
+            </chakra.Box> 
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -42,6 +46,7 @@ export default function SignIn({ ...props }) {
                 </chakra.Button>
               </div>
             </chakra.Stack>
+            
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -75,6 +80,7 @@ export default function SignIn({ ...props }) {
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
+      </chakra.Box>
     </form>
   );
 }
