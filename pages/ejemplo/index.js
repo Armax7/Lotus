@@ -10,6 +10,7 @@ function index() {
       <Components.BackButton href={"/"} />
       <Layouts.Artworks />
       <Components.SignIn/>
+      <Components.SignUp/>
     </Chakra.Box>
   );
 }

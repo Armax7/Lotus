@@ -3,7 +3,6 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 import style from "../../../styles/login/signin.module.css";
-import Link from "next/link";
 import validate from "./validation";
 
 export default function SignIn({ ...props }) {
@@ -127,7 +126,7 @@ export default function SignIn({ ...props }) {
 
             <chakra.FormControl
               id="passwordSignIn"
-              isInvalid={submitted && !!errors.email}
+              isInvalid={submitted && !!errors.password}
             >
               <chakra.FormLabel>Password</chakra.FormLabel>
               <chakra.Input
