@@ -1,18 +1,88 @@
-import * as chakra from "@chakra-ui/react";
 import style from "../../../styles/login/signup.module.css";
+import * as Chakra from "@chakra-ui/react";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import { useState } from "react";
+
+import * as Utils from "../../../helpers/utils";
+import validate from "./validate";
 
 export default function SignUp({ ...props }) {
-  function handleOnSubmit(e) {
-    e.preventDefault();
-    console.log("sign up submit press with no functionality");
+  const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    description: "",
+    release: "",
+    rating: "",
+    genres: "",
+    platforms: "",
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleInputOnChange(event) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+    console.log("onChange Triggered");
+  }
+
+  function handleInputOnClick(event) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+    setErrors((prevState) => ({
+      ...prevState,
+      [event.target.name]: "",
+    }));
+  }
+
+  async function handleOnSubmit(event) {
+    event.preventDefault();
+    const localData = {
+      ...formData,
+      name: formData.name.trim(),
+      lastname: formData.lastname.trim(),
+      email: formData.email.trim(),
+    };
+    setErrors(validate({ ...localData }));
+    const currentErrors = validate(localData);
+    console.log(currentErrors, errors);
+    setSubmitted(true);
+
+    if (Object.values(currentErrors).length <= 0) {
+      console.log("Submited with values: ", localData);
+      setFormData({
+        name: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setErrors({
+        name: "",
+        description: "",
+        release: "",
+        rating: "",
+        genres: "",
+        platforms: "",
+      });
+    }
   }
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
-      <chakra.HStack className={style.HStack}>
-        <chakra.Flex
+      <Chakra.HStack className={style.HStack}>
+        <Chakra.Flex
           w="full"
           h="full"
           alignItems="center"
@@ -20,8 +90,8 @@ export default function SignUp({ ...props }) {
           borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
-          <chakra.Stack w="full" maxW="md" spacing={4} p={6}>
-            <chakra.Heading fontSize="2xl">Sign up</chakra.Heading>
+          <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
+            <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -29,16 +99,16 @@ export default function SignUp({ ...props }) {
               <hr className={style.hr} />
             </div>
 
-            <chakra.Stack>
+            <Chakra.Stack>
               <div className={style.auth}>
-                <chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
                   Google
-                </chakra.Button>
-                <chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                </Chakra.Button>
+                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
                   Facebook
-                </chakra.Button>
+                </Chakra.Button>
               </div>
-            </chakra.Stack>
+            </Chakra.Stack>
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -47,36 +117,122 @@ export default function SignUp({ ...props }) {
             </div>
 
             <div className={style.all_name_wrapper}>
-              <chakra.FormControl id="firstName" style={{ margin: "2px" }}>
-                <chakra.FormLabel>First Name</chakra.FormLabel>
-                <chakra.Input placeholder="First Name" />
-              </chakra.FormControl>
+              <Chakra.FormControl
+                id="firstName"
+                isInvalid={submitted && !!errors.name}
+                style={{ margin: "2px" }}
+              >
+                <Chakra.FormLabel>First Name</Chakra.FormLabel>
+                <Chakra.Input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputOnChange}
+                  onClick={handleInputOnClick}
+                  placeholder="First Name"
+                />
+                {submitted && !!errors.name ? (
+                  <Chakra.FormHelperText>{errors.name}</Chakra.FormHelperText>
+                ) : (
+                  <Chakra.FormHelperText>
+                    Enter your name.
+                  </Chakra.FormHelperText>
+                )}
+              </Chakra.FormControl>
 
-              <chakra.FormControl id="lastName" style={{ margin: "2px" }}>
-                <chakra.FormLabel>Last Name</chakra.FormLabel>
-                <chakra.Input placeholder="Last Name" />
-              </chakra.FormControl>
+              <Chakra.FormControl
+                id="lastName"
+                isInvalid={submitted && !!errors.lastname}
+                style={{ margin: "2px" }}
+              >
+                <Chakra.FormLabel>Surname</Chakra.FormLabel>
+                <Chakra.Input
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleInputOnChange}
+                  onClick={handleInputOnClick}
+                  placeholder="Surname"
+                />
+                {submitted && !!errors.lastname ? (
+                  <Chakra.FormHelperText>
+                    {errors.lastname}
+                  </Chakra.FormHelperText>
+                ) : (
+                  <Chakra.FormHelperText>
+                    Enter your surname.
+                  </Chakra.FormHelperText>
+                )}
+              </Chakra.FormControl>
             </div>
 
-            <chakra.FormControl id="email">
-              <chakra.FormLabel>Email</chakra.FormLabel>
-              <chakra.Input placeholder="user@email.com" />
-            </chakra.FormControl>
+            <Chakra.FormControl
+              id="email"
+              isInvalid={submitted && !!errors.email}
+            >
+              <Chakra.FormLabel>Email</Chakra.FormLabel>
+              <Chakra.Input
+                name="email"
+                value={formData.email}
+                onChange={handleInputOnChange}
+                onClick={handleInputOnClick}
+                placeholder="user@email.com"
+              />
+              {submitted && !!errors.email ? (
+                <Chakra.FormHelperText>{errors.email}</Chakra.FormHelperText>
+              ) : (
+                <Chakra.FormHelperText>Enter your email.</Chakra.FormHelperText>
+              )}
+            </Chakra.FormControl>
 
-            <chakra.FormControl id="passwordSignUp">
-              <chakra.FormLabel>Password</chakra.FormLabel>
-              <chakra.Input type="password" placeholder="******" />
-            </chakra.FormControl>
+            <Chakra.FormControl
+              id="passwordSignUp"
+              isInvalid={submitted && !!errors.password}
+            >
+              <Chakra.FormLabel>Password</Chakra.FormLabel>
+              <Chakra.Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputOnChange}
+                onClick={handleInputOnClick}
+                placeholder="Password"
+              />
+              {submitted && !!errors.password ? (
+                <Chakra.FormHelperText>{errors.password}</Chakra.FormHelperText>
+              ) : (
+                <Chakra.FormHelperText>
+                  Enter your password.
+                </Chakra.FormHelperText>
+              )}
+            </Chakra.FormControl>
 
-            <chakra.FormControl id="passwordConfirm">
-              <chakra.FormLabel>Confirm your Password</chakra.FormLabel>
-              <chakra.Input type="password" placeholder="******" />
-            </chakra.FormControl>
+            <Chakra.FormControl
+              id="passwordConfirm"
+              isInvalid={submitted && !!errors.confirmPassword}
+            >
+              <Chakra.FormLabel>Confirm your Password</Chakra.FormLabel>
+              <Chakra.Input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputOnChange}
+                onClick={handleInputOnClick}
+                placeholder="Confirm password"
+              />
+              {submitted && !!errors.confirmPassword ? (
+                <Chakra.FormHelperText>
+                  {errors.confirmPassword}
+                </Chakra.FormHelperText>
+              ) : (
+                <Chakra.FormHelperText>
+                  Confirm your password.
+                </Chakra.FormHelperText>
+              )}
+            </Chakra.FormControl>
 
-            <chakra.Button type="submit">Create Account</chakra.Button>
-          </chakra.Stack>
-        </chakra.Flex>
-      </chakra.HStack>
+            <Chakra.Button type="submit">Create Account</Chakra.Button>
+          </Chakra.Stack>
+        </Chakra.Flex>
+      </Chakra.HStack>
     </form>
   );
 }
