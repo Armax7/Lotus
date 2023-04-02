@@ -41,7 +41,7 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
               Carrito <Chakra.Icon as={FaShoppingCart} ml={2} color="red.500" />
             </Chakra.Tab>
             <Chakra.Button
-            onClick={singUp.onOpen}
+              onClick={singUp.onOpen}
               bgColor="#F9F5E7"
               _hover={{ bgColor: "#D3C0AF" }}
               color={router.pathname === "/search" ? "black" : "black"}
@@ -55,51 +55,37 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
               Crea tu cuenta
             </Chakra.Button>
 
-
             <Chakra.Drawer
-            isOpen={singUp.isOpen}
-            placement="right"
-            onClose={singUp.onClose}
-            finalFocusRef={btnRef}
-            size="xl"
-          >
-            <Chakra.DrawerContent
-              bgColor="#F9F5E7"
-              backgroundPosition="bottom"
-              bgRepeat="no-repeat"
-              bgSize="contain"
+              isOpen={singUp.isOpen}
+              placement="right"
+              onClose={singUp.onClose}
+              finalFocusRef={btnRef}
+              size="xl"
             >
-              <Chakra.DrawerCloseButton
-                backgroundColor="#F9F5E7"
-                color="red"
-                justifyItems="center"
-              />
-
-              <Chakra.DrawerBody
+              <Chakra.DrawerContent
+                bgColor="#F9F5E7"
+                backgroundPosition="bottom"
                 bgRepeat="no-repeat"
-                bgPosition="center bottom 80px"
-                bgImage="lotusIsotipo.svg"
-                bgSize="26%"
-             
+                bgSize="contain"
               >
-                <Components.SignUp bgColor="#F9F5E7" />
-              </Chakra.DrawerBody>
-            </Chakra.DrawerContent>
-          </Chakra.Drawer>
+                <Chakra.DrawerCloseButton
+                  backgroundColor="#F9F5E7"
+                  color="red"
+                  justifyItems="center"
+                />
 
-
-
-
-
-
-
-
-
-
-
+                <Chakra.DrawerBody
+                  bgRepeat="no-repeat"
+                  bgPosition="center bottom 80px"
+                  bgSize="26%"
+                >
+                  <Components.SignUp bgColor="#F9F5E7" />
+                </Chakra.DrawerBody>
+              </Chakra.DrawerContent>
+            </Chakra.Drawer>
 
             <Chakra.Button
-            onClick={SignIn.onOpen}
+              onClick={SignIn.onOpen}
               bgColor="#F9F5E7"
               _hover={{ bgColor: "#D3C0AF" }}
               color={router.pathname === "/search" ? "black" : "black"}
@@ -112,45 +98,33 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
             </Chakra.Button>
 
             <Chakra.Drawer
-            isOpen={SignIn.isOpen}
-            placement="right"
-            onClose={SignIn.onClose}
-            finalFocusRef={btnRef}
-            size="xl"
-          >
-            <Chakra.DrawerContent
-              bgColor="#F9F5E7"
-              backgroundPosition="bottom"
-              bgRepeat="no-repeat"
-              bgSize="contain"
+              isOpen={SignIn.isOpen}
+              placement="right"
+              onClose={SignIn.onClose}
+              finalFocusRef={btnRef}
+              size="xl"
             >
-              <Chakra.DrawerCloseButton
-                backgroundColor="#F9F5E7"
-                color="red"
-                justifyItems="center"
-              />
-
-              <Chakra.DrawerBody
+              <Chakra.DrawerContent
+                bgColor="#F9F5E7"
+                backgroundPosition="bottom"
                 bgRepeat="no-repeat"
-                bgPosition="center bottom 80px"
-                bgImage="lotusIsotipo.svg"
-                bgSize="26%"
-             
+                bgSize="contain"
               >
-                <Components.SignIn bgColor="#F9F5E7" />
-              </Chakra.DrawerBody>
-            </Chakra.DrawerContent>
-          </Chakra.Drawer>
+                <Chakra.DrawerCloseButton
+                  backgroundColor="#F9F5E7"
+                  color="red"
+                  justifyItems="center"
+                />
 
-
-
-
-
-
-
-
-
-
+                <Chakra.DrawerBody
+                  bgRepeat="no-repeat"
+                  bgPosition="center bottom 80px"
+                  bgSize="26%"
+                >
+                  <Components.SignIn bgColor="#F9F5E7" />
+                </Chakra.DrawerBody>
+              </Chakra.DrawerContent>
+            </Chakra.Drawer>
           </Chakra.TabList>
           <Chakra.TabPanels>
             <Chakra.TabPanel id="home">
