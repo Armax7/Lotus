@@ -1,5 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-
+import Link from "next/link";
 function Card({
   artwork,
   spacing: spacingProp = 4,
@@ -23,6 +23,7 @@ function Card({
 
   return (
     <Chakra.VStack className={classNameProp} spacing={spacingProp} {...props}>
+      <Link href={`/details/${id}`}>
       <Chakra.WrapItem>
         <Chakra.Stack mt="6" spacing="3">
           <Chakra.Card maxW="sm">
@@ -32,11 +33,14 @@ function Card({
               <Chakra.Text color="blue.600" fontSize="2xl">
                 {price}
               </Chakra.Text>
-              <Chakra.Heading size="md">{name}</Chakra.Heading>
+              
+                <Chakra.Heading size="md">{name}</Chakra.Heading>
+              
             </Chakra.CardBody>
           </Chakra.Card>
         </Chakra.Stack>
       </Chakra.WrapItem>
+      </Link>
     </Chakra.VStack>
   );
 }

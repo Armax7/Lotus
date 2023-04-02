@@ -20,14 +20,15 @@ const Carousel = ({images, ...props}) => {
     
       <Box
         position="relative"
+        flex="1"
         left="0"
-        width="350px"
-        height="350px"
-        margin= "30px"
+        width="30%"
+        marginRight="15px"
+        height="500px"
         onMouseEnter={() => setShowArrows(true)}
         onMouseLeave={() => setShowArrows(false)}
       >
-        <Image src={images[currentImage]} objectFit="cover" borderRadius= "8px" width= "100%" height="100%" />
+        <Image src={images[currentImage]} objectFit="cover" borderRadius= "3px" width= "100%" height="100%" />
 
         {showArrows && (
           <>
