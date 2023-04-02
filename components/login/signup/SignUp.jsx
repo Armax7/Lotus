@@ -1,14 +1,19 @@
 import style from "../../../styles/login/signup.module.css";
 import * as Chakra from "@chakra-ui/react";
+import * as ReactQuery from "@tanstack/react-query";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
-import * as Utils from "../../../helpers/utils";
 import validate from "./validate";
+import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
+import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
+import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
 
-export default function SignUp({ ...props }) {
+function SignUp({ ...props }) {
+  const queryClient = ReactQuery.useQueryClient();
+
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
@@ -19,21 +24,21 @@ export default function SignUp({ ...props }) {
 
   const [errors, setErrors] = useState({
     name: "",
-    description: "",
-    release: "",
-    rating: "",
-    genres: "",
-    platforms: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  const signUpMutation = ReactQuery.useMutation(QueryFns.postUserDetailsAxios);
 
   function handleInputOnChange(event) {
     setFormData((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,
     }));
-    console.log("onChange Triggered");
   }
 
   function handleInputOnClick(event) {
@@ -57,11 +62,21 @@ export default function SignUp({ ...props }) {
     };
     setErrors(validate({ ...localData }));
     const currentErrors = validate(localData);
-    console.log(currentErrors, errors);
     setSubmitted(true);
 
     if (Object.values(currentErrors).length <= 0) {
-      console.log("Submited with values: ", localData);
+      const signUpData = await UserAuth.userEmailSignUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signUpData.user.id) {
+        await signUpMutation.mutate({
+          id: signUpData.user.id,
+          name: formData.name + " " + formData.lastname,
+        });
+      }
+
       setFormData({
         name: "",
         lastname: "",
@@ -264,6 +279,23 @@ export default function SignUp({ ...props }) {
               </Chakra.Box>
             ) : null}
 
+            {signUpMutation.isError ? (
+              <Chakra.Alert status="error">
+                <Chakra.AlertIcon/>
+                <Chakra.Box>
+                  <Chakra.AlertTitle>
+                    Error {signUpMutation.error.status}{" "}
+                    {`(${signUpMutation.error.statusText})`}:
+                  </Chakra.AlertTitle>
+                  <Chakra.AlertDescription>
+                    {signUpMutation.error.status === 409
+                      ? "User already exists"
+                      : `${signUpMutation.error.data.error}`}
+                  </Chakra.AlertDescription>
+                </Chakra.Box>
+              </Chakra.Alert>
+            ) : null}
+
             <Chakra.Button type="submit">Create Account</Chakra.Button>
           </Chakra.Stack>
         </Chakra.Flex>
@@ -271,3 +303,20 @@ export default function SignUp({ ...props }) {
     </form>
   );
 }
+
+export async function getServerSideProps() {
+  const queryClient = new ReactQuery.QueryClient();
+
+  await queryClient.prefetchQuery(
+    [QueryKeys.QK_USER_DETAILS],
+    QueryFns.getUserDetailsAxios
+  );
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+    },
+  };
+}
+
+export default SignUp;
