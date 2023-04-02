@@ -1,3 +1,5 @@
+import { supabase } from "../../lib/supabaseClient";
+
 /**
  * Allows you to sign up using email and password, also sends confirmation email.
  *
