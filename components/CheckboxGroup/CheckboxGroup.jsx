@@ -24,16 +24,18 @@ function CheckboxGroup({
         direction={["column", "row"]}
       >
         {options.map((elem, index) => {
-          let option = elem;
+          let optionId = index;
+          let optionName = elem;
           if (Utils.isObject(elem)) {
-            option = elem.name ?? elem.label;
+            optionId = elem.id;
+            optionName = elem.name ?? elem.label;
           }
           return (
             <Chakra.Checkbox
               key={index}
-              value={option.toString().toLowerCase()}
+              value={optionId.toString().toLowerCase()}
             >
-              {option.toString()}
+              {optionName.toString()}
             </Chakra.Checkbox>
           );
         })}

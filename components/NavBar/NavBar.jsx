@@ -126,6 +126,7 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
               </Chakra.DrawerContent>
             </Chakra.Drawer>
           </Chakra.TabList>
+          <Components.SearchBar margin={"auto"} />
           <Chakra.TabPanels>
             <Chakra.TabPanel id="home">
               <Layouts.Home artworks={artworks} />

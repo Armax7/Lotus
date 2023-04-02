@@ -22,7 +22,7 @@ export default function Home() {
   });
 
   if (artwork_isLoading) {
-    return <h1>IS LOADING...................</h1>;
+    return <Components.Loading/>
   }
 
   if (artwork_isError) {

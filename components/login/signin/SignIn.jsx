@@ -1,13 +1,71 @@
 import * as chakra from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import { useState } from "react";
 import style from "../../../styles/login/signin.module.css";
-import Link from "next/link";
+import validate from "./validation";
 
-export default function SignIn( {className, ...props }) {
-  function handleOnSubmit(e) {
-    e.preventDefault();
+
+
+export default function SignIn({ ...props }) {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+   
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+   
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleInputOnChange(event) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+    console.log("onChange Triggered");
+  }
+
+  function handleInputOnClick(event) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+    setErrors((prevState) => ({
+      ...prevState,
+      [event.target.name]: "",
+    }));
+  }
+
+ 
+  async function handleOnSubmit(event) {
+    event.preventDefault();
+
     console.log("sign in submit press with no functionality");
+    const localData = {
+      ...formData,
+      email: formData.email.trim(),
+    };
+    setErrors(validate({ ...localData }));
+    const currentErrors = validate(localData);
+    console.log(currentErrors, errors);
+    setSubmitted(true);
+
+    if (Object.values(currentErrors).length <= 0) {
+      console.log("Submited with values: ", localData);
+      setFormData({
+        email: "",
+        password: "",
+      });
+      setErrors({
+        email: "",
+        password: "",
+      });
+    }
   }
 
   return (
@@ -54,14 +112,47 @@ export default function SignIn( {className, ...props }) {
               <hr className={style.hr} />
             </div>
 
-            <chakra.FormControl id="email">
+            <chakra.FormControl
+              id="emailSignIn"
+              isInvalid={submitted && !!errors.email}
+            >
               <chakra.FormLabel>Email</chakra.FormLabel>
-              <chakra.Input placeholder="user@email.com" />
+              <chakra.Input
+                name="email"
+                value={formData.email}
+                onChange={handleInputOnChange}
+                onClick={handleInputOnClick}
+                placeholder="user@email.com"
+              />
+              {submitted && !!errors.email ? (
+                <chakra.FormHelperText>{errors.email}</chakra.FormHelperText>
+              ) : (
+                <chakra.FormHelperText>Enter your email.</chakra.FormHelperText>
+              )}
             </chakra.FormControl>
 
-            <chakra.FormControl id="passwordSignIn">
+            <chakra.FormControl
+              id="passwordSignIn"
+              isInvalid={submitted && !!errors.password}
+            >
               <chakra.FormLabel>Password</chakra.FormLabel>
-              <chakra.Input type="password" placeholder="******" />
+              <chakra.Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputOnChange}
+                onClick={handleInputOnClick}
+                placeholder="******"
+              />
+              {submitted && !!errors.password ? (
+                <chakra.FormHelperText>
+                  <chakra.Box>{errors.password}</chakra.Box>
+                </chakra.FormHelperText>
+              ) : (
+                <chakra.FormHelperText>
+                  Enter your password.
+                </chakra.FormHelperText>
+              )}
             </chakra.FormControl>
 
             <chakra.Stack

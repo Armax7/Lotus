@@ -7,7 +7,8 @@ function index() {
     <Chakra.Box>
       Art Details Supreme
       <Components.BackButton href={"/"} />
-      <Layouts.Artworks />
+      <Components.SignUp />
+      <Components.SignIn />
     </Chakra.Box>
   );
 }
