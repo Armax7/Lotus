@@ -9,6 +9,7 @@ function index() {
       Art Details Supreme
       <Components.BackButton href={"/"} />
       <Layouts.Artworks />
+      <Components.Loading/>
       <Components.SignIn/>
       <Components.SignUp/>
     </Chakra.Box>
