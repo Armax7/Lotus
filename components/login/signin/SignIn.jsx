@@ -70,8 +70,8 @@ export default function SignIn({ ...props }) {
 
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} >
-      <chakra.Box w="full" maxW="lg" spacing={8} p={8} bgColor="#F9F5E7" >
-      <chakra.HStack className={className} {...props}>
+      
+      <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
           w="full"
           h="full"
@@ -171,7 +171,7 @@ export default function SignIn({ ...props }) {
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
-      </chakra.Box>
+     
     </form>
   );
 }
