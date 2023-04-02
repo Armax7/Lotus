@@ -3,7 +3,7 @@ import * as Utils from "../../../helpers/utils";
 
 const EMAIL_REGEX = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
 const PASSWORD_REGEX =
-  "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[.!@#$%^&*])[^\\s][a-zA-Z0-9.!@#$%^&*][^\\s]{8,16}$";
+  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@$!%*?&])[A-Za-z\\d.@$!%*?&]{8,10}$";
 
 function validation(inputs) {
   let errors = {};

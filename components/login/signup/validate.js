@@ -3,7 +3,7 @@ import * as Utils from "../../../helpers/utils";
 const USERNAME_REGEX = "^(?=[a-zA-Z\\s]{2,}$)(?!.*[_.]{2})[^_.].*[^_.]$";
 const EMAIL_REGEX = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
 const PASSWORD_REGEX =
-  "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[.!@#$%^&*])[^\\s][a-zA-Z0-9.!@#$%^&*][^\\s]{8,16}$";
+  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@$!%*?&])[A-Za-z\\d.@$!%*?&]{8,10}$";
 
 function validate(inputs) {
   let errors = {};
