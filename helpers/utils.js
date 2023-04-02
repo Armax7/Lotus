@@ -1,4 +1,3 @@
-
 // The isObject function returns true if the value passed as an argument is an object and not an array, and false otherwise.
 export function isObject(object) {
   return (
@@ -33,4 +32,14 @@ export function sortDescCompareFn(a, b) {
 // The "isSpace" function returns true if the given string only contains whitespace characters or is empty, and false otherwise.
 export function isSpace(str) {
   return !str.replace(/\s/g, "").length;
+}
+
+export function trimObjProperties(object) {
+  if (!isObject(object)) throw new TypeError("Parameter should be an object");
+
+  for (const key in object) {
+    object[key] = object[key].toString().trim();
+  }
+
+  return object;
 }
