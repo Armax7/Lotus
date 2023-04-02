@@ -61,7 +61,7 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
               Iniciar sesión
             </Chakra.Button>
           </Chakra.TabList>
-            <Components.SearchBar margin={"auto"}/>
+          <Components.SearchBar margin={"auto"} />
           <Chakra.TabPanels>
             <Chakra.TabPanel id="home">
               <Layouts.Home artworks={artworks} />
