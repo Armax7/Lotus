@@ -31,7 +31,7 @@ const RatingStars = ({ratingDb, rate}) => {
   return (
     <>
       {rate ? (
-        <Flex marginTop="50px" fontSize="30px">
+        <Flex marginTop="50px" fontSize="30px" cursor="pointer">
           {[...Array(5)].map((_, index) => renderStar(hoverRating || rating, index))}
         </Flex>
       ) : (

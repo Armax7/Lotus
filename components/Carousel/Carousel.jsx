@@ -30,7 +30,7 @@ const Carousel = ({images, ...props}) => {
       >
         <Image src={images[currentImage]} objectFit="cover" borderRadius= "3px" width= "100%" height="100%" />
 
-        {showArrows && (
+        {showArrows && images.length > 1 && (
           <>
             <IconButton
               aria-label="Previous Image"

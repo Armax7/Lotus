@@ -19,13 +19,21 @@ const ArtworksInfo = ({ rate, artwork, ...props }) => {
         $ {artwork.price}
       </Badge>
 
-      <Text fontSize="lg" color=""  marginTop="25px">
+      <Text fontSize="lg" color="" marginTop="25px">
         {artwork.description}
       </Text>
-      <Text fontSize="lg" color="gray.700" marginTop="25px">
-         Todavia quedan <b>{artwork.stock}</b> unidades
-      </Text>
-      <RatingStars ratingDb={artwork.rating} rate={rate}  />
+
+      { artwork.stock > 1 ?
+           <Text fontSize="lg" color="gray.700" marginTop="25px">
+          Todavia quedan <b>{artwork.stock}</b> unidades
+        </Text>
+       : (
+        <Text fontSize="lg" color="gray.700" marginTop="25px">
+          Todavia queda <b>{artwork.stock}</b> unidad
+        </Text>
+      )}
+
+      <RatingStars ratingDb={artwork.rating} rate={rate} />
     </Box>
   );
 };
