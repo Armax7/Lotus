@@ -19,6 +19,16 @@ export async function handleGetById(req, res) {
   }
 }
 
+export async function handlerByName(req, res) {
+  try {
+    const { name } = req.query;
+    const artworksName = await Controllers.getArtworksName(name);
+    res.status(200).json(artworksName);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 export async function handleGetByFilter(req, res) {
   let body = req.query;
   try {
