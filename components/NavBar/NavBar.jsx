@@ -2,12 +2,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
-
+import React from "react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
 
 function NavBar({ artworks, techniques, categories, classname, ...props }) {
   const router = useRouter();
+
+  const SignIn = Chakra.useDisclosure();
+  const singUp = Chakra.useDisclosure();
+  const btnRef = React.useRef();
 
   return (
     <div style={{ width: "100%", backgroundColor: "#F8EAD8", padding: "5px" }}>
@@ -37,6 +41,7 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
               Carrito <Chakra.Icon as={FaShoppingCart} ml={2} color="red.500" />
             </Chakra.Tab>
             <Chakra.Button
+              onClick={singUp.onOpen}
               bgColor="#F9F5E7"
               _hover={{ bgColor: "#D3C0AF" }}
               color={router.pathname === "/search" ? "black" : "black"}
@@ -49,7 +54,38 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
             >
               Crea tu cuenta
             </Chakra.Button>
+
+            <Chakra.Drawer
+              isOpen={singUp.isOpen}
+              placement="right"
+              onClose={singUp.onClose}
+              finalFocusRef={btnRef}
+              size="xl"
+            >
+              <Chakra.DrawerContent
+                bgColor="#F9F5E7"
+                backgroundPosition="bottom"
+                bgRepeat="no-repeat"
+                bgSize="contain"
+              >
+                <Chakra.DrawerCloseButton
+                  backgroundColor="#F9F5E7"
+                  color="red"
+                  justifyItems="center"
+                />
+
+                <Chakra.DrawerBody
+                  bgRepeat="no-repeat"
+                  bgPosition="center bottom 80px"
+                  bgSize="26%"
+                >
+                  <Components.SignUp bgColor="#F9F5E7" />
+                </Chakra.DrawerBody>
+              </Chakra.DrawerContent>
+            </Chakra.Drawer>
+
             <Chakra.Button
+              onClick={SignIn.onOpen}
               bgColor="#F9F5E7"
               _hover={{ bgColor: "#D3C0AF" }}
               color={router.pathname === "/search" ? "black" : "black"}
@@ -60,6 +96,35 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
             >
               Iniciar sesión
             </Chakra.Button>
+
+            <Chakra.Drawer
+              isOpen={SignIn.isOpen}
+              placement="right"
+              onClose={SignIn.onClose}
+              finalFocusRef={btnRef}
+              size="xl"
+            >
+              <Chakra.DrawerContent
+                bgColor="#F9F5E7"
+                backgroundPosition="bottom"
+                bgRepeat="no-repeat"
+                bgSize="contain"
+              >
+                <Chakra.DrawerCloseButton
+                  backgroundColor="#F9F5E7"
+                  color="red"
+                  justifyItems="center"
+                />
+
+                <Chakra.DrawerBody
+                  bgRepeat="no-repeat"
+                  bgPosition="center bottom 80px"
+                  bgSize="26%"
+                >
+                  <Components.SignIn bgColor="#F9F5E7" />
+                </Chakra.DrawerBody>
+              </Chakra.DrawerContent>
+            </Chakra.Drawer>
           </Chakra.TabList>
           <Components.SearchBar margin={"auto"} />
           <Chakra.TabPanels>

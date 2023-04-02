@@ -106,8 +106,9 @@ function SignUp({ ...props }) {
           display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
+            <Chakra.Box display="flex" justifyContent="center" alignItems="flex-end">
             <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
-
+            </Chakra.Box>
             <div className={style.separator}>
               <hr className={style.hr} />
               <p className={style.separator_text}>With</p>
