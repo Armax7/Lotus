@@ -8,3 +8,4 @@ export { default as CheckboxGroup } from "./CheckboxGroup/CheckboxGroup";
 export { default as SignIn } from "./login/signin/SignIn";
 export { default as SignUp } from "./login/signup/SignUp";
 export { default as SearchBar } from "./SearchBar/SearchBar";
+export { default as Loading} from "./Loading/Loading";
