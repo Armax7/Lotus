@@ -268,7 +268,7 @@ function SignUp({ ...props }) {
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Must have a special character .!@#$%^&*
+                    Must have a special character .@$!%*?&
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
