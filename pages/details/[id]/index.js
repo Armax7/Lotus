@@ -1,12 +1,10 @@
 import * as Components from "../../../components";
 
-function DetailsPage({ artwork,  showcase }) {
-
+function DetailsPage({ artwork, showcase }) {
   const imageUrl = showcase.map((element) => {
     return element.image;
   });
-  imageUrl.unshift(artwork.image)
-
+  imageUrl.unshift(artwork.image);
 
   return (
     <div style={{ display: "flex", margin: "80px 20px" }}>

@@ -23,11 +23,11 @@ const ArtworksInfo = ({ rate, artwork, ...props }) => {
         {artwork.description}
       </Text>
 
-      { artwork.stock > 1 ?
-           <Text fontSize="lg" color="gray.700" marginTop="25px">
+      {artwork.stock > 1 ? (
+        <Text fontSize="lg" color="gray.700" marginTop="25px">
           Todavia quedan <b>{artwork.stock}</b> unidades
         </Text>
-       : (
+      ) : (
         <Text fontSize="lg" color="gray.700" marginTop="25px">
           Todavia queda <b>{artwork.stock}</b> unidad
         </Text>
