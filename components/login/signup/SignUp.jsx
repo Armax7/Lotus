@@ -5,8 +5,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
-import * as Utils from "../../../helpers/utils";
 import validate from "./validate";
+import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 
 export default function SignUp({ ...props }) {
   const [formData, setFormData] = useState({
@@ -33,7 +33,6 @@ export default function SignUp({ ...props }) {
       ...prevState,
       [event.target.name]: event.target.value,
     }));
-    console.log("onChange Triggered");
   }
 
   function handleInputOnClick(event) {
@@ -61,7 +60,11 @@ export default function SignUp({ ...props }) {
     setSubmitted(true);
 
     if (Object.values(currentErrors).length <= 0) {
-      console.log("Submited with values: ", localData);
+      const newUser = await UserAuth.userEmailLogIn({
+        email: formData.email,
+        password: formData.password,
+      });
+
       setFormData({
         name: "",
         lastname: "",
