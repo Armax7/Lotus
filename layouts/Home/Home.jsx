@@ -6,7 +6,7 @@ function Home({ artworks }) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <img src="/Lotus_Logo.jpeg" alt="Loto" />
+        <img src="/lotusImagotipo.svg" alt="Loto" width={380} height={350}/>
 
         <p className={styles.description}>
           <code>

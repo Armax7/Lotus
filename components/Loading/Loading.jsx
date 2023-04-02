@@ -1,5 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-import { Spinner, Flex } from "@chakra-ui/react";
+import { Spinner} from "@chakra-ui/react";
 
 
 
@@ -7,9 +7,13 @@ import { Spinner, Flex } from "@chakra-ui/react";
 const Loading = () => {
     
     return (
-      <Flex justify="center" align="center" height="100vh">
-        <Spinner size="xl" />
-      </Flex>
+      <Chakra.Stack direction='row' spacing={4}>
+      <Spinner size='xs' />
+      <Spinner size='sm' />
+      <Spinner size='md' />
+      <Spinner size='lg' />
+      <Spinner size='xl' />
+    </Chakra.Stack>
     );
   };
 
