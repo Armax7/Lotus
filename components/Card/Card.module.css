@@ -1,0 +1,13 @@
+.card {
+    cursor: pointer;
+    margin: 0 5px ;
+    transition: transform 0.5s ease-in-out;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+  }
+  
