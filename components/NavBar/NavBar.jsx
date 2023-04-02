@@ -49,6 +49,7 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
             >
               Crea tu cuenta
             </Chakra.Button>
+            <Components.SignUpButton />
             <Chakra.Button
               bgColor="#F9F5E7"
               _hover={{ bgColor: "#D3C0AF" }}
