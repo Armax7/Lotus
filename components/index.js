@@ -7,3 +7,4 @@ export { default as Footer } from "./Footer/Footer";
 export { default as CheckboxGroup } from "./CheckboxGroup/CheckboxGroup";
 export { default as SignIn } from "./login/signin/SignIn";
 export { default as SignUp } from "./login/signup/SignUp";
+export { default as SearchBar } from "./SearchBar/SearchBar";
