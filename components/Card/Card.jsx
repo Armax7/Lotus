@@ -24,22 +24,23 @@ function Card({
   return (
     <Chakra.VStack className={classNameProp} spacing={spacingProp} {...props}>
       <Link href={`/details/${id}`}>
-      <Chakra.WrapItem>
-        <Chakra.Stack mt="6" spacing="3">
-          <Chakra.Card maxW="sm">
-            <Chakra.CardBody>
-              <img src={image} alt={name} width={300} height={300} />
+        <a>
+          <Chakra.WrapItem>
+            <Chakra.Stack mt="6" spacing="3">
+              <Chakra.Card maxW="sm">
+                <Chakra.CardBody>
+                  <img src={image} alt={name} width={300} height={300} />
 
-              <Chakra.Text color="blue.600" fontSize="2xl">
-                {price}
-              </Chakra.Text>
-              
-                <Chakra.Heading size="md">{name}</Chakra.Heading>
-              
-            </Chakra.CardBody>
-          </Chakra.Card>
-        </Chakra.Stack>
-      </Chakra.WrapItem>
+                  <Chakra.Text color="blue.600" fontSize="2xl">
+                    {price}
+                  </Chakra.Text>
+
+                  <Chakra.Heading size="md">{name}</Chakra.Heading>
+                </Chakra.CardBody>
+              </Chakra.Card>
+            </Chakra.Stack>
+          </Chakra.WrapItem>
+        </a>
       </Link>
     </Chakra.VStack>
   );
