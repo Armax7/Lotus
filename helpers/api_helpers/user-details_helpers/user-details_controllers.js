@@ -3,7 +3,6 @@ import { supabase } from "../../../lib/supabaseClient";
 export async function getAllUsersDetails() {
   const response = await supabase.from("user_details").select();
 
-  console.log(response);
   if (response.error) throw response;
 
   return response;
