@@ -7,3 +7,10 @@ export async function getAllArtworksAxios() {
 
   return response;
 }
+export async function getArtworkById(id) {
+  const res = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/artworks/id/${id}`)
+    .then((resp) => resp.data);
+
+  return res;
+}
