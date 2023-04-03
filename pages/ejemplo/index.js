@@ -9,6 +9,7 @@ function index() {
       <Components.BackButton href={"/"} />
       <Components.SignUp />
       <Components.SignIn />
+      <Components.LogOutButton />
     </Chakra.Box>
   );
 }
