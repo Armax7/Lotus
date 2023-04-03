@@ -6,7 +6,7 @@ import React from "react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
 
-function NavBar({ artworks, techniques, categories, classname, ...props }) {
+function NavBar({ artworks, techniques, categories, supports, classname, ...props }) {
   const router = useRouter();
 
   const SignIn = Chakra.useDisclosure();
@@ -133,7 +133,12 @@ function NavBar({ artworks, techniques, categories, classname, ...props }) {
             </Chakra.TabPanel>
 
             <Chakra.TabPanel id="artworks">
-              <Layouts.Artworks artworks={artworks} />
+              <Layouts.Artworks
+                artworks={artworks}
+                techniques={techniques}
+                categories={categories}
+                supports={supports}
+              />
             </Chakra.TabPanel>
 
             <Chakra.TabPanel id="cart">

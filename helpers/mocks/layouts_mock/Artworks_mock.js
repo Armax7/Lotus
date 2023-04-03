@@ -135,4 +135,31 @@ const categories_mock = [
   },
 ];
 
-export { artworks_mock, techniques_mock, categories_mock };
+const supports_mock = [
+  {
+    id: "1",
+    created_at: "2023-03-31T02:00:47.150745+00:00",
+    name: "Lamina",
+    description: null,
+  },
+  {
+    id: "2",
+    created_at: "2023-03-31T02:01:01.23857+00:00",
+    name: "Tela",
+    description: null,
+  },
+  {
+    id: "3",
+    created_at: "2023-03-31T02:01:16.899023+00:00",
+    name: "Rigido",
+    description: null,
+  },
+  {
+    id: "4",
+    created_at: "2023-03-31T02:01:39.081948+00:00",
+    name: "Enmarcado con vidrio",
+    description: null,
+  },
+];
+
+export { artworks_mock, techniques_mock, categories_mock, supports_mock };
