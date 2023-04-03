@@ -26,32 +26,23 @@ function Artworks({
     async () => {
       const res = await QueryFns.getAllArtworksByQueryAxios(filters);
       return res;
-    },
-    { onSettled: (response) => console.log(response, filters) }
+    }
   );
 
   function handleTechniqueOnChange(event) {
-    console.log(event);
     setFilters((prevState) => ({ ...prevState, techniques: event }));
   }
 
   function handleCategoryOnChange(event) {
-    console.log(event);
     setFilters((prevState) => ({ ...prevState, categories: event }));
-    queryClient.invalidateQueries(QueryKeys.QK_ARTWORKS_BY_QUERY);
   }
 
   function handleSupportOnChange(event) {
-    console.log(event);
     setFilters((prevState) => ({ ...prevState, supports: event }));
-    queryClient.invalidateQueries(QueryKeys.QK_ARTWORKS_BY_QUERY);
   }
 
   async function handleOnFilter(event) {
-    console.log("Selected Techniques: ", filters.techniques);
-    console.log("Selected Categories: ", filters.categories);
-    console.log("Selected Support: ", filters.supports);
-    queryClient.refetchQueries({ queryKey: [QueryKeys.QK_ARTWORKS_BY_QUERY] });
+    filteredArtworks.refetch();
   }
 
   return (
