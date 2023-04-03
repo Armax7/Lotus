@@ -1,37 +1,65 @@
+import { useRouter } from "next/router";
+import * as Chakra from "@chakra-ui/react";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
+import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
 import * as Components from "../../../components";
 
-function DetailsPage({ artwork, showcase }) {
-  const imageUrl = showcase.map((element) => {
+function DetailsPage(context) {
+  const queryClient = ReactQuery.useQueryClient();
+  const router = useRouter();
+  const { id: artworkId } = router.query;
+
+  const showcase = ReactQuery.useQuery([QueryKeys.QK_SHOWCASE], async () => {
+    const showcases = await QueryFns.getShowcaseByIdAxios(artworkId);
+    return showcases;
+  });
+
+  const artwork = ReactQuery.useQuery(
+    [QueryKeys.QK_ARTWORK_BY_ID],
+    async () => {
+      const artworks = await QueryFns.getArtworkByIdAxios(artworkId);
+      return artworks.at(0);
+    }
+  );
+
+  if (showcase.isLoading || artwork.isLoading) {
+    return <Components.Loading />;
+  }
+
+  const imageUrl = showcase.data.map((element) => {
     return element.image;
   });
-  imageUrl.unshift(artwork.image);
+  imageUrl.unshift(artwork.data.image);
 
   return (
-    <div style={{ display: "flex", margin: "80px 20px" }}>
-      <Components.Carousel images={imageUrl} />
-      <Components.ArtworksInfo artwork={artwork} rate={true} />
-    </div>
+    <Chakra.Box>
+      <Components.BackButton href={"/"} />
+      <div style={{ display: "flex", margin: "80px 20px" }}>
+        <Components.Carousel images={imageUrl} />
+        <Components.ArtworksInfo artwork={artwork.data} rate={true} />
+      </div>
+    </Chakra.Box>
   );
 }
 
 export async function getServerSideProps(context) {
+  const queryClient = new ReactQuery.QueryClient();
   const { id } = context.query;
 
-  const showcase = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/art-showcase/id/${id}`
-  )
-    .then((res) => res.json())
-    .catch((error) => null);
-
-  const artwork = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/artworks/id/${id}`
-  )
-    .then((res) => res.json())
-    .then((artworks) => artworks.at(0))
-    .catch((error) => null);
+  await queryClient.prefetchQuery([QueryKeys.QK_SHOWCASE], async () => {
+    const showcases = await QueryFns.getShowcaseByIdAxios(id);
+    return showcases;
+  });
+  await queryClient.prefetchQuery([QueryKeys.QK_ARTWORK_BY_ID], async () => {
+    const artworks = await QueryFns.getArtworkByIdAxios(id);
+    return artworks.at(0);
+  });
 
   return {
-    props: { artwork, showcase },
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+    },
   };
 }
 
