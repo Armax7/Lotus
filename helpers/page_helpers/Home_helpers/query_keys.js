@@ -6,3 +6,4 @@ export const QK_SUPPORTS = "supports";
 export const QK_SHOWCASE = "showcase";
 export const QK_ARTWORK_BY_ID = "artwork-by-id";
 export const QK_ARTWORKS_BY_QUERY = "artworks-by-query";
+export const QK_ARTWORKS_BYNAME = "artworksByName";
