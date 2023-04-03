@@ -8,9 +8,11 @@ function Artworks({
   artworks = ArtworksMocks.artworks_mock,
   techniques = ArtworksMocks.techniques_mock,
   categories = ArtworksMocks.categories_mock,
+  supports = ArtworksMocks.supports_mock,
 }) {
   const [selectedTechniques, setSelectedTechniques] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSupports, setSelectedSupports] = useState([]);
 
   function handleTechniqueOnChange(event) {
     console.log(event);
@@ -22,10 +24,16 @@ function Artworks({
     setSelectedCategories(event);
   }
 
+  function handleSupportOnChange(event) {
+    console.log(event);
+    setSelectedSupports(event);
+  }
+
   function handleOnFilter(event) {
     event.preventDefault();
     console.log("Selected Techniques: ", selectedTechniques);
     console.log("Selected Categories: ", selectedCategories);
+    console.log("Selected Support: ", selectedSupports);
   }
 
   return (
@@ -52,6 +60,18 @@ function Artworks({
             <Components.CheckboxGroup
               options={categories}
               onChange={handleCategoryOnChange}
+            />
+          </Chakra.AccordionPanel>
+        </Chakra.AccordionItem>
+        <Chakra.AccordionItem>
+          <Chakra.AccordionButton>
+            Filter by Support
+            <AccordionIcon />
+          </Chakra.AccordionButton>
+          <Chakra.AccordionPanel>
+            <Components.CheckboxGroup
+              options={supports}
+              onChange={handleSupportOnChange}
             />
           </Chakra.AccordionPanel>
         </Chakra.AccordionItem>

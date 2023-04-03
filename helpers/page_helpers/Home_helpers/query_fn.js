@@ -46,3 +46,48 @@ export async function postUserDetailsAxios(data) {
 
   return userDetails;
 }
+
+export async function getSupportsAxios() {
+  const supports = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/supports`)
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return supports;
+}
+
+export async function getTechniquesAxios() {
+  const techniques = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/techniques`)
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return techniques;
+}
+
+export async function getCategoriesAxios() {
+  const categories = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/categories`)
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return categories;
+}
