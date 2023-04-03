@@ -18,19 +18,18 @@ function SignUp({ ...props }) {
 
   async function signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    })
-    console.log(data, error)
+      provider: "google",
+    });
   }
 
   async function signInWithFacebook() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'facebook',
-    })
+      provider: "facebook",
+    });
   }
 
   async function signout() {
-    const { error } = await supabase.auth.signOut()
+    const { error } = await supabase.auth.signOut();
   }
 
   const [formData, setFormData] = useState({
@@ -125,8 +124,12 @@ function SignUp({ ...props }) {
           display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
-            <Chakra.Box display="flex" justifyContent="center" alignItems="flex-end">
-            <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
+            <Chakra.Box
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-end"
+            >
+              <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
             </Chakra.Box>
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -136,10 +139,18 @@ function SignUp({ ...props }) {
 
             <Chakra.Stack>
               <div className={style.auth}>
-                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
+                <Chakra.Button
+                  colorScheme="gray"
+                  leftIcon={<FcGoogle />}
+                  onClick={signInWithGoogle}
+                >
                   Google
                 </Chakra.Button>
-                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />} onClick={signInWithFacebook}>
+                <Chakra.Button
+                  colorScheme="facebook"
+                  leftIcon={<FaFacebook />}
+                  onClick={signInWithFacebook}
+                >
                   Facebook
                 </Chakra.Button>
               </div>
@@ -301,7 +312,7 @@ function SignUp({ ...props }) {
 
             {signUpMutation.isError ? (
               <Chakra.Alert status="error">
-                <Chakra.AlertIcon/>
+                <Chakra.AlertIcon />
                 <Chakra.Box>
                   <Chakra.AlertTitle>
                     Error {signUpMutation.error.status}{" "}

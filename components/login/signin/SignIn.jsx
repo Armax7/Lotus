@@ -8,19 +8,15 @@ import { useState } from "react";
 import style from "../../../styles/login/signin.module.css";
 import validate from "./validation";
 
-
-
 export default function SignIn({ ...props }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-   
   });
 
   const [errors, setErrors] = useState({
     email: "",
     password: "",
-   
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -44,7 +40,6 @@ export default function SignIn({ ...props }) {
     }));
   }
 
- 
   async function handleOnSubmit(event) {
     event.preventDefault();
 
@@ -71,39 +66,39 @@ export default function SignIn({ ...props }) {
     }
   }
 
-  
   async function signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    })
-    console.log(data, error)
+      provider: "google",
+    });
   }
 
   async function signInWithFacebook() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'facebook',
-    })
+      provider: "facebook",
+    });
   }
 
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} >
-      
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
       <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
           w="full"
           h="full"
-         
           alignItems="center"
           justifyContent="center"
           borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
-          <chakra.Stack w="full" maxW="lg" spacing={8} p={8} >
-           <chakra.Box display="flex" justifyContent="center" alignItems="flex-end"> 
-            <chakra.Heading fontSize="2xl" >
-              Sign in to your Account
-            </chakra.Heading>
-            </chakra.Box> 
+          <chakra.Stack w="full" maxW="lg" spacing={8} p={8}>
+            <chakra.Box
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-end"
+            >
+              <chakra.Heading fontSize="2xl">
+                Sign in to your Account
+              </chakra.Heading>
+            </chakra.Box>
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -113,15 +108,22 @@ export default function SignIn({ ...props }) {
 
             <chakra.Stack>
               <div className={style.auth}>
-                <chakra.Button colorScheme="gray" leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
+                <chakra.Button
+                  colorScheme="gray"
+                  leftIcon={<FcGoogle />}
+                  onClick={signInWithGoogle}
+                >
                   Google
                 </chakra.Button>
-                <chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />} onClick={signInWithFacebook}>
+                <chakra.Button
+                  colorScheme="facebook"
+                  leftIcon={<FaFacebook />}
+                  onClick={signInWithFacebook}
+                >
                   Facebook
                 </chakra.Button>
               </div>
             </chakra.Stack>
-            
 
             <div className={style.separator}>
               <hr className={style.hr} />
@@ -188,7 +190,6 @@ export default function SignIn({ ...props }) {
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
-     
     </form>
   );
 }
