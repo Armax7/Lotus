@@ -91,3 +91,15 @@ export async function getCategoriesAxios() {
 
   return categories;
 }
+
+export async function getArtworkByname(name) {
+  const res = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/artworks/name/${name}`)
+    .then((resp) => resp.data)
+   
+    .catch((error) => {
+      console.log(error.toJSON());
+    });
+
+  return res;
+}
