@@ -6,6 +6,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
+import { supabase } from "../../../lib/supabaseClient";
+
 import validate from "./validate";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
@@ -13,6 +15,23 @@ import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_key
 
 function SignUp({ ...props }) {
   const queryClient = ReactQuery.useQueryClient();
+
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    })
+    console.log(data, error)
+  }
+
+  async function signInWithFacebook() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+    })
+  }
+
+  async function signout() {
+    const { error } = await supabase.auth.signOut()
+  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -117,10 +136,10 @@ function SignUp({ ...props }) {
 
             <Chakra.Stack>
               <div className={style.auth}>
-                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
                   Google
                 </Chakra.Button>
-                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />} onClick={signInWithFacebook}>
                   Facebook
                 </Chakra.Button>
               </div>

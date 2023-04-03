@@ -1,6 +1,9 @@
 import * as chakra from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+
+import { supabase } from "../../../lib/supabaseClient";
+
 import { useState } from "react";
 import style from "../../../styles/login/signin.module.css";
 import validate from "./validation";
@@ -68,6 +71,20 @@ export default function SignIn({ ...props }) {
     }
   }
 
+  
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    })
+    console.log(data, error)
+  }
+
+  async function signInWithFacebook() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+    })
+  }
+
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} >
       
@@ -96,10 +113,10 @@ export default function SignIn({ ...props }) {
 
             <chakra.Stack>
               <div className={style.auth}>
-                <chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                <chakra.Button colorScheme="gray" leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
                   Google
                 </chakra.Button>
-                <chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                <chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />} onClick={signInWithFacebook}>
                   Facebook
                 </chakra.Button>
               </div>
