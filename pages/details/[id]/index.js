@@ -1,4 +1,5 @@
 import * as Components from "../../../components";
+import * as Chakra from "@chakra-ui/react";
 
 function DetailsPage({ artwork, showcase }) {
   const imageUrl = showcase.map((element) => {
@@ -7,10 +8,13 @@ function DetailsPage({ artwork, showcase }) {
   imageUrl.unshift(artwork.image);
 
   return (
-    <div style={{ display: "flex", margin: "80px 20px" }}>
-      <Components.Carousel images={imageUrl} />
-      <Components.ArtworksInfo artwork={artwork} rate={true} />
-    </div>
+    <Chakra.Box>
+      <Components.BackButton href={"/"} />
+      <div style={{ display: "flex", margin: "80px 20px" }}>
+        <Components.Carousel images={imageUrl} />
+        <Components.ArtworksInfo artwork={artwork} rate={true} />
+      </div>
+    </Chakra.Box>
   );
 }
 
