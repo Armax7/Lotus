@@ -3,7 +3,7 @@ import * as Chakra from "@chakra-ui/react";
 
 function BackButton({ href: hrefProp, ...props }) {
   return (
-    <Link href={hrefProp} {...props}>
+    <Link href={hrefProp}>
       <Chakra.Button
         bgColor="#313131"
         _hover={{ bgColor: "#666666" }}
@@ -12,6 +12,7 @@ function BackButton({ href: hrefProp, ...props }) {
         left="0"
         mt={4}
         _focus={{ boxShadow: "none" }}
+        {...props}
       >
         <Chakra.Icon boxSize={5} color="#FFFFFF" viewBox="5 0 20 20">
           <path
