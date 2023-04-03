@@ -7,8 +7,11 @@ function CheckboxGroup({
   isDisabled: isDisabledProp = false,
   onChange: onChangeProp = () => {},
   className: classNameProp,
-  spacingColumn = 1,
-  spacingRow = 5,
+  colorScheme = null,
+  maxColumns = 8,
+  minColumns = 4,
+  spacingColumn = "1rem",
+  spacingRow = "1rem",
   ...props
 }) {
   return (
@@ -17,11 +20,12 @@ function CheckboxGroup({
       isDisabled={isDisabledProp}
       onChange={onChangeProp}
       className={classNameProp}
-      {...props}
+      colorScheme={colorScheme}
     >
-      <Chakra.Stack
+      <Chakra.SimpleGrid
         spacing={[spacingColumn, spacingRow]}
-        direction={["column", "row"]}
+        columns={[minColumns, null, maxColumns]}
+        {...props}
       >
         {options.map((elem, index) => {
           let optionId = index;
@@ -34,12 +38,13 @@ function CheckboxGroup({
             <Chakra.Checkbox
               key={index}
               value={optionId.toString().toLowerCase()}
+              borderColor={colorScheme}
             >
               {optionName.toString()}
             </Chakra.Checkbox>
           );
         })}
-      </Chakra.Stack>
+      </Chakra.SimpleGrid>
     </Chakra.CheckboxGroup>
   );
 }
