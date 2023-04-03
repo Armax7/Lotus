@@ -40,13 +40,19 @@ export async function getArtworksFilteredByQuery({
     query = query.ilike("name", `%${name}%`);
   }
   if (!!technique_id) {
-    query = query.eq("technique_id", technique_id);
+    query = Array.isArray(technique_id)
+      ? query.in("technique_id", technique_id)
+      : query.eq("technique_id", technique_id);
   }
   if (!!category_id) {
-    query = query.eq("category_id", category_id);
+    query = Array.isArray(category_id)
+      ? query.in("category_id", category_id)
+      : query.eq("category_id", category_id);
   }
   if (!!support_id) {
-    query = query.eq("support_id", support_id);
+    query = Array.isArray(support_id)
+      ? query.in("support_id", support_id)
+      : query.eq("support_id", support_id);
   }
 
   const { data: artworks, error } = await query;
