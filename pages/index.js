@@ -1,13 +1,7 @@
-import axios from "axios";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import * as Components from "../components";
-import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryKeys from "../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../helpers/page_helpers/Home_helpers/query_fn";
-import * as Layouts from "../layouts";
-import { useEffect } from "react";
 
 export default function Home() {
   const queryClient = ReactQuery.useQueryClient();

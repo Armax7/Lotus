@@ -1,12 +1,10 @@
 import style from "../../styles/navBar/navBar.module.css";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
-import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 
 function NavBar({
   artworks,

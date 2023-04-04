@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
 import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";

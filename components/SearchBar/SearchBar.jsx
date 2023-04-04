@@ -1,8 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import CardContainer from "../CardContainer/CardContainer";
-import { SearchIcon } from "@chakra-ui/icons";
 
 const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
   const [query, setQuery] = useState("");
