@@ -166,13 +166,16 @@ export async function getUserEmail() {
 export async function getUserName() {
   try {
     const uuid = await getUserId();
+    console.log("UUID: ", uuid);
     const { data, error } = await supabase
       .from("user_details")
       .select()
       .eq("id", uuid);
     if (error) throw error;
-    const { user_name } = data.at(0);
-    return user_name;
+     console.log("Data: ", data);
+    const { name } = data.at(0);
+    console.log("user_name:", name);
+    return name;
   } catch (error) {
     console.log(`Unable to retrieve name, there might be no user logged in.`);
     return undefined;
