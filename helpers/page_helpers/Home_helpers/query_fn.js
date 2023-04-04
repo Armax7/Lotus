@@ -31,6 +31,7 @@ export async function getArtworkByIdAxios(id) {
 }
 
 export async function getAllArtworksByQueryAxios({
+  name,
   techniques,
   categories,
   supports,
@@ -49,10 +50,14 @@ export async function getAllArtworksByQueryAxios({
   if (Array.isArray(supports)) {
     supports_str = supports.join("&support_id=");
   }
+  let name_str = name ? name.toString() : null;
+  if (Array.isArray(name)) {
+    name_str = name.join("name=");
+  }
 
   const filteredArtworks = await axios
     .get(
-      `${process.env.NEXT_PUBLIC_HOST}/api/artworks/filter?technique_id=${techniques_str}&category_id=${categories_str}&support_id=${supports_str}`
+      `${process.env.NEXT_PUBLIC_HOST}/api/artworks/filter?name=${name_str}&technique_id=${techniques_str}&category_id=${categories_str}&support_id=${supports_str}`
     )
     .then((res) => res.data)
     .catch((error) => {
