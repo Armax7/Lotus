@@ -6,7 +6,6 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    console.log(query);
     onSearch(event);
   };
 
