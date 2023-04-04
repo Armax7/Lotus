@@ -76,11 +76,9 @@ function Artworks({
 
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
-            fontWeight={"600"}
-            letterSpacing={"1px"}
-            margin={"8px"}
-            bgColor="var(--color2)"
-            _hover={{ backgroundColor: "var(--color1)" }}
+            maxW={"15vmax"}
+            bgColor={"teal"}
+            _hover={{ backgroundColor: "#A7727D" }}
             borderRadius={"2vw"}
             color={"var(--white)"}
           >
@@ -102,11 +100,9 @@ function Artworks({
 
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
-            fontWeight={"600"}
-            letterSpacing={"1px"}
-            margin={"8px"}
-            bgColor="var(--color2)"
-            _hover={{ backgroundColor: "var(--color1)" }}
+            maxW={"15vmax"}
+            bgColor={"teal"}
+            _hover={{ backgroundColor: "#A7727D" }}
             borderRadius={"2vw"}
             color={"var(--white)"}
           >
@@ -134,9 +130,9 @@ function Artworks({
           borderRadius={"100px"}
           fontSize={"22px"}
           onClick={handleOnFilter}
-          bgColor="var(--color1)"
-          color={"var(--white)"}
-          _hover={{ backgroundColor: "var(--color1-3)", transform:"translateY(-4px)"}}
+          bgColor={"teal"}
+          color={"white"}
+          _hover={{ backgroundColor: "#A7727D" }}
         >
           FILTER
         </Chakra.Button>
