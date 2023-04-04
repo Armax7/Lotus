@@ -1,5 +1,6 @@
 import * as Chakra from "@chakra-ui/react";
 import * as Utils from "../../helpers/utils";
+import { largeTextHandler } from "../../helpers/utils";
 
 function CheckboxGroup({
   options = ["option 1", "option 2", "option 3"],
@@ -8,7 +9,7 @@ function CheckboxGroup({
   onChange: onChangeProp = () => {},
   className: classNameProp,
   colorScheme = null,
-  maxColumns = 3,
+  maxColumns = 5,
   minColumns = 1,
   spacingColumn = "1rem",
   spacingRow = "1rem",
@@ -24,7 +25,7 @@ function CheckboxGroup({
     >
       <Chakra.SimpleGrid
         spacing={[spacingColumn, spacingRow]}
-        columns={[minColumns, null, maxColumns]}
+        columns={[1,2,3,4,5,6]}
         {...props}
       >
         {options.map((elem, index) => {
@@ -40,12 +41,12 @@ function CheckboxGroup({
               bg="var(--color3)"
               borderRadius="100px"
               padding="10px"
-              minW="min-content"
+              minW="max-content"
               key={index}
               value={optionId.toString().toLowerCase()}
               borderColor="var(--color1)"
             >
-              {optionName.toString()}
+              {largeTextHandler(optionName.toString())}
             </Chakra.Checkbox>
           );
         })}
