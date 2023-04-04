@@ -1,6 +1,9 @@
-.HStack{
-    min-width: 370px;
-    width: 600px;
+.HStack {
+  min-width: 370px;
+  width: 600px;
+  border-radius: 22px;
+  background: var(--color3);
+  color: var(--color1);
 }
 .separator {
   display: flex;
@@ -8,10 +11,11 @@
   justify-content: space-around;
 }
 .hr {
+  border-color: var(--color1);
   width: 150px;
 }
 .separator_text {
-  color: #a0a0a0;
+  color: var(--color1-1);
   font-weight: bold;
 }
 .auth {
@@ -22,8 +26,9 @@
 .form {
   margin: auto;
   width: max-content;
-    border-radius: 8px;
-  box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
-  -webkit-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
-  -moz-box-shadow: 1px 3px 13px 0px rgba(0, 0, 0, 0.53);
+  border-radius: 22px;
+}
+
+.button {
+  background-color: var(--color1);
 }
