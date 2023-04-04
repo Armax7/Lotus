@@ -49,7 +49,13 @@ function Artworks({
     <Chakra.Box>
       <Chakra.Accordion allowToggle>
         <Chakra.AccordionItem>
-          <Chakra.AccordionButton>
+          <Chakra.AccordionButton
+            maxW={"15vmax"}
+            bgColor={"teal"}
+            _hover={{ backgroundColor: "#A7727D" }}
+            borderRadius={"2vw"}
+            color={"white"}
+          >
             Filter by Technique
             <AccordionIcon />
           </Chakra.AccordionButton>
@@ -57,11 +63,21 @@ function Artworks({
             <Components.CheckboxGroup
               options={techniques}
               onChange={handleTechniqueOnChange}
+              colorScheme={"teal"}
+              bgColor={"#F9F5E7"}
+              borderRadius={"1rem"}
+              p={"1rem"}
             />
           </Chakra.AccordionPanel>
         </Chakra.AccordionItem>
         <Chakra.AccordionItem>
-          <Chakra.AccordionButton>
+          <Chakra.AccordionButton
+            maxW={"15vmax"}
+            bgColor={"teal"}
+            _hover={{ backgroundColor: "#A7727D" }}
+            borderRadius={"2vw"}
+            color={"white"}
+          >
             Filter by Category
             <AccordionIcon />
           </Chakra.AccordionButton>
@@ -69,11 +85,21 @@ function Artworks({
             <Components.CheckboxGroup
               options={categories}
               onChange={handleCategoryOnChange}
+              colorScheme={"teal"}
+              bgColor={"#F9F5E7"}
+              borderRadius={"1rem"}
+              p={"1rem"}
             />
           </Chakra.AccordionPanel>
         </Chakra.AccordionItem>
         <Chakra.AccordionItem>
-          <Chakra.AccordionButton>
+          <Chakra.AccordionButton
+            maxW={"15vmax"}
+            bgColor={"teal"}
+            _hover={{ backgroundColor: "#A7727D" }}
+            borderRadius={"2vw"}
+            color={"white"}
+          >
             Filter by Support
             <AccordionIcon />
           </Chakra.AccordionButton>
@@ -81,10 +107,21 @@ function Artworks({
             <Components.CheckboxGroup
               options={supports}
               onChange={handleSupportOnChange}
+              colorScheme={"teal"}
+              bgColor={"#F9F5E7"}
+              borderRadius={"1rem"}
+              p={"1rem"}
             />
           </Chakra.AccordionPanel>
         </Chakra.AccordionItem>
-        <Chakra.Button onClick={handleOnFilter}>Filter</Chakra.Button>
+        <Chakra.Button
+          onClick={handleOnFilter}
+          bgColor={"teal"}
+          color={"white"}
+          _hover={{ backgroundColor: "#A7727D" }}
+        >
+          Filter
+        </Chakra.Button>
       </Chakra.Accordion>
       <Components.CardContainer cards={filteredArtworks.data} />
     </Chakra.Box>

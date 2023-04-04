@@ -1,12 +1,11 @@
+import style from "../../../styles/login/signin.module.css";
+import { useState } from "react";
 import * as chakra from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-
-import { supabase } from "../../../lib/supabaseClient";
-
-import { useState } from "react";
-import style from "../../../styles/login/signin.module.css";
 import validate from "./validation";
+import { supabase } from "../../../lib/supabaseClient";
+import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 
 export default function SignIn({ ...props }) {
   const [formData, setFormData] = useState({
@@ -55,6 +54,12 @@ export default function SignIn({ ...props }) {
 
     if (Object.values(currentErrors).length <= 0) {
       console.log("Submited with values: ", localData);
+      try {
+        const data = await UserAuth.userEmailLogIn(formData);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
       setFormData({
         email: "",
         password: "",
