@@ -120,7 +120,6 @@ function SignUp({ ...props }) {
           h="full"
           alignItems="center"
           justifyContent="center"
-          borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
@@ -327,7 +326,15 @@ function SignUp({ ...props }) {
               </Chakra.Alert>
             ) : null}
 
-            <Chakra.Button type="submit">Create Account</Chakra.Button>
+            <Chakra.Button
+              type="submit"
+              bg="var(--color1)"
+              color="var(--color3)"
+              _hover={{ background: "var(--color2)", color: "var(--color1)" }}
+              style={{ width: "100%" }}
+            >
+              Create Account
+            </Chakra.Button>
           </Chakra.Stack>
         </Chakra.Flex>
       </Chakra.HStack>

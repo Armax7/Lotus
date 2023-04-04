@@ -1,12 +1,14 @@
 import Head from "next/head";
 import "../styles/globals.css";
 import { useState } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import * as Components from "../components";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new ReactQuery.QueryClient());
+
+  theme.colors.teal = { 600: "#804674" };
 
   return (
     <ChakraProvider>
