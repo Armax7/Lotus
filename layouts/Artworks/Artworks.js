@@ -51,7 +51,7 @@ function Artworks({
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
             maxW={"15vmax"}
-            bgColor={"teal"}
+            bgColor={"#804674"}
             _hover={{ backgroundColor: "#A7727D" }}
             borderRadius={"2vw"}
             color={"white"}
@@ -73,7 +73,7 @@ function Artworks({
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
             maxW={"15vmax"}
-            bgColor={"teal"}
+            bgColor={"#804674"}
             _hover={{ backgroundColor: "#A7727D" }}
             borderRadius={"2vw"}
             color={"white"}
@@ -95,7 +95,7 @@ function Artworks({
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
             maxW={"15vmax"}
-            bgColor={"teal"}
+            bgColor={"#804674"}
             _hover={{ backgroundColor: "#A7727D" }}
             borderRadius={"2vw"}
             color={"white"}
@@ -116,7 +116,7 @@ function Artworks({
         </Chakra.AccordionItem>
         <Chakra.Button
           onClick={handleOnFilter}
-          bgColor={"teal"}
+          bgColor={"#804674"}
           color={"white"}
           _hover={{ backgroundColor: "#A7727D" }}
         >
