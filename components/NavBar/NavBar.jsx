@@ -32,7 +32,7 @@ function NavBar({
       {...props}
     >
       <Chakra.Box maxW="1700px" margin="auto" pt="20px">
-        <Chakra.Tabs isFitted variant="solid-rounded" colorScheme="teal">
+        <Chakra.Tabs isFitted variant="solid-rounded" colorScheme="lotus">
           <Chakra.TabList
             mb="2em"
             bgRepeat="no-repeat"

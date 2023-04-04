@@ -8,8 +8,8 @@ function CheckboxGroup({
   onChange: onChangeProp = () => {},
   className: classNameProp,
   colorScheme = null,
-  maxColumns = 8,
-  minColumns = 4,
+  maxColumns = 3,
+  minColumns = 1,
   spacingColumn = "1rem",
   spacingRow = "1rem",
   ...props
@@ -36,9 +36,14 @@ function CheckboxGroup({
           }
           return (
             <Chakra.Checkbox
+            color="var(--color1)"
+              bg="var(--color3)"
+              borderRadius="100px"
+              padding="10px"
+              minW="min-content"
               key={index}
               value={optionId.toString().toLowerCase()}
-              borderColor={colorScheme}
+              borderColor="var(--color1)"
             >
               {optionName.toString()}
             </Chakra.Checkbox>
