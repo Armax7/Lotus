@@ -31,6 +31,7 @@ export async function getArtworkByIdAxios(id) {
 }
 
 export async function getAllArtworksByQueryAxios({
+  name,
   techniques,
   categories,
   supports,
@@ -52,7 +53,7 @@ export async function getAllArtworksByQueryAxios({
 
   const filteredArtworks = await axios
     .get(
-      `${process.env.NEXT_PUBLIC_HOST}/api/artworks/filter?technique_id=${techniques_str}&category_id=${categories_str}&support_id=${supports_str}`
+      `${process.env.NEXT_PUBLIC_HOST}/api/artworks/filter?technique_id=${techniques_str}&category_id=${categories_str}&support_id=${supports_str}&name=${name}`
     )
     .then((res) => res.data)
     .catch((error) => {
@@ -156,13 +157,16 @@ export async function getShowcaseByIdAxios(id) {
   return showcase;
 }
 
-export async function getArtworkByname(name) {
+export async function getArtworkByNameAxios(name) {
   const res = await axios
     .get(`${process.env.NEXT_PUBLIC_HOST}/api/artworks/name/${name}`)
     .then((resp) => resp.data)
-
     .catch((error) => {
-      console.log(error.toJSON());
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
     });
 
   return res;

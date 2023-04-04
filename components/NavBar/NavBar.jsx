@@ -1,5 +1,4 @@
 import style from "../../styles/navBar/navBar.module.css";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
@@ -171,8 +170,6 @@ function NavBar({
             </Chakra.Drawer>
           </Chakra.TabList>
 
-          <Components.SearchBar margin={"auto"} />
-
           <Chakra.TabPanels>
             <Chakra.TabPanel id="home">
               <Layouts.Home artworks={artworks} />
@@ -180,7 +177,6 @@ function NavBar({
 
             <Chakra.TabPanel id="artworks">
               <Layouts.Artworks
-                artworks={artworks}
                 techniques={techniques}
                 categories={categories}
                 supports={supports}
