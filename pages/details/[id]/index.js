@@ -1,15 +1,23 @@
 import * as Components from "../../../components";
 
-function DetailsPage({ artwork, showcase }) {
+function DetailsPage({ author, artwork, showcase }) {
   const imageUrl = showcase.map((element) => {
     return element.image;
   });
   imageUrl.unshift(artwork.image);
 
   return (
-    <div style={{ display: "flex", margin: "80px 20px" }}>
-      <Components.Carousel images={imageUrl} />
-      <Components.ArtworksInfo artwork={artwork} rate={true} />
+    <div>
+      <div style={{ display: "flex", margin: "80px 20px" }}>
+        <Components.Carousel images={imageUrl} />
+        <Components.ArtworksInfo
+          author={author}
+          artwork={artwork}
+          rate={false}
+        />
+        
+      </div>
+      
     </div>
   );
 }
@@ -30,9 +38,18 @@ export async function getServerSideProps(context) {
     .then((artworks) => artworks.at(0))
     .catch((error) => null);
 
+  const author = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/authors/id/${artwork.author_id}`
+  )
+    .then((res) => res.json())
+    .then((authors) => authors.at(0))
+    .catch((error) => null);
+
   return {
-    props: { artwork, showcase },
+    props: { artwork, showcase, author },
   };
 }
 
 export default DetailsPage;
+
+
