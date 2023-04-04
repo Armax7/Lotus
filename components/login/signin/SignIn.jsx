@@ -57,6 +57,7 @@ export default function SignIn({ ...props }) {
       try {
         const data = await UserAuth.userEmailLogIn(formData);
         console.log(data);
+        location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -91,6 +92,7 @@ export default function SignIn({ ...props }) {
           h="full"
           alignItems="center"
           justifyContent="center"
+          borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
           <chakra.Stack w="full" maxW="lg" spacing={8} p={8}>
@@ -188,23 +190,11 @@ export default function SignIn({ ...props }) {
               <chakra.Link>Forgot password</chakra.Link>
             </chakra.Stack>
 
-            <chakra.Button
-              type="submit"
-              bg="var(--color1)"
-              color="var(--color3)"
-              _hover={{ background: "var(--color2)", color: "var(--color1)" }}
-            >
+            <chakra.Button type="submit" onClick={handleOnSubmit}>
               Log in
             </chakra.Button>
 
-            <chakra.Button
-              bg="var(--color1)"
-              color="var(--color3)"
-              _hover={{ background: "var(--color2)", color: "var(--color1)" }}
-              style={{ width: "100%" }}
-            >
-              Sign up
-            </chakra.Button>
+            <chakra.Button style={{ width: "100%" }}>Sign up</chakra.Button>
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
