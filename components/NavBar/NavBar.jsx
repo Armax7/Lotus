@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
-import React from "react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
 
-function NavBar({ artworks, techniques, categories, supports, classname, ...props }) {
+function NavBar({
+  artworks,
+  techniques,
+  categories,
+  supports,
+  classname,
+  ...props
+}) {
   const router = useRouter();
 
   const SignIn = Chakra.useDisclosure();
@@ -14,7 +21,10 @@ function NavBar({ artworks, techniques, categories, supports, classname, ...prop
   const btnRef = React.useRef();
 
   return (
-    <div style={{ width: "100%", backgroundColor: "#F8EAD8", padding: "5px" }}>
+    <div
+      style={{ width: "100%", backgroundColor: "#F8EAD8", padding: "5px" }}
+      {...props}
+    >
       <Chakra.Box maxW="1700px" margin="auto" pt="20px">
         <Chakra.Tabs isFitted variant="solid-rounded" colorScheme="teal">
           <Chakra.TabList
