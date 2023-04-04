@@ -30,7 +30,7 @@ function LogOutButton({
       mt={marginTop}
       mb={marginBottom}
     >
-      Log Out
+      <a href="/">Log Out</a>
     </Chakra.Button>
   );
 }
