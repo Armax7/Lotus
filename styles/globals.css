@@ -1,7 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --color1: #804674;
+  --color1-1: #8046743d;
+  --color1-2: #804674c0;
+  --color2: #a7727d;
+  --color3: #eddbc7;
+  --color4: #f8ead8;
+  --color5: #f9f5e7;
+  --white: #fff;
+}
 html,
 body {
   padding: 0;
   margin: 0;
+  /* font-family: "Poppins"; */
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
