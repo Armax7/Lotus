@@ -6,6 +6,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
+import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 
 function NavBar({
   artworks,
@@ -171,8 +172,6 @@ function NavBar({
             </Chakra.Drawer>
           </Chakra.TabList>
 
-          <Components.SearchBar margin={"auto"} />
-
           <Chakra.TabPanels>
             <Chakra.TabPanel id="home">
               <Layouts.Home artworks={artworks} />
@@ -180,7 +179,6 @@ function NavBar({
 
             <Chakra.TabPanel id="artworks">
               <Layouts.Artworks
-                artworks={artworks}
                 techniques={techniques}
                 categories={categories}
                 supports={supports}

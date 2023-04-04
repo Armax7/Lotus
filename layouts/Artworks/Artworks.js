@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
 import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
 import * as ArtworksMocks from "../../helpers/mocks/layouts_mock/Artworks_mock";
 
 function Artworks({
-  artworks = ArtworksMocks.artworks_mock,
+  artworkName,
   techniques = ArtworksMocks.techniques_mock,
   categories = ArtworksMocks.categories_mock,
   supports = ArtworksMocks.supports_mock,
@@ -16,6 +16,7 @@ function Artworks({
   const queryClient = ReactQuery.useQueryClient();
 
   const [filters, setFilters] = useState({
+    name: "",
     techniques: [],
     categories: [],
     supports: [],
@@ -41,12 +42,21 @@ function Artworks({
     setFilters((prevState) => ({ ...prevState, supports: event }));
   }
 
+  function handleNameOnChange(event) {
+    setFilters((prevState) => ({ ...prevState, name: event.target.value }));
+  }
+
   async function handleOnFilter(event) {
+    console.log(filters);
     filteredArtworks.refetch();
   }
 
   return (
     <Chakra.Box>
+      <Chakra.Box>
+        Buscar por nombre: {filters.name}
+        <Components.SearchBar onChange={handleNameOnChange} />
+      </Chakra.Box>
       <Chakra.Accordion allowToggle>
         <Chakra.AccordionItem>
           <Chakra.AccordionButton

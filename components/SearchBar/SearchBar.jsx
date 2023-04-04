@@ -2,23 +2,15 @@ import * as Chakra from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import CardContainer from "../CardContainer/CardContainer";
+import { SearchIcon } from "@chakra-ui/icons";
 
-const SearchBar = ({
-  onSearch,
-  card,
-  artworksNames,
-  className,
-  ...props
+const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
+  const [query, setQuery] = useState("");
 
-}) => {
-  const [query, setQuery] = useState([]);
-  const router = useRouter();
-
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
-    router.push(`api/artworks/name/${query}`)
-    
-   
+    console.log(query);
+    onSearch(event);
   };
 
   const handleInputChange = (event) => {
@@ -37,20 +29,16 @@ const SearchBar = ({
     setQuery("")
   }; */
 
-  const inputValue = (event) => {
-    setQuery([event.target.value]);
-  };
-
   return (
     <form onSubmit={handleSearch}>
       <Chakra.Flex
         alignItems="center"
-        position="relative"
+        position={"relative"}
         width="max-content"
         {...props}
       >
         <Chakra.Input
-          placeholder={""}
+          placeholder={"Search"}
           required
           type="search"
           name="search"
@@ -61,17 +49,17 @@ const SearchBar = ({
           color="gray.800"
           outline="none"
           width="40px"
-          transition="all ease 0.3s"
-          backgroundColor="gray.300"
-          boxShadow="1.5px 1.5px 3px #0e0e0e, -1.5px -1.5px 3px rgb(95 94 94 / 25%), inset 0px 0px 0px #0e0e0e, inset 0px -0px 0px #5f5e5e"
-          borderRadius="50px"
-          cursor="pointer"
+          transition="width 0.4s ease-in-out"
           _focus={{
             width: "200px",
             cursor: "text",
             boxShadow:
               "0px 0px 0px #0e0e0e, 0px 0px 0px rgb(95 94 94 / 25%), inset 1.5px 1.5px 3px #0e0e0e, inset -1.5px -1.5px 3px #5f5e5e",
           }}
+          backgroundColor="gray.300"
+          boxShadow="1.5px 1.5px 3px #0e0e0e, -1.5px -1.5px 3px rgb(95 94 94 / 25%), inset 0px 0px 0px #0e0e0e, inset 0px -0px 0px #5f5e5e"
+          borderRadius="50px"
+          cursor="pointer"
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
         />
@@ -113,5 +101,3 @@ const SearchBar = ({
 };
 
 export default SearchBar;
-
-
