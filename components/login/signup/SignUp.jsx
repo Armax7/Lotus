@@ -1,14 +1,37 @@
 import style from "../../../styles/login/signup.module.css";
 import * as Chakra from "@chakra-ui/react";
+import * as ReactQuery from "@tanstack/react-query";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
-import * as Utils from "../../../helpers/utils";
-import validate from "./validate";
+import { supabase } from "../../../lib/supabaseClient";
 
-export default function SignUp({ ...props }) {
+import validate from "./validate";
+import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
+import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
+import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
+
+function SignUp({ ...props }) {
+  const queryClient = ReactQuery.useQueryClient();
+
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+  }
+
+  async function signInWithFacebook() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+    });
+  }
+
+  async function signout() {
+    const { error } = await supabase.auth.signOut();
+  }
+
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
@@ -19,21 +42,21 @@ export default function SignUp({ ...props }) {
 
   const [errors, setErrors] = useState({
     name: "",
-    description: "",
-    release: "",
-    rating: "",
-    genres: "",
-    platforms: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  const signUpMutation = ReactQuery.useMutation(QueryFns.postUserDetailsAxios);
 
   function handleInputOnChange(event) {
     setFormData((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,
     }));
-    console.log("onChange Triggered");
   }
 
   function handleInputOnClick(event) {
@@ -57,11 +80,21 @@ export default function SignUp({ ...props }) {
     };
     setErrors(validate({ ...localData }));
     const currentErrors = validate(localData);
-    console.log(currentErrors, errors);
     setSubmitted(true);
 
     if (Object.values(currentErrors).length <= 0) {
-      console.log("Submited with values: ", localData);
+      const signUpData = await UserAuth.userEmailSignUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signUpData.user.id) {
+        await signUpMutation.mutate({
+          id: signUpData.user.id,
+          name: formData.name + " " + formData.lastname,
+        });
+      }
+
       setFormData({
         name: "",
         lastname: "",
@@ -87,12 +120,16 @@ export default function SignUp({ ...props }) {
           h="full"
           alignItems="center"
           justifyContent="center"
-          borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
-            <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
-
+            <Chakra.Box
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-end"
+            >
+              <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
+            </Chakra.Box>
             <div className={style.separator}>
               <hr className={style.hr} />
               <p className={style.separator_text}>With</p>
@@ -101,10 +138,18 @@ export default function SignUp({ ...props }) {
 
             <Chakra.Stack>
               <div className={style.auth}>
-                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                <Chakra.Button
+                  colorScheme="gray"
+                  leftIcon={<FcGoogle />}
+                  onClick={signInWithGoogle}
+                >
                   Google
                 </Chakra.Button>
-                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                <Chakra.Button
+                  colorScheme="facebook"
+                  leftIcon={<FaFacebook />}
+                  onClick={signInWithFacebook}
+                >
                   Facebook
                 </Chakra.Button>
               </div>
@@ -252,7 +297,7 @@ export default function SignUp({ ...props }) {
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Must have a special character .!@#$%^&*
+                    Must have a special character .@$!%*?&
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
@@ -264,10 +309,52 @@ export default function SignUp({ ...props }) {
               </Chakra.Box>
             ) : null}
 
-            <Chakra.Button type="submit">Create Account</Chakra.Button>
+            {signUpMutation.isError ? (
+              <Chakra.Alert status="error">
+                <Chakra.AlertIcon />
+                <Chakra.Box>
+                  <Chakra.AlertTitle>
+                    Error {signUpMutation.error.status}{" "}
+                    {`(${signUpMutation.error.statusText})`}:
+                  </Chakra.AlertTitle>
+                  <Chakra.AlertDescription>
+                    {signUpMutation.error.status === 409
+                      ? "User already exists"
+                      : `${signUpMutation.error.data.error}`}
+                  </Chakra.AlertDescription>
+                </Chakra.Box>
+              </Chakra.Alert>
+            ) : null}
+
+            <Chakra.Button
+              type="submit"
+              bg="var(--color1)"
+              color="var(--color3)"
+              _hover={{ background: "var(--color2)", color: "var(--color1)" }}
+              style={{ width: "100%" }}
+            >
+              Create Account
+            </Chakra.Button>
           </Chakra.Stack>
         </Chakra.Flex>
       </Chakra.HStack>
     </form>
   );
 }
+
+export async function getServerSideProps() {
+  const queryClient = new ReactQuery.QueryClient();
+
+  await queryClient.prefetchQuery(
+    [QueryKeys.QK_USER_DETAILS],
+    QueryFns.getUserDetailsAxios
+  );
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+    },
+  };
+}
+
+export default SignUp;
