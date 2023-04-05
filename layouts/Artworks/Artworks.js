@@ -8,7 +8,6 @@ import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
 import * as ArtworksMocks from "../../helpers/mocks/layouts_mock/Artworks_mock";
 
 function Artworks({
-  artworks = ArtworksMocks.artworks_mock,
   techniques = ArtworksMocks.techniques_mock,
   categories = ArtworksMocks.categories_mock,
   supports = ArtworksMocks.supports_mock,
@@ -16,6 +15,7 @@ function Artworks({
   const queryClient = ReactQuery.useQueryClient();
 
   const [filters, setFilters] = useState({
+    name: "",
     techniques: [],
     categories: [],
     supports: [],
@@ -41,12 +41,18 @@ function Artworks({
     setFilters((prevState) => ({ ...prevState, supports: event }));
   }
 
+  function handleNameOnChange(event) {
+    setFilters((prevState) => ({ ...prevState, name: event.target.value }));
+  }
+
   async function handleOnFilter(event) {
     filteredArtworks.refetch();
   }
 
   return (
     <Chakra.Box>
+      <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
+      <Chakra.Box>Buscar por nombre: {filters.name}</Chakra.Box>
       <Chakra.Accordion allowToggle>
         <Chakra.AccordionItem>
           <Chakra.AccordionButton
