@@ -1,6 +1,7 @@
 import * as Chakra from "@chakra-ui/react";
 import * as UserAuth from "../../helpers/supabase_helpers/user_management";
 
+
 function LogOutButton({
   colorScheme = "blue",
   backgroundColor = "red.400",
@@ -13,6 +14,7 @@ function LogOutButton({
     try {
       await UserAuth.userLogOut();
       console.log(await UserAuth.loggedStatus());
+      location.reload();
     } catch (error) {
       console.log(error.message);
     }
@@ -30,7 +32,11 @@ function LogOutButton({
       mt={marginTop}
       mb={marginBottom}
     >
-      <a href="/">Log Out</a>
+    
+  
+    Log Out
+  
+
     </Chakra.Button>
   );
 }
