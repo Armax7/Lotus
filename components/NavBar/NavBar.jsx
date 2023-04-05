@@ -277,14 +277,4 @@ function NavBar({
   );
 }
 
-export async function getServerSideProps(context) {
-  const queryClient = new ReactQuery.QueryClient();
-
-  return {
-    props: {
-      dehydratedState: ReactQuery.dehydrate(queryClient),
-    },
-  };
-}
-
 export default NavBar;
