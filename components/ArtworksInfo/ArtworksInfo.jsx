@@ -1,3 +1,4 @@
+
 import { Box, Heading, Badge, Text } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
 import AddToCart from "../AddToCart/AddToCart";
@@ -39,7 +40,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
       )}
 
       <RatingStars ratingDb={artwork.rating} />
-      <AddToCart />
+      <AddToCart stock={artwork.stock} name={artwork.name} price={artwork.price} />
     </Box>
   );
 };
