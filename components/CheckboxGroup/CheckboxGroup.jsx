@@ -44,6 +44,7 @@ function CheckboxGroup({
               borderColor="var(--color1)"
               transition="transform .2s"
               _hover={{ transform: "translateY(-2px)" }}
+              fontFamily={"Poppins"}
             >
               {optionName.toString()}
             </Chakra.Checkbox>

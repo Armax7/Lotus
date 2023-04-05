@@ -51,105 +51,113 @@ function Artworks({
   }
 
   return (
-    <Chakra.Box maxW={"1200px"} m={"auto"} display={"flex"} flexDir={"column"}>
-      <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
+    <div style={{background:"var(--color5)", paddingBottom:"38px"}}>
       <Chakra.Box
-        bg={"var(--color1-2)"}
-        m={"22px 0"}
-        borderRadius={"12px"}
-        padding={"12px"}
-        color={"var(--white)"}
+        maxW={"1200px"}
+        m={"auto"}
+        display={"flex"}
+        flexDir={"column"}
       >
-        Buscar por nombre: <b>{filters.name}</b>
+        <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
+        <Chakra.Box
+          bg={"var(--color1-2)"}
+          m={"22px 0"}
+          borderRadius={"12px"}
+          padding={"12px"}
+          color={"var(--white)"}
+          fontFamily={"Poppins"}
+        >
+          Buscar por nombre: <b>{filters.name}</b>
+        </Chakra.Box>
+
+        <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
+          <Chakra.TabList>
+            <Chakra.Tab
+              _hover={{
+                background: "var(--color1-3)",
+                color: "var(--color5)",
+                transform: "translateY(-4px)",
+              }}
+            >
+              Tecnicas <ChevronDownIcon />
+            </Chakra.Tab>
+            <Chakra.Tab
+              _hover={{
+                background: "var(--color1-3)",
+                color: "var(--color5)",
+                transform: "translateY(-4px)",
+              }}
+            >
+              Categorias <ChevronDownIcon />
+            </Chakra.Tab>
+            <Chakra.Tab
+              _hover={{
+                background: "var(--color1-3)",
+                color: "var(--color5)",
+                transform: "translateY(-4px)",
+              }}
+            >
+              Soporte <ChevronDownIcon />
+            </Chakra.Tab>
+          </Chakra.TabList>
+
+          <Chakra.TabPanels>
+            <Chakra.TabPanel>
+              <Components.CheckboxGroup
+                options={techniques}
+                onChange={handleTechniqueOnChange}
+                colorScheme={"lotus"}
+                bgColor={"var(--color5)"}
+                borderRadius={"1rem"}
+                p={"1rem"}
+              />
+            </Chakra.TabPanel>
+
+            <Chakra.TabPanel>
+              <Components.CheckboxGroup
+                options={categories}
+                onChange={handleCategoryOnChange}
+                colorScheme={"lotus"}
+                bgColor={"var(--color5)"}
+                borderRadius={"1rem"}
+                p={"1rem"}
+              />
+            </Chakra.TabPanel>
+
+            <Chakra.TabPanel>
+              <Components.CheckboxGroup
+                options={supports}
+                onChange={handleSupportOnChange}
+                colorScheme={"lotus"}
+                bgColor={"var(--color5)"}
+                borderRadius={"1rem"}
+                p={"1rem"}
+              />
+            </Chakra.TabPanel>
+          </Chakra.TabPanels>
+        </Chakra.Tabs>
+
+        <Chakra.Button
+          alignSelf={"center"}
+          width={"20%"}
+          maxW={"500px"}
+          minW={"320px"}
+          margin={"10px auto"}
+          borderRadius={"100px"}
+          fontSize={"22px"}
+          onClick={handleOnFilter}
+          bgColor="var(--color1)"
+          color={"var(--white)"}
+          _hover={{
+            backgroundColor: "var(--color1-3)",
+            transform: "translateY(-4px)",
+          }}
+        >
+          Filtrar
+        </Chakra.Button>
+        <Components.CardContainer cards={filteredArtworks.data} />
       </Chakra.Box>
-
-      <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
-        <Chakra.TabList>
-          <Chakra.Tab
-            _hover={{
-              background: "var(--color1-3)",
-              color: "var(--color5)",
-              transform: "translateY(-4px)",
-            }}
-          >
-            Tecnicas <ChevronDownIcon />
-          </Chakra.Tab>
-          <Chakra.Tab
-            _hover={{
-              background: "var(--color1-3)",
-              color: "var(--color5)",
-              transform: "translateY(-4px)",
-            }}
-          >
-            Categorias <ChevronDownIcon />
-          </Chakra.Tab>
-          <Chakra.Tab
-            _hover={{
-              background: "var(--color1-3)",
-              color: "var(--color5)",
-              transform: "translateY(-4px)",
-            }}
-          >
-            Soporte <ChevronDownIcon />
-          </Chakra.Tab>
-        </Chakra.TabList>
-
-        <Chakra.TabPanels>
-          <Chakra.TabPanel>
-            <Components.CheckboxGroup
-              options={techniques}
-              onChange={handleTechniqueOnChange}
-              colorScheme={"lotus"}
-              bgColor={"var(--color5)"}
-              borderRadius={"1rem"}
-              p={"1rem"}
-            />
-          </Chakra.TabPanel>
-
-          <Chakra.TabPanel>
-            <Components.CheckboxGroup
-              options={categories}
-              onChange={handleCategoryOnChange}
-              colorScheme={"lotus"}
-              bgColor={"var(--color5)"}
-              borderRadius={"1rem"}
-              p={"1rem"}
-            />
-          </Chakra.TabPanel>
-
-          <Chakra.TabPanel>
-            <Components.CheckboxGroup
-              options={supports}
-              onChange={handleSupportOnChange}
-              colorScheme={"lotus"}
-              bgColor={"var(--color5)"}
-              borderRadius={"1rem"}
-              p={"1rem"}
-            />
-          </Chakra.TabPanel>
-        </Chakra.TabPanels>
-      </Chakra.Tabs>
-
-      <Chakra.Button
-        alignSelf={"center"}
-        width={"20%"}
-        maxW={"500px"}
-        minW={"320px"}
-        margin={"10px auto"}
-        borderRadius={"100px"}
-        fontSize={"22px"}
-        onClick={handleOnFilter}
-        bgColor="var(--color1)"
-        color={"var(--white)"}
-        _hover={{
-          backgroundColor: "var(--color1-3)",
-          transform: "translateY(-4px)",
-        }}
-      >
-        Filtrar
-      </Chakra.Button>
-      <Components.CardContainer cards={filteredArtworks.data} />
-    </Chakra.Box>
+    </div>
   );
 }
 

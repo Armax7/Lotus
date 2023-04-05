@@ -1,7 +1,7 @@
 import Head from "next/head";
 import "../styles/globals.css";
 import { useState } from "react";
-import { ChakraProvider, theme, extendTheme} from "@chakra-ui/react";
+import { ChakraProvider, extendTheme} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import * as ReactQuery from "@tanstack/react-query";
 import * as Components from "../components";
