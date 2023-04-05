@@ -55,10 +55,10 @@ function NavBar({
 
             <Chakra.Tab id="home">Home</Chakra.Tab>
 
-            <Chakra.Tab id="artworks">Cuadros</Chakra.Tab>
+            <Chakra.Tab id="artworks">Paints</Chakra.Tab>
 
             <Chakra.Tab id="cart">
-              Carrito{" "}
+              Shopping Cart{" "}
               <Chakra.Icon as={FaShoppingCart} ml={2} color="var(--color1)" />
             </Chakra.Tab>
 
@@ -74,10 +74,11 @@ function NavBar({
               color={router.pathname === "/search" ? "black" : "black"}
               solid="true"
               className={style.button}
+              padding={"10px 38px"}
               ml="30px"
               mr="30px"
             >
-              Crea tu cuenta
+              Sign Up
             </Chakra.Button>
 
             <Chakra.Drawer
@@ -129,8 +130,9 @@ function NavBar({
               solid="true"
               borderColor="black"
               className={style.button}
+              padding={"10px 38px"}
             >
-              Iniciar sesión
+              Sign In
             </Chakra.Button>
 
             <Chakra.Drawer

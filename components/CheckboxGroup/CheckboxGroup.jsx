@@ -46,7 +46,7 @@ function CheckboxGroup({
               value={optionId.toString().toLowerCase()}
               borderColor="var(--color1)"
             >
-              {largeTextHandler(optionName.toString())}
+              {largeTextHandler(13, optionName.toString())}
             </Chakra.Checkbox>
           );
         })}
