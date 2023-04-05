@@ -27,7 +27,7 @@ const Carousel = ({ images, ...props }) => {
     >
       <Image
         src={images[currentImage]}
-        objectFit="cover"
+        objectFit="contain"
         borderRadius="3px"
         width="100%"
         height="100%"
@@ -43,7 +43,7 @@ const Carousel = ({ images, ...props }) => {
             left="4"
             transform="translateY(-50%)"
             onClick={handlePrevClick}
-            style={{ opacity: 0.2 }}
+            style={{ opacity: 0.5 }}
           />
 
           <IconButton
@@ -54,7 +54,7 @@ const Carousel = ({ images, ...props }) => {
             right="4"
             transform="translateY(-50%)"
             onClick={handleNextClick}
-            style={{ opacity: 0.2 }}
+            style={{ opacity: 0.5 }}
           />
         </>
       )}
