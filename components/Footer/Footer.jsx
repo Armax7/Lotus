@@ -1,4 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
+import style from "./Footer.module.css"
 
 function Footer() {
   return (
@@ -11,51 +12,57 @@ function Footer() {
     >
       <Chakra.Flex
         maxW={"1400px"}
-        margin="auto"
+        m="auto"
         justifyContent="space-between"
-        alignItems="center"
         flexWrap="wrap"
         cursor={"default"}
+        textAlign="center"
       >
-        <Chakra.Box minW="300px" textAlign="center" margin="auto">
+        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.Box mb="2">
-            <hr />
+            <hr className={style.hr}/>
             <Chakra.Text fontSize="xl" fontWeight="bold">
-              Ubication
+              Ubicacion
             </Chakra.Text>
             <Chakra.Text _hover={{ color: "var(--color3)" }}>
-              Store Address, Santiago, Metropolitana, Chile
+              Calle-00, Santiago, Metropolitana, Chile
             </Chakra.Text>
-          </Chakra.Box>
-
-          <Chakra.Box>
-            <hr />
-            <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Contact number
-            </Chakra.Text>
-            <Chakra.Text _hover={{ color: "var(--color3)" }}>+12 345 678 90 12</Chakra.Text>
           </Chakra.Box>
         </Chakra.Box>
 
-        <Chakra.Box minW="300px" textAlign="center" margin="auto">
-          <Chakra.List spacing="2" mb="2">
-            <hr />
+        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+          <Chakra.Box>
+            <hr className={style.hr}/>
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Information
+              Numero de contacto
+            </Chakra.Text>
+            <Chakra.Text _hover={{ color: "var(--color3)" }}>
+              +00 000 000 00 00
+            </Chakra.Text>
+          </Chakra.Box>
+        </Chakra.Box>
+
+        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+          <Chakra.List spacing="2" mb="2">
+            <hr className={style.hr}/>
+            <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
+              Informacion
             </Chakra.Text>
             <Chakra.ListItem>
-              <Chakra.Text _hover={{ color: "var(--color3)" }}>Contact</Chakra.Text>
+              <Chakra.Text _hover={{ color: "var(--color3)" }}>
+                Contacto
+              </Chakra.Text>
             </Chakra.ListItem>
             <Chakra.ListItem>
               <Chakra.Text _hover={{ color: "var(--color3)" }}>
-                Termns y Conditions
+                Terminos y condiciones
               </Chakra.Text>
             </Chakra.ListItem>
           </Chakra.List>
         </Chakra.Box>
 
-        <Chakra.Box minW="300px" textAlign="center" margin="auto">
-          <hr />
+        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+          <hr className={style.hr}/>
           <Chakra.Text
             fontSize="xl"
             fontWeight="bold"

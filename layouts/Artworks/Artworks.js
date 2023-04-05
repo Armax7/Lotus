@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
 import { theme } from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
@@ -53,38 +54,48 @@ function Artworks({
     <Chakra.Box maxW={"1200px"} m={"auto"} display={"flex"} flexDir={"column"}>
       <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
       <Chakra.Box
-        bg={"var(--color1)"}
-        m={"10px auto"}
-        borderRadius={"100px"}
+        bg={"var(--color1-2)"}
+        m={"22px 0"}
+        borderRadius={"12px"}
         padding={"12px"}
         color={"var(--white)"}
       >
-        Buscar por nombre: <b>{filters.name ||"Monalisa"}</b>
+        Buscar por nombre: <b>{filters.name}</b>
       </Chakra.Box>
 
-      <Chakra.Accordion allowToggle>
-        <Chakra.AccordionItem>
-          <Chakra.AccordionButton
-            maxW={"100%"}
-            minW={"max-content"}
-            fontWeight={"600"}
-            letterSpacing={"1px"}
-            margin={"8px"}
-            bgColor="var(--color2)"
+      <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
+        <Chakra.TabList>
+          <Chakra.Tab
             _hover={{
-              backgroundColor: "var(--color1)",
+              background: "var(--color1-3)",
+              color: "var(--color5)",
               transform: "translateY(-4px)",
             }}
-            borderRadius={"2vw"}
-            color={"var(--white)"}
-            display={"flex"}
-            justifyContent={"space-between"}
           >
-            <p>Filter by Technique</p>
-            <AccordionIcon transform={"scale(1.5)"} />
-          </Chakra.AccordionButton>
+            Tecnicas <ChevronDownIcon />
+          </Chakra.Tab>
+          <Chakra.Tab
+            _hover={{
+              background: "var(--color1-3)",
+              color: "var(--color5)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Categorias <ChevronDownIcon />
+          </Chakra.Tab>
+          <Chakra.Tab
+            _hover={{
+              background: "var(--color1-3)",
+              color: "var(--color5)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Soporte <ChevronDownIcon />
+          </Chakra.Tab>
+        </Chakra.TabList>
 
-          <Chakra.AccordionPanel>
+        <Chakra.TabPanels>
+          <Chakra.TabPanel>
             <Components.CheckboxGroup
               options={techniques}
               onChange={handleTechniqueOnChange}
@@ -93,31 +104,9 @@ function Artworks({
               borderRadius={"1rem"}
               p={"1rem"}
             />
-          </Chakra.AccordionPanel>
-        </Chakra.AccordionItem>
+          </Chakra.TabPanel>
 
-        <Chakra.AccordionItem>
-          <Chakra.AccordionButton
-            maxW={"80%"}
-            minW={"max-content"}
-            fontWeight={"600"}
-            letterSpacing={"1px"}
-            margin={"8px"}
-            bgColor="var(--color2)"
-            _hover={{
-              backgroundColor: "var(--color1)",
-              transform: "translateY(-4px)",
-            }}
-            borderRadius={"2vw"}
-            color={"var(--white)"}
-            display={"flex"}
-            justifyContent={"space-between"}
-          >
-            <p>Filter by Category</p>
-            <AccordionIcon transform={"scale(1.5)"} />
-          </Chakra.AccordionButton>
-
-          <Chakra.AccordionPanel>
+          <Chakra.TabPanel>
             <Components.CheckboxGroup
               options={categories}
               onChange={handleCategoryOnChange}
@@ -126,30 +115,9 @@ function Artworks({
               borderRadius={"1rem"}
               p={"1rem"}
             />
-          </Chakra.AccordionPanel>
-        </Chakra.AccordionItem>
+          </Chakra.TabPanel>
 
-        <Chakra.AccordionItem>
-          <Chakra.AccordionButton
-            maxW={"60%"}
-            minW={"max-content"}
-            fontWeight={"600"}
-            letterSpacing={"1px"}
-            margin={"8px"}
-            bgColor="var(--color2)"
-            _hover={{
-              backgroundColor: "var(--color1)",
-              transform: "translateY(-4px)",
-            }}
-            borderRadius={"2vw"}
-            color={"var(--white)"}
-            display={"flex"}
-            justifyContent={"space-between"}
-          >
-            <p>Filter by Support</p>
-            <AccordionIcon transform={"scale(1.5)"} />
-          </Chakra.AccordionButton>
-          <Chakra.AccordionPanel>
+          <Chakra.TabPanel>
             <Components.CheckboxGroup
               options={supports}
               onChange={handleSupportOnChange}
@@ -158,14 +126,13 @@ function Artworks({
               borderRadius={"1rem"}
               p={"1rem"}
             />
-          </Chakra.AccordionPanel>
-        </Chakra.AccordionItem>
-      </Chakra.Accordion>
+          </Chakra.TabPanel>
+        </Chakra.TabPanels>
+      </Chakra.Tabs>
 
       <Chakra.Button
         alignSelf={"center"}
-        padding={"30px"}
-        width={"50%"}
+        width={"20%"}
         maxW={"500px"}
         minW={"320px"}
         margin={"10px auto"}
@@ -179,7 +146,7 @@ function Artworks({
           transform: "translateY(-4px)",
         }}
       >
-        FILTER
+        Filtrar
       </Chakra.Button>
       <Components.CardContainer cards={filteredArtworks.data} />
     </Chakra.Box>

@@ -23,11 +23,7 @@ function CheckboxGroup({
       className={classNameProp}
       colorScheme={colorScheme}
     >
-      <Chakra.SimpleGrid
-        spacing={[spacingColumn, spacingRow]}
-        columns={[1,2,3,4,5,6]}
-        {...props}
-      >
+      <Chakra.Flex wrap="wrap" justifyContent="center">
         {options.map((elem, index) => {
           let optionId = index;
           let optionName = elem;
@@ -37,20 +33,23 @@ function CheckboxGroup({
           }
           return (
             <Chakra.Checkbox
-            color="var(--color1)"
+              color="var(--black)"
               bg="var(--color3)"
               borderRadius="100px"
               padding="10px"
+              margin="8px 12px"
               minW="max-content"
               key={index}
               value={optionId.toString().toLowerCase()}
               borderColor="var(--color1)"
+              transition="transform .2s"
+              _hover={{ transform: "translateY(-2px)" }}
             >
-              {largeTextHandler(13, optionName.toString())}
+              {optionName.toString()}
             </Chakra.Checkbox>
           );
         })}
-      </Chakra.SimpleGrid>
+      </Chakra.Flex>
     </Chakra.CheckboxGroup>
   );
 }

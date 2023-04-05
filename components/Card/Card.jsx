@@ -29,24 +29,29 @@ function Card({
       spacing={spacingProp}
       {...props}
     >
-      <Link href={`/details/${id}`} >
-        <Chakra.WrapItem >
-          <Chakra.Stack mt="6" spacing="3" >
-            <Chakra.Card bgColor={"var(--colo5)"} boxShadow={"none"} maxW="300px" minH={"400px"}>
+      <Link href={`/details/${id}`}>
+        <Chakra.WrapItem>
+          <Chakra.Stack mt="6" spacing="3">
+            <Chakra.Card
+              bgColor={"var(--colo5)"}
+              boxShadow={"none"}
+              maxW="300px"
+              minH={"400px"}
+            >
               <Chakra.CardBody className={style.card}>
-                <img src={image} alt={name} className={style.img}/>
+                <img src={image} alt={name} className={style.img} />
                 <div>
-                  <Chakra.Text color="var(--color1)" fontSize="2xl">
-                    {`${price}$`}
-                  </Chakra.Text>
-
                   <Chakra.Heading
                     size="md"
                     fontFamily={"Poppins"}
-                    color={"var(--color1)"}
+                    color={"var(--black)"}
                   >
                     {largeTextHandler(20, name)}
                   </Chakra.Heading>
+                  <Chakra.Text color="var(--black)" fontSize="2xl">
+                    {`$${price}`}
+                    <span className={style.coin}>USD</span>
+                  </Chakra.Text>
                 </div>
               </Chakra.CardBody>
             </Chakra.Card>

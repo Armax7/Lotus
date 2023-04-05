@@ -7,6 +7,12 @@
   border-radius: 12px;
   background-color: var(--color3);
 }
+.coin{
+  position: relative;
+  color: var(--black-1);
+  font-size: 16px;
+  top: -.35em;
+}
 .img{
   width: 300px;
   height: 300px;

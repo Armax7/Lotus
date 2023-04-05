@@ -7,7 +7,7 @@ function Home({ artworks }) {
     <div className={styles.container}>
       <main className={styles.main}>
         <svg
-        className={styles.svg}
+          className={styles.svg}
           style={{ maxWidth: "380px" }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 304.13 58.64"
@@ -52,20 +52,19 @@ function Home({ artworks }) {
         </svg>
 
         <p className={styles.description}>
-          Choose your favorite paint and turn any place into your favorite place, we are LOTUS
-          {/* SOMOS LOTUS Te ayudamos a convertir tu casa, departamento, oficina,
-          dormitorio o el lugar que quieras, en tu espacio favorito. */}
+          SOMOS LOTUS Te ayudamos a convertir tu casa, departamento, oficina,
+          dormitorio o el lugar que quieras, en tu espacio favorito.
         </p>
-        <hr />
+        <hr style={{ borderColor: "var(--color2)" }} />
         <Chakra.Box
-        margin={"20px 0 0 0"}
+          margin={"20px 0 0 0"}
           as="h1"
           textAlign="center"
           fontSize="30px"
           fontWeight="300"
           color="var(--color1)"
         >
-          FEATURED PAINTINGS OF OUR SELECTION
+          CUADROS DESTACADOS DE NUESTRA SELECCION
         </Chakra.Box>
 
         <Components.CardContainer cards={artworks} />

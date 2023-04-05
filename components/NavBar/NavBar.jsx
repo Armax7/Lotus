@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
@@ -82,12 +81,12 @@ function NavBar({
               </g>
             </svg>
 
-            <Chakra.Tab id="home">Home</Chakra.Tab>
+            <Chakra.Tab id="home">Inicio</Chakra.Tab>
 
-            <Chakra.Tab id="artworks">Paints</Chakra.Tab>
+            <Chakra.Tab id="artworks">Cuadros</Chakra.Tab>
 
             <Chakra.Tab id="cart">
-              Shopping Cart{" "}
+              Carrito{" "}
               <Chakra.Icon as={FaShoppingCart} ml={2} color="var(--color1)" />
             </Chakra.Tab>
             {logged == true ? (
@@ -124,9 +123,9 @@ function NavBar({
                             <br />
                             <Chakra.MenuDivider />
                             <Chakra.MenuItem>
-                              <Link href="/profile">Profile</Link>
+                              <Link href="/profile">Perfil</Link>
                             </Chakra.MenuItem>
-                            <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                            <Chakra.MenuItem>Configuracion</Chakra.MenuItem>
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
                             </Chakra.Flex>
@@ -156,7 +155,6 @@ function NavBar({
                 >
                   Crea tu cuenta
                 </Chakra.Button>
-
                 <Chakra.Drawer
                   isOpen={singUp.isOpen}
                   placement="right"
@@ -193,23 +191,24 @@ function NavBar({
                   </Chakra.DrawerContent>
                 </Chakra.Drawer>
 
-            <Chakra.Button
-              onClick={SignIn.onOpen}
-              borderRadius="100px"
-              bgColor="var(--color1)"
-              style={{ color: "var(--white)" }}
-              _hover={{
-                bgColor: "var(--color2)",
-                transform: "translateY(-4px)",
-              }}
-              color={router.pathname === "/search" ? "black" : "black"}
-              solid="true"
-              borderColor="black"
-              className={style.button}
-              padding={"10px 38px"}
-            >
-              Sign In
-            </Chakra.Button>
+                <Chakra.Button
+                  onClick={SignIn.onOpen}
+                  borderRadius="100px"
+                  bgColor="var(--color1)"
+                  style={{ color: "var(--white)" }}
+                  _hover={{
+                    bgColor: "var(--color2)",
+                    transform: "translateY(-4px)",
+                  }}
+                  color={router.pathname === "/search" ? "black" : "black"}
+                  solid="true"
+                  borderColor="black"
+                  className={style.button}
+                >
+                  Iniciar sesión
+                </Chakra.Button>
+              </Chakra.Box>
+            )}
 
             <Chakra.Drawer
               isOpen={SignIn.isOpen}
@@ -270,6 +269,5 @@ function NavBar({
     </div>
   );
 }
-
 
 export default NavBar;
