@@ -12,45 +12,12 @@ export default function Home() {
     queryFn: QueryFns.getAllArtworksAxios,
   });
 
-  const techniques = ReactQuery.useQuery(
-    [QueryKeys.QK_TECHNIQUES],
-    QueryFns.getTechniquesAxios
-  );
-
-  const categories = ReactQuery.useQuery(
-    [QueryKeys.QK_CATEGORIES],
-    QueryFns.getCategoriesAxios
-  );
-
-  const supports = ReactQuery.useQuery(
-    [QueryKeys.QK_SUPPORTS],
-    QueryFns.getSupportsAxios
-  );
-
-  if (
-    artworks.isLoading ||
-    techniques.isLoading ||
-    categories.isLoading ||
-    supports.isLoading
-  ) {
+  if (artworks.isLoading) {
     return <Components.Loading />;
   }
 
-  if (
-    artworks.isError ||
-    techniques.isError ||
-    categories.isError ||
-    supports.isError
-  ) {
-    return (
-      <h1>
-        Error:{" "}
-        {artworks.isError ??
-          techniques.error ??
-          categories.error ??
-          supports.error}
-      </h1>
-    );
+  if (artworks.isError) {
+    return <h1>Error: {artworks.error}</h1>;
   }
 
   return <Layouts.Home artworks={artworks.data} />;
@@ -62,16 +29,6 @@ export async function getServerSideProps() {
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.QK_ARTWORKS],
     queryFn: QueryFns.getAllArtworksAxios,
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.QK_SUPPORTS],
-    queryFn: QueryFns.getSupportsAxios,
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.QK_TECHNIQUES],
-    queryFn: QueryFns.getTechniquesAxios,
   });
 
   return {
