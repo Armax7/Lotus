@@ -2,16 +2,12 @@ import * as Components from "../components";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryKeys from "../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../helpers/page_helpers/Home_helpers/query_fn";
+import * as Layouts from "../layouts";
 
 export default function Home() {
   const queryClient = ReactQuery.useQueryClient();
 
-  const {
-    isLoading: artwork_isLoading,
-    isError: artwork_isError,
-    data: artworks,
-    error: artwork_error,
-  } = ReactQuery.useQuery({
+  const artworks = ReactQuery.useQuery({
     queryKey: [QueryKeys.QK_ARTWORKS],
     queryFn: QueryFns.getAllArtworksAxios,
   });
@@ -32,7 +28,7 @@ export default function Home() {
   );
 
   if (
-    artwork_isLoading ||
+    artworks.isLoading ||
     techniques.isLoading ||
     categories.isLoading ||
     supports.isLoading
@@ -41,7 +37,7 @@ export default function Home() {
   }
 
   if (
-    artwork_isError ||
+    artworks.isError ||
     techniques.isError ||
     categories.isError ||
     supports.isError
@@ -49,7 +45,7 @@ export default function Home() {
     return (
       <h1>
         Error:{" "}
-        {artwork_error ??
+        {artworks.isError ??
           techniques.error ??
           categories.error ??
           supports.error}
@@ -57,14 +53,7 @@ export default function Home() {
     );
   }
 
-  return (
-    <Components.NavBar
-      artworks={artworks}
-      techniques={techniques.data}
-      categories={categories.data}
-      supports={supports.data}
-    />
-  );
+  return <Layouts.Home artworks={artworks.data} />;
 }
 
 export async function getServerSideProps() {

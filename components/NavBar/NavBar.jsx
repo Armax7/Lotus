@@ -1,26 +1,18 @@
-
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
-import * as Layouts from "../../layouts";
 import * as Components from "../../components";
 import React, { useEffect, useState } from "react";
 import style from "../../styles/navBar/navBar.module.css";
 
 function NavBar({
-  artworks,
-  techniques,
-  categories,
-  supports,
   classname,
   avatarImage = "https://bit.ly/dan-abramov",
   ...props
 }) {
-  /* yamajeh892@cyclesat.com
-  Yamajeh.892
-  */
+  const tabIndex = { home: 0, artworks: 1, cart: 2 };
 
   const router = useRouter();
 
@@ -50,6 +42,16 @@ function NavBar({
     console.log("userData", userData);
   }, []);
 
+  function handleTabsIndex() {
+    let property = router.pathname.substring(1);
+
+    if (!property) {
+      return tabIndex["home"];
+    }
+
+    return tabIndex[property];
+  }
+
   return (
     <div
       style={{
@@ -61,7 +63,12 @@ function NavBar({
       {...props}
     >
       <Chakra.Box maxW="1700px" margin="auto" pt="20px">
-        <Chakra.Tabs isFitted variant="solid-rounded" colorScheme="teal">
+        <Chakra.Tabs
+          index={handleTabsIndex()}
+          isFitted
+          variant="solid-rounded"
+          colorScheme="teal"
+        >
           <Chakra.TabList
             mb="2em"
             bgRepeat="no-repeat"
@@ -83,14 +90,21 @@ function NavBar({
               </g>
             </svg>
 
-            <Chakra.Tab id="home">Home</Chakra.Tab>
+            <Link href={"/"}>
+              <Chakra.Tab id="home">Home</Chakra.Tab>
+            </Link>
 
-            <Chakra.Tab id="artworks">Cuadros</Chakra.Tab>
+            <Link href={"/artworks"}>
+              <Chakra.Tab id="artworks">Cuadros</Chakra.Tab>
+            </Link>
 
-            <Chakra.Tab id="cart">
-              Carrito{" "}
-              <Chakra.Icon as={FaShoppingCart} ml={2} color="var(--color1)" />
-            </Chakra.Tab>
+            <Link href={"/cart"}>
+              <Chakra.Tab id="cart">
+                Carrito{" "}
+                <Chakra.Icon as={FaShoppingCart} ml={2} color="var(--color1)" />
+              </Chakra.Tab>
+            </Link>
+
             {logged == true ? (
               <div>
                 {userData && (
@@ -251,21 +265,11 @@ function NavBar({
           </Chakra.TabList>
 
           <Chakra.TabPanels>
-            <Chakra.TabPanel id="home">
-              <Layouts.Home artworks={artworks} />
-            </Chakra.TabPanel>
+            <Chakra.TabPanel id="home"></Chakra.TabPanel>
 
-            <Chakra.TabPanel id="artworks">
-              <Layouts.Artworks
-                techniques={techniques}
-                categories={categories}
-                supports={supports}
-              />
-            </Chakra.TabPanel>
+            <Chakra.TabPanel id="artworks"></Chakra.TabPanel>
 
-            <Chakra.TabPanel id="cart">
-              <p>Carrito!</p>
-            </Chakra.TabPanel>
+            <Chakra.TabPanel id="cart"></Chakra.TabPanel>
           </Chakra.TabPanels>
         </Chakra.Tabs>
       </Chakra.Box>
@@ -273,5 +277,14 @@ function NavBar({
   );
 }
 
+export async function getServerSideProps(context) {
+  const queryClient = new ReactQuery.QueryClient();
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+    },
+  };
+}
 
 export default NavBar;
