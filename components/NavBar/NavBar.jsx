@@ -1,10 +1,13 @@
-import style from "../../styles/navBar/navBar.module.css";
+
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 import { FaShoppingCart } from "react-icons/fa";
 import * as Chakra from "@chakra-ui/react";
 import * as Layouts from "../../layouts";
 import * as Components from "../../components";
+import React, { useEffect, useState } from "react";
+import style from "../../styles/navBar/navBar.module.css";
 
 function NavBar({
   artworks,
@@ -12,13 +15,40 @@ function NavBar({
   categories,
   supports,
   classname,
+  avatarImage = "https://bit.ly/dan-abramov",
   ...props
 }) {
+  /* yamajeh892@cyclesat.com
+  Yamajeh.892
+  */
+
   const router = useRouter();
 
   const SignIn = Chakra.useDisclosure();
   const singUp = Chakra.useDisclosure();
   const btnRef = React.useRef();
+
+  const [logged, setLogged] = useState(false);
+
+  const loguearse = async () => {
+    let data = await SupaHelpers.loggedStatus();
+    setLogged(data);
+  };
+
+  useEffect(() => {
+    loguearse();
+  }, []);
+
+  const [userData, setUserData] = useState("");
+
+  const datosUsuario = async () => {
+    let user = await SupaHelpers.getUserName();
+    setUserData(user);
+  };
+  useEffect(() => {
+    datosUsuario();
+    console.log("userData", userData);
+  }, []);
 
   return (
     <div
@@ -61,77 +91,127 @@ function NavBar({
               Carrito{" "}
               <Chakra.Icon as={FaShoppingCart} ml={2} color="var(--color1)" />
             </Chakra.Tab>
-
-            <Chakra.Button
-              onClick={singUp.onOpen}
-              borderRadius="100px"
-              bgColor="var(--color1)"
-              style={{ color: "var(--white)" }}
-              _hover={{
-                bgColor: "var(--color2)",
-                transform: "translateY(-4px)",
-              }}
-              color={router.pathname === "/search" ? "black" : "black"}
-              solid="true"
-              className={style.button}
-              ml="30px"
-              mr="30px"
-            >
-              Crea tu cuenta
-            </Chakra.Button>
-
-            <Chakra.Drawer
-              isOpen={singUp.isOpen}
-              placement="right"
-              onClose={singUp.onClose}
-              finalFocusRef={btnRef}
-              size="xl"
-            >
-              <Chakra.DrawerOverlay />
-
-              <Chakra.DrawerContent
-                bgColor="var(--color1-1)"
-                backgroundPosition="bottom"
-                bgRepeat="no-repeat"
-                bgSize="contain"
-              >
-                <Chakra.DrawerCloseButton
-                  backgroundColor="var(--color1)"
-                  color="var(--color3)"
-                  justifyItems="center"
+            {logged == true ? (
+              <div>
+                {userData && (
+                  <div>
+                    <Chakra.ButtonGroup gap="3">
+                      <Chakra.Box>
+                        <Chakra.Menu>
+                          <Chakra.MenuButton
+                            as={Chakra.Button}
+                            rounded={"full"}
+                            variant={"link"}
+                            cursor={"pointer"}
+                            minW={0}
+                            w="40px"
+                            h="40px"
+                          >
+                            <Chakra.Avatar
+                              w="40px"
+                              h="40px"
+                              src={avatarImage}
+                            />
+                          </Chakra.MenuButton>
+                          <Chakra.MenuList alignItems={"center"}>
+                            <br />
+                            <Chakra.Center>
+                              <Chakra.Avatar size={"2xl"} src={avatarImage} />
+                            </Chakra.Center>
+                            <br />
+                            <Chakra.Center>
+                              <p>{userData ? userData : "Username"}</p>
+                            </Chakra.Center>
+                            <br />
+                            <Chakra.MenuDivider />
+                            <Chakra.MenuItem>
+                              <Link href="/profile">Profile</Link>
+                            </Chakra.MenuItem>
+                            <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                            <Chakra.Flex align={"center"} justify={"center"}>
+                              <Components.LogOutButton />
+                            </Chakra.Flex>
+                          </Chakra.MenuList>
+                        </Chakra.Menu>
+                      </Chakra.Box>
+                    </Chakra.ButtonGroup>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Chakra.Box>
+                <Chakra.Button
+                  onClick={singUp.onOpen}
+                  borderRadius="100px"
+                  bgColor="var(--color1)"
+                  style={{ color: "var(--white)" }}
                   _hover={{
-                    background: "var(--color3)",
-                    color: "var(--color1)",
+                    bgColor: "var(--color2)",
+                    transform: "translateY(-4px)",
                   }}
-                />
-
-                <Chakra.DrawerBody
-                  bgRepeat="no-repeat"
-                  bgPosition="center bottom 80px"
-                  display="flex"
-                  alignItems="center"
+                  color={router.pathname === "/search" ? "black" : "black"}
+                  solid="true"
+                  className={style.button}
+                  ml="30px"
+                  mr="30px"
                 >
-                  <Components.SignUp />
-                </Chakra.DrawerBody>
-              </Chakra.DrawerContent>
-            </Chakra.Drawer>
+                  Crea tu cuenta
+                </Chakra.Button>
 
-            <Chakra.Button
-              onClick={SignIn.onOpen}
-              borderRadius="100px"
-              bgColor="var(--color1)"
-              style={{ color: "var(--white)" }}
-              _hover={{
-                bgColor: "var(--color2)",
-                transform: "translateY(-4px)",
-              }}
-              color={router.pathname === "/search" ? "black" : "black"}
-              solid="true"
-              borderColor="black"
-              className={style.button}
-            >
-              Iniciar sesión
-            </Chakra.Button>
+                <Chakra.Drawer
+                  isOpen={singUp.isOpen}
+                  placement="right"
+                  onClose={singUp.onClose}
+                  finalFocusRef={btnRef}
+                  size="xl"
+                >
+                  <Chakra.DrawerOverlay />
+
+                  <Chakra.DrawerContent
+                    bgColor="var(--color1-1)"
+                    backgroundPosition="bottom"
+                    bgRepeat="no-repeat"
+                    bgSize="contain"
+                  >
+                    <Chakra.DrawerCloseButton
+                      backgroundColor="var(--color1)"
+                      color="var(--color3)"
+                      justifyItems="center"
+                      _hover={{
+                        background: "var(--color3)",
+                        color: "var(--color1)",
+                      }}
+                    />
+
+                    <Chakra.DrawerBody
+                      bgRepeat="no-repeat"
+                      bgPosition="center bottom 80px"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <Components.SignUp />
+                    </Chakra.DrawerBody>
+                  </Chakra.DrawerContent>
+                </Chakra.Drawer>
+
+                <Chakra.Button
+                  onClick={SignIn.onOpen}
+                  borderRadius="100px"
+                  bgColor="var(--color1)"
+                  style={{ color: "var(--white)" }}
+                  _hover={{
+                    bgColor: "var(--color2)",
+                    transform: "translateY(-4px)",
+                  }}
+                  color={router.pathname === "/search" ? "black" : "black"}
+                  solid="true"
+                  borderColor="black"
+                  className={style.button}
+                >
+                  Iniciar sesión
+                </Chakra.Button>
+              </Chakra.Box>
+            )}
 
             <Chakra.Drawer
               isOpen={SignIn.isOpen}
@@ -192,5 +272,6 @@ function NavBar({
     </div>
   );
 }
+
 
 export default NavBar;
