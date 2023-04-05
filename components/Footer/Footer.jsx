@@ -15,14 +15,15 @@ function Footer() {
         justifyContent="space-between"
         alignItems="center"
         flexWrap="wrap"
+        cursor={"default"}
       >
         <Chakra.Box minW="300px" textAlign="center" margin="auto">
           <Chakra.Box mb="2">
             <hr />
             <Chakra.Text fontSize="xl" fontWeight="bold">
-              Ubicación
+              Ubication
             </Chakra.Text>
-            <Chakra.Text _hover={{ color: "#EDDBC7" }}>
+            <Chakra.Text _hover={{ color: "var(--color3)" }}>
               Store Address, Santiago, Metropolitana, Chile
             </Chakra.Text>
           </Chakra.Box>
@@ -30,9 +31,9 @@ function Footer() {
           <Chakra.Box>
             <hr />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Número de contacto
+              Contact number
             </Chakra.Text>
-            <Chakra.Text _hover={{ color: "#EDDBC7" }}>2604224940</Chakra.Text>
+            <Chakra.Text _hover={{ color: "var(--color3)" }}>+12 345 678 90 12</Chakra.Text>
           </Chakra.Box>
         </Chakra.Box>
 
@@ -40,14 +41,14 @@ function Footer() {
           <Chakra.List spacing="2" mb="2">
             <hr />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Información
+              Information
             </Chakra.Text>
             <Chakra.ListItem>
-              <Chakra.Text _hover={{ color: "#EDDBC7" }}>Contacto</Chakra.Text>
+              <Chakra.Text _hover={{ color: "var(--color3)" }}>Contact</Chakra.Text>
             </Chakra.ListItem>
             <Chakra.ListItem>
-              <Chakra.Text _hover={{ color: "#EDDBC7" }}>
-                Términos y condiciones
+              <Chakra.Text _hover={{ color: "var(--color3)" }}>
+                Termns y Conditions
               </Chakra.Text>
             </Chakra.ListItem>
           </Chakra.List>
@@ -58,7 +59,7 @@ function Footer() {
           <Chakra.Text
             fontSize="xl"
             fontWeight="bold"
-            _hover={{ color: "#EDDBC7" }}
+            _hover={{ color: "var(--color3)" }}
           >
             &copy; 2023, Lotus
           </Chakra.Text>

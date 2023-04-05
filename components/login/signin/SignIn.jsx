@@ -184,7 +184,7 @@ export default function SignIn({ ...props }) {
               align="start"
               justify="space-between"
             >
-              <chakra.Checkbox>Remember me</chakra.Checkbox>
+              <chakra.Checkbox colorScheme="lotus" borderColor={"var(--color1)"}>Remember me</chakra.Checkbox>
               <chakra.Link>Forgot password</chakra.Link>
             </chakra.Stack>
 

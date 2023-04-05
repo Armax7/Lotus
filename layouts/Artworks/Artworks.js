@@ -52,7 +52,15 @@ function Artworks({
   return (
     <Chakra.Box maxW={"1200px"} m={"auto"} display={"flex"} flexDir={"column"}>
       <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
-      <Chakra.Box>Buscar por nombre: {filters.name}</Chakra.Box>
+      <Chakra.Box
+        bg={"var(--color1)"}
+        m={"10px auto"}
+        borderRadius={"100px"}
+        padding={"12px"}
+        color={"var(--white)"}
+      >
+        Buscar por nombre: <b>{filters.name ||"Monalisa"}</b>
+      </Chakra.Box>
 
       <Chakra.Accordion allowToggle>
         <Chakra.AccordionItem>
@@ -63,14 +71,17 @@ function Artworks({
             letterSpacing={"1px"}
             margin={"8px"}
             bgColor="var(--color2)"
-            _hover={{ backgroundColor: "var(--color1)", transform:"translateY(-4px)" }}
+            _hover={{
+              backgroundColor: "var(--color1)",
+              transform: "translateY(-4px)",
+            }}
             borderRadius={"2vw"}
             color={"var(--white)"}
             display={"flex"}
             justifyContent={"space-between"}
           >
             <p>Filter by Technique</p>
-            <AccordionIcon transform={"scale(1.5)"}/>
+            <AccordionIcon transform={"scale(1.5)"} />
           </Chakra.AccordionButton>
 
           <Chakra.AccordionPanel>
@@ -93,14 +104,17 @@ function Artworks({
             letterSpacing={"1px"}
             margin={"8px"}
             bgColor="var(--color2)"
-            _hover={{ backgroundColor: "var(--color1)", transform:"translateY(-4px)" }}
+            _hover={{
+              backgroundColor: "var(--color1)",
+              transform: "translateY(-4px)",
+            }}
             borderRadius={"2vw"}
             color={"var(--white)"}
             display={"flex"}
             justifyContent={"space-between"}
           >
             <p>Filter by Category</p>
-            <AccordionIcon transform={"scale(1.5)"}/>
+            <AccordionIcon transform={"scale(1.5)"} />
           </Chakra.AccordionButton>
 
           <Chakra.AccordionPanel>
@@ -123,14 +137,17 @@ function Artworks({
             letterSpacing={"1px"}
             margin={"8px"}
             bgColor="var(--color2)"
-            _hover={{ backgroundColor: "var(--color1)", transform:"translateY(-4px)" }}
+            _hover={{
+              backgroundColor: "var(--color1)",
+              transform: "translateY(-4px)",
+            }}
             borderRadius={"2vw"}
             color={"var(--white)"}
             display={"flex"}
             justifyContent={"space-between"}
           >
             <p>Filter by Support</p>
-            <AccordionIcon transform={"scale(1.5)"}/>
+            <AccordionIcon transform={"scale(1.5)"} />
           </Chakra.AccordionButton>
           <Chakra.AccordionPanel>
             <Components.CheckboxGroup
