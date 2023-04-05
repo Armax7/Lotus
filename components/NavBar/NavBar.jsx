@@ -106,8 +106,6 @@ function NavBar({
             </Link>
 
             {logged == true ? (
-              <div>
-                {userData && (
                   <div>
                     <Chakra.ButtonGroup gap="3">
                       <Chakra.Box>
@@ -121,16 +119,22 @@ function NavBar({
                             w="40px"
                             h="40px"
                           >
+                            <Chakra.Center marginLeft="30px">
                             <Chakra.Avatar
                               w="40px"
                               h="40px"
                               src={avatarImage}
-                            />
+                              bg="purple"
+                           >
+                             <Chakra.AvatarBadge boxSize='1.25em' bg='green.500' />
+                             </Chakra.Avatar>
+                             </Chakra.Center>
+
                           </Chakra.MenuButton>
                           <Chakra.MenuList alignItems={"center"}>
                             <br />
                             <Chakra.Center>
-                              <Chakra.Avatar size={"2xl"} src={avatarImage} />
+                              <Chakra.Avatar size={"2xl"} src={avatarImage} bg="purple" />
                             </Chakra.Center>
                             <br />
                             <Chakra.Center>
@@ -150,8 +154,8 @@ function NavBar({
                       </Chakra.Box>
                     </Chakra.ButtonGroup>
                   </div>
-                )}
-              </div>
+                
+              
             ) : (
               <Chakra.Box>
                 <Chakra.Button
