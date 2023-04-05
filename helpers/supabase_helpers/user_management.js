@@ -194,4 +194,5 @@ export async function postUserDetails({
   if (error) throw error;
 
   return data;
+  
 }
