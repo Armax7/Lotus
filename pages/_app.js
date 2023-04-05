@@ -1,9 +1,11 @@
 import Head from "next/head";
 import "../styles/globals.css";
 import { useState } from "react";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, theme, extendTheme} from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import * as ReactQuery from "@tanstack/react-query";
 import * as Components from "../components";
+import * as Layouts from "../layouts";
 
 const theme = extendTheme({
   colors: {
@@ -31,8 +33,9 @@ function MyApp({ Component, pageProps }) {
             <meta name="description" content="Lotus Art Gallery" />
             <link rel="icon" href="/lotusIsotipo.svg" />
           </Head>
-          <Component {...pageProps} />
-          <Components.Footer />
+          <Layouts.AppLayout>
+            <Component {...pageProps} />
+          </Layouts.AppLayout>
         </ReactQuery.Hydrate>
       </ReactQuery.QueryClientProvider>
     </ChakraProvider>
