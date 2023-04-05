@@ -19,25 +19,27 @@ function DetailsPage(context) {
     [QueryKeys.QK_ARTWORK_BY_ID],
     async () => {
       const artworks = await QueryFns.getArtworkByIdAxios(artworkId);
-      return artworks.at(0);
+      const author = await QueryFns.getAuthorByIdAxios(artworks[0].author_id);
+      return { artwork: artworks[0], author: author };
     }
   );
 
-  if (showcase.isLoading || artwork.isLoading) {
+  if (artwork.isLoading) {
     return <Components.Loading />;
   }
 
-  const imageUrl = showcase.data.map((element) => {
-    return element.image;
-  });
-  imageUrl.unshift(artwork.data.image);
+  const imageUrl = showcase.data.map((obj) => obj.image);
+  imageUrl.unshift(artwork.data.artwork.image);
 
   return (
     <Chakra.Box>
       <Components.BackButton href={"/"} />
       <div style={{ display: "flex", margin: "80px 20px" }}>
         <Components.Carousel images={imageUrl} />
-        <Components.ArtworksInfo artwork={artwork.data} rate={true} />
+        <Components.ArtworksInfo
+          author={artwork.data.author[0]}
+          artwork={artwork.data.artwork}
+        />
       </div>
     </Chakra.Box>
   );
@@ -51,9 +53,11 @@ export async function getServerSideProps(context) {
     const showcases = await QueryFns.getShowcaseByIdAxios(id);
     return showcases;
   });
+
   await queryClient.prefetchQuery([QueryKeys.QK_ARTWORK_BY_ID], async () => {
     const artworks = await QueryFns.getArtworkByIdAxios(id);
-    return artworks.at(0);
+    const author = await QueryFns.getAuthorByIdAxios(artworks[0].author_id);
+    return { artwork: artworks[0], author: author };
   });
 
   return {

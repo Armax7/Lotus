@@ -30,6 +30,21 @@ export async function getArtworkByIdAxios(id) {
   return res;
 }
 
+export async function getAuthorByIdAxios(id) {
+  const res = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/authors/id/${id}`)
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
 export async function getAllArtworksByQueryAxios({
   name,
   techniques,
