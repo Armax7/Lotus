@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
           <Head>
             <title>Lotus Art Gallery</title>
             <meta name="description" content="Lotus Art Gallery" />
-            <link rel="icon" href="/Lotus_Tab_logo.png" />
+            <link rel="icon" href="/lotusIsotipo.svg" />
           </Head>
           <Component {...pageProps} />
           <Components.Footer />

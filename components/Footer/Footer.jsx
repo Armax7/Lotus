@@ -10,6 +10,7 @@ function Footer() {
       color="#F9F5E7"
     >
       <Chakra.Flex
+        maxW={"1400px"}
         margin="auto"
         justifyContent="space-between"
         alignItems="center"

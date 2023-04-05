@@ -25,19 +25,18 @@ function NavBar({
       style={{
         width: "100%",
         backgroundColor: "var(--color5)",
-        padding: "5px",
+        padding: "6px 12px",
         fontFamily: "Poppins",
       }}
       {...props}
     >
-      <Chakra.Box maxW="1700px" margin="auto" pt="20px">
+      <Chakra.Box maxW="1400px" margin="auto" pt="20px">
         <Chakra.Tabs isFitted variant="solid-rounded" colorScheme="lotus">
           <Chakra.TabList
             mb="2em"
             bgRepeat="no-repeat"
             height="10"
             bgPos="initial"
-            pr="80px"
             variant="solid"
           >
             <svg
