@@ -32,7 +32,7 @@ function Card({
                 <img src={image} alt={name} width={300} height={300} />
 
                 <Chakra.Text color="blue.600" fontSize="2xl">
-                  {price}
+                   {`$${price}`}
                 </Chakra.Text>
 
                 <Chakra.Heading size="md">{name}</Chakra.Heading>
