@@ -42,6 +42,16 @@ function NavBar({
     console.log("userData", userData);
   }, []);
 
+  const [userData2, setUserData2] = useState(null);
+
+  const datosUsuario2 = async () => {
+    let users = await SupaHelpers.getUser();
+    setUserData2(users);
+  };
+  useEffect(() => {
+    datosUsuario2();
+  }, []);
+
   function handleTabsIndex() {
     let property = router.pathname.substring(1);
 
@@ -106,50 +116,65 @@ function NavBar({
 
             {logged == true ? (
               <div>
-                {userData && (
-                  <div>
-                    <Chakra.ButtonGroup gap="3">
-                      <Chakra.Box>
-                        <Chakra.Menu>
-                          <Chakra.MenuButton
-                            as={Chakra.Button}
-                            rounded={"full"}
-                            variant={"link"}
-                            cursor={"pointer"}
-                            minW={0}
+                <Chakra.ButtonGroup gap="3">
+                  <Chakra.Box>
+                    <Chakra.Menu>
+                      <Chakra.MenuButton
+                        as={Chakra.Button}
+                        rounded={"full"}
+                        variant={"link"}
+                        cursor={"pointer"}
+                        minW={0}
+                        w="40px"
+                        h="40px"
+                      >
+                        <Chakra.Center marginLeft="30px">
+                          <Chakra.Avatar
                             w="40px"
                             h="40px"
+                            src={avatarImage}
+                            bg="purple"
                           >
-                            <Chakra.Avatar
-                              w="40px"
-                              h="40px"
-                              src={avatarImage}
+                            <Chakra.AvatarBadge
+                              boxSize="1.25em"
+                              bg="green.500"
                             />
-                          </Chakra.MenuButton>
-                          <Chakra.MenuList alignItems={"center"}>
-                            <br />
-                            <Chakra.Center>
-                              <Chakra.Avatar size={"2xl"} src={avatarImage} />
-                            </Chakra.Center>
-                            <br />
-                            <Chakra.Center>
-                              <p>{userData ? userData : "Username"}</p>
-                            </Chakra.Center>
-                            <br />
-                            <Chakra.MenuDivider />
-                            <Chakra.MenuItem>
-                              <Link href="/profile">Perfil</Link>
-                            </Chakra.MenuItem>
-                            <Chakra.MenuItem>Configuracion</Chakra.MenuItem>
-                            <Chakra.Flex align={"center"} justify={"center"}>
-                              <Components.LogOutButton />
-                            </Chakra.Flex>
-                          </Chakra.MenuList>
-                        </Chakra.Menu>
-                      </Chakra.Box>
-                    </Chakra.ButtonGroup>
-                  </div>
-                )}
+                          </Chakra.Avatar>
+                        </Chakra.Center>
+                      </Chakra.MenuButton>
+                      <Chakra.MenuList alignItems={"center"}>
+                        <br />
+                        <Chakra.Center>
+                          <Chakra.Avatar
+                            size={"2xl"}
+                            src={avatarImage}
+                            bg="purple"
+                          />
+                        </Chakra.Center>
+                        <br />
+                        <Chakra.Center>
+                          <p>
+                            {
+                              logged && userData2?.user_metadata?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
+                                ? userData2.user_metadata.name
+                                : userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
+                            }
+                          </p>
+                        </Chakra.Center>
+
+                        <br />
+                        <Chakra.MenuDivider />
+                        <Chakra.MenuItem>
+                          <Link href="/profile">Profile</Link>
+                        </Chakra.MenuItem>
+                        <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                        <Chakra.Flex align={"center"} justify={"center"}>
+                          <Components.LogOutButton />
+                        </Chakra.Flex>
+                      </Chakra.MenuList>
+                    </Chakra.Menu>
+                  </Chakra.Box>
+                </Chakra.ButtonGroup>
               </div>
             ) : (
               <Chakra.Box>

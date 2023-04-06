@@ -1,5 +1,6 @@
-import * as Chakra from "@chakra-ui/react";
 import style from "./Footer.module.css";
+import * as Chakra from "@chakra-ui/react";
+import { BsFacebook, BsInstagram } from "react-icons/bs";
 
 function Footer() {
   return (
@@ -69,6 +70,14 @@ function Footer() {
             _hover={{ color: "var(--color3)" }}
           >
             &copy; 2023, Lotus
+            <a href="https://www.facebook.com/galeriadeartesolidario">
+              <BsFacebook />
+            </a>
+            <br />
+            <a href="https://www.instagram.com/galeriadeartelotus/">
+              <BsInstagram />
+            </a>
+            <br />
           </Chakra.Text>
         </Chakra.Box>
       </Chakra.Flex>
