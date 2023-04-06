@@ -25,9 +25,7 @@ const RatingStars = ({ ratingDb }) => {
           />
         );
       })}
-      <Box ml={2}>
-        <Text fontWeight="bold">{ratingDb}</Text>
-      </Box>
+      
     </Flex>
   );
 };
