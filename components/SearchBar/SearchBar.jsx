@@ -42,18 +42,16 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
           height="40px"
           fontSize="15px"
           border="none"
-          color="gray.800"
+          color="var(--color5)"
           outline="none"
           width="40px"
           transition="width 0.4s ease-in-out"
           _focus={{
             width: "200px",
             cursor: "text",
-            boxShadow:
-              "0px 0px 0px #0e0e0e, 0px 0px 0px rgb(95 94 94 / 25%), inset 1.5px 1.5px 3px #0e0e0e, inset -1.5px -1.5px 3px #5f5e5e",
           }}
-          backgroundColor="gray.300"
-          boxShadow="1.5px 1.5px 3px #0e0e0e, -1.5px -1.5px 3px rgb(95 94 94 / 25%), inset 0px 0px 0px #0e0e0e, inset 0px -0px 0px #5f5e5e"
+          _placeholder={{color:"var(--color5)"}}
+          backgroundColor="var(--color1)"
           borderRadius="50px"
           cursor="pointer"
           onChange={handleInputChange}
@@ -77,7 +75,7 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
             <path
               strokeWidth="32"
               strokeMiterlimit="10"
-              stroke="currentColor"
+              stroke="var(--color5)"
               fill="none"
               d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
             ></path>
@@ -86,7 +84,7 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
               strokeWidth="32"
               strokeMiterlimit="10"
               strokeLinecap="round"
-              stroke="currentColor"
+              stroke="var(--color5)"
               fill="none"
             ></path>
           </svg>

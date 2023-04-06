@@ -1,7 +1,27 @@
 .card {
   cursor: pointer;
-  margin: 0 5px;
   transition: transform .2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12px;
+  background-color: var(--color3);
+}
+.coin{
+  position: relative;
+  color: var(--black-1);
+  font-size: 16px;
+  top: -.35em;
+}
+.img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+.cardContainer{
+  /* font-family: "Poppins"; */
 }
 
 .card:hover {
