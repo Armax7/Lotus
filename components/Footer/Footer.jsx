@@ -1,5 +1,6 @@
+import style from "./Footer.module.css";
 import * as Chakra from "@chakra-ui/react";
-import style from "./Footer.module.css"
+import { BsFacebook, BsInstagram } from "react-icons/bs";
 
 function Footer() {
   return (
@@ -20,7 +21,7 @@ function Footer() {
       >
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.Box mb="2">
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold">
               Ubicacion
             </Chakra.Text>
@@ -32,7 +33,7 @@ function Footer() {
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.Box>
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
               Numero de contacto
             </Chakra.Text>
@@ -44,7 +45,7 @@ function Footer() {
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.List spacing="2" mb="2">
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
               Informacion
             </Chakra.Text>
@@ -62,13 +63,21 @@ function Footer() {
         </Chakra.Box>
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
-          <hr className={style.hr}/>
+          <hr className={style.hr} />
           <Chakra.Text
             fontSize="xl"
             fontWeight="bold"
             _hover={{ color: "var(--color3)" }}
           >
             &copy; 2023, Lotus
+            <a href="https://www.facebook.com/galeriadeartesolidario">
+              <BsFacebook />
+            </a>
+            <br />
+            <a href="https://www.instagram.com/galeriadeartelotus/">
+              <BsInstagram />
+            </a>
+            <br />
           </Chakra.Text>
         </Chakra.Box>
       </Chakra.Flex>
