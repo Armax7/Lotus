@@ -19,7 +19,7 @@ function Footer() {
         cursor={"default"}
         textAlign="center"
       >
-        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+        <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <Chakra.Box mb="2">
             <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold">
@@ -31,7 +31,7 @@ function Footer() {
           </Chakra.Box>
         </Chakra.Box>
 
-        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+        <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <Chakra.Box>
             <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
@@ -43,7 +43,7 @@ function Footer() {
           </Chakra.Box>
         </Chakra.Box>
 
-        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+        <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <Chakra.List spacing="2" mb="2">
             <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
@@ -62,7 +62,7 @@ function Footer() {
           </Chakra.List>
         </Chakra.Box>
 
-        <Chakra.Box minW="300px" textAlign="center" m="18px auto">
+        <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <hr className={style.hr} />
           <Chakra.Text
             fontSize="xl"
@@ -70,15 +70,24 @@ function Footer() {
             _hover={{ color: "var(--color3)" }}
           >
             &copy; 2023, Lotus
-            <a href="https://www.facebook.com/galeriadeartesolidario">
+          </Chakra.Text>
+        </Chakra.Box>
+
+        <Chakra.Box minW="250px" textAlign="center" m="18px auto">
+          <hr className={style.hr} />
+          <Chakra.Text 
+            fontSize="xl"
+            fontWeight="bold">
+            Redes Sociales
+          </Chakra.Text>
+          <Chakra.Flex padding={"20px"} justifyContent={"space-evenly"}>
+            <a href="https://www.facebook.com/galeriadeartesolidario" className={style.smIcons}>
               <BsFacebook />
             </a>
-            <br />
-            <a href="https://www.instagram.com/galeriadeartelotus/">
+            <a href="https://www.instagram.com/galeriadeartelotus/" className={style.smIcons}>
               <BsInstagram />
             </a>
-            <br />
-          </Chakra.Text>
+          </Chakra.Flex>
         </Chakra.Box>
       </Chakra.Flex>
     </Chakra.Box>

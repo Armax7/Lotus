@@ -146,7 +146,7 @@ export default function SignIn({ ...props }) {
                 value={formData.email}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="user@email.com"
+                placeholder="usuario@email.com"
               />
               {submitted && !!errors.email ? (
                 <chakra.FormHelperText>{errors.email}</chakra.FormHelperText>
@@ -168,7 +168,7 @@ export default function SignIn({ ...props }) {
                 value={formData.password}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="******"
+                placeholder="Contraseña"
               />
               {submitted && !!errors.password ? (
                 <chakra.FormHelperText>
