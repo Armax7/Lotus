@@ -86,6 +86,7 @@ function NavBar({
             bgPos="initial"
             variant="solid"
           >
+              <Link href={"/"}>
             <svg
               className={style.navLogo}
               xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +99,7 @@ function NavBar({
                 </g>
               </g>
             </svg>
+            </Link>
 
             <Link href={"/"}>
               <Chakra.Tab id="home">Home</Chakra.Tab>
