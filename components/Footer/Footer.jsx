@@ -1,5 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-import style from "./Footer.module.css"
+import style from "./Footer.module.css";
 
 function Footer() {
   return (
@@ -20,9 +20,9 @@ function Footer() {
       >
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.Box mb="2">
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold">
-              Ubicacion
+              Ubicación
             </Chakra.Text>
             <Chakra.Text _hover={{ color: "var(--color3)" }}>
               Calle-00, Santiago, Metropolitana, Chile
@@ -32,7 +32,7 @@ function Footer() {
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.Box>
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
               Numero de contacto
             </Chakra.Text>
@@ -44,9 +44,9 @@ function Footer() {
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
           <Chakra.List spacing="2" mb="2">
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Informacion
+              Información
             </Chakra.Text>
             <Chakra.ListItem>
               <Chakra.Text _hover={{ color: "var(--color3)" }}>
@@ -55,14 +55,14 @@ function Footer() {
             </Chakra.ListItem>
             <Chakra.ListItem>
               <Chakra.Text _hover={{ color: "var(--color3)" }}>
-                Terminos y condiciones
+                Términos y condiciones
               </Chakra.Text>
             </Chakra.ListItem>
           </Chakra.List>
         </Chakra.Box>
 
         <Chakra.Box minW="300px" textAlign="center" m="18px auto">
-          <hr className={style.hr}/>
+          <hr className={style.hr} />
           <Chakra.Text
             fontSize="xl"
             fontWeight="bold"

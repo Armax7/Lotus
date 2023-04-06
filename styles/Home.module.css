@@ -1,6 +1,7 @@
 .container {
   background: var(--color5);
   font-family: "Poppins";
+  padding-bottom: 38px;
 }
 
 .main {

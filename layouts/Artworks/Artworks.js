@@ -88,7 +88,7 @@ function Artworks({
                 transform: "translateY(-4px)",
               }}
             >
-              Categorias <ChevronDownIcon />
+              Categorías <ChevronDownIcon />
             </Chakra.Tab>
             <Chakra.Tab
               _hover={{
