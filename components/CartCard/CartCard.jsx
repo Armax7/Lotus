@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Spacer,  Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, Image, Text } from "@chakra-ui/react";
 
 
 function CartItem({ product, onDelete}) {
@@ -13,7 +13,7 @@ function CartItem({ product, onDelete}) {
       padding={4}
     >
       <Flex flexDirection={{ base: "column", md: "row" }} alignItems="center">
-        {/* <Image src={product.image} alt={product.name} height={{ base: "100px", md: "150px" }} objectFit="contain" marginRight={{ base: 0, md: 4 }} /> */}
+         <Image src={product.image} alt={product.name} height={{ base: "100px", md: "150px" }} objectFit="contain" marginRight={{ base: 0, md: 4 }} /> 
         <Box>
           <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">{product.name}</Text>
           <Text color="gray.500" fontSize={{ base: "sm", md: "md" }}>Qty: {product.quantity}</Text>
