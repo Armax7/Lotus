@@ -64,7 +64,7 @@ function Home({ artworks }) {
           fontWeight="300"
           color="var(--color1)"
         >
-          CUADROS DESTACADOS DE NUESTRA SELECCION
+          CUADROS DESTACADOS DE NUESTRA SELECCIÓN
         </Chakra.Box>
 
         <Components.CardContainer cards={artworks} />
