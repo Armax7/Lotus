@@ -25,7 +25,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         {artwork.description ? (
           artwork.description
         ) : (
-          <p>Esta obra no cuenta con una descripcion</p>
+          "Esta obra no cuenta con una descripcion"
         )}
       </Text>
 
