@@ -1,4 +1,3 @@
-
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -22,30 +21,32 @@ function AddToCart({ stock, name, price, ...props }) {
     }
   };
 
-
-
   function handleAddToCart() {
-    const existingCartItems = JSON.parse(localStorage.getItem(name + "Items")) || [];
+    const CartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    const index = CartItems.findIndex((item) => item.name === name);
 
     const newCartItem = {
       name,
       quantity: value,
       price,
+      limit: stock,
     };
 
-    const totalQuantity = existingCartItems.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + currentValue.quantity;
-      },
-      0
-    );
-
-    if (newCartItem.quantity + totalQuantity <= stock) {
-      const newCartItems = [...existingCartItems, newCartItem];
-      localStorage.setItem(name +"Items", JSON.stringify(newCartItems));
-      setIsMaxQuantity(false);
+    if (index !== -1) {
+      const updatedCartItems = [...CartItems];
+      const existingCartItem = updatedCartItems[index];
+      if (existingCartItem.quantity + value > stock) {
+        setIsMaxQuantity(true);
+      } else {
+        existingCartItem.quantity += value;
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+        setIsMaxQuantity(false);
+      }
     } else {
-      setIsMaxQuantity(true);
+      const newCartsItems = [...CartItems, newCartItem];
+      localStorage.setItem("cartItems", JSON.stringify(newCartsItems));
+      setIsMaxQuantity(false);
     }
   }
 
@@ -79,7 +80,14 @@ function AddToCart({ stock, name, price, ...props }) {
           Agregar al carrito
         </Button>
       ) : (
-        <Text display="inline" padding="10px"borderRadius="2px" marginTop="45px" backgroundColor="red.500" color="white">
+        <Text
+          display="inline"
+          padding="10px"
+          borderRadius="2px"
+          marginTop="45px"
+          backgroundColor="red.500"
+          color="white"
+        >
           Cantidad máxima alcanzada
         </Text>
       )}
