@@ -43,3 +43,13 @@ export function trimObjProperties(object) {
 
   return object;
 }
+
+export const largeTextHandler = (n, input) => {
+  if (!input) return null;
+  if (input.length > n) {
+    const nombre = input.split("").splice(0, n);
+    nombre.push("...");
+    return nombre.join("");
+  }
+  return input;
+};
