@@ -42,6 +42,16 @@ function NavBar({
     console.log("userData", userData);
   }, []);
 
+  const [userData2, setUserData2] = useState(null);
+
+  const datosUsuario2 = async () => {
+    let users = await SupaHelpers.getUser();
+    setUserData2(users);
+  };
+  useEffect(() => {
+    datosUsuario2();
+  }, []);
+
   function handleTabsIndex() {
     let property = router.pathname.substring(1);
 
@@ -77,14 +87,11 @@ function NavBar({
             pr="80px"
             variant="solid"
           >
-            <Link href={"/"}>
             <svg
               className={style.navLogo}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 100.06 57.39"
-            
             >
-           
               <title>Recurso 2</title>
               <g id="Capa_2" data-name="Capa 2">
                 <g id="Capa_1-2" data-name="Capa 1">
@@ -92,7 +99,6 @@ function NavBar({
                 </g>
               </g>
             </svg>
-            </Link>
 
             <Link href={"/"}>
               <Chakra.Tab id="home">Home</Chakra.Tab>
@@ -110,56 +116,67 @@ function NavBar({
             </Link>
 
             {logged == true ? (
-                  <div>
-                    <Chakra.ButtonGroup gap="3">
-                      <Chakra.Box>
-                        <Chakra.Menu>
-                          <Chakra.MenuButton
-                            as={Chakra.Button}
-                            rounded={"full"}
-                            variant={"link"}
-                            cursor={"pointer"}
-                            minW={0}
+              <div>
+                <Chakra.ButtonGroup gap="3">
+                  <Chakra.Box>
+                    <Chakra.Menu>
+                      <Chakra.MenuButton
+                        as={Chakra.Button}
+                        rounded={"full"}
+                        variant={"link"}
+                        cursor={"pointer"}
+                        minW={0}
+                        w="40px"
+                        h="40px"
+                      >
+                        <Chakra.Center marginLeft="30px">
+                          <Chakra.Avatar
                             w="40px"
                             h="40px"
+                            src={avatarImage}
+                            bg="purple"
                           >
-                            <Chakra.Center marginLeft="30px">
-                            <Chakra.Avatar
-                              w="40px"
-                              h="40px"
-                              src={avatarImage}
-                              bg="purple"
-                           >
-                             <Chakra.AvatarBadge boxSize='1.25em' bg='green.500' />
-                             </Chakra.Avatar>
-                             </Chakra.Center>
+                            <Chakra.AvatarBadge
+                              boxSize="1.25em"
+                              bg="green.500"
+                            />
+                          </Chakra.Avatar>
+                        </Chakra.Center>
+                      </Chakra.MenuButton>
+                      <Chakra.MenuList alignItems={"center"}>
+                        <br />
+                        <Chakra.Center>
+                          <Chakra.Avatar
+                            size={"2xl"}
+                            src={avatarImage}
+                            bg="purple"
+                          />
+                        </Chakra.Center>
+                        <br />
+                        <Chakra.Center>
+                          <p>
+                            {
+                              logged && userData2?.user_metadata?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
+                                ? userData2.user_metadata.name
+                                : userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
+                            }
+                          </p>
+                        </Chakra.Center>
 
-                          </Chakra.MenuButton>
-                          <Chakra.MenuList alignItems={"center"}>
-                            <br />
-                            <Chakra.Center>
-                              <Chakra.Avatar size={"2xl"} src={avatarImage} bg="purple" />
-                            </Chakra.Center>
-                            <br />
-                            <Chakra.Center>
-                              <p>{userData ? userData : "Username"}</p>
-                            </Chakra.Center>
-                            <br />
-                            <Chakra.MenuDivider />
-                            <Chakra.MenuItem>
-                              <Link href="/profile">Profile</Link>
-                            </Chakra.MenuItem>
-                            <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
-                            <Chakra.Flex align={"center"} justify={"center"}>
-                              <Components.LogOutButton />
-                            </Chakra.Flex>
-                          </Chakra.MenuList>
-                        </Chakra.Menu>
-                      </Chakra.Box>
-                    </Chakra.ButtonGroup>
-                  </div>
-                
-              
+                        <br />
+                        <Chakra.MenuDivider />
+                        <Chakra.MenuItem>
+                          <Link href="/profile">Profile</Link>
+                        </Chakra.MenuItem>
+                        <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                        <Chakra.Flex align={"center"} justify={"center"}>
+                          <Components.LogOutButton />
+                        </Chakra.Flex>
+                      </Chakra.MenuList>
+                    </Chakra.Menu>
+                  </Chakra.Box>
+                </Chakra.ButtonGroup>
+              </div>
             ) : (
               <Chakra.Box>
                 <Chakra.Button
