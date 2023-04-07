@@ -8,7 +8,7 @@ export async function createCheckoutSession(checkoutItems) {
     line_items: [...checkoutItems],
     mode: "payment",
     success_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=false`,
   });
   return session;
 }
