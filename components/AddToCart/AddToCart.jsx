@@ -1,7 +1,7 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
-function AddToCart({ stock, name, price, image, ...props }) {
+function AddToCart({ stock, name, price, image, price_id, ...props }) {
   const [value, setValue] = useState(1);
   const [isMaxQuantity, setIsMaxQuantity] = useState(false);
 
@@ -31,6 +31,7 @@ function AddToCart({ stock, name, price, image, ...props }) {
       image,
       quantity: value,
       price,
+      price_id,
       limit: stock,
     };
 
