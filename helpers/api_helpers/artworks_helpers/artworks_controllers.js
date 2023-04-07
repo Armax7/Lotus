@@ -1,5 +1,7 @@
 import { supabase } from "../../../lib/supabaseClient";
 
+const stripe = require("stripe")(process.env.NEXT_PUBLIC_);
+
 export async function getAllArtworks() {
   const { data: artworks, error } = await supabase.from("artworks").select();
 
