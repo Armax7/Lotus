@@ -7,7 +7,7 @@ import {
   AlertDescription,
 } from '@chakra-ui/react'
 
-function AddToCart({ stock, name, price, image, ...props }) {
+function AddToCart({ stock, name, price, image, price_id, ...props }) {
   const [value, setValue] = useState(1);
   const [isMaxQuantity, setIsMaxQuantity] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -39,6 +39,7 @@ function AddToCart({ stock, name, price, image, ...props }) {
       image,
       quantity: value,
       price,
+      price_id,
       limit: stock,
     };
 
