@@ -40,7 +40,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
       )}
 
       <RatingStars ratingDb={artwork.rating} />
-      <AddToCart stock={artwork.stock} name={artwork.name} price={artwork.price} />
+      <AddToCart stock={artwork.stock} name={artwork.name} price={artwork.price} image={artwork.image} />
     </Box>
   );
 };
