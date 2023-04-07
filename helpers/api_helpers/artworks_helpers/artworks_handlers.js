@@ -38,12 +38,3 @@ export async function handleGetByFilter(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
-
-export async function handleUpdateSyncSupaProductsToStripe(req, res) {
-  try {
-    const response = await Controllers.handleUpdateStripe();
-    return res.status(200).json(response);
-  } catch (response) {
-    return res.status(response.error.status).json(response.error);
-  }
-}
