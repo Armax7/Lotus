@@ -75,16 +75,22 @@ function Footer() {
 
         <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <hr className={style.hr} />
-          <Chakra.Text 
-            fontSize="xl"
-            fontWeight="bold">
+          <Chakra.Text fontSize="xl" fontWeight="bold">
             Redes Sociales
           </Chakra.Text>
           <Chakra.Flex padding={"20px"} justifyContent={"space-evenly"}>
-            <a href="https://www.facebook.com/galeriadeartesolidario" className={style.smIcons}>
+            <a
+              href="https://www.facebook.com/galeriadeartesolidario"
+              target="_blank"
+              className={style.smIcons}
+            >
               <BsFacebook />
             </a>
-            <a href="https://www.instagram.com/galeriadeartelotus/" className={style.smIcons}>
+            <a
+              href="https://www.instagram.com/galeriadeartelotus/"
+              target="_blank"
+              className={style.smIcons}
+            >
               <BsInstagram />
             </a>
           </Chakra.Flex>
