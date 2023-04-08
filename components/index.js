@@ -12,3 +12,6 @@ export { default as SignUp } from "./login/signup/SignUp";
 export { default as SearchBar } from "./SearchBar/SearchBar";
 export { default as Loading } from "./Loading/Loading";
 export { default as LogOutButton } from "./LogOutButton/LogOutButton";
+export { default as CartEmpty } from "./CartEmpty/CartEmpty";
+export { default as CartCard } from "./CartCard/CartCard";
+export { default as AddToCart } from "./AddToCart/AddToCart";
