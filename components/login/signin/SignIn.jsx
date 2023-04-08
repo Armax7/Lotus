@@ -92,7 +92,6 @@ export default function SignIn({ ...props }) {
           h="full"
           alignItems="center"
           justifyContent="center"
-          borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
           <chakra.Stack w="full" maxW="lg" spacing={8} p={8}>
@@ -102,13 +101,13 @@ export default function SignIn({ ...props }) {
               alignItems="flex-end"
             >
               <chakra.Heading fontSize="2xl">
-                Sign in to your Account
+                Ingresa a tu cuenta
               </chakra.Heading>
             </chakra.Box>
 
             <div className={style.separator}>
               <hr className={style.hr} />
-              <p className={style.separator_text}>With</p>
+              <p className={style.separator_text}>Con</p>
               <hr className={style.hr} />
             </div>
 
@@ -133,7 +132,7 @@ export default function SignIn({ ...props }) {
 
             <div className={style.separator}>
               <hr className={style.hr} />
-              <p className={style.separator_text}>Or</p>
+              <p className={style.separator_text}>O</p>
               <hr className={style.hr} />
             </div>
 
@@ -147,12 +146,14 @@ export default function SignIn({ ...props }) {
                 value={formData.email}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="user@email.com"
+                placeholder="usuario@email.com"
               />
               {submitted && !!errors.email ? (
                 <chakra.FormHelperText>{errors.email}</chakra.FormHelperText>
               ) : (
-                <chakra.FormHelperText>Enter your email.</chakra.FormHelperText>
+                <chakra.FormHelperText>
+                  Ingresa tu correo.
+                </chakra.FormHelperText>
               )}
             </chakra.FormControl>
 
@@ -160,14 +161,14 @@ export default function SignIn({ ...props }) {
               id="passwordSignIn"
               isInvalid={submitted && !!errors.password}
             >
-              <chakra.FormLabel>Password</chakra.FormLabel>
+              <chakra.FormLabel>Contraseña</chakra.FormLabel>
               <chakra.Input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="******"
+                placeholder="Contraseña"
               />
               {submitted && !!errors.password ? (
                 <chakra.FormHelperText>
@@ -175,7 +176,7 @@ export default function SignIn({ ...props }) {
                 </chakra.FormHelperText>
               ) : (
                 <chakra.FormHelperText>
-                  Enter your password.
+                  Ingresa tu contraseña.
                 </chakra.FormHelperText>
               )}
             </chakra.FormControl>
@@ -186,19 +187,42 @@ export default function SignIn({ ...props }) {
               align="start"
               justify="space-between"
             >
-              <chakra.Checkbox colorScheme="lotus" borderColor={"var(--color1)"}>Remember me</chakra.Checkbox>
-              <chakra.Link>Forgot password</chakra.Link>
+              <chakra.Checkbox
+                colorScheme="lotus"
+                borderColor={"var(--color1)"}
+              >
+                Recuerdame
+              </chakra.Checkbox>
+              <chakra.Link>¿Olvidaste tu contraseña?</chakra.Link>
             </chakra.Stack>
 
-            <chakra.Button type="submit" onClick={handleOnSubmit}>
-              Log in
+            <chakra.Button
+              bg="var(--color2)"
+              color="var(--color5)"
+              _hover={{
+                background: "var(--color2-1)",
+                transform: "translateY(-4px)",
+              }}
+              type="submit"
+              onClick={handleOnSubmit}
+            >
+              Ingresar
             </chakra.Button>
 
-            <chakra.Button style={{ width: "100%" }}>Sign up</chakra.Button>
+            <chakra.Button
+              bg="var(--color1)"
+              color="var(--color5)"
+              _hover={{
+                background: "var(--color1-3)",
+                transform: "translateY(-4px)",
+              }}
+              style={{ width: "100%", marginTop: "16px" }}
+            >
+              Crea tu cuenta
+            </chakra.Button>
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
     </form>
   );
-  
 }
