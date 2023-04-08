@@ -81,10 +81,10 @@ function Footer() {
             Redes Sociales
           </Chakra.Text>
           <Chakra.Flex padding={"20px"} justifyContent={"space-evenly"}>
-            <a href="https://www.facebook.com/galeriadeartesolidario" className={style.smIcons}>
+            <a href="https://www.facebook.com/galeriadeartesolidario" target="_blank" className={style.smIcons}>
               <BsFacebook />
             </a>
-            <a href="https://www.instagram.com/galeriadeartelotus/" className={style.smIcons}>
+            <a href="https://www.instagram.com/galeriadeartelotus/" target="_blank" className={style.smIcons}>
               <BsInstagram />
             </a>
           </Chakra.Flex>
