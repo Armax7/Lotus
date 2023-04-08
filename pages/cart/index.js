@@ -4,7 +4,7 @@ import * as Chakra from "@chakra-ui/react";
 import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
 
-function Cart() {
+function Cart({ success }) {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
@@ -12,9 +12,12 @@ function Cart() {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-    const stripeItemsHolder = cartItems.map((item) => {
-      return { price: item.price_id, quantity: item.quantity };
-    });
+    const stripeItemsHolder = cartItems.map(
+      (item) => {
+        return { price: item.price_id, quantity: item.quantity };
+      },
+      [cartItems]
+    );
 
     let totalHolder = 0;
     cartItems.forEach((item) => {
@@ -43,17 +46,32 @@ function Cart() {
     setTotal(totalHolder);
 
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+
+    if (updatedCart.length === 0) {
+      handleCheckout();
+    }
   }
 
-  async function handleOnSubmit(event) {
+  function handleOnSubmit(event) {
     event.preventDefault();
+    handleCheckout();
+  }
 
+  async function handleCheckout() {
+    localStorage.removeItem("cartItems");
+
+    const stripe = await getStripe();
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
 
-    const stripe = await getStripe();
-    await stripe.redirectToCheckout({ sessionId: id });
+    const result = await stripe.redirectToCheckout({ sessionId: id });
+    if (success === "true") {
+      setStripeItems([]);
+      setTotal(0);
+
+      localStorage.removeItem("cartItems");
+    }
   }
 
   return (
@@ -74,13 +92,21 @@ function Cart() {
                   <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
                     Total: {total}
                   </Chakra.Text>
-                  <Chakra.Button type="submit" role="link">
+                  <Chakra.Button
+                    onClick={handleCheckout}
+                    type="submit"
+                    role="link"
+                  >
                     Ir a pagar
                   </Chakra.Button>
                 </Chakra.FormControl>
               </Chakra.Box>
             </Chakra.Flex>
           </form>
+        </div>
+      ) : success === "true" ? (
+        <div style={{ margin: "40px 0" }}>
+          <p>¡Su compra se ha realizado con éxito! El carrito está vacío.</p>
         </div>
       ) : (
         <Components.CartEmpty />
