@@ -104,10 +104,6 @@ function Cart({ success }) {
             </Chakra.Flex>
           </form>
         </div>
-      ) : success === "true" ? (
-        <div style={{ margin: "40px 0" }}>
-          <p>¡Su compra se ha realizado con éxito! El carrito está vacío.</p>
-        </div>
       ) : (
         <Components.CartEmpty />
       )}
