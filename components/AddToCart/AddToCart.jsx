@@ -45,15 +45,15 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
         existingCartItem.quantity += value;
         localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
         setIsMaxQuantity(false);
-        setIsAddedToCart(true);
-        setTimeout(() => setIsAddedToCart(false), 2000);
+        setIsAddedToCart(true); 
+        setTimeout(() => setIsAddedToCart(false), 2000); 
       }
     } else {
       const newCartsItems = [...CartItems, newCartItem];
       localStorage.setItem("cartItems", JSON.stringify(newCartsItems));
       setIsMaxQuantity(false);
-      setIsAddedToCart(true);
-      setTimeout(() => setIsAddedToCart(false), 2000);
+      setIsAddedToCart(true); 
+      setTimeout(() => setIsAddedToCart(false), 2000); 
     }
   }
 
