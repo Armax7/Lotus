@@ -1,6 +1,7 @@
 import { supabase } from "../../../lib/supabaseClient";
+import { v4 as uuidV4 } from "uuid";
 
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export async function getAllArtworks() {
   const { data: artworks, error } = await supabase.from("artworks").select();
@@ -61,4 +62,216 @@ export async function getArtworksFilteredByQuery({
 
   if (error) throw error;
   return artworks;
+}
+
+export async function postArtwork({
+  name,
+  description,
+  image,
+  size,
+  price,
+  available = true,
+  stock = 1,
+  technique_id,
+  category_id,
+  support_id,
+  author_id,
+}) {
+  const id = uuidV4();
+  const response = { supabase: {}, stripe: {}, error: null };
+
+  if (!image || !price) {
+    response.error = {
+      status: 400,
+      type: "RequestError",
+      message: `Mising parameter: ${!image ? "image" : "price"}`,
+    };
+    throw response.error;
+  }
+
+  try {
+    const stripeResponse = await stripe.products.create({
+      id,
+      name,
+      ...(description && { description: description }),
+      images: [image],
+      default_price_data: {
+        currency: "usd",
+        unit_amount: price * 100,
+      },
+      active: available,
+      unit_label: stock,
+    });
+
+    const supaResponse = await supabase.from("artworks").insert([
+      {
+        id,
+        name,
+        description,
+        image,
+        size,
+        price,
+        available,
+        stock,
+        technique_id,
+        category_id,
+        support_id,
+        author_id,
+        stripe_price_id: stripeResponse.default_price,
+      },
+    ]);
+
+    if (supaResponse.error)
+      throw {
+        status: supaResponse.status,
+        type: supaResponse.statusText,
+        message: supaResponse.error.message,
+      };
+
+    response.stripe = stripeResponse;
+    response.supabase = supaResponse;
+
+    return response;
+  } catch (error) {
+    response.error = {
+      status: error.status || error.statusCode || error.code || 500,
+      type: error.type,
+      message: error.message || "Unhandled error",
+      ...(error.param && { param: error.param }),
+    };
+    throw response.error;
+  }
+}
+
+export async function updateArtwork({
+  id: artworkId,
+  name,
+  description,
+  image,
+  size,
+  price,
+  available,
+  stock,
+  technique_id,
+  category_id,
+  support_id,
+  author_id,
+}) {
+  const response = { supa: {}, stripe: {}, error: null };
+  try {
+    const priceId = await supabase
+      .from("artworks")
+      .select("stripe_price_id")
+      .eq("id", artworkId)
+      .then((res) => res.data.at(0).stripe_price_id);
+
+    if (priceId.error) {
+      response.error = {
+        status: priceId.status,
+        type: priceId.statusText,
+        message: priceId.error.message,
+      };
+      throw response.error;
+    }
+
+    const stripePriceResponse = price
+      ? await stripe.prices
+          .create({
+            unit_amount: price * 100,
+            currency: "usd",
+            product: artworkId,
+          })
+          .then((res) => res.id)
+      : priceId;
+
+    const stripeProductResponse = await stripe.products.update(artworkId, {
+      ...(name && { name: name }),
+      ...(description && { description: description }),
+      ...(image && { images: [image] }),
+      ...(price && { default_price: stripePriceResponse }),
+      ...(typeof available === "boolean" ? { active: available } : null),
+      ...(stock && { unit_label: stock }),
+    });
+
+    response.stripe = {
+      product: stripeProductResponse,
+      price: price,
+      price_id: stripePriceResponse,
+    };
+
+    const supaResponse = await supabase
+      .from("artworks")
+      .update({
+        name,
+        description,
+        image,
+        size,
+        price,
+        available,
+        stock,
+        technique_id,
+        category_id,
+        support_id,
+        author_id,
+      })
+      .eq("id", artworkId);
+
+    if (supaResponse.error) {
+      response.error = {
+        status: supaResponse.status,
+        type: supaResponse.statusText,
+        message: supaResponse.error.message,
+      };
+      throw response.error;
+    }
+
+    response.supa = supaResponse;
+
+    return response;
+  } catch (error) {
+    response.error = {
+      status: error.status || error.statusCode || error.code || 500,
+      type: error.type,
+      message: error.message || "Unhandled error",
+      ...(error.param && { param: error.param }),
+    };
+    throw response.error;
+  }
+}
+
+export async function deleteArtworkLogically({ id: artworkId }) {
+  const response = { supa: {}, stripe: {}, error: null };
+
+  try {
+    const supaResponse = await supabase
+      .from("artworks")
+      .update({ available: false })
+      .eq("id", artworkId);
+
+    if (supaResponse.error) {
+      response.error = {
+        status: supaResponse.status,
+        type: supaResponse.statusText,
+        message: supaResponse.error.message,
+      };
+      throw response.error;
+    }
+
+    const stripeResponse = await stripe.products.update(artworkId, {
+      active: false,
+    });
+
+    response.supa = supaResponse;
+    response.stripe = stripeResponse;
+
+    return response;
+  } catch (error) {
+    response.error = {
+      status: error.status || error.statusCode || error.code || 500,
+      type: error.type,
+      message: error.message || "Unhandled error",
+      ...(error.param && { param: error.param }),
+    };
+    throw response.error;
+  }
 }
