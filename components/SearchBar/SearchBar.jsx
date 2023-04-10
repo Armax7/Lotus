@@ -2,12 +2,13 @@ import * as Chakra from "@chakra-ui/react";
 import { useState } from "react";
 
 const SearchBar = ({
+  value: valueProp,
+  onChange = () => {},
   onSearch = () => {},
   onEnter = () => {},
   className,
   ...props
 }) => {
-  const [query, setQuery] = useState("");
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -15,7 +16,7 @@ const SearchBar = ({
   };
 
   const handleInputChange = (event) => {
-    setQuery(event.target.value);
+    onChange(event);
   };
 
   const handleKeyPress = (event) => {
@@ -24,12 +25,6 @@ const SearchBar = ({
       onEnter();
     }
   };
-
-  /*  const handleSubmit = (event) => {
-    event.preventDefault();
-    artworksNames(query)
-    setQuery("")
-  }; */
 
   return (
     <form onSubmit={handleSearch}>
@@ -44,7 +39,7 @@ const SearchBar = ({
           required
           type="search"
           name="search"
-          value={query}
+          value={valueProp}
           height="40px"
           fontSize="15px"
           border="none"
