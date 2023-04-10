@@ -1,6 +1,7 @@
 import style from "./Footer.module.css";
 import * as Chakra from "@chakra-ui/react";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
+import * as Components from "../../components"
 
 function Footer() {
   return (
@@ -35,11 +36,9 @@ function Footer() {
           <Chakra.Box>
             <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Numero de contacto
+              About Us
             </Chakra.Text>
-            <Chakra.Text _hover={{ color: "var(--color3)" }}>
-              +00 000 000 00 00
-            </Chakra.Text>
+            <Components.AboutUs />
           </Chakra.Box>
         </Chakra.Box>
 
