@@ -47,9 +47,9 @@ function Purchase({ success }) {
           color={"var(--black)"}
         >
           <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"}/>
-          <Chakra.AlertTitle  m={"0 auto"} lineHeight={"50px"}>We are sorry</Chakra.AlertTitle>
+          <Chakra.AlertTitle  m={"0 auto"} lineHeight={"50px"}>Lo sentimos</Chakra.AlertTitle>
           <Chakra.AlertDescription textAlign={"center"}>
-            We could not complete your purchase
+            No pudimos completar tu compra
           </Chakra.AlertDescription>
         </Chakra.Alert>
       )}
