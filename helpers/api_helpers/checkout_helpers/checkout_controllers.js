@@ -7,8 +7,8 @@ export async function createCheckoutSession(checkoutItems) {
   const session = await stripe.checkout.sessions.create({
     line_items: [...checkoutItems],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=false`,
+    success_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=true&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_HOST}/purchase?success=false&session_id={CHECKOUT_SESSION_ID}`,
   });
   return session;
 }

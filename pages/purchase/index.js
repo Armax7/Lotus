@@ -1,6 +1,20 @@
 import * as Chakra from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect } from "react";
+import useSWR from "swr";
 
-function Purchase({ success }) {
+function Purchase({ success, session_id }) {
+  const { data, error } = useSWR(
+    () => `${process.env.NEXT_PUBLIC_HOST}/api/checkout/${session_id}`,
+    (url) => axios.get(url).then((res) => res.data)
+  );
+
+  useEffect(() => {
+    if (data && success === "true") {
+      localStorage.removeItem("cartItems");
+    }
+  }, [data]);
+
   return (
     <Chakra.Box
       bg={"var(--color5)"}
@@ -46,8 +60,10 @@ function Purchase({ success }) {
           m={"auto"}
           color={"var(--black)"}
         >
-          <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"}/>
-          <Chakra.AlertTitle  m={"0 auto"} lineHeight={"50px"}>Lo sentimos</Chakra.AlertTitle>
+          <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"} />
+          <Chakra.AlertTitle m={"0 auto"} lineHeight={"50px"}>
+            Lo sentimos
+          </Chakra.AlertTitle>
           <Chakra.AlertDescription textAlign={"center"}>
             No pudimos completar tu compra
           </Chakra.AlertDescription>
@@ -58,9 +74,9 @@ function Purchase({ success }) {
 }
 
 export async function getServerSideProps(context) {
-  const { success = false } = context.query;
+  const { success = false, session_id } = context.query;
 
-  return { props: { success } };
+  return { props: { success, session_id } };
 }
 
 export default Purchase;
