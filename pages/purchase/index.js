@@ -4,9 +4,9 @@ function Purchase({ success }) {
   return (
     <Chakra.Box
       bg={"var(--color5)"}
-      height={"calc(100vh - 327px)"}
+      minH={"calc(100vh - 327px)"}
       fontFamily={"Poppins"}
-      fontSize={"24px"}
+      fontSize={"20px"}
       padding={"40px"}
     >
       {success === "true" ? (
@@ -14,11 +14,10 @@ function Purchase({ success }) {
           status="success"
           display={"flex"}
           flexDir={"column"}
-          alignItems={"center"}
           justifyContent={"center"}
           maxW={"400px"}
           w={"100%"}
-          maxH={"400px"}
+          minH={"400px"}
           h={"100%"}
           borderRadius={"1000px"}
           m={"auto"}
@@ -41,7 +40,7 @@ function Purchase({ success }) {
           justifyContent={"center"}
           maxW={"400px"}
           w={"100%"}
-          maxH={"400px"}
+          minH={"400px"}
           h={"100%"}
           borderRadius={"1000px"}
           m={"auto"}
