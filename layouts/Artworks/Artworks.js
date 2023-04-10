@@ -58,7 +58,7 @@ function Artworks({
         display={"flex"}
         flexDir={"column"}
       >
-        <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
+        <Components.SearchBar m={"auto"} onChange={handleNameOnChange} onEnter={handleOnFilter} />
         <Chakra.Box
           bg={"var(--color1-2)"}
           m={"22px 0"}

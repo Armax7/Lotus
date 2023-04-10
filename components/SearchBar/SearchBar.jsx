@@ -1,7 +1,12 @@
 import * as Chakra from "@chakra-ui/react";
 import { useState } from "react";
 
-const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
+const SearchBar = ({
+  onSearch = () => {},
+  onEnter = () => {},
+  className,
+  ...props
+}) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = async (event) => {
@@ -16,6 +21,7 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSearch(event);
+      onEnter();
     }
   };
 
@@ -50,7 +56,7 @@ const SearchBar = ({ onSearch = () => {}, className, ...props }) => {
             width: "200px",
             cursor: "text",
           }}
-          _placeholder={{color:"var(--color5)"}}
+          _placeholder={{ color: "var(--color5)" }}
           backgroundColor="var(--color1)"
           borderRadius="50px"
           cursor="pointer"
