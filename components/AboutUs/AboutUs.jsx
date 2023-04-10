@@ -1,5 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-import aboutUsPic from "../../assets/images/about_Us_Pic.jpg"
+import aboutUsPic from "../../assets/images/about_Us_Pic.jpg";
 //import * as Components from "../../components"
 
 function AboutUs() {
@@ -17,10 +17,12 @@ function AboutUs() {
           <Chakra.ModalCloseButton />
           <Chakra.ModalBody>
             <Chakra.Box>
-            <Chakra.Image src={aboutUsPic}/></Chakra.Box>
+              {/* <Chakra.Image src={aboutUsPic} /> */}
+            </Chakra.Box>
             <Chakra.Text fontSize="2xl" fontWeight="bold" mb="2">
               Somos Lotus
             </Chakra.Text>
+            <Chakra.Divider color="#a7727d"/>
             <Chakra.Text mb="2" fontSize="lg" fontWeight="medium">
               Lotus tiene como objetivo ser un puente entre los artistas y sus
               compradores haciendo de la compra de arte en línea una experiencia
@@ -48,8 +50,22 @@ function AboutUs() {
               Estamos aquí para ayudarlo y asegurarnos de que esté satisfecho
               con su compra.
             </Chakra.Text>
-            
-            {/* <Components.Minimap /> */}
+
+            <Chakra.Divider color="#a7727d"/>
+
+           {/* <Chakra.Flex>
+              <Chakra.Avatar src="https://bit.ly/sage-adebayo" />
+              <Chakra.Box ml="3">
+                <Chakra.Text fontWeight="bold">
+                  Segun Adebayo
+                  <Chakra.Badge ml="1" colorScheme="green">
+                    New
+                  </Chakra.Badge>
+                </Chakra.Text>
+                <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
+              </Chakra.Box>
+            </Chakra.Flex>
+             <Components.Minimap /> */}
           </Chakra.ModalBody>
 
           <Chakra.ModalFooter>
