@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import * as Chakra from "@chakra-ui/react";
 import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
+import style from "../../styles/Cart.module.css";
 
 function Cart({ success }) {
   const [cart, setCart] = useState([]);
@@ -75,27 +76,34 @@ function Cart({ success }) {
   }
 
   return (
-    <>
+    <div className={style.container}>
       {cart.length ? (
-        <div style={{ margin: "40px 0" }}>
-          {cart.map((cartItem, index) => (
-            <Components.CartCard
-              key={index}
-              product={cartItem}
-              onDelete={() => onDelete(cartItem.name)}
-            />
-          ))}
-          <form onSubmit={handleOnSubmit}>
-            <Chakra.Flex justify={"flex-end"}>
+        <div className={style.wrapper}>
+          <div className={style.cards}>
+            {cart.map((cartItem, index) => (
+              <Components.CartCard
+                key={index}
+                product={cartItem}
+                onDelete={() => onDelete(cartItem.name)}
+              />
+            ))}
+          </div>
+          <form className={style.form} onSubmit={handleOnSubmit}>
+            <Chakra.Flex>
               <Chakra.Box>
-                <Chakra.FormControl>
-                  <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
-                    Total: {total}
+                <Chakra.FormControl
+                  display={"flex"}
+                  flexDir={"column"}
+                >
+                  <Chakra.Text as={"b"} fontSize={"5xl"}>
+                    Total: ${total}
                   </Chakra.Text>
                   <Chakra.Button
                     onClick={handleCheckout}
                     type="submit"
                     role="link"
+                    bg={"var(--color1)"}
+                    color={"var(--color5)"}
                   >
                     Ir a pagar
                   </Chakra.Button>
@@ -107,7 +115,7 @@ function Cart({ success }) {
       ) : (
         <Components.CartEmpty />
       )}
-    </>
+    </div>
   );
 }
 

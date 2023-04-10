@@ -1,0 +1,27 @@
+.container{
+    background-color: var(--color5);
+}
+.wrapper{
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    min-height: calc(100vh - 327px);
+    font-family: "Poppins";
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.cards{
+    padding: 22px;
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: min-content;
+}
+.form{
+    margin: 48px 0 18px 38px;
+    min-width: 302px;
+    height: fit-content;
+    position: sticky;
+    top: 195px;
+}

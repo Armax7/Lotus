@@ -1,34 +1,65 @@
 import { Box, Button, Flex, Spacer, Image, Text } from "@chakra-ui/react";
-
-
-function CartItem({ product, onDelete}) {
+import {DeleteIcon} from "@chakra-ui/icons"
+import style from "./CartCard.module.css";
+function CartItem({ product, onDelete }) {
   return (
     <Box
-      bg="white"
+      bg="var(--color3)"
+      color={"var(--black)"}
       boxShadow="md"
-      borderRadius="md"
-      width="60%"
-      margin="0 auto"
-      marginTop={4}
-      padding={4}
+      borderRadius="12px"
+      width="100%"
+      maxW={"1000px"}
+      minW={"min-content"}
+      h={"200px"}
+      margin="12px auto"
     >
-      <Flex flexDirection={{ base: "column", md: "row" }} alignItems="center">
-         <Image src={product.image} alt={product.name} height={{ base: "100px", md: "150px" }} objectFit="contain" marginRight={{ base: 0, md: 4 }} /> 
-        <Box>
-          <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">{product.name}</Text>
-          <Text color="gray.500" fontSize={{ base: "sm", md: "md" }}>Qty: {product.quantity}</Text>
-          <Text color="gray.500" fontSize={{ base: "sm", md: "md" }}>${product.price}</Text>
-        </Box>
-        <Spacer />
-        <Button variant="ghost" size="sm" onClick={() => onDelete(product.name)}>Remove</Button>
+      <Flex
+        alignItems="center"
+        justifyContent={"space-between"}
+        h={"100%"}
+      >
+        <div className={style.contentContainer}>
+          <div className={style.imgWrapper}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              w={"100%"}
+              h={"100%"}
+              objectFit="cover"
+              marginRight={{ base: 0, md: 4 }}
+              borderRadius={"inherit"}
+            />
+          </div>
+          <Box width={"100%"}>
+            <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
+              {product.name}
+            </Text>
+            <Text fontSize={{ base: "sm", md: "md" }}>
+              Cantidad: {product.quantity}
+            </Text>
+            <Text fontSize={{ base: "sm", md: "md" }}>
+              Precio: ${product.price}
+            </Text>
+            <hr className={style.hr}/>
+            <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
+              Total: ${product.quantity * product.price}
+            </Text>
+          </Box>
+        </div>
+        <Button
+          bg={"#ae6b79"}
+          color={"var(--black)"}
+          height={"100%"}
+          borderRadius={"0 12px 12px 0"}
+          onClick={() => onDelete(product.name)}
+          _hover={{background: "var(--color1)", color: "var(--color5)"}}
+        >
+          <DeleteIcon boxSize={5} color={"var(--color5)"}/>
+        </Button>
       </Flex>
-      <Box textAlign="right" marginTop={4}>
-        <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">Total: ${product.quantity * product.price}</Text>
-      </Box>
     </Box>
   );
 }
-
-
 
 export default CartItem;
