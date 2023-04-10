@@ -58,14 +58,14 @@ function Cart() {
 
   async function handleCheckout(event) {
     event.preventDefault();
-    localStorage.removeItem("cartItems");
+    // localStorage.removeItem("cartItems");
 
-    const stripe = await getStripe();
-
+    
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
-
+    
+    const stripe = await getStripe();
     const result = await stripe.redirectToCheckout({ sessionId: id });
     // if (success === "true") {
     //   setStripeItems([]);
