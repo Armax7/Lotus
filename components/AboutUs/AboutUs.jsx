@@ -1,5 +1,5 @@
 import * as Chakra from "@chakra-ui/react";
-import aboutUsPic from "../../assets/images/about_Us_Pic.jpg";
+
 //import * as Components from "../../components"
 
 function AboutUs() {
