@@ -10,28 +10,6 @@ function Cart({ success }) {
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
   const [logged, setLogged] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
-  const [showSignInDrawer, setShowSignInDrawer] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
-  const [showModal, setShowModal] = useState(false);
-
-  const btnRef = React.useRef();
-
-
-  const handleOnSubmit2 = (event) => {
-    event.preventDefault();
-    // Submit logic here
-  };
-
-  const handleAlert2 = () => {
-    setShowRegister(true);
-  };
-
-
-  function handleAlert() {
-    setShowSignInDrawer(true);
-  }
 
   const loguearse = async () => {
     let data = await SupaHelpers.loggedStatus();
@@ -88,21 +66,13 @@ function Cart({ success }) {
   function handleOnSubmit(event) {
     event.preventDefault();
     handleCheckout();
-  
-  
   }
-  
-
 
   async function handleCheckout() {
     localStorage.removeItem("cartItems");
 
     const stripe = await getStripe();
 
-    if (!logged) {
-      setErrorAlert(true);
-      return;
-    }
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
@@ -135,12 +105,9 @@ function Cart({ success }) {
                   <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
                     Total: {total}
                   </Chakra.Text>
-                  
+
                   {logged ? (
-                    <Chakra.Button
-                      type="submit"
-                      role="link"
-                    >
+                    <Chakra.Button type="submit" role="link">
                       Ir a pagar
                     </Chakra.Button>
                   ) : (
@@ -154,7 +121,6 @@ function Cart({ success }) {
       ) : (
         <Components.CartEmpty />
       )}
-   
     </>
   );
 }

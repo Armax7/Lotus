@@ -51,7 +51,7 @@ function Register() {
             color="white"
             onClick={SignIn.onOpen}
           >
-            iniciar sesion
+            Iniciar sesión
           </Chakra.Button>
           <Chakra.Drawer
             isOpen={SignIn.isOpen}
@@ -140,7 +140,7 @@ function Register() {
           </Chakra.Drawer>
           <Chakra.ModalFooter>
             <Chakra.Button colorScheme="red" onClick={onClose}>
-              Close
+              Cerrar
             </Chakra.Button>
           </Chakra.ModalFooter>
         </Chakra.ModalContent>
