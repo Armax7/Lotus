@@ -30,11 +30,41 @@ export async function handlerByName(req, res) {
 }
 
 export async function handleGetByFilter(req, res) {
-  let body = req.query;
+  let query = req.query;
   try {
-    const artworks = await Controllers.getArtworksFilteredByQuery(body);
+    const artworks = await Controllers.getArtworksFilteredByQuery(query);
     return res.status(200).json(artworks);
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+}
+
+export async function handlePost(req, res) {
+  const body = req.body;
+  try {
+    const response = await Controllers.postArtwork(body);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(error.status || 500).json(error);
+  }
+}
+
+export async function handlePut(req, res) {
+  const body = req.body;
+  try {
+    const response = await Controllers.updateArtwork(body);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(error.status || 500).json(error);
+  }
+}
+
+export async function handleDelete(req, res) {
+  const body = req.body;
+  try {
+    const response = await Controllers.deleteArtworkLogically(body);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(error.status || 500).json(error);
   }
 }
