@@ -5,33 +5,11 @@ import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
-function Cart({ success }) {
+function Cart() {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
   const [logged, setLogged] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
-  const [showSignInDrawer, setShowSignInDrawer] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
-  const [showModal, setShowModal] = useState(false);
-
-  const btnRef = React.useRef();
-
-
-  const handleOnSubmit2 = (event) => {
-    event.preventDefault();
-    // Submit logic here
-  };
-
-  const handleAlert2 = () => {
-    setShowRegister(true);
-  };
-
-
-  function handleAlert() {
-    setShowSignInDrawer(true);
-  }
 
   const loguearse = async () => {
     let data = await SupaHelpers.loggedStatus();
@@ -45,12 +23,9 @@ function Cart({ success }) {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-    const stripeItemsHolder = cartItems.map(
-      (item) => {
-        return { price: item.price_id, quantity: item.quantity };
-      },
-      [cartItems]
-    );
+    const stripeItemsHolder = cartItems.map((item) => {
+      return { price: item.price_id, quantity: item.quantity };
+    });
 
     let totalHolder = 0;
     cartItems.forEach((item) => {
@@ -79,41 +54,25 @@ function Cart({ success }) {
     setTotal(totalHolder);
 
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-
-    if (updatedCart.length === 0) {
-      handleCheckout();
-    }
   }
 
-  function handleOnSubmit(event) {
+  async function handleCheckout(event) {
     event.preventDefault();
-    handleCheckout();
-  
-  
-  }
-  
+    // localStorage.removeItem("cartItems");
 
-
-  async function handleCheckout() {
-    localStorage.removeItem("cartItems");
-
-    const stripe = await getStripe();
-
-    if (!logged) {
-      setErrorAlert(true);
-      return;
-    }
+    
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
-
+    
+    const stripe = await getStripe();
     const result = await stripe.redirectToCheckout({ sessionId: id });
-    if (success === "true") {
-      setStripeItems([]);
-      setTotal(0);
+    // if (success === "true") {
+    //   setStripeItems([]);
+    //   setTotal(0);
 
-      localStorage.removeItem("cartItems");
-    }
+    //   localStorage.removeItem("cartItems");
+    // }
   }
 
   return (
@@ -128,19 +87,16 @@ function Cart({ success }) {
             />
           ))}
 
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleCheckout}>
             <Chakra.Flex justify={"flex-end"}>
               <Chakra.Box>
                 <Chakra.FormControl>
                   <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
                     Total: {total}
                   </Chakra.Text>
-                  
+
                   {logged ? (
-                    <Chakra.Button
-                      type="submit"
-                      role="link"
-                    >
+                    <Chakra.Button type="submit" role="link">
                       Ir a pagar
                     </Chakra.Button>
                   ) : (
@@ -154,7 +110,6 @@ function Cart({ success }) {
       ) : (
         <Components.CartEmpty />
       )}
-   
     </>
   );
 }
