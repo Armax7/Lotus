@@ -17,3 +17,5 @@ export { default as CartCard } from "./CartCard/CartCard";
 export { default as AddToCart } from "./AddToCart/AddToCart";
 export { default as AboutUs } from "./AboutUs/AboutUS"
 export { default as Minimap } from "./MiniMap/Minimap"
+export { default as Register } from "./Register/Register";
+
