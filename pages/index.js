@@ -1,35 +1,26 @@
-import axios from "axios";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import * as Components from "../components";
-import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryKeys from "../helpers/page_helpers/Home_helpers/query_keys";
-import * as QueryFn from "../helpers/page_helpers/Home_helpers/query_fn";
+import * as QueryFns from "../helpers/page_helpers/Home_helpers/query_fn";
 import * as Layouts from "../layouts";
 
 export default function Home() {
   const queryClient = ReactQuery.useQueryClient();
 
-  const {
-    isLoading: artwork_isLoading,
-    isError: artwork_isError,
-    data: artworks,
-    error: artwork_error,
-  } = ReactQuery.useQuery({
+  const artworks = ReactQuery.useQuery({
     queryKey: [QueryKeys.QK_ARTWORKS],
-    queryFn: QueryFn.getAllArtworksAxios,
+    queryFn: QueryFns.getAllArtworksAxios,
   });
 
-  if (artwork_isLoading) {
-    return <Components.Loading/>
+  if (artworks.isLoading) {
+    return <Components.Loading />;
   }
 
-  if (artwork_isError) {
-    return <h1>Error: {artwork_error}</h1>;
+  if (artworks.isError) {
+    return <h1>Error: {artworks.error}</h1>;
   }
 
-  return <Components.NavBar artworks={artworks} />;
+  return <Layouts.Home artworks={artworks.data} />;
 }
 
 export async function getServerSideProps() {
@@ -37,7 +28,7 @@ export async function getServerSideProps() {
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.QK_ARTWORKS],
-    queryFn: QueryFn.getAllArtworksAxios,
+    queryFn: QueryFns.getAllArtworksAxios,
   });
 
   return {

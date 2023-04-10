@@ -171,8 +171,8 @@ export async function getUserName() {
       .select()
       .eq("id", uuid);
     if (error) throw error;
-    const { user_name } = data.at(0);
-    return user_name;
+    const { name } = data.at(0);
+    return name;
   } catch (error) {
     console.log(`Unable to retrieve name, there might be no user logged in.`);
     return undefined;
@@ -194,4 +194,15 @@ export async function postUserDetails({
   if (error) throw error;
 
   return data;
+}
+
+export async function getUser() {
+  try {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) throw error;
+    return data.user;
+  } catch (error) {
+    console.log(`Unable to retrieve name, there might be no user logged in.`);
+    return undefined;
+  }
 }

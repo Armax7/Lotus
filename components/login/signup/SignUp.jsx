@@ -6,13 +6,31 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
+import { supabase } from "../../../lib/supabaseClient";
+
 import validate from "./validate";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
 import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
 
-function SignUp({ ...props }) {
+function SignUp({ className = style.HStack, ...props }) {
   const queryClient = ReactQuery.useQueryClient();
+
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+  }
+
+  async function signInWithFacebook() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+    });
+  }
+
+  async function signout() {
+    const { error } = await supabase.auth.signOut();
+  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -95,32 +113,43 @@ function SignUp({ ...props }) {
     }
   }
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
-      <Chakra.HStack className={style.HStack}>
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+      <Chakra.HStack className={className} {...props}>
         <Chakra.Flex
           w="full"
           h="full"
           alignItems="center"
           justifyContent="center"
-          borderRightWidth={1}
           display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
-            <Chakra.Box display="flex" justifyContent="center" alignItems="flex-end">
-            <Chakra.Heading fontSize="2xl">Sign up</Chakra.Heading>
+            <Chakra.Box
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-end"
+            >
+              <Chakra.Heading fontSize="2xl">Crea tu cuenta</Chakra.Heading>
             </Chakra.Box>
             <div className={style.separator}>
               <hr className={style.hr} />
-              <p className={style.separator_text}>With</p>
+              <p className={style.separator_text}>Con</p>
               <hr className={style.hr} />
             </div>
 
             <Chakra.Stack>
               <div className={style.auth}>
-                <Chakra.Button colorScheme="gray" leftIcon={<FcGoogle />}>
+                <Chakra.Button
+                  colorScheme="gray"
+                  leftIcon={<FcGoogle />}
+                  onClick={signInWithGoogle}
+                >
                   Google
                 </Chakra.Button>
-                <Chakra.Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                <Chakra.Button
+                  colorScheme="facebook"
+                  leftIcon={<FaFacebook />}
+                  onClick={signInWithFacebook}
+                >
                   Facebook
                 </Chakra.Button>
               </div>
@@ -128,7 +157,7 @@ function SignUp({ ...props }) {
 
             <div className={style.separator}>
               <hr className={style.hr} />
-              <p className={style.separator_text}>Or</p>
+              <p className={style.separator_text}>O</p>
               <hr className={style.hr} />
             </div>
 
@@ -138,19 +167,19 @@ function SignUp({ ...props }) {
                 isInvalid={submitted && !!errors.name}
                 style={{ margin: "2px" }}
               >
-                <Chakra.FormLabel>First Name</Chakra.FormLabel>
+                <Chakra.FormLabel>Nombre</Chakra.FormLabel>
                 <Chakra.Input
                   name="name"
                   value={formData.name}
                   onChange={handleInputOnChange}
                   onClick={handleInputOnClick}
-                  placeholder="First Name"
+                  placeholder="Nombre"
                 />
                 {submitted && !!errors.name ? (
                   <Chakra.FormHelperText>{errors.name}</Chakra.FormHelperText>
                 ) : (
                   <Chakra.FormHelperText>
-                    Enter your name.
+                    Ingresa tu nombre
                   </Chakra.FormHelperText>
                 )}
               </Chakra.FormControl>
@@ -160,13 +189,13 @@ function SignUp({ ...props }) {
                 isInvalid={submitted && !!errors.lastname}
                 style={{ margin: "2px" }}
               >
-                <Chakra.FormLabel>Surname</Chakra.FormLabel>
+                <Chakra.FormLabel>Apellido</Chakra.FormLabel>
                 <Chakra.Input
                   name="lastname"
                   value={formData.lastname}
                   onChange={handleInputOnChange}
                   onClick={handleInputOnClick}
-                  placeholder="Surname"
+                  placeholder="Apellido"
                 />
                 {submitted && !!errors.lastname ? (
                   <Chakra.FormHelperText>
@@ -174,7 +203,7 @@ function SignUp({ ...props }) {
                   </Chakra.FormHelperText>
                 ) : (
                   <Chakra.FormHelperText>
-                    Enter your surname.
+                    Ingresa tu apellido
                   </Chakra.FormHelperText>
                 )}
               </Chakra.FormControl>
@@ -190,12 +219,12 @@ function SignUp({ ...props }) {
                 value={formData.email}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="user@email.com"
+                placeholder="usuario@email.com"
               />
               {submitted && !!errors.email ? (
                 <Chakra.FormHelperText>{errors.email}</Chakra.FormHelperText>
               ) : (
-                <Chakra.FormHelperText>Enter your email.</Chakra.FormHelperText>
+                <Chakra.FormHelperText>Ingresa tu correo</Chakra.FormHelperText>
               )}
             </Chakra.FormControl>
 
@@ -203,14 +232,14 @@ function SignUp({ ...props }) {
               id="passwordSignUp"
               isInvalid={submitted && !!errors.password}
             >
-              <Chakra.FormLabel>Password</Chakra.FormLabel>
+              <Chakra.FormLabel>Contraseña</Chakra.FormLabel>
               <Chakra.Input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="Password"
+                placeholder="Contraseña"
               />
               {submitted && !!errors.password ? (
                 <Chakra.FormHelperText>
@@ -218,7 +247,7 @@ function SignUp({ ...props }) {
                 </Chakra.FormHelperText>
               ) : (
                 <Chakra.FormHelperText>
-                  Enter your password.
+                  Ingresa tu contraseña.
                 </Chakra.FormHelperText>
               )}
             </Chakra.FormControl>
@@ -227,14 +256,14 @@ function SignUp({ ...props }) {
               id="passwordConfirm"
               isInvalid={submitted && !!errors.confirmPassword}
             >
-              <Chakra.FormLabel>Confirm your Password</Chakra.FormLabel>
+              <Chakra.FormLabel>Confirma tu contraseña</Chakra.FormLabel>
               <Chakra.Input
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputOnChange}
                 onClick={handleInputOnClick}
-                placeholder="Confirm password"
+                placeholder="Confirma tu contraseña"
               />
               {submitted && !!errors.confirmPassword ? (
                 <Chakra.FormHelperText>
@@ -242,7 +271,7 @@ function SignUp({ ...props }) {
                 </Chakra.FormHelperText>
               ) : (
                 <Chakra.FormHelperText>
-                  Confirm your password.
+                  Confirma tu contraseña
                 </Chakra.FormHelperText>
               )}
             </Chakra.FormControl>
@@ -251,30 +280,30 @@ function SignUp({ ...props }) {
               <Chakra.Box>
                 <Chakra.Alert status="error">
                   <Chakra.AlertIcon />
-                  <Chakra.AlertTitle>Password is invalid.</Chakra.AlertTitle>
+                  <Chakra.AlertTitle>Contraseña invalida</Chakra.AlertTitle>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    It should contain 8-16 characters
+                    Debe contener entre 8 - 16 caracteres
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Must have at least one upper case and one lower case.
+                    Debe contener al menos una letra mayuscula y una minuscula.
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Must have a special character .@$!%*?&
+                    Debe contener al menos un caracter especial .@$!%*?&
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Must not have any whitespaces
+                    No deben haber espacios en blanco
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
               </Chakra.Box>
@@ -282,7 +311,7 @@ function SignUp({ ...props }) {
 
             {signUpMutation.isError ? (
               <Chakra.Alert status="error">
-                <Chakra.AlertIcon/>
+                <Chakra.AlertIcon />
                 <Chakra.Box>
                   <Chakra.AlertTitle>
                     Error {signUpMutation.error.status}{" "}
@@ -297,7 +326,18 @@ function SignUp({ ...props }) {
               </Chakra.Alert>
             ) : null}
 
-            <Chakra.Button type="submit">Create Account</Chakra.Button>
+            <Chakra.Button
+              type="submit"
+              bg="var(--color1)"
+              color="var(--color5)"
+              _hover={{
+                background: "var(--color1-3)",
+                transform: "translateY(-4px)",
+              }}
+              style={{ width: "100%" }}
+            >
+              Crear cuenta
+            </Chakra.Button>
           </Chakra.Stack>
         </Chakra.Flex>
       </Chakra.HStack>

@@ -1,0 +1,16 @@
+.button {
+  border-radius: 1000px;
+  font-family: "Poppins";
+ 
+}
+.navLogo {
+  margin-right: 16px;
+  fill: var(--color1);
+  transition: transform 0.2s;
+  cursor: pointer;
+  
+}
+.navLogo:hover {
+  transform: translateY(-4px);
+  fill: var(--color2);
+}

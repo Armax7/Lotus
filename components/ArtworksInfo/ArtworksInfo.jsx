@@ -1,14 +1,15 @@
 import { Box, Heading, Badge, Text } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
+import AddToCart from "../AddToCart/AddToCart";
 
-const ArtworksInfo = ({ rate, artwork, ...props }) => {
+const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
   return (
     <Box width="70%" flex="1" overflow="hidden" minHeight="200px">
       <Heading as="h1" size="xl" fontWeight="bold" color="#000" fontSize="40px">
         {artwork.name}
       </Heading>
       <Heading as="h3" fontSize="20px" color="gray.500" marginTop="5px">
-        By: {artwork.author}
+        By: {author.name} {author.lastname}
       </Heading>
       <Badge
         colorScheme="green"
@@ -20,7 +21,9 @@ const ArtworksInfo = ({ rate, artwork, ...props }) => {
       </Badge>
 
       <Text fontSize="lg" color="" marginTop="25px">
-        {artwork.description}
+        {artwork.description
+          ? artwork.description
+          : "Esta obra no cuenta con una descripcion"}
       </Text>
 
       {artwork.stock > 1 ? (
@@ -33,7 +36,14 @@ const ArtworksInfo = ({ rate, artwork, ...props }) => {
         </Text>
       )}
 
-      <RatingStars ratingDb={artwork.rating} rate={rate} />
+      <RatingStars ratingDb={artwork.rating} />
+      <AddToCart
+        stock={artwork.stock}
+        name={artwork.name}
+        price={artwork.price}
+        price_id={artwork.stripe_price_id}
+        image={artwork.image}
+      />
     </Box>
   );
 };

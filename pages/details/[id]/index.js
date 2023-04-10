@@ -1,37 +1,69 @@
+import { useRouter } from "next/router";
+import * as Chakra from "@chakra-ui/react";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
+import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
 import * as Components from "../../../components";
 
-function DetailsPage({ artwork, showcase }) {
-  const imageUrl = showcase.map((element) => {
-    return element.image;
+function DetailsPage(context) {
+  const queryClient = ReactQuery.useQueryClient();
+  const router = useRouter();
+  const { id: artworkId } = router.query;
+
+  const showcase = ReactQuery.useQuery([QueryKeys.QK_SHOWCASE], async () => {
+    const showcases = await QueryFns.getShowcaseByIdAxios(artworkId);
+    return showcases;
   });
-  imageUrl.unshift(artwork.image);
+
+  const artwork = ReactQuery.useQuery(
+    [QueryKeys.QK_ARTWORK_BY_ID],
+    async () => {
+      const artworks = await QueryFns.getArtworkByIdAxios(artworkId);
+      const author = await QueryFns.getAuthorByIdAxios(artworks[0].author_id);
+      return { artwork: artworks[0], author: author };
+    }
+  );
+
+  if (artwork.isLoading) {
+    return <Components.Loading />;
+  }
+
+  const imageUrl = showcase.data.map((obj) => obj.image);
+  imageUrl.unshift(artwork.data.artwork.image);
 
   return (
-    <div style={{ display: "flex", margin: "80px 20px" }}>
-      <Components.Carousel images={imageUrl} />
-      <Components.ArtworksInfo artwork={artwork} rate={true} />
-    </div>
+    <Chakra.Box>
+      <Components.BackButton href={"/"} />
+      <div style={{ display: "flex", margin: "80px 20px" }}>
+        <Components.Carousel images={imageUrl} />
+        <Components.ArtworksInfo
+          author={artwork.data.author[0]}
+          artwork={artwork.data.artwork}
+        />
+      </div>
+    </Chakra.Box>
   );
 }
 
 export async function getServerSideProps(context) {
+  const queryClient = new ReactQuery.QueryClient();
   const { id } = context.query;
 
-  const showcase = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/art-showcase/id/${id}`
-  )
-    .then((res) => res.json())
-    .catch((error) => null);
+  await queryClient.prefetchQuery([QueryKeys.QK_SHOWCASE], async () => {
+    const showcases = await QueryFns.getShowcaseByIdAxios(id);
+    return showcases;
+  });
 
-  const artwork = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/artworks/id/${id}`
-  )
-    .then((res) => res.json())
-    .then((artworks) => artworks.at(0))
-    .catch((error) => null);
+  await queryClient.prefetchQuery([QueryKeys.QK_ARTWORK_BY_ID], async () => {
+    const artworks = await QueryFns.getArtworkByIdAxios(id);
+    const author = await QueryFns.getAuthorByIdAxios(artworks[0].author_id);
+    return { artwork: artworks[0], author: author };
+  });
 
   return {
-    props: { artwork, showcase },
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+    },
   };
 }
 
