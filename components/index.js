@@ -15,3 +15,4 @@ export { default as LogOutButton } from "./LogOutButton/LogOutButton";
 export { default as CartEmpty } from "./CartEmpty/CartEmpty";
 export { default as CartCard } from "./CartCard/CartCard";
 export { default as AddToCart } from "./AddToCart/AddToCart";
+export { default as Register } from "./Register/Register";

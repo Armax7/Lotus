@@ -1,13 +1,24 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Chakra from "@chakra-ui/react";
 import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
+import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
 function Cart({ success }) {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
+  const [logged, setLogged] = useState(false);
+
+  const loguearse = async () => {
+    let data = await SupaHelpers.loggedStatus();
+    setLogged(data);
+  };
+
+  useEffect(() => {
+    loguearse();
+  }, []);
 
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -61,6 +72,7 @@ function Cart({ success }) {
     localStorage.removeItem("cartItems");
 
     const stripe = await getStripe();
+
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
@@ -85,6 +97,7 @@ function Cart({ success }) {
               onDelete={() => onDelete(cartItem.name)}
             />
           ))}
+
           <form onSubmit={handleOnSubmit}>
             <Chakra.Flex justify={"flex-end"}>
               <Chakra.Box>
@@ -92,13 +105,14 @@ function Cart({ success }) {
                   <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
                     Total: {total}
                   </Chakra.Text>
-                  <Chakra.Button
-                    onClick={handleCheckout}
-                    type="submit"
-                    role="link"
-                  >
-                    Ir a pagar
-                  </Chakra.Button>
+
+                  {logged ? (
+                    <Chakra.Button type="submit" role="link">
+                      Ir a pagar
+                    </Chakra.Button>
+                  ) : (
+                    <Components.Register />
+                  )}
                 </Chakra.FormControl>
               </Chakra.Box>
             </Chakra.Flex>
