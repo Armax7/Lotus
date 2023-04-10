@@ -5,7 +5,7 @@ import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
-function Cart({ success }) {
+function Cart() {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
@@ -23,12 +23,9 @@ function Cart({ success }) {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-    const stripeItemsHolder = cartItems.map(
-      (item) => {
-        return { price: item.price_id, quantity: item.quantity };
-      },
-      [cartItems]
-    );
+    const stripeItemsHolder = cartItems.map((item) => {
+      return { price: item.price_id, quantity: item.quantity };
+    });
 
     let totalHolder = 0;
     cartItems.forEach((item) => {
@@ -57,18 +54,10 @@ function Cart({ success }) {
     setTotal(totalHolder);
 
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-
-    if (updatedCart.length === 0) {
-      handleCheckout();
-    }
   }
 
-  function handleOnSubmit(event) {
+  async function handleCheckout(event) {
     event.preventDefault();
-    handleCheckout();
-  }
-
-  async function handleCheckout() {
     localStorage.removeItem("cartItems");
 
     const stripe = await getStripe();
@@ -78,12 +67,12 @@ function Cart({ success }) {
     } = await axios.post("/api/checkout", { items: stripeItems });
 
     const result = await stripe.redirectToCheckout({ sessionId: id });
-    if (success === "true") {
-      setStripeItems([]);
-      setTotal(0);
+    // if (success === "true") {
+    //   setStripeItems([]);
+    //   setTotal(0);
 
-      localStorage.removeItem("cartItems");
-    }
+    //   localStorage.removeItem("cartItems");
+    // }
   }
 
   return (
@@ -98,7 +87,7 @@ function Cart({ success }) {
             />
           ))}
 
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleCheckout}>
             <Chakra.Flex justify={"flex-end"}>
               <Chakra.Box>
                 <Chakra.FormControl>
