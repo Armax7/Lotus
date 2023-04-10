@@ -13,7 +13,7 @@ import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
 import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
 
-function SignUp({ ...props }) {
+function SignUp({ className = style.HStack, ...props }) {
   const queryClient = ReactQuery.useQueryClient();
 
   async function signInWithGoogle() {
@@ -113,8 +113,8 @@ function SignUp({ ...props }) {
     }
   }
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form} {...props}>
-      <Chakra.HStack className={style.HStack}>
+    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+      <Chakra.HStack className={className} {...props}>
         <Chakra.Flex
           w="full"
           h="full"
@@ -297,7 +297,7 @@ function SignUp({ ...props }) {
                 <Chakra.Alert status="info">
                   <Chakra.AlertIcon />
                   <Chakra.AlertDescription>
-                    Debe contener  al menos un caracter especial .@$!%*?& 
+                    Debe contener al menos un caracter especial .@$!%*?&
                   </Chakra.AlertDescription>
                 </Chakra.Alert>
                 <Chakra.Alert status="info">
@@ -330,7 +330,10 @@ function SignUp({ ...props }) {
               type="submit"
               bg="var(--color1)"
               color="var(--color5)"
-              _hover={{ background: "var(--color1-3)", transform: "translateY(-4px)" }}
+              _hover={{
+                background: "var(--color1-3)",
+                transform: "translateY(-4px)",
+              }}
               style={{ width: "100%" }}
             >
               Crear cuenta
