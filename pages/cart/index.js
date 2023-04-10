@@ -88,7 +88,7 @@ function Cart() {
               />
             ))}
           </div>
-          <form className={style.form} onSubmit={handleOnSubmit}>
+          <form className={style.form} onSubmit={handleCheckout}>
             <Chakra.Flex>
               <Chakra.Box>
                 <Chakra.FormControl display={"flex"} flexDir={"column"}>
