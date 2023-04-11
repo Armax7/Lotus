@@ -49,17 +49,18 @@ function Artworks({
   async function handleOnFilter(event) {
     filteredArtworks.refetch();
   }
-
+  const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 355px)");
   return (
     <div style={{ background: "var(--color5)", paddingBottom: "38px" }}>
       <Chakra.Box
         maxW={"1200px"}
         m={"auto"}
+        padding={"0 12px"}
         display={"flex"}
         flexDir={"column"}
       >
         <Components.SearchBar
-          m={"auto"}
+          m={"24px auto 0"}
           onChange={handleNameOnChange}
           onEnter={handleOnFilter}
         />
@@ -74,78 +75,176 @@ function Artworks({
           Buscar por nombre: <b>{filters.name}</b>
         </Chakra.Box>
 
-        <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
-          <Chakra.TabList>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Tecnicas <ChevronDownIcon />
-            </Chakra.Tab>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Categorías <ChevronDownIcon />
-            </Chakra.Tab>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Soporte <ChevronDownIcon />
-            </Chakra.Tab>
-          </Chakra.TabList>
+        {isLargerThan355 ? (
+          <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
+            <Chakra.TabList>
+              <Chakra.Tab
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Tecnicas <ChevronDownIcon />
+              </Chakra.Tab>
 
-          <Chakra.TabPanels>
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={techniques}
-                onChange={handleTechniqueOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
+              <Chakra.Tab
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Categorías <ChevronDownIcon />
+              </Chakra.Tab>
 
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={categories}
-                onChange={handleCategoryOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
+              <Chakra.Tab
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Soporte <ChevronDownIcon />
+              </Chakra.Tab>
+            </Chakra.TabList>
 
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={supports}
-                onChange={handleSupportOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
-          </Chakra.TabPanels>
-        </Chakra.Tabs>
+            <Chakra.TabPanels>
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={techniques}
+                  onChange={handleTechniqueOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                />
+              </Chakra.TabPanel>
+
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={categories}
+                  onChange={handleCategoryOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.TabPanel>
+
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={supports}
+                  onChange={handleSupportOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.TabPanel>
+            </Chakra.TabPanels>
+          </Chakra.Tabs>
+        ) : (
+          <Chakra.Accordion allowToggle fontFamily={"Poppins"}>
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                margin={"6px 0"}
+                fontWeight={"600"}
+                bgColor="var(--color1)"
+                borderRadius={"100px"}
+                color={"var(--color5)"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _hover={{
+                  backgroundColor: "var(--color1)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                <p>Tecnicas</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={techniques}
+                  onChange={handleTechniqueOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                margin={"6px 0"}
+                fontWeight={"600"}
+                bgColor="var(--color1)"
+                borderRadius={"100px"}
+                color={"var(--color5)"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _hover={{
+                  backgroundColor: "var(--color1)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                <p>Categorias...</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={categories}
+                  onChange={handleCategoryOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                margin={"6px 0"}
+                fontWeight={"600"}
+                bgColor="var(--color1)"
+                borderRadius={"100px"}
+                color={"var(--color5)"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _hover={{
+                  backgroundColor: "var(--color1)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                <p>Soportes</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={supports}
+                  onChange={handleSupportOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+          </Chakra.Accordion>
+        )}
 
         <Chakra.Button
           alignSelf={"center"}
           width={"20%"}
           maxW={"500px"}
-          minW={"320px"}
+          minW={"280px"}
           margin={"10px auto"}
           borderRadius={"100px"}
           fontSize={"22px"}

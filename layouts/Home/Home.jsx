@@ -57,7 +57,7 @@ function Home({ artworks }) {
         </p>
         <hr style={{ borderColor: "var(--color3)" }} />
         <Chakra.Box
-          margin={"20px 0 0 0"}
+          margin={"20px 0 8px"}
           as="h1"
           textAlign="center"
           fontSize="30px"
