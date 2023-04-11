@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as Chakra from "@chakra-ui/react";
 import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
+import style from "../../styles/Cart.module.css";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
 function Cart() {
@@ -58,45 +59,43 @@ function Cart() {
 
   async function handleCheckout(event) {
     event.preventDefault();
-    // localStorage.removeItem("cartItems");
 
-    
     const {
       data: { id },
     } = await axios.post("/api/checkout", { items: stripeItems });
-    
+
     const stripe = await getStripe();
     const result = await stripe.redirectToCheckout({ sessionId: id });
-    // if (success === "true") {
-    //   setStripeItems([]);
-    //   setTotal(0);
-
-    //   localStorage.removeItem("cartItems");
-    // }
   }
 
   return (
-    <>
+    <div className={style.container}>
       {cart.length ? (
-        <div style={{ margin: "40px 0" }}>
-          {cart.map((cartItem, index) => (
-            <Components.CartCard
-              key={index}
-              product={cartItem}
-              onDelete={() => onDelete(cartItem.name)}
-            />
-          ))}
-
-          <form onSubmit={handleCheckout}>
-            <Chakra.Flex justify={"flex-end"}>
+        <div className={style.wrapper}>
+          <div className={style.cards}>
+            {cart.map((cartItem, index) => (
+              <Components.CartCard
+                key={index}
+                product={cartItem}
+                onDelete={() => onDelete(cartItem.name)}
+              />
+            ))}
+          </div>
+          <form className={style.form} onSubmit={handleCheckout}>
+            <Chakra.Flex>
               <Chakra.Box>
-                <Chakra.FormControl>
-                  <Chakra.Text as={"b"} fontSize={"5xl"} mr={"5rem"}>
-                    Total: {total}
+                <Chakra.FormControl display={"flex"} flexDir={"column"}>
+                  <Chakra.Text as={"b"} fontSize={"5xl"}>
+                    Total: ${total}
                   </Chakra.Text>
 
                   {logged ? (
-                    <Chakra.Button type="submit" role="link">
+                    <Chakra.Button
+                      type="submit"
+                      role="link"
+                      bg={"var(--color1)"}
+                      color={"var(--color5)"}
+                    >
                       Ir a pagar
                     </Chakra.Button>
                   ) : (
@@ -110,7 +109,7 @@ function Cart() {
       ) : (
         <Components.CartEmpty />
       )}
-    </>
+    </div>
   );
 }
 
