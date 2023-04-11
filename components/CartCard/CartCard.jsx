@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Spacer, Image, Text } from "@chakra-ui/react";
-import {DeleteIcon} from "@chakra-ui/icons"
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import style from "./CartCard.module.css";
 function CartItem({ product, onDelete }) {
   return (
@@ -14,11 +14,7 @@ function CartItem({ product, onDelete }) {
       h={"200px"}
       margin="12px auto"
     >
-      <Flex
-        alignItems="center"
-        justifyContent={"space-between"}
-        h={"100%"}
-      >
+      <Flex alignItems="center" justifyContent={"space-between"} h={"100%"}>
         <div className={style.contentContainer}>
           <div className={style.imgWrapper}>
             <Image
@@ -41,7 +37,7 @@ function CartItem({ product, onDelete }) {
             <Text fontSize={{ base: "sm", md: "md" }}>
               Precio: ${product.price}
             </Text>
-            <hr className={style.hr}/>
+            <hr className={style.hr} />
             <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
               Total: ${product.quantity * product.price}
             </Text>
@@ -53,9 +49,9 @@ function CartItem({ product, onDelete }) {
           height={"100%"}
           borderRadius={"0 12px 12px 0"}
           onClick={() => onDelete(product.name)}
-          _hover={{background: "var(--color1)", color: "var(--color5)"}}
+          _hover={{ background: "var(--color1)", color: "var(--color5)" }}
         >
-          <DeleteIcon boxSize={5} color={"var(--color5)"}/>
+          <DeleteIcon boxSize={5} color={"var(--color5)"} />
         </Button>
       </Flex>
     </Box>

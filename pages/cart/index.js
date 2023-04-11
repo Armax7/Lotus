@@ -59,7 +59,6 @@ function Cart() {
 
   async function handleCheckout(event) {
     event.preventDefault();
-    // localStorage.removeItem("cartItems");
 
     const {
       data: { id },
@@ -67,12 +66,6 @@ function Cart() {
 
     const stripe = await getStripe();
     const result = await stripe.redirectToCheckout({ sessionId: id });
-    // if (success === "true") {
-    //   setStripeItems([]);
-    //   setTotal(0);
-
-    //   localStorage.removeItem("cartItems");
-    // }
   }
 
   return (
