@@ -20,3 +20,15 @@ export async function retrieveCheckoutSessionById(id) {
 
   return checkout_session;
 }
+
+export async function retrieveCheckoutSessionLineItems(session_id) {
+  console.log(session_id);
+  if (!session_id.startsWith("cs_"))
+    throw Error("Incorrect CheckoutSession ID.");
+
+  const lineItemsList = await stripe.checkout.sessions
+    .listLineItems(session_id)
+    .then((res) => res.data);
+
+  return lineItemsList;
+}

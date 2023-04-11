@@ -1,19 +1,69 @@
 import * as Chakra from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect } from "react";
-import useSWR from "swr";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../helpers/page_helpers/CheckoutSession_helpers/query_keys";
+import * as QueryFns from "../../helpers/page_helpers/CheckoutSession_helpers/query_fn";
 
 function Purchase({ success, session_id }) {
-  const { data, error } = useSWR(
-    () => `${process.env.NEXT_PUBLIC_HOST}/api/checkout/${session_id}`,
-    (url) => axios.get(url).then((res) => res.data)
+  const queryClient = ReactQuery.useQueryClient();
+
+  const session = ReactQuery.useQuery(
+    [QueryKeys.QK_CHECKOUT_SESSION_BY_ID, session_id],
+    async () => await QueryFns.getCheckoutSessionByIdAxios(session_id),
+    {
+      onSuccess: (data) => {
+        localStorage.removeItem("cartItems");
+      },
+    }
   );
 
-  useEffect(() => {
-    if (data && success === "true") {
-      localStorage.removeItem("cartItems");
-    }
-  }, [data]);
+  // const stockMutation = ReactQuery.useMutation({
+  //   mutationFn: QueryFns.updateStockOnSuccessfulCheckoutAxios,
+  //   onSettled: (data)=> console.log(data),
+  //   onError: (error) => {
+  //     return (
+  //       <Chakra.Alert
+  //         status="warning"
+  //         display={"flex"}
+  //         flexDir={"column"}
+  //         alignItems={"center"}
+  //         justifyContent={"center"}
+  //         maxW={"400px"}
+  //         w={"100%"}
+  //         minH={"400px"}
+  //         h={"100%"}
+  //         borderRadius={"1000px"}
+  //         m={"auto"}
+  //         color={"var(--black)"}
+  //       >
+  //         <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"} />
+  //         <Chakra.AlertTitle m={"0 auto"} lineHeight={"50px"}>
+  //           Lo sentimos
+  //         </Chakra.AlertTitle>
+  //         <Chakra.AlertDescription textAlign={"center"}>
+  //           No pudimos completar tu compra; error: {error.message}
+  //         </Chakra.AlertDescription>
+  //       </Chakra.Alert>
+  //     );
+  //   },
+  // });
+
+  // const sessionId = session?.data?.id;
+
+  // const lineItemsList = ReactQuery.useQuery(
+  //   [QueryKeys.QK_LINE_ITEMS_BY_CS_ID, sessionId],
+  //   async () => await QueryFns.getCheckoutSessionLineItemsAxios(sessionId),
+  //   {
+  //     enabled: !!sessionId,
+  //     onSuccess: (itemsList) => {
+  //       itemsList.forEach((item) => {
+  //         stockMutation.mutate({
+  //           artworkId: item.price.product,
+  //           boughtQuantity: item.quantity,
+  //         });
+  //       });
+  //     },
+  //   }
+  // );
 
   return (
     <Chakra.Box
@@ -74,9 +124,20 @@ function Purchase({ success, session_id }) {
 }
 
 export async function getServerSideProps(context) {
+  const queryClient = new ReactQuery.QueryClient();
   const { success = false, session_id } = context.query;
 
-  return { props: { success, session_id } };
+  await queryClient.prefetchQuery([QueryKeys.QK_CHECKOUT_SESSION_BY_ID], () =>
+    QueryFns.getCheckoutSessionByIdAxios(session_id)
+  );
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+      success,
+      session_id,
+    },
+  };
 }
 
 export default Purchase;

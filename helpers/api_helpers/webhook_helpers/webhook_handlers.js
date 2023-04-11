@@ -15,6 +15,7 @@ export async function handlePostCheckoutWebhook(req, res) {
 
   if (event.type === "checkout.session.completed") {
     console.log("💸 Payment received");
+    console.log("Event object id: ", event.data.object.id);
     /* AQUI VA LA LOGICA PARA ENVIAR CORREO
      * Aquí se confirma el checkout por lo que el código
      * para enviar un correo de confirmación de compra
