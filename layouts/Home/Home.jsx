@@ -8,7 +8,7 @@ function Home({ artworks }) {
       <main className={styles.main}>
         <svg
           className={styles.svg}
-          style={{ maxWidth: "380px" }}
+          style={{ maxWidth: "340px" }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 304.13 58.64"
         >
@@ -53,9 +53,9 @@ function Home({ artworks }) {
 
         <p className={styles.description}>
           SOMOS LOTUS Te ayudamos a convertir tu casa, departamento, oficina,
-          dormitorio o el lugar que quieras, en tu espacio favorito.
+          dormitorio <br/> o el lugar que quieras, en tu espacio favorito.
         </p>
-        <hr style={{ borderColor: "var(--color2)" }} />
+        <hr style={{ borderColor: "var(--color3)" }} />
         <Chakra.Box
           margin={"20px 0 0 0"}
           as="h1"
