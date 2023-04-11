@@ -8,8 +8,8 @@ import * as Components from "../../components";
 import React, { useEffect, useState } from "react";
 import style from "../../styles/navBar/navBar.module.css";
 
-import { AiFillHome } from "react-icons/Ai";
-import { TbPhotoHeart } from "react-icons/Tb";
+import { AiFillHome } from "react-icons/ai";
+import { TbPhotoHeart } from "react-icons/tb";
 import { IconContext } from "react-icons";
 
 function NavBar({
@@ -332,7 +332,7 @@ function NavBar({
                     </g>
                   </svg>
                 </Link>
-                <HamburgerIcon boxSize={"38px"} color={"var(--color1)"}/>
+                <HamburgerIcon boxSize={"38px"} color={"var(--color1)"} />
               </div>
             )}
 
