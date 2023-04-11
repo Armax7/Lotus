@@ -47,7 +47,21 @@ function Artworks({
   }
 
   async function handleOnFilter(event) {
-    filteredArtworks.refetch();
+    await filteredArtworks.refetch();
+  }
+
+  async function handleOnClickResetFilters(event) {
+    const clearedValues = {
+      name: "",
+      techniques: [],
+      categories: [],
+      supports: [],
+    };
+    setFilters(clearedValues);
+    await queryClient.fetchQuery({
+      queryKey: [QueryKeys.QK_ARTWORKS_BY_QUERY],
+      queryFn: () => QueryFns.getAllArtworksByQueryAxios(clearedValues),
+    });
   }
   const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 355px)");
   return (
@@ -61,6 +75,7 @@ function Artworks({
       >
         <Components.SearchBar
           m={"24px auto 0"}
+          value={filters.name}
           onChange={handleNameOnChange}
           onEnter={handleOnFilter}
         />
@@ -116,16 +131,19 @@ function Artworks({
               <Chakra.TabPanel>
                 <Components.CheckboxGroup
                   options={techniques}
+                  value={filters.techniques}
                   onChange={handleTechniqueOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
                   borderRadius={"1rem"}
+                  p={"1rem"}
                 />
               </Chakra.TabPanel>
 
               <Chakra.TabPanel>
                 <Components.CheckboxGroup
                   options={categories}
+                  value={filters.categories}
                   onChange={handleCategoryOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
@@ -137,6 +155,7 @@ function Artworks({
               <Chakra.TabPanel>
                 <Components.CheckboxGroup
                   options={supports}
+                  value={filters.supports}
                   onChange={handleSupportOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
@@ -169,6 +188,7 @@ function Artworks({
               <Chakra.AccordionPanel>
                 <Components.CheckboxGroup
                   options={techniques}
+                  value={filters.techniques}
                   onChange={handleTechniqueOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
@@ -199,6 +219,7 @@ function Artworks({
               <Chakra.AccordionPanel>
                 <Components.CheckboxGroup
                   options={categories}
+                  value={filters.categories}
                   onChange={handleCategoryOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
@@ -229,6 +250,7 @@ function Artworks({
               <Chakra.AccordionPanel>
                 <Components.CheckboxGroup
                   options={supports}
+                  value={filters.supports}
                   onChange={handleSupportOnChange}
                   colorScheme={"lotus"}
                   bgColor={"var(--color5)"}
@@ -239,25 +261,43 @@ function Artworks({
             </Chakra.AccordionItem>
           </Chakra.Accordion>
         )}
-
-        <Chakra.Button
-          alignSelf={"center"}
-          width={"20%"}
-          maxW={"500px"}
-          minW={"280px"}
-          margin={"10px auto"}
-          borderRadius={"100px"}
-          fontSize={"22px"}
-          onClick={handleOnFilter}
-          bgColor="var(--color1)"
-          color={"var(--white)"}
-          _hover={{
-            backgroundColor: "var(--color1-3)",
-            transform: "translateY(-4px)",
-          }}
-        >
-          Filtrar
-        </Chakra.Button>
+        
+        <Chakra.Flex justify={"center"} fontFamily={"Poppins"} margin={"12px 0 24px"}>
+          <Chakra.Button
+            width={"100%"}
+            maxW={"400px"}
+            minW={"280px"}
+            mx={"1em"}
+            borderRadius={"100px"}
+            fontSize={"22px"}
+            onClick={handleOnFilter}
+            bgColor="var(--color1)"
+            color={"var(--white)"}
+            _hover={{
+              backgroundColor: "var(--color1-3)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Filtrar
+          </Chakra.Button>
+          <Chakra.Button
+            width={"100%"}
+            maxW={"400px"}
+            minW={"280px"}
+            mx={"1em"}
+            borderRadius={"100px"}
+            fontSize={"22px"}
+            onClick={handleOnClickResetFilters}
+            bgColor="var(--color1)"
+            color={"var(--white)"}
+            _hover={{
+              backgroundColor: "var(--color1-3)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Reiniciar Filtros
+          </Chakra.Button>
+        </Chakra.Flex>
         <Components.CardContainer cards={filteredArtworks.data} />
       </Chakra.Box>
     </div>

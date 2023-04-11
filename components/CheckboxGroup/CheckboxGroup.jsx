@@ -6,6 +6,7 @@ import style from "./ChackboxGroup.module.css"
 function CheckboxGroup({
   options = ["option 1", "option 2", "option 3"],
   defaultValue: defaultValueProp = [],
+  value: valueProp,
   isDisabled: isDisabledProp = false,
   onChange: onChangeProp = () => {},
   className: classNameProp,
@@ -19,6 +20,7 @@ function CheckboxGroup({
   return (
     <Chakra.CheckboxGroup
       defaultValue={defaultValueProp}
+      value={valueProp}
       isDisabled={isDisabledProp}
       onChange={onChangeProp}
       className={classNameProp}
