@@ -16,37 +16,6 @@ function Purchase({ success, session_id }) {
     }
   );
 
-  // const stockMutation = ReactQuery.useMutation({
-  //   mutationFn: QueryFns.updateStockOnSuccessfulCheckoutAxios,
-  //   onSettled: (data)=> console.log(data),
-  //   onError: (error) => {
-  //     return (
-  //       <Chakra.Alert
-  //         status="warning"
-  //         display={"flex"}
-  //         flexDir={"column"}
-  //         alignItems={"center"}
-  //         justifyContent={"center"}
-  //         maxW={"400px"}
-  //         w={"100%"}
-  //         minH={"400px"}
-  //         h={"100%"}
-  //         borderRadius={"1000px"}
-  //         m={"auto"}
-  //         color={"var(--black)"}
-  //       >
-  //         <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"} />
-  //         <Chakra.AlertTitle m={"0 auto"} lineHeight={"50px"}>
-  //           Lo sentimos
-  //         </Chakra.AlertTitle>
-  //         <Chakra.AlertDescription textAlign={"center"}>
-  //           No pudimos completar tu compra; error: {error.message}
-  //         </Chakra.AlertDescription>
-  //       </Chakra.Alert>
-  //     );
-  //   },
-  // });
-
   // const sessionId = session?.data?.id;
 
   // const lineItemsList = ReactQuery.useQuery(
