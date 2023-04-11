@@ -83,14 +83,14 @@ function NavBar({
       }}
       {...props}
     >
-      <Chakra.Box maxW="1400px" margin="auto">
+      <Chakra.Box maxW="1400px" margin="auto" >
         <Chakra.Tabs
           index={handleTabsIndex()}
           isFitted
           variant="solid-rounded"
           colorScheme="lotus"
         >
-          <Chakra.TabList height="10">
+          <Chakra.TabList height="10" >
             {isLargerThan560 ? (
               <>
                 <Link href={"/"}>
@@ -109,6 +109,7 @@ function NavBar({
                 </Link>
                 <Link href={"/"}>
                   <Chakra.Tab
+                  fontSize={"16px"}
                     maxW={"480px"}
                     id="home"
                     margin={"0 8px"}
@@ -132,6 +133,7 @@ function NavBar({
 
                 <Link href={"/artworks"}>
                   <Chakra.Tab
+                  fontSize={"16px"}
                     id="artworks"
                     maxW={"480px"}
                     margin={"0 8px"}
@@ -154,6 +156,7 @@ function NavBar({
 
                 <Link href={"/cart"}>
                   <Chakra.Tab
+                  fontSize={"16px"}
                     id="cart"
                     maxW={"480px"}
                     margin={"0 8px"}

@@ -63,7 +63,7 @@ function Artworks({
       queryFn: () => QueryFns.getAllArtworksByQueryAxios(clearedValues),
     });
   }
-  const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 355px)");
+  const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 380px)");
   return (
     <div style={{ background: "var(--color5)", paddingBottom: "38px" }}>
       <Chakra.Box
@@ -94,6 +94,9 @@ function Artworks({
           <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
             <Chakra.TabList>
               <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px"}
                 _hover={{
                   background: "var(--color1-3)",
@@ -105,6 +108,9 @@ function Artworks({
               </Chakra.Tab>
 
               <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px"}
                 _hover={{
                   background: "var(--color1-3)",
@@ -116,6 +122,9 @@ function Artworks({
               </Chakra.Tab>
 
               <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px"}
                 _hover={{
                   background: "var(--color1-3)",
@@ -169,16 +178,17 @@ function Artworks({
           <Chakra.Accordion allowToggle fontFamily={"Poppins"}>
             <Chakra.AccordionItem>
               <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px 0"}
-                fontWeight={"600"}
-                bgColor="var(--color1)"
+                bgColor="var(--color3)"
+                color={"var(--black)"}
                 borderRadius={"100px"}
-                color={"var(--color5)"}
                 display={"flex"}
                 justifyContent={"space-between"}
-                _hover={{
+                _focus={{
                   backgroundColor: "var(--color1)",
-                  transform: "translateY(-4px)",
+                  color: "var(--color5)",
                 }}
               >
                 <p>Tecnicas</p>
@@ -200,16 +210,17 @@ function Artworks({
 
             <Chakra.AccordionItem>
               <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px 0"}
-                fontWeight={"600"}
-                bgColor="var(--color1)"
+                bgColor="var(--color3)"
+                color={"var(--black)"}
                 borderRadius={"100px"}
-                color={"var(--color5)"}
                 display={"flex"}
                 justifyContent={"space-between"}
-                _hover={{
+                _focus={{
                   backgroundColor: "var(--color1)",
-                  transform: "translateY(-4px)",
+                  color: "var(--color5)",
                 }}
               >
                 <p>Categorias...</p>
@@ -231,16 +242,17 @@ function Artworks({
 
             <Chakra.AccordionItem>
               <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
                 margin={"6px 0"}
-                fontWeight={"600"}
-                bgColor="var(--color1)"
+                bgColor="var(--color3)"
+                color={"var(--black)"}
                 borderRadius={"100px"}
-                color={"var(--color5)"}
                 display={"flex"}
                 justifyContent={"space-between"}
-                _hover={{
+                _focus={{
                   backgroundColor: "var(--color1)",
-                  transform: "translateY(-4px)",
+                  color: "var(--color5)",
                 }}
               >
                 <p>Soportes</p>
@@ -261,15 +273,19 @@ function Artworks({
             </Chakra.AccordionItem>
           </Chakra.Accordion>
         )}
-        
-        <Chakra.Flex justify={"center"} fontFamily={"Poppins"} margin={"12px 0 24px"}>
+
+        <Chakra.Flex
+          justify={"center"}
+          flexWrap={"wrap"}
+          fontFamily={"Poppins"}
+          margin={"12px 0"}
+        >
           <Chakra.Button
             width={"100%"}
-            maxW={"400px"}
-            minW={"280px"}
-            mx={"1em"}
+            maxW={"220px"}
+            m={"6px"}
             borderRadius={"100px"}
-            fontSize={"22px"}
+            fontSize={"16px"}
             onClick={handleOnFilter}
             bgColor="var(--color1)"
             color={"var(--white)"}
@@ -282,11 +298,10 @@ function Artworks({
           </Chakra.Button>
           <Chakra.Button
             width={"100%"}
-            maxW={"400px"}
-            minW={"280px"}
-            mx={"1em"}
+            maxW={"220px"}
+            m={"6px"}
             borderRadius={"100px"}
-            fontSize={"22px"}
+            fontSize={"16px"}
             onClick={handleOnClickResetFilters}
             bgColor="var(--color1)"
             color={"var(--white)"}
