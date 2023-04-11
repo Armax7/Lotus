@@ -21,11 +21,13 @@ export async function handlePostCheckoutWebhook(req, res) {
     try {
       const sessionId = await QueryFns.getCheckoutSessionByIdAxios(
         event.data.object.id
-      ).then((session) => session.data.id);
+      ).then((session) => session.id);
+      console.log("\nSession ID: ", sessionId, "\n");
 
       const lineItemsList = await QueryFns.getCheckoutSessionLineItemsAxios(
         sessionId
       );
+      console.log("\nLineItems: ", lineItemsList, "\n");
 
       const updatePromises = lineItemsList.map((item) => {
         return QueryFns.updateStockOnSuccessfulCheckoutAxios({
@@ -34,7 +36,8 @@ export async function handlePostCheckoutWebhook(req, res) {
         });
       });
 
-      await Promise.all(updatePromises);
+      const promiseStatus = await Promise.all(updatePromises);
+      console.log("\nPromise All: ", promiseStatus, "\n");
     } catch (error) {
       return res.status(400).json({ error: `Webhook error: ${error.message}` });
     }
