@@ -16,24 +16,6 @@ function Purchase({ success, session_id }) {
     }
   );
 
-  // const sessionId = session?.data?.id;
-
-  // const lineItemsList = ReactQuery.useQuery(
-  //   [QueryKeys.QK_LINE_ITEMS_BY_CS_ID, sessionId],
-  //   async () => await QueryFns.getCheckoutSessionLineItemsAxios(sessionId),
-  //   {
-  //     enabled: !!sessionId,
-  //     onSuccess: (itemsList) => {
-  //       itemsList.forEach((item) => {
-  //         stockMutation.mutate({
-  //           artworkId: item.price.product,
-  //           boughtQuantity: item.quantity,
-  //         });
-  //       });
-  //     },
-  //   }
-  // );
-
   return (
     <Chakra.Box
       bg={"var(--color5)"}
