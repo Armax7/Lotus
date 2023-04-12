@@ -13,7 +13,6 @@ const ContactForm = () => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Message:", message);
-    onClose();
     setIsMessageSent(true);
   };
 
