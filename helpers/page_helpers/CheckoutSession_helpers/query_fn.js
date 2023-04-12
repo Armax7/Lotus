@@ -41,9 +41,6 @@ export async function updateStockOnSuccessfulCheckoutAxios({
     .then((data) => data.stock);
 
   const newStock = Number(prevStock) - Number(boughtQuantity);
-  console.log("Prev: ", prevStock);
-  console.log("Bought: ", boughtQuantity);
-  console.log("new: ", newStock);
 
   if (newStock < 0)
     throw {
