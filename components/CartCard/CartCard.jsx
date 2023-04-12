@@ -44,7 +44,7 @@ function CartItem({ product, onDelete }) {
           </Box>
         </div>
         <Button
-          bg={"#ae6b79"}
+          bg={"var(--color2)"}
           color={"var(--black)"}
           height={"100%"}
           borderRadius={"0 12px 12px 0"}
