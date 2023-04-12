@@ -12,7 +12,9 @@ function CartEmpty({ empty, ...props }) {
       status="warning"
       justifyContent="center"
       flexDirection="column"
-      height="calc(100vh - 327px)"
+      h={"100vh"}
+      minH={"400px"}
+      maxH="calc(100vh - 235px)"
       fontFamily={"Poppins"}
     >
       <AlertIcon boxSize={"60px"} mr={0} />

@@ -95,6 +95,7 @@ function Cart() {
                       role="link"
                       bg={"var(--color1)"}
                       color={"var(--color5)"}
+                      _hover={{background:"var(--color1-3)", transform:"translateY(-4px)"}}
                     >
                       Ir a pagar
                     </Chakra.Button>
