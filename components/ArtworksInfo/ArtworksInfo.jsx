@@ -2,7 +2,9 @@ import { Box, Heading, Badge, Text } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
 import AddToCart from "../AddToCart/AddToCart";
 
+
 const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
+  //const [isAvailable, setIsAvailable] = useState(true);
   return (
     <Box width="70%" flex="1" overflow="hidden" minHeight="200px">
       <Heading as="h1" size="xl" fontWeight="bold" color="#000" fontSize="40px">
