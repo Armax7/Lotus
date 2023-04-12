@@ -1,5 +1,4 @@
 import * as Chakra from "@chakra-ui/react";
-import { useRef } from "react";
 const SearchBar = ({
   value: valueProp,
   onChange = () => {},
@@ -30,6 +29,8 @@ const SearchBar = ({
         alignItems="center"
         position={"relative"}
         width="max-content"
+        transition={"transform .2s"}
+        _hover={{transform:"translateY(-4px)"}}
         {...props}
       >
         <Chakra.Input
