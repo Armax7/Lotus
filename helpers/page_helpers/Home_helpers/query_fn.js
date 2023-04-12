@@ -108,8 +108,38 @@ export async function postUserDetailsAxios(data) {
         throw error.toJSON();
       }
     });
+    return userDetails
+}
 
-  return userDetails;
+    export async function updateCart(user_id, items) {
+      const result = await axios
+        .put(`${process.env.NEXT_PUBLIC_HOST}/api/cart`, {user_id, items})
+        .then((res) => res.data)
+        .catch((error) => {
+          if (error.response) {
+            throw error.response;
+          } else {
+            throw error.toJSON();
+          }
+        });
+    
+
+  return result;
+}
+
+export async function getCartById(id) {
+  const res = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/cart?user_id=${id}`)
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
 }
 
 export async function getSupportsAxios() {

@@ -1,5 +1,8 @@
 import * as Chakra from "@chakra-ui/react";
 import { useState } from "react";
+import { updateCart } from "../../helpers/page_helpers/Home_helpers/query_fn"
+import { getUserId } from "../../helpers/supabase_helpers/user_management";
+
 
 function AddToCart({ stock, name, price, image, price_id, ...props }) {
   const [value, setValue] = useState(1);
@@ -22,12 +25,14 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
     }
   };
 
-  function handleAddToCart() {
+   async function handleAddToCart () {
+    const userId = await getUserId();
     const CartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
     const index = CartItems.findIndex((item) => item.name === name);
 
     const newCartItem = {
+      userId: userId,
       name,
       image,
       quantity: value,
@@ -44,6 +49,9 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
       } else {
         existingCartItem.quantity += value;
         localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+        if(userId){  
+        updateCart(userId, updatedCartItems) 
+      }
         setIsMaxQuantity(false);
         setIsAddedToCart(true); 
         setTimeout(() => setIsAddedToCart(false), 2000); 
@@ -51,6 +59,9 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
     } else {
       const newCartsItems = [...CartItems, newCartItem];
       localStorage.setItem("cartItems", JSON.stringify(newCartsItems));
+      if(userId){ 
+        updateCart(userId, newCartsItems) 
+      }
       setIsMaxQuantity(false);
       setIsAddedToCart(true); 
       setTimeout(() => setIsAddedToCart(false), 2000); 
