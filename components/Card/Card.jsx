@@ -31,12 +31,13 @@ function Card({
     >
       <Link href={`/details/${id}`}>
         <Chakra.WrapItem>
-          <Chakra.Stack mt="6" spacing="3">
+          <Chakra.Stack spacing="3">
             <Chakra.Card
               bgColor={"var(--colo5)"}
               boxShadow={"none"}
-              maxW="300px"
-              minH={"400px"}
+              maxW="280px"
+              minW="280px"
+              // minH={"max-content"}
             >
               <Chakra.CardBody className={style.card}>
                 <img src={image} alt={name} className={style.img} />
