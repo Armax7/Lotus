@@ -2,7 +2,6 @@ import { Box, Heading, Badge, Text } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
 import AddToCart from "../AddToCart/AddToCart";
 
-
 const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
   //const [isAvailable, setIsAvailable] = useState(true);
   return (
@@ -32,9 +31,13 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         <Text fontSize="lg" color="gray.700" marginTop="25px">
           Todavia quedan <b>{artwork.stock}</b> unidades
         </Text>
-      ) : (
+      ) : artwork.stock > 0 ? (
         <Text fontSize="lg" color="gray.700" marginTop="25px">
           Todavia queda <b>{artwork.stock}</b> unidad
+        </Text>
+      ) : (
+        <Text fontSize="lg" color="gray.700" marginTop="25px">
+          Ya no quedan unidades de esta obra...
         </Text>
       )}
 
