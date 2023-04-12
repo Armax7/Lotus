@@ -123,6 +123,10 @@ const ContactForm = () => {
               <Chakra.Button mt={4} colorScheme="blue" type="submit">
                 Enviar
               </Chakra.Button>
+              <br></br>
+              <Chakra.Button mt={4} mb={4} colorScheme="blue" type="submit">
+                Subir Obras
+              </Chakra.Button>
             </form>
           </Chakra.ModalBody>
 
