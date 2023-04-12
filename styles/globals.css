@@ -22,7 +22,10 @@ body {
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+*:focus{
+  border: none;
+  box-shadow: none;
+}
 a {
   color: inherit;
   text-decoration: none;

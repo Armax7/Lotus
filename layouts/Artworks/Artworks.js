@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
@@ -64,6 +64,11 @@ function Artworks({
     });
   }
   const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 380px)");
+
+  const formRef = useRef();
+  const formFocusClick = () => {
+    formRef.current.focus();
+  };
   return (
     <div style={{ background: "var(--color5)", paddingBottom: "38px" }}>
       <Chakra.Box
@@ -74,6 +79,7 @@ function Artworks({
         flexDir={"column"}
       >
         <Components.SearchBar
+          referencia={formRef}
           m={"24px auto 0"}
           value={filters.name}
           onChange={handleNameOnChange}
@@ -86,6 +92,8 @@ function Artworks({
           padding={"12px"}
           color={"var(--white)"}
           fontFamily={"Poppins"}
+          onClick={formFocusClick}
+          cursor={"pointer"}
         >
           Buscar por nombre: <b>{filters.name}</b>
         </Chakra.Box>
