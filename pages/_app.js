@@ -33,9 +33,12 @@ function MyApp({ Component, pageProps }) {
           const userId = await UserAuth.getUserId();
           const hasDetails = await UserAuth.hasUserDetails(userId);
           if (!hasDetails) {
+            const userName = await UserAuth.getUserData().then(
+              (user) => user.user_metadata?.name
+            );
             const newUserDetails = await UserAuth.postUserDetails({
               id: userId,
-              name: "OAuth provided",
+              name: userName || "OAuth provided",
             });
             console.log("New User Created ");
           }
