@@ -113,9 +113,9 @@ function NavBar({
                 borderRadius={"100px"}
                 w={"100%"}
                 fontSize={"16px"}
-                maxW={"330px"}
+                maxW={"300px"}
                 id="home"
-                margin={"0 4px"}
+                margin={"0 8px"}
                 background="var(--color3)"
                 color="var(--black)"
                 _hover={{
@@ -141,9 +141,9 @@ function NavBar({
                 borderRadius={"100px"}
                 w={"100%"}
                 fontSize={"16px"}
-                maxW={"330px"}
+                maxW={"300px"}
                 id="home"
-                margin={"0 4px"}
+                margin={"0 8px"}
                 background="var(--color3)"
                 color="var(--black)"
                 _hover={{
@@ -169,9 +169,9 @@ function NavBar({
                 borderRadius={"100px"}
                 w={"100%"}
                 fontSize={"16px"}
-                maxW={"330px"}
+                maxW={"300px"}
                 id="home"
-                margin={"0 4px"}
+                margin={"0 8px"}
                 background="var(--color3)"
                 color="var(--black)"
                 _hover={{
@@ -258,7 +258,6 @@ function NavBar({
               </div>
             ) : (
               <Chakra.Box
-                width={"100%"}
                 display={"flex"}
                 justifyContent={"space-between"}
                 ml={"8px"}
