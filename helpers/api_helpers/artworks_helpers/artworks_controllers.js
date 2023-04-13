@@ -64,6 +64,11 @@ export async function getArtworksFilteredByQuery({
   return artworks;
 }
 
+export async function getArtworkStripeProductById(artworkId){
+  const product = await stripe.products.retrieve(artworkId);
+  return product;
+}
+
 export async function postArtwork({
   name,
   description,
