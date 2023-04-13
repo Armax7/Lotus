@@ -179,6 +179,21 @@ export async function getUserName() {
   }
 }
 
+/**
+ * Checks if a user is currently logged in
+ *
+ * @param {string} userId String UUID of current user.
+ * @returns {boolean} True if there are user_details related to current user.
+ */
+export async function hasUserDetails(userId) {
+  const { data: user_details, error } = await supabase
+    .from("user_details")
+    .select()
+    .eq("id", userId);
+
+  return !!user_details.at(0);
+}
+
 export async function postUserDetails({
   id,
   name,
