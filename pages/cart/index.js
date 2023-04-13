@@ -26,21 +26,26 @@ function Cart() {
   const [logged, setLogged] = useState(false);
   const [cartSource, setCartSource] = useState(null);
 
-  const loguearse = async () => {
+  async function loguearse() {
     let data = await SupaHelpers.loggedStatus();
+   
     setLogged(data);
+    return data;
   };
 
   async function getCart() {
+    const result = await loguearse()
+    if(!result){
+
     const localStorageCart = getLocalStorageCart();
-    let cart = localStorageCart; // por defecto, utiliza la información del carrito del almacenamiento local
-    let source = localStorageCart.source;
-  
-    if (logged) {
+    var cart = localStorageCart; // por defecto, utiliza la información del carrito del almacenamiento local
+    var source = localStorageCart.source;
+  }
+    if (result) {
       // si el usuario está logueado, obtiene el carrito desde la API
       const databaseCart = await getDatabaseCart();
-      cart = databaseCart;
-      source = databaseCart.source;
+      var cart = databaseCart;
+      var source = databaseCart.source;
     }
   
     setCartSource(source);
@@ -60,10 +65,12 @@ function Cart() {
     setTotal(total);
   }
 
-  useEffect(() => {
-    loguearse();
-    getCart();
-  }, []);
+ useEffect(() => {
+  async function fetchData() {
+    await getCart();
+  }
+  fetchData();
+}, []);
   
   async function updateCart(updatedCart) {
     if (logged) {

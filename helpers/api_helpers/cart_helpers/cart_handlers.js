@@ -10,18 +10,6 @@ export async function handleGet(req, res) {
     return res.status(400).json({ error: error.message });
   }
 }
-
-// export async function handlePost(req, res) {
-//     const body = req.body;
-//     const userId = req.body.user_id
-//     try {
-//       const response = await Controllers.postCart(body);
-//       return res.status(response.status).json(response.data);
-//     } catch (response) {
-//       return res.status(response.status).json({ error: response.error.message });
-//     }
-//   }
-
   export async function handlePut(req, res) {
     const newItem = req.body.items
     const userId = req.body.user_id
