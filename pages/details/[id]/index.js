@@ -4,6 +4,7 @@ import * as ReactQuery from "@tanstack/react-query";
 import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../../../helpers/page_helpers/Home_helpers/query_fn";
 import * as Components from "../../../components";
+import style from "../../../styles/Details.module.css";
 
 function DetailsPage(context) {
   const queryClient = ReactQuery.useQueryClient();
@@ -32,9 +33,11 @@ function DetailsPage(context) {
   imageUrl.unshift(artwork.data.artwork.image);
 
   return (
-    <Chakra.Box>
-      <Components.BackButton href={"/"} />
-      <div style={{ display: "flex", margin: "80px 20px" }}>
+    <Chakra.Box className={style.container}>
+      <div className={style.contentWrapper}>
+        <div className={style.backButton}>
+          <Components.BackButton/>
+        </div>
         <Components.Carousel images={imageUrl} />
         <Components.ArtworksInfo
           author={artwork.data.author[0]}

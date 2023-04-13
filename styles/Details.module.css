@@ -1,0 +1,30 @@
+.container {
+  background: var(--color5);
+  padding: 40px 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentWrapper {
+  min-height: calc(100vh - 120px);
+  width: 100%;
+  max-width:1300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+@media (max-width:800px) {
+    .contentWrapper{
+        flex-wrap: wrap;
+    }
+}
+
+.backButton{
+  z-index: 10;
+  position: absolute;
+  top: -30px;
+  left: 0;
+}

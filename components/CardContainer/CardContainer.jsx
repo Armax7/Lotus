@@ -9,6 +9,7 @@ function CardContainer({ cards, columns: columnsProp = 3, ...props }) {
           cards.map((artwork) => (
             <Components.Card key={artwork.id} artwork={artwork} />
           ))}
+          <Components.ToTopButton />
       </div>
   );
 }

@@ -19,4 +19,5 @@ export { default as AboutUs } from "./AboutUs/AboutUs";
 export { default as Minimap } from "./MiniMap/Minimap";
 export { default as Register } from "./Register/Register";
 export { default as ContactForm } from "./ContactForm/ContactForm";
+export { default as ToTopButton } from "./ToTopButton/ToTopButton";
 export { default as FormUserCreate } from "./FormUserCreate/FormUserCreate"
