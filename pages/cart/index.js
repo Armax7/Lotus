@@ -5,6 +5,7 @@ import { getStripe } from "../../lib/stripeLoader";
 import * as Components from "../../components";
 import style from "../../styles/Cart.module.css";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
+import * as ErrorStr from "../../helpers/error_check_strings";
 
 function getLocalStorageCart() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -24,6 +25,7 @@ function Cart() {
   const [total, setTotal] = useState(0);
   const [stripeItems, setStripeItems] = useState([]);
   const [logged, setLogged] = useState(false);
+  const [notAvailable, setNotAvailable] = useState(false);
   const [cartSource, setCartSource] = useState(null);
 
   async function loguearse() {
@@ -107,12 +109,21 @@ function Cart() {
   async function handleCheckout(event) {
     event.preventDefault();
 
-    const {
-      data: { id },
-    } = await axios.post("/api/checkout", { items: stripeItems });
-
-    const stripe = await getStripe();
-    const result = await stripe.redirectToCheckout({ sessionId: id });
+    try {
+      const {
+        data: { id },
+      } = await axios.post("/api/checkout", { items: stripeItems });
+      const stripe = await getStripe();
+      const result = await stripe.redirectToCheckout({ sessionId: id });
+    } catch (error) {
+      console.log(error);
+      console.log(
+        error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
+      );
+      setNotAvailable(
+        error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
+      );
+    }
   }
 
   return (
@@ -142,7 +153,10 @@ function Cart() {
                       role="link"
                       bg={"var(--color1)"}
                       color={"var(--color5)"}
-                      _hover={{background:"var(--color1-3)", transform:"translateY(-4px)"}}
+                      _hover={{
+                        background: "var(--color1-3)",
+                        transform: "translateY(-4px)",
+                      }}
                     >
                       Ir a pagar
                     </Chakra.Button>
@@ -150,6 +164,24 @@ function Cart() {
                     <Components.Register />
                   )}
                 </Chakra.FormControl>
+                {notAvailable && (
+                  <Chakra.Alert
+                    status="error"
+                    margin="50px 0 15px 0"
+                    flexFlow={"column wrap"}
+                    justifyContent={"flex-start"}
+                    maxW={"400px"}
+                    minWidth={"210px"}
+                  >
+                    <Chakra.Flex>
+                      <Chakra.AlertIcon />
+                      <Chakra.AlertTitle>Lo sentimos...</Chakra.AlertTitle>
+                    </Chakra.Flex>
+                    <Chakra.AlertDescription textAlign={"center"}>
+                      Alguna de estas obras ya no está disponible
+                    </Chakra.AlertDescription>
+                  </Chakra.Alert>
+                )}
               </Chakra.Box>
             </Chakra.Flex>
           </form>
