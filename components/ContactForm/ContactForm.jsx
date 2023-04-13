@@ -125,8 +125,8 @@ const ContactForm = () => {
                 Enviar
               </Chakra.Button>
               <br></br>
-              <Chakra.Button  mt={4} mb={4} colorScheme="blue" onClick={onClose}>
-              <Link  href="/formCreate">Subí tu obra</Link> 
+              <Chakra.Button mt={4} mb={4} colorScheme="blue" onClick={onClose}>
+                <Link href="/formCreate">Subí tu obra</Link>
               </Chakra.Button>
             </form>
           </Chakra.ModalBody>
