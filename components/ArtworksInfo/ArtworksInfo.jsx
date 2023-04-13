@@ -65,6 +65,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
 
       <RatingStars ratingDb={artwork.rating} />
       <AddToCart
+        id={artwork.id}
         stock={artwork.stock}
         name={artwork.name}
         price={artwork.price}

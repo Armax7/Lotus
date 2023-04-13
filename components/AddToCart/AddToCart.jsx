@@ -1,7 +1,7 @@
 import * as Chakra from "@chakra-ui/react";
 import { useState } from "react";
 
-function AddToCart({ stock, name, price, image, price_id, ...props }) {
+function AddToCart({ id, stock, name, price, image, price_id, ...props }) {
   const [value, setValue] = useState(1);
   const [isMaxQuantity, setIsMaxQuantity] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -28,12 +28,13 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
     const index = CartItems.findIndex((item) => item.name === name);
 
     const newCartItem = {
+      id,
       name,
       image,
       quantity: value,
       price,
       price_id,
-      limit: stock,
+      stock,
     };
 
     if (index !== -1) {
