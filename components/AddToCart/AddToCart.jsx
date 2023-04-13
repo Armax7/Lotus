@@ -59,74 +59,96 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
 
   return (
     <>
-      <Chakra.Flex
-        mb={"18px"}
-        w={"100%"}
-        minW={"296px"}
-        justifyContent={"space-between"}
-      >
-        <Chakra.Flex alignItems={"center"}>
-          <Chakra.Button
-            // size="sm"
-            onClick={handleDecrement}
-            disabled={value <= 1}
-            bg={"var(--black)"}
-            color={"var(--color5)"}
-            _hover={{
-              background: "var(--color1)",
-              transform: "translateY(-4px)",
-            }}
-            borderRadius={"12px"}
-          >
-            -
-          </Chakra.Button>
-          <Chakra.Text mx={3} fontSize="26px" color={"var(--color1)"}>
-            {value}
-          </Chakra.Text>
-          <Chakra.Button
-            // size="sm"
-            onClick={handleIncrement}
-            disabled={value >= stock}
-            bg={"var(--black)"}
-            color={"var(--color5)"}
-            _hover={{
-              background: "var(--color1)",
-              transform: "translateY(-4px)",
-            }}
-            borderRadius={"12px"}
-          >
-            +
-          </Chakra.Button>
-        </Chakra.Flex>
-
-        <Chakra.Button
-          backgroundColor="var(--black)"
-          color="var(--color5)"
-          _hover={{
-            background: "var(--color1)",
-            transform: "translateY(-4px)",
-          }}
-          borderRadius={"12px"}
-          onClick={handleAddToCart}
-          disabled={isMaxQuantity}
+      {stock <= 0 ? (
+        <Chakra.Alert
+          status="warning"
+          margin="50px 0 15px 0"
+          flexFlow={"column wrap"}
+          justifyContent={"flex-start"}
+          w={"30%"}
+          minWidth={"210px"}
         >
-          Agregar al carrito
-        </Chakra.Button>
-      </Chakra.Flex>
-      {isMaxQuantity && (
-        <Chakra.Alert borderRadius={"12px"} status="error">
-          <Chakra.AlertIcon />
-          <Chakra.AlertDescription fontSize={"16px"}>
-            Cantidad máxima alcanzada
+          <Chakra.Flex>
+            <Chakra.AlertIcon />
+            <Chakra.AlertTitle>Lo sentimos...</Chakra.AlertTitle>
+          </Chakra.Flex>
+          <Chakra.AlertDescription textAlign={"center"}>
+            No quedan más unidades de esta obra.
           </Chakra.AlertDescription>
         </Chakra.Alert>
-      )}
+      ) : (
+        <>
+          <Chakra.Flex
+            mb={"18px"}
+            w={"100%"}
+            minW={"296px"}
+            justifyContent={"space-between"}
+          >
+            <Chakra.Flex alignItems={"center"}>
+              <Chakra.Button
+                // size="sm"
+                onClick={handleDecrement}
+                disabled={value <= 1}
+                bg={"var(--black)"}
+                color={"var(--color5)"}
+                _hover={{
+                  background: "var(--color1)",
+                  transform: "translateY(-4px)",
+                }}
+                borderRadius={"12px"}
+              >
+                -
+              </Chakra.Button>
+              <Chakra.Text mx={3} fontSize="26px" color={"var(--color1)"}>
+                {value}
+              </Chakra.Text>
+              <Chakra.Button
+                // size="sm"
+                onClick={handleIncrement}
+                disabled={value >= stock}
+                bg={"var(--black)"}
+                color={"var(--color5)"}
+                _hover={{
+                  background: "var(--color1)",
+                  transform: "translateY(-4px)",
+                }}
+                borderRadius={"12px"}
+              >
+                +
+              </Chakra.Button>
+            </Chakra.Flex>
 
-      {isAddedToCart && (
-        <Chakra.Alert status="success" borderRadius={"12px"}>
-          <Chakra.AlertIcon />
-          <Chakra.AlertDescription fontSize={"16px"}>Agregado al carrito</Chakra.AlertDescription>
-        </Chakra.Alert>
+            <Chakra.Button
+              backgroundColor="var(--black)"
+              color="var(--color5)"
+              _hover={{
+                background: "var(--color1)",
+                transform: "translateY(-4px)",
+              }}
+              borderRadius={"12px"}
+              onClick={handleAddToCart}
+              disabled={isMaxQuantity}
+            >
+              Agregar al carrito
+            </Chakra.Button>
+          </Chakra.Flex>
+          {isMaxQuantity && (
+            <Chakra.Alert borderRadius={"12px"} status="error">
+              <Chakra.AlertIcon />
+              <Chakra.AlertDescription fontSize={"16px"}>
+                Cantidad máxima alcanzada
+              </Chakra.AlertDescription>
+            </Chakra.Alert>
+          )}
+          {isAddedToCart && (
+            <Chakra.Alert status="success" borderRadius={"12px"}>
+              <Chakra.AlertIcon />
+              <Chakra.AlertDescription fontSize={"16px"}>
+                Agregado al carrito
+              </Chakra.AlertDescription>
+            </Chakra.Alert>
+          )}
+        </>
       )}
     </>
   );

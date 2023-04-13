@@ -3,13 +3,9 @@ import RatingStars from "../RatingStars/RatingStars";
 import AddToCart from "../AddToCart/AddToCart";
 
 const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
+  //const [isAvailable, setIsAvailable] = useState(true);
   return (
-    <Box
-      fontFamily={"Poppins"}
-      w={"100%"}
-      minW={"296px"}
-      maxW={"520px"}
-    >
+    <Box fontFamily={"Poppins"} w={"100%"} minW={"296px"} maxW={"520px"}>
       <Heading
         fontFamily={"Poppins"}
         as="h1"
@@ -41,7 +37,12 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         $ {artwork.price}
       </Badge>
 
-      <Text fontSize="lg" color="var(--black)" mb={"20px"} textAlign={"justify"}>
+      <Text
+        fontSize="lg"
+        color="var(--black)"
+        mb={"20px"}
+        textAlign={"justify"}
+      >
         {artwork.description
           ? artwork.description
           : "Esta obra no cuenta con una descripcion"}
@@ -52,9 +53,13 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
           Todavia quedan{" "}
           <b style={{ color: "var(--color1)" }}>{artwork.stock}</b> unidades
         </Text>
-      ) : (
+      ) : artwork.stock > 0 ? (
         <Text fontSize="lg" color="var(--black)" mb={"20px"}>
           Todavia queda <b>{artwork.stock}</b> unidad
+        </Text>
+      ) : (
+        <Text fontSize="lg" color="gray.700" marginTop="25px">
+          Ya no quedan unidades de esta obra...
         </Text>
       )}
 
