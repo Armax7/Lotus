@@ -10,17 +10,20 @@ import style from "../../styles/navBar/navBar.module.css";
 
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
-import { IconContext } from "react-icons";
 
 function NavBar({
   classname,
   avatarImage = "https://bit.ly/dan-abramov",
   ...props
 }) {
+  const tabIndex = { home: 0, artworks: 1, cart: 2 };
+
   const router = useRouter();
+
   const SignIn = Chakra.useDisclosure();
   const singUp = Chakra.useDisclosure();
   const btnRef = React.useRef();
+
   const [logged, setLogged] = useState(false);
 
   const loguearse = async () => {
@@ -53,23 +56,18 @@ function NavBar({
     datosUsuario2();
   }, []);
 
-  const tabIndex = { home: 0, artworks: 1, cart: 2 };
-  function handleTabsIndex() {
-    let property = router.pathname.substring(1);
+  // function handleTabsIndex() {
+  //   let property = router.pathname.substring(1);
 
-    if (!property) {
-      return tabIndex["home"];
-    }
+  //   if (!property) {
+  //     return tabIndex["home"];
+  //   }
 
-    return tabIndex[property];
-  }
+  //   return tabIndex[property];
+  // }
 
-  const colorIconCuadros =
-    handleTabsIndex() === 1 ? "var(--color5)" : "var(--color1)";
-  const colorIconHome =
-    handleTabsIndex() === 0 ? "var(--color5)" : "var(--color1)";
-
-  const [isLargerThan560] = Chakra.useMediaQuery("(min-width: 560px)");
+  const [isLargerThan520] = Chakra.useMediaQuery("(min-width: 520px)");
+  const [isLargerThan730] = Chakra.useMediaQuery("(min-width: 730px)");
   return (
     <div
       style={{
@@ -77,19 +75,15 @@ function NavBar({
         backgroundColor: "var(--color4)",
         padding: "16px 12px",
         fontFamily: "Poppins",
+        position:"sticky",
+        top: "0",
+        zIndex:"10"
       }}
       {...props}
     >
-      <Chakra.Box maxW="1400px" margin="auto">
-        <Chakra.Tabs
-          index={handleTabsIndex()}
-          isFitted
-          variant="solid-rounded"
-          colorScheme="lotus"
-        >
-          <Chakra.TabList height="10">
-            {isLargerThan560 ? (
-              <>
+      <Chakra.Box w={"100%"} maxW="1400px" margin="auto">
+            {isLargerThan520 ? (
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                 <Link href={"/"}>
                   <svg
                     className={style.navLogo}
@@ -107,73 +101,83 @@ function NavBar({
 
                 <Link href={"/"}>
                   <Chakra.Button
+                    borderRadius={"100px"}
+                    w={"100%"}
                     fontSize={"16px"}
-                    // w={"100%"}
-                    // id="home"
-                    margin={"0 8px"}
+                    maxW={"330px"}
+                    id="home"
+                    margin={"0 4px"}
+                    background="var(--color3)"
+                    color="var(--black)"
                     _hover={{
-                      background: "var(--color3)",
-                      color: "var(--black)",
+                      background: "var(--color1)",
+                      color: "var(--color5)",
+                      transform: "translateY(-4px)",
+                    }}
+                    _focus={{
+                      background: "var(--color1)",
+                      color: "var(--color5)",
                       transform: "translateY(-4px)",
                     }}
                   >
-                    <IconContext.Provider
-                      tabInder
-                      value={{ color: colorIconHome, size: "22px" }}
-                    >
-                      <div style={{ margin: "0 8px 2px 0" }}>
-                        <AiFillHome />
-                      </div>
-                    </IconContext.Provider>
-                    Home
+                    <div style={{ margin: "0 4px", fontSize:"18px"}}>
+                      <AiFillHome />
+                    </div>
+                    {isLargerThan730 && "Home"}
                   </Chakra.Button>
                 </Link>
 
                 <Link href={"/artworks"}>
                   <Chakra.Button
+                    borderRadius={"100px"}
+                    w={"100%"}
                     fontSize={"16px"}
-                    id="artworks"
-                    maxW={"480px"}
-                    margin={"0 8px"}
+                    maxW={"330px"}
+                    id="home"
+                    margin={"0 4px"}
+                    background="var(--color3)"
+                    color="var(--black)"
                     _hover={{
-                      background: "var(--color3)",
-                      color: "var(--black)",
+                      background: "var(--color1)",
+                      color: "var(--color5)",
+                      transform: "translateY(-4px)",
+                    }}
+                    _focus={{
+                      background: "var(--color1)",
+                      color: "var(--color5)",
                       transform: "translateY(-4px)",
                     }}
                   >
-                    <IconContext.Provider
-                      value={{ color: colorIconCuadros, size: "22px" }}
-                    >
-                      <div style={{ margin: "0 8px 2px 0" }}>
-                        <TbPhotoHeart />
-                      </div>
-                    </IconContext.Provider>
-                    Cuadros
+                    <div style={{ margin: "0 4px", fontSize:"20px" }}>
+                      <TbPhotoHeart />
+                    </div>
+                    {isLargerThan730 && "Cuadros"}
                   </Chakra.Button>
                 </Link>
 
                 <Link href={"/cart"}>
                   <Chakra.Button
+                    borderRadius={"100px"}
+                    w={"100%"}
                     fontSize={"16px"}
-                    id="cart"
-                    maxW={"480px"}
-                    margin={"0 8px"}
+                    maxW={"330px"}
+                    id="home"
+                    margin={"0 4px"}
+                    background="var(--color3)"
+                    color="var(--black)"
                     _hover={{
-                      background: "var(--color3)",
-                      color: "var(--black)",
+                      background: "var(--color1)",
+                      color: "var(--color5)",
+                      transform: "translateY(-4px)",
+                    }}
+                    _focus={{
+                      background: "var(--color1)",
+                      color: "var(--color5)",
                       transform: "translateY(-4px)",
                     }}
                   >
-                    <Chakra.Icon
-                      as={FaShoppingCart}
-                      mr={2}
-                      color={
-                        handleTabsIndex() === 2
-                          ? "var(--color5)"
-                          : "var(--color1)"
-                      }
-                    />
-                    Carrito
+                    <Chakra.Icon as={FaShoppingCart}m={"0 4px"}/>
+                    {isLargerThan730 && `Carrito`}
                   </Chakra.Button>
                 </Link>
 
@@ -244,9 +248,10 @@ function NavBar({
                     </Chakra.ButtonGroup>
                   </div>
                 ) : (
-                  <Chakra.Box>
+                  <Chakra.Box width={"100%"} display={"flex"} justifyContent={"space-between"} ml={"8px"}>
                     <Chakra.Button
                       onClick={singUp.onOpen}
+                      margin={"0 4px"}
                       borderRadius="100px"
                       bgColor="var(--color1)"
                       style={{ color: "var(--white)" }}
@@ -257,10 +262,10 @@ function NavBar({
                       color={router.pathname === "/search" ? "black" : "black"}
                       solid="true"
                       className={style.button}
-                      ml="30px"
-                      mr="30px"
+                      // ml="30px"
+                      // mr="30px"
                     >
-                      Crea tu cuenta
+                      Crear cuenta
                     </Chakra.Button>
                     <Chakra.Drawer
                       isOpen={singUp.isOpen}
@@ -300,6 +305,7 @@ function NavBar({
 
                     <Chakra.Button
                       onClick={SignIn.onOpen}
+                      margin={"0 4px"}
                       borderRadius="100px"
                       bgColor="var(--color1)"
                       style={{ color: "var(--white)" }}
@@ -314,7 +320,6 @@ function NavBar({
                     >
                       Iniciar sesión
                     </Chakra.Button>
-
                     <Chakra.Drawer
                       isOpen={SignIn.isOpen}
                       placement="right"
@@ -352,7 +357,7 @@ function NavBar({
                     </Chakra.Drawer>
                   </Chakra.Box>
                 )}
-              </>
+              </div>
             ) : (
               <div className={style.nav_560}>
                 <Link href={"/"}>
@@ -372,8 +377,6 @@ function NavBar({
                 <HamburgerIcon boxSize={"38px"} color={"var(--color1)"} />
               </div>
             )}
-          </Chakra.TabList>
-        </Chakra.Tabs>
       </Chakra.Box>
     </div>
   );
