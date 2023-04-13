@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as StripeProduct from "../../stripe_helpers/product_management";
 
 export async function getCheckoutSessionByIdAxios(session_id) {
   const data = await axios
@@ -62,5 +63,10 @@ export async function updateStockOnSuccessfulCheckoutAxios({
         throw error.toJSON();
       }
     });
+
+  if (newStock === 0) {
+    StripeProduct.archiveProduct(artworkId);
+  }
+  
   return response;
 }
