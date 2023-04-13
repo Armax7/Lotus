@@ -1,6 +1,4 @@
 import * as Chakra from "@chakra-ui/react";
-import { useState } from "react";
-
 const SearchBar = ({
   value: valueProp,
   onChange = () => {},
@@ -9,7 +7,6 @@ const SearchBar = ({
   className,
   ...props
 }) => {
-
   const handleSearch = async (event) => {
     event.preventDefault();
     onSearch(event);
@@ -25,32 +22,34 @@ const SearchBar = ({
       onEnter();
     }
   };
-
+  
   return (
     <form onSubmit={handleSearch}>
       <Chakra.Flex
         alignItems="center"
         position={"relative"}
         width="max-content"
+        transition={"transform .2s"}
+        _hover={{transform:"translateY(-4px)"}}
         {...props}
       >
         <Chakra.Input
-          placeholder={"Search"}
-          required
-          type="search"
+          ref={props.referencia}
           name="search"
           value={valueProp}
           height="40px"
-          fontSize="15px"
+          fontSize="16px"
           border="none"
-          color="var(--color5)"
           outline="none"
           width="40px"
           transition="width 0.4s ease-in-out"
           _focus={{
             width: "200px",
             cursor: "text",
+            color: "var(--color5)",
           }}
+          fontFamily={"Poppins"}
+          color={"var(--color1)"}
           _placeholder={{ color: "var(--color5)" }}
           backgroundColor="var(--color1)"
           borderRadius="50px"

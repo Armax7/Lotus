@@ -5,7 +5,7 @@
   --color1-1: #8046743d;
   --color1-2: #804674c0;
   --color1-3: #804674ec;
-  --color2: #a7727d;
+  --color2: #ae6b79;
   --color2-1: #e2ced2;
   --color3: #eddbc7;
   --color4: #f8ead8;
@@ -22,7 +22,10 @@ body {
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+*:focus{
+  border: none;
+  box-shadow: none;
+}
 a {
   color: inherit;
   text-decoration: none;

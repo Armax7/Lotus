@@ -1,19 +1,20 @@
 import * as Chakra from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect } from "react";
-import useSWR from "swr";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../helpers/page_helpers/CheckoutSession_helpers/query_keys";
+import * as QueryFns from "../../helpers/page_helpers/CheckoutSession_helpers/query_fn";
 
 function Purchase({ success, session_id }) {
-  const { data, error } = useSWR(
-    () => `${process.env.NEXT_PUBLIC_HOST}/api/checkout/${session_id}`,
-    (url) => axios.get(url).then((res) => res.data)
-  );
+  const queryClient = ReactQuery.useQueryClient();
 
-  useEffect(() => {
-    if (data && success === "true") {
-      localStorage.removeItem("cartItems");
+  const session = ReactQuery.useQuery(
+    [QueryKeys.QK_CHECKOUT_SESSION_BY_ID, session_id],
+    async () => await QueryFns.getCheckoutSessionByIdAxios(session_id),
+    {
+      onSuccess: (data) => {
+        localStorage.removeItem("cartItems");
+      },
     }
-  }, [data]);
+  );
 
   return (
     <Chakra.Box
@@ -74,9 +75,20 @@ function Purchase({ success, session_id }) {
 }
 
 export async function getServerSideProps(context) {
+  const queryClient = new ReactQuery.QueryClient();
   const { success = false, session_id } = context.query;
 
-  return { props: { success, session_id } };
+  await queryClient.prefetchQuery([QueryKeys.QK_CHECKOUT_SESSION_BY_ID], () =>
+    QueryFns.getCheckoutSessionByIdAxios(session_id)
+  );
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+      success,
+      session_id,
+    },
+  };
 }
 
 export default Purchase;

@@ -1,5 +1,6 @@
 import * as Controllers from "./webhook_controllers";
 import { buffer } from "micro";
+import * as QueryFns from "../../page_helpers/CheckoutSession_helpers/query_fn";
 
 export async function handlePostCheckoutWebhook(req, res) {
   let event;
@@ -15,6 +16,31 @@ export async function handlePostCheckoutWebhook(req, res) {
 
   if (event.type === "checkout.session.completed") {
     console.log("💸 Payment received");
+    console.log("Event object id: ", event.data.object.id);
+
+    try {
+      const sessionId = await QueryFns.getCheckoutSessionByIdAxios(
+        event.data.object.id
+      ).then((session) => session.id);
+      console.log("\nSession ID: ", sessionId, "\n");
+
+      const lineItemsList = await QueryFns.getCheckoutSessionLineItemsAxios(
+        sessionId
+      );
+      console.log("\nLineItems: ", lineItemsList, "\n");
+
+      const updatePromises = lineItemsList.map((item) => {
+        return QueryFns.updateStockOnSuccessfulCheckoutAxios({
+          artworkId: item.price.product,
+          boughtQuantity: item.quantity,
+        });
+      });
+
+      const promiseStatus = await Promise.all(updatePromises);
+      console.log("\nPromise All: ", promiseStatus, "\n");
+    } catch (error) {
+      return res.status(400).json({ error: `Webhook error: ${error.message}` });
+    }
     /* AQUI VA LA LOGICA PARA ENVIAR CORREO
      * Aquí se confirma el checkout por lo que el código
      * para enviar un correo de confirmación de compra
