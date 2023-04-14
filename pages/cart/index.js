@@ -44,8 +44,12 @@ function Cart() {
     }
     if (result) {
       // si el usuario está logueado, obtiene el carrito desde la API
+      const localStorageCart = getLocalStorageCart();
       const databaseCart = await getDatabaseCart();
-      var cart = databaseCart;
+      var cart = {
+        ...databaseCart,
+        items: [...databaseCart.items, ...localStorageCart],
+      };
       var source = databaseCart.source;
     }
 
