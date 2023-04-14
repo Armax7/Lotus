@@ -49,6 +49,10 @@ function MyApp({ Component, pageProps }) {
     }
     createUserDetails();
   }, []);
+
+  if (Component.getLayout) {
+    return Component.getLayout(<Component {...pageProps} />);
+  }
   return (
     <ChakraProvider theme={theme}>
       <ReactQuery.QueryClientProvider client={queryClient}>
