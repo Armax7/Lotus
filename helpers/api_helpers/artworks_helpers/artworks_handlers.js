@@ -39,6 +39,16 @@ export async function handleGetByFilter(req, res) {
   }
 }
 
+export async function handleGetStripeProductById(req, res) {
+  let { id: artworkId } = req.query;
+  try {
+    const artwork = await Controllers.getArtworkStripeProductById(artworkId);
+    return res.status(200).json(artwork);
+  } catch (error) {
+    return res.status(error.status || error.statusCode || 500).json(error);
+  }
+}
+
 export async function handlePost(req, res) {
   const body = req.body;
   try {

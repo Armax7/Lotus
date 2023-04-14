@@ -6,7 +6,7 @@ const RatingStars = ({ ratingDb }) => {
   const stars = Array.from({ length: 5 });
 
   return (
-    <Flex marginTop="50px">
+    <Flex mb="20px">
       {stars.map((_, index) => {
         // Calcula la posición de la estrella actual en la calificación
         const position = index + 1;
@@ -15,17 +15,15 @@ const RatingStars = ({ ratingDb }) => {
 
         return (
           <Icon
-            
             key={index}
             fontSize="10px"
             as={StarIcon}
-            color={filled ? "orange" : "gray.300"}
+            color={filled ? "var(--color1)" : "var(--color1-4)"}
             width="30px"
             height="35px"
           />
         );
       })}
-      
     </Flex>
   );
 };

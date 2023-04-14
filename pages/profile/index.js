@@ -152,8 +152,8 @@ console.log("myUuid",myUuid);
               padding="25px"
               borderRadius="15px"
             >
-              <Chakra.Text color="black">▪ Direccion: {allData?.address}</Chakra.Text>
               <Chakra.Text color="black" >▪ Nombre: {allData?.name}</Chakra.Text>
+              <Chakra.Text color="black">▪ Direccion: {allData?.address}</Chakra.Text>
             </Chakra.Flex>
           </Chakra.Flex>
         </Chakra.Flex>
