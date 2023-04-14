@@ -7,14 +7,14 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import * as Components from "../../components";
 import React, { useEffect, useState } from "react";
 import style from "../../styles/navBar/navBar.module.css";
-
+import axios from "axios";
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
 import { IconContext } from "react-icons";
 
 function NavBar({
   classname,
-  avatarImage = "https://bit.ly/dan-abramov",
+  avatarImage = "https://img.freepik.com/iconos-gratis/pintura_318-784046.jpg?w=2000",
   ...props
 }) {
   const tabIndex = { home: 0, artworks: 1, cart: 2 };
@@ -24,7 +24,8 @@ function NavBar({
   const SignIn = Chakra.useDisclosure();
   const singUp = Chakra.useDisclosure();
   const btnRef = React.useRef();
-
+  const [allData, setAllData] = useState({});
+  const [myUuid, setMyUuid] = useState("");
   const [logged, setLogged] = useState(false);
 
   const loguearse = async () => {
@@ -37,18 +38,18 @@ function NavBar({
   }, []);
 
   const [userData, setUserData] = useState("");
-
+  console.log("userData", userData);
   const datosUsuario = async () => {
     let user = await SupaHelpers.getUserName();
     setUserData(user);
   };
   useEffect(() => {
     datosUsuario();
-    console.log("userData", userData);
+    
   }, []);
 
   const [userData2, setUserData2] = useState(null);
-
+  console.log("userData2", userData2);
   const datosUsuario2 = async () => {
     let users = await SupaHelpers.getUser();
     setUserData2(users);
@@ -66,6 +67,7 @@ function NavBar({
 
     return tabIndex[property];
   }
+  
 
   const colorIconCuadros =
     handleTabsIndex() === 1 ? "var(--color5)" : "var(--color1)";
@@ -73,6 +75,25 @@ function NavBar({
     handleTabsIndex() === 0 ? "var(--color5)" : "var(--color1)";
 
   const [isLargerThan560] = Chakra.useMediaQuery("(min-width: 560px)");
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let uuid = await SupaHelpers.getUserId();
+      setMyUuid(uuid);
+  
+      let allUsers = (await axios.get("http://localhost:3000/api/user-details")).data;
+      let userData = allUsers?.find((u) => u.id === uuid);
+      setAllData(userData);
+  
+     
+    };
+  
+    fetchData();
+  }, []);
+
+
   return (
     <div
       style={{
@@ -192,7 +213,11 @@ function NavBar({
                               <Chakra.Avatar
                                 w="40px"
                                 h="40px"
-                                src={avatarImage}
+                                src={
+                                  allData?.image
+                                    ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
+                                    : avatarImage
+                                }
                                 bg="purple"
                                 transition={"transform .2s"}
                                 sx={{
@@ -213,7 +238,11 @@ function NavBar({
                             <Chakra.Center>
                               <Chakra.Avatar
                                 size={"2xl"}
-                                src={avatarImage}
+                                src={
+                                  allData?.image
+                                    ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
+                                    : avatarImage
+                                }
                                 bg="purple"
                               />
                             </Chakra.Center>
@@ -221,7 +250,7 @@ function NavBar({
                             <Chakra.Center>
                               <p>
                                 {
-                                  logged && userData2?.user_metadata?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
+                                  logged && userData2?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
                                     ? userData2.user_metadata.name
                                     : userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
                                 }
