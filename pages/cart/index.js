@@ -30,7 +30,7 @@ function Cart() {
 
   async function loguearse() {
     let data = await SupaHelpers.loggedStatus();
-   
+
     setLogged(data);
     return data;
   };
@@ -39,41 +39,41 @@ function Cart() {
     const result = await loguearse()
     if(!result){
 
-    const localStorageCart = getLocalStorageCart();
-    var cart = localStorageCart; // por defecto, utiliza la información del carrito del almacenamiento local
-    var source = localStorageCart.source;
-  }
+      const localStorageCart = getLocalStorageCart();
+      var cart = localStorageCart; // por defecto, utiliza la información del carrito del almacenamiento local
+      var source = localStorageCart.source;
+    }
     if (result) {
       // si el usuario está logueado, obtiene el carrito desde la API
       const databaseCart = await getDatabaseCart();
       var cart = databaseCart;
       var source = databaseCart.source;
     }
-  
+
     setCartSource(source);
-  
+
     const stripeItems = cart.items.map((item) => ({
       price: item.price_id,
       quantity: item.quantity,
     }));
-  
+
     const total = cart.items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-  
+
     setCart(cart.items);
     setStripeItems(stripeItems);
     setTotal(total);
   }
 
- useEffect(() => {
-  async function fetchData() {
-    await getCart();
-  }
-  fetchData();
-}, []);
-  
+  useEffect(() => {
+    async function fetchData() {
+      await getCart();
+    }
+    fetchData();
+  }, []);
+
   async function updateCart(updatedCart) {
     if (logged) {
       localStorage.setItem("cartItems", JSON.stringify(updatedCart));
@@ -86,23 +86,23 @@ function Cart() {
       localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     }
   }
-  
+
   function onDelete(name) {
     const updatedCart = cart.filter((item) => item.name !== name);
-  
+
     const stripeItemsHolder = updatedCart.map((item) => {
       return { price: item.price_id, quantity: item.quantity };
     });
-  
+
     let totalHolder = 0;
     updatedCart.forEach((item) => {
       totalHolder += item.price * item.quantity;
     });
-  
+
     setCart(updatedCart);
     setStripeItems(stripeItemsHolder);
     setTotal(totalHolder);
-  
+
     updateCart(updatedCart);
   }
 
@@ -130,6 +130,13 @@ function Cart() {
     <div className={style.container}>
       {cart.length ? (
         <div className={style.wrapper}>
+          {!logged ? (
+            <Components.Alert
+              success="info"
+              title="Aviso"
+              description="Inicia sesion para que tu carrito pueda guardarse"
+            />
+          ) : null}
           <div className={style.cards}>
             {cart.map((cartItem, index) => (
               <Components.CartCard
