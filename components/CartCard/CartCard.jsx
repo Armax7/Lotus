@@ -44,7 +44,7 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Chakra.Box width={"100%"}>
+          <Chakra.Box width={"100%"} minW={"150px"}>
             <Chakra.Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
               {product.name}
             </Chakra.Text>

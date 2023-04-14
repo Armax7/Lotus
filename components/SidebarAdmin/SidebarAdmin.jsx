@@ -1,13 +1,26 @@
-import * as Components from "../../components";
-import styles from "../../styles/Home.module.css";
+import { Icon, IconProps } from "@chakra-ui/react";
+import { SettingsIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
+import { Link } from "next/link";
+import {
+  AttachMoneyIcon,
+  BarChartIcon,
+  ChatIcon,
+  ChatOutlineIcon,
+  DynamicFeedIcon,
+  LineIcon,
+  PermIdentityIcon,
+  ReportIcon,
+  StoreIcon,
+  TimelineIcon,
+  TrendingUpIcon,
+} from "@chakra-ui/icons";
 
-function Home({ artworks }) {
+function SidebarAdmin() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
+    <Chakra.Box w="20%" h="100vh" bg="gray.200" p="4">
+      <Chakra.VStack spacing="4" align="stretch">
         <svg
-          className={styles.svg}
           style={{ maxWidth: "340px" }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 304.13 58.64"
@@ -50,27 +63,25 @@ function Home({ artworks }) {
             </g>
           </g>
         </svg>
-
-        <p className={styles.description}>
-          SOMOS LOTUS Te ayudamos a convertir tu casa, departamento, oficina,
-          dormitorio <br/> o el lugar que quieras, en tu espacio favorito.
-        </p>
-        <hr style={{ borderColor: "var(--color3)" }} />
-        <Chakra.Box
-          margin={"20px 0 8px"}
-          as="h1"
-          textAlign="center"
-          fontSize="26px"
-          fontWeight="300"
-          color="var(--color1)"
-        >
-          CUADROS DESTACADOS DE NUESTRA SELECCIÓN
-        </Chakra.Box>
-
-        <Components.CardContainer cards={artworks} />
-      </main>
-    </div>
+        <br></br>
+        <Chakra.Heading size="md" color="var(--color2)">
+          Sidebar
+        </Chakra.Heading>
+        <Chakra.Text color="var(--color2)" mt={"4px"}>
+          Obras
+        </Chakra.Text>
+        <Chakra.Text color="var(--color2)" mt={"4px"}>
+          Propiedades de las Obras
+        </Chakra.Text>
+        <Chakra.Text color="var(--color2)" mt={"4px"}>
+          Usuarios
+        </Chakra.Text>
+        <Chakra.Heading size="md" color="var(--color2)">
+          Home
+        </Chakra.Heading>
+      </Chakra.VStack>
+    </Chakra.Box>
   );
 }
 
-export default Home;
+export default SidebarAdmin;
