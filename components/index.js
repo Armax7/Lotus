@@ -21,3 +21,4 @@ export { default as Register } from "./Register/Register";
 export { default as ContactForm } from "./ContactForm/ContactForm";
 export { default as ToTopButton } from "./ToTopButton/ToTopButton";
 export { default as FormUserCreate } from "./FormUserCreate/FormUserCreate"
+export { default as SidebarAdmin } from "./SidebarAdmin/SidebarAdmin"

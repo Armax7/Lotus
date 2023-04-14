@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as Chakra from "@chakra-ui/react";
+import Link from "next/link";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -123,6 +124,17 @@ const ContactForm = () => {
               <Chakra.Button mt={4} colorScheme="blue" type="submit">
                 Enviar
               </Chakra.Button>
+              <br></br>
+              <Link href="/formCreate">
+                <Chakra.Button
+                  mt={4}
+                  mb={4}
+                  colorScheme="blue"
+                  onClick={onClose}
+                >
+                  Subí tu obra
+                </Chakra.Button>
+              </Link>
             </form>
           </Chakra.ModalBody>
 
