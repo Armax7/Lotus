@@ -1,9 +1,22 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import * as Chakra from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import style from "./CartCard.module.css";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
+import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 function CartItem({ product, onDelete }) {
+  const queryClient = new ReactQuery.QueryClient();
+
+  const stripeProduct = ReactQuery.useQuery(
+    [QueryKeys.QK_ARTWORK_STRIPE_BY_ID, product.id],
+    () => QueryFns.getArtworkFromStripeByIdAxios(product.id),
+    {
+      onError: (error) => console.log(error),
+    }
+  );
+
   return (
-    <Box
+    <Chakra.Box
       bg="var(--color3)"
       color={"var(--black)"}
       boxShadow="md"
@@ -14,10 +27,14 @@ function CartItem({ product, onDelete }) {
       h={"200px"}
       margin="12px auto"
     >
-      <Flex alignItems="center" justifyContent={"space-between"} h={"100%"}>
+      <Chakra.Flex
+        alignItems="center"
+        justifyContent={"space-between"}
+        h={"100%"}
+      >
         <div className={style.contentContainer}>
           <div className={style.imgWrapper}>
-            <Image
+            <Chakra.Image
               src={product.image}
               alt={product.name}
               w={"100%"}
@@ -27,23 +44,77 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Box width={"100%"} minW={"150px"}>
-            <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
+          <Chakra.Box width={"100%"} minW={"150px"}>
+            <Chakra.Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
               {product.name}
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }}>
+            </Chakra.Text>
+            <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
               Cantidad: {product.quantity}
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }}>
+            </Chakra.Text>
+            <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
               Precio: ${product.price}
-            </Text>
+            </Chakra.Text>
             <hr className={style.hr} />
-            <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
+            <Chakra.Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
               Total: ${product.quantity * product.price}
-            </Text>
-          </Box>
+            </Chakra.Text>
+          </Chakra.Box>
+          {stripeProduct.isLoading ? (
+            <Chakra.Alert
+              status="info"
+              mx={"5px"}
+              maxW={"200px"}
+              minWidth={"100px"}
+            >
+              <Chakra.AlertIcon />
+              <Chakra.AlertTitle>Revisando pedido...</Chakra.AlertTitle>
+              <Chakra.Spinner size={"md"} />
+            </Chakra.Alert>
+          ) : stripeProduct.isError ? (
+            <Chakra.Alert
+              status="error"
+              mx={"5px"}
+              maxW={"200px"}
+              minWidth={"100px"}
+            >
+              <Chakra.AlertIcon />
+              <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
+              <Chakra.AlertDescription>
+                {stripeProduct.error.message}
+              </Chakra.AlertDescription>
+              <Chakra.Spinner size={"md"} />
+            </Chakra.Alert>
+          ) : product.limit <= 0 || !stripeProduct.data.active ? (
+            <Chakra.Alert
+              status="error"
+              margin="50px 0 15px 0"
+              flexFlow={"column wrap"}
+              justifyContent={"flex-start"}
+              maxW={"200px"}
+              minWidth={"100px"}
+              mx={"5px"}
+            >
+              <Chakra.Flex>
+                <Chakra.AlertIcon />
+                <Chakra.AlertTitle>Lo sentimos...</Chakra.AlertTitle>
+              </Chakra.Flex>
+              <Chakra.AlertDescription textAlign={"center"}>
+                Estas obra ya no está disponible
+              </Chakra.AlertDescription>
+            </Chakra.Alert>
+          ) : (
+            <Chakra.Alert
+              status="success"
+              mx={"5px"}
+              maxW={"200px"}
+              minWidth={"100px"}
+            >
+              <Chakra.AlertIcon />
+              <Chakra.AlertTitle>Disponible</Chakra.AlertTitle>
+            </Chakra.Alert>
+          )}
         </div>
-        <Button
+        <Chakra.Button
           bg={"var(--color2)"}
           color={"var(--black)"}
           height={"100%"}
@@ -52,9 +123,9 @@ function CartItem({ product, onDelete }) {
           _hover={{ background: "var(--color1)", color: "var(--color5)" }}
         >
           <DeleteIcon boxSize={5} color={"var(--color5)"} />
-        </Button>
-      </Flex>
-    </Box>
+        </Chakra.Button>
+      </Chakra.Flex>
+    </Chakra.Box>
   );
 }
 
