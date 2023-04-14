@@ -11,6 +11,12 @@ function CartItem({ product, onDelete }) {
     [QueryKeys.QK_ARTWORK_STRIPE_BY_ID, product.id],
     () => QueryFns.getArtworkFromStripeByIdAxios(product.id),
     {
+      onSettled: () => {
+        console.log(
+          "🚀 ~ file: CartCard.jsx:13 ~ CartItem ~ product.id:",
+          product.id
+        );
+      },
       onError: (error) => console.log(error),
     }
   );
