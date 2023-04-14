@@ -27,7 +27,7 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Box width={"100%"}>
+          <Box width={"100%"} minW={"150px"}>
             <Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
               {product.name}
             </Text>
