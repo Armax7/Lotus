@@ -9,7 +9,7 @@ import * as ErrorStr from "../../helpers/error_check_strings";
 
 function getLocalStorageCart() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  return { source: "local", items: cartItems };
+  return { source: "local", items: cartItems || [] };
 }
 
 async function getDatabaseCart() {
@@ -17,7 +17,7 @@ async function getDatabaseCart() {
   const response = await axios
     .get(`${process.env.NEXT_PUBLIC_HOST}/api/cart?user_id=${id}`)
     .then((resp) => resp.data);
-  return { source: "database", items: response };
+  return { source: "database", items: response || [] };
 }
 
 function Cart() {
@@ -33,12 +33,11 @@ function Cart() {
 
     setLogged(data);
     return data;
-  };
+  }
 
   async function getCart() {
-    const result = await loguearse()
-    if(!result){
-
+    const result = await loguearse();
+    if (!result) {
       const localStorageCart = getLocalStorageCart();
       var cart = localStorageCart; // por defecto, utiliza la información del carrito del almacenamiento local
       var source = localStorageCart.source;
