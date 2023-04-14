@@ -70,8 +70,9 @@ function NavBar({
     async function fetchData() {
       let uuid = await SupaHelpers.getUserId();
       setMyUuid(uuid);
-      let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
-        .data;
+      let allUsers = await axios
+        .get(`${process.env.NEXT_PUBLIC_HOST}/api/user-details`)
+        .then((res) => res.data);
       let userData = (await allUsers?.filter((u) => u.id == uuid))[0];
       let user = await SupaHelpers.getUserName();
       setUserData(user);

@@ -24,8 +24,9 @@ const Profile = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getAllData = async () => {
-    let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
-      .data;
+    let allUsers = await axios
+      .get(`${process.env.NEXT_PUBLIC_HOST}/api/user-details`)
+      .then((res) => res.data);
 
     return allUsers;
   };
@@ -46,7 +47,6 @@ const Profile = ({
 
       let info = await getAllData();
       let user = info?.filter((u) => u.id == uuid).at(0);
-      console.log("🚀 ~ file: index.js:53 ~ fetchData ~ user:", user);
 
       setAllData(user);
     };
