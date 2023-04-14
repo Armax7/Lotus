@@ -29,6 +29,7 @@ const Carousel = ({ images, ...props }) => {
       <Image
         src={images[currentImage]}
         objectFit={"cover"}
+        objectPosition={"top"}
         borderRadius="12px"
         width="100%"
         height="100%"
