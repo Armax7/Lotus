@@ -11,7 +11,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         as="h1"
         fontWeight="bold"
         color="var(--black)"
-        lineHeight={"10px"}
+        lineHeight={"32px"}
         fontSize="36px"
         mb={"20px"}
       >

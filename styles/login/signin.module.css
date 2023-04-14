@@ -1,6 +1,8 @@
 .HStack {
-  min-width: 370px;
-  width: 600px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+  margin: auto;
   border-radius: 22px;
   background: var(--color3);
   color: var(--color1);
@@ -24,8 +26,7 @@
   justify-content: space-evenly;
 }
 .form {
-  margin: auto;
-  width: max-content;
+  width: 100%;
   border-radius: 22px;
 }
 

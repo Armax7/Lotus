@@ -88,19 +88,18 @@ export default function SignIn({ ...props }) {
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
       <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
-          w="full"
-          h="full"
+          w="100%"
           alignItems="center"
           justifyContent="center"
-          display={{ base: "none", md: "flex" }}
+          fontFamily="Poppins"
         >
-          <chakra.Stack w="full" maxW="lg" spacing={8} p={8}>
+          <chakra.Stack w="100%"  spacing={8} p={8}>
             <chakra.Box
               display="flex"
               justifyContent="center"
               alignItems="flex-end"
             >
-              <chakra.Heading fontSize="2xl">
+              <chakra.Heading fontSize="2xl" fontFamily="Poppins">
                 Ingresa a tu cuenta
               </chakra.Heading>
             </chakra.Box>
