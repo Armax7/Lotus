@@ -2,9 +2,10 @@
 
 :root {
   --color1: #804674;
-  --color1-1: #8046743d;
+  --color1-1: #80467491;
   --color1-2: #804674c0;
   --color1-3: #804674ec;
+  --color1-4: #80467441;
   --color2: #ae6b79;
   --color2-1: #e2ced2;
   --color3: #eddbc7;
@@ -13,6 +14,7 @@
   --white: #fff;
   --black: #1f1f1fde;
   --black-1: #1f1f1fa6;
+  --black-2: #1f1f1f81;
 }
 html,
 body {

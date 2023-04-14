@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 const Carousel = ({ images, ...props }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const [showArrows, setShowArrows] = useState(false);
+  const [showArrows, setShowArrows] = useState(true);
 
   const handlePrevClick = () => {
     setCurrentImage(currentImage === 0 ? images.length - 1 : currentImage - 1);
@@ -16,19 +16,20 @@ const Carousel = ({ images, ...props }) => {
 
   return (
     <Box
+      width={"100%"}
+      minW={"296px"}
+      maxW={"680px"}
+      height={"100vh"}
+      minH={"440px"}
+      maxH={"480px"}
       position="relative"
-      flex="1"
-      left="0"
-      width="30%"
-      marginRight="15px"
-      height="500px"
-      onMouseEnter={() => setShowArrows(true)}
-      onMouseLeave={() => setShowArrows(false)}
+      // onMouseEnter={() => setShowArrows(true)}
+      // onMouseLeave={() => setShowArrows(false)}
     >
       <Image
         src={images[currentImage]}
-        objectFit="contain"
-        borderRadius="3px"
+        objectFit={"cover"}
+        borderRadius="12px"
         width="100%"
         height="100%"
       />
@@ -37,24 +38,34 @@ const Carousel = ({ images, ...props }) => {
         <>
           <IconButton
             aria-label="Previous Image"
+            fontSize={"32px"}
             icon={<ChevronLeftIcon />}
             position="absolute"
             top="50%"
-            left="4"
+            left="0"
+            h={"100%"}
             transform="translateY(-50%)"
             onClick={handlePrevClick}
-            style={{ opacity: 0.5 }}
+            bg={"var(--black-2)"}
+            color={"var(--color5)"}
+            borderRadius="12px 0 0 12px"
+            _hover={{background:"var(--color1-2)", fontSize:"36px"}}
           />
 
           <IconButton
             aria-label="Next Image"
+            fontSize={"32px"}
             icon={<ChevronRightIcon />}
             position="absolute"
             top="50%"
-            right="4"
+            right="0"
+            h={"100%"}
             transform="translateY(-50%)"
             onClick={handleNextClick}
-            style={{ opacity: 0.5 }}
+            bg={"var(--black-2)"}
+            color={"var(--color5)"}
+            borderRadius="0 12px 12px 0"
+            _hover={{background:"var(--color1-2)", fontSize:"36px"}}
           />
         </>
       )}

@@ -5,34 +5,56 @@ import AddToCart from "../AddToCart/AddToCart";
 const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
   //const [isAvailable, setIsAvailable] = useState(true);
   return (
-    <Box width="70%" flex="1" overflow="hidden" minHeight="200px">
-      <Heading as="h1" size="xl" fontWeight="bold" color="#000" fontSize="40px">
+    <Box fontFamily={"Poppins"} w={"100%"} minW={"296px"} maxW={"520px"}>
+      <Heading
+        fontFamily={"Poppins"}
+        as="h1"
+        fontWeight="bold"
+        color="var(--black)"
+        lineHeight={"10px"}
+        fontSize="36px"
+        mb={"20px"}
+      >
         {artwork.name}
       </Heading>
-      <Heading as="h3" fontSize="20px" color="gray.500" marginTop="5px">
+      <Heading
+        fontFamily={"Poppins"}
+        as="h3"
+        fontSize="16px"
+        color={"var(--color2)"}
+        mb={"20px"}
+      >
         By: {author.name} {author.lastname}
       </Heading>
       <Badge
-        colorScheme="green"
+        borderRadius={"12px"}
+        padding={"12px 24px"}
+        colorScheme="lotus"
         variant="solid"
         fontSize="25px"
-        marginTop="25px"
+        mb={"20px"}
       >
         $ {artwork.price}
       </Badge>
 
-      <Text fontSize="lg" color="" marginTop="25px">
+      <Text
+        fontSize="lg"
+        color="var(--black)"
+        mb={"20px"}
+        textAlign={"justify"}
+      >
         {artwork.description
           ? artwork.description
           : "Esta obra no cuenta con una descripcion"}
       </Text>
 
       {artwork.stock > 1 ? (
-        <Text fontSize="lg" color="gray.700" marginTop="25px">
-          Todavia quedan <b>{artwork.stock}</b> unidades
+        <Text fontSize="lg" color="var(--black)" mb={"20px"}>
+          Todavia quedan{" "}
+          <b style={{ color: "var(--color1)" }}>{artwork.stock}</b> unidades
         </Text>
       ) : artwork.stock > 0 ? (
-        <Text fontSize="lg" color="gray.700" marginTop="25px">
+        <Text fontSize="lg" color="var(--black)" mb={"20px"}>
           Todavia queda <b>{artwork.stock}</b> unidad
         </Text>
       ) : (
