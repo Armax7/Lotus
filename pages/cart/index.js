@@ -85,7 +85,6 @@ function Cart() {
         <div className={style.wrapper}>
           <div className={style.cards}>
             {cart.map((cartItem, index) => {
-              console.log("🚀 ~ file: index.js:88 ~ {cart.map ~ cartItem:", cartItem)
               return (
                 <Components.CartCard
                   key={index}
