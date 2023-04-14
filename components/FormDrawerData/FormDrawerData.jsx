@@ -14,7 +14,6 @@ function FormDrawerData() {
   
 
   const [uuid, setUuid] = useState("");
-console.log("uuid",uuid);
 
   const [info, setInfo] = useState({});
   const [newData, setNewData] = useState({
@@ -23,7 +22,6 @@ console.log("uuid",uuid);
     address: info?.address,
     image:info?.image
   });
-  console.log("newData",newData)
 
   useEffect(() => {
     const fetchUserDetails = async () => {

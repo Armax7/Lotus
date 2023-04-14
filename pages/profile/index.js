@@ -14,14 +14,11 @@ const Profile = ({
   avatarImage = "https://img.freepik.com/iconos-gratis/pintura_318-784046.jpg?w=2000",
 }) => {
   const [myUuid, setMyUuid] = useState("");
-  console.log("PATH", PATH);
 
   //aca esta el usuario filtrado por id.
   const [allData, setAllData] = useState({});
-  console.log("allData", allData);
 
   const [userData2, setUserData2] = useState(null);
-  console.log("userData2", userData2);
 
   const [path, setPath] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +26,6 @@ const Profile = ({
   const getAllData = async () => {
     let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
       .data;
-    console.log(allUsers, "allUsers");
 
     return allUsers;
   };
@@ -49,16 +45,14 @@ const Profile = ({
       setMyUuid(uuid);
 
       let info = await getAllData();
-      let user = (await info?.filter((u) => u.id == uuid))[0];
-      console.log("user", user);
+      let user = info?.filter((u) => u.id == uuid).at(0);
+      console.log("🚀 ~ file: index.js:53 ~ fetchData ~ user:", user);
 
       setAllData(user);
     };
 
     fetchData();
   }, [path]);
-
-  console.log("myUuid", myUuid);
 
   return (
     <Chakra.Flex w="100%" h="100vh" margin="auto" justifyContent="center">
