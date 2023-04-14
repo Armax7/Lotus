@@ -32,8 +32,9 @@
   color: #0070f3;
   text-decoration: none;
 }
-.svg{
+.svg {
   margin: 52px auto 0;
+  padding: 0 12px;
 }
 .title a:hover,
 .title a:focus,
@@ -55,9 +56,10 @@
 .description {
   margin: 4rem 0;
   line-height: 1.5;
-  font-size: 1.2rem;
+  font-size: 18px;
   font-weight: 300;
   color: var(--black);
+  text-align: center;
 }
 
 .code {
@@ -116,6 +118,18 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 450px) {
+  .svg {
+    margin: 24px auto 0;
+    padding: 0 12px;
+  }
+  .description {
+    padding: 16px;
+    font-size: 14px;
+    margin: 12px 0;
   }
 }
 

@@ -11,7 +11,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         as="h1"
         fontWeight="bold"
         color="var(--black)"
-        lineHeight={"10px"}
+        lineHeight={"32px"}
         fontSize="36px"
         mb={"20px"}
       >
@@ -65,6 +65,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
 
       <RatingStars ratingDb={artwork.rating} />
       <AddToCart
+        id={artwork.id}
         stock={artwork.stock}
         name={artwork.name}
         price={artwork.price}
