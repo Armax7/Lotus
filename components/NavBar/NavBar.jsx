@@ -58,23 +58,11 @@ function NavBar({
     datosUsuario2();
   }, []);
 
-  // function handleTabsIndex() {
-  //   let property = router.pathname.substring(1);
-
-  //   if (!property) {
-  //     return tabIndex["home"];
-  //   }
-
-  //   return tabIndex[property];
-  // }
-  // const navRef = useRef();
-  // router.pathname === "/" && navRef.current.focus();
-  // console.log(navRef);
   const [isLargerThan520] = Chakra.useMediaQuery("(min-width: 520px)");
   const [isLargerThan730] = Chakra.useMediaQuery("(min-width: 730px)");
 
   //Creo un estado local en el cual se guarda datos del usuario (en este caso el nombre)
-  
+
   const [myUuid, setMyUuid] = useState("");
   const [allData, setAllData] = useState({});
 
@@ -82,7 +70,8 @@ function NavBar({
     async function fetchData() {
       let uuid = await SupaHelpers.getUserId();
       setMyUuid(uuid);
-      let allUsers = (await axios.get("http://localhost:3000/api/user-details")).data;
+      let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
+        .data;
       let userData = (await allUsers?.filter((u) => u.id == uuid))[0];
       let user = await SupaHelpers.getUserName();
       setUserData(user);
@@ -90,7 +79,6 @@ function NavBar({
     }
     fetchData();
   }, [allData]);
-  
 
   return (
     <div
@@ -274,9 +262,9 @@ function NavBar({
 
                         <br />
                         <Chakra.MenuDivider />
-                        <Chakra.MenuItem>
-                          <Link href="/profile">Profile</Link>
-                        </Chakra.MenuItem>
+                        <Link href="/profile">
+                          <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                        </Link>
                         <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
@@ -498,9 +486,9 @@ function NavBar({
 
                             <br />
                             <Chakra.MenuDivider />
-                            <Chakra.MenuItem>
-                              <Link href="/profile">Profile</Link>
-                            </Chakra.MenuItem>
+                            <Link href="/profile">
+                              <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                            </Link>
                             <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
