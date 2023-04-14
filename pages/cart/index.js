@@ -145,13 +145,15 @@ function Cart() {
             />
           ) : null}
           <div className={style.cards}>
-            {cart.map((cartItem, index) => (
-              <Components.CartCard
-                key={index}
-                product={cartItem}
-                onDelete={() => onDelete(cartItem.name)}
-              />
-            ))}
+            {cart.map((cartItem, index) => {
+              return (
+                <Components.CartCard
+                  key={index}
+                  product={cartItem}
+                  onDelete={() => onDelete(cartItem.name)}
+                />
+              );
+            })}
           </div>
           <form className={style.form} onSubmit={handleCheckout}>
             <Chakra.Flex>
