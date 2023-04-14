@@ -17,6 +17,6 @@ export async function uploadArtworkImage(file) {
     });
 
   const filepath = data.path;
-
+  console.log(filepath)
   return filepath;
 }

@@ -4,7 +4,7 @@ import { updateCart } from "../../helpers/page_helpers/Home_helpers/query_fn"
 import { getUserId } from "../../helpers/supabase_helpers/user_management";
 
 
-function AddToCart({ stock, name, price, image, price_id, ...props }) {
+function AddToCart({ id, stock, name, price, image, price_id, ...props }) {
   const [value, setValue] = useState(1);
   const [isMaxQuantity, setIsMaxQuantity] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -33,12 +33,13 @@ function AddToCart({ stock, name, price, image, price_id, ...props }) {
 
     const newCartItem = {
       userId: userId,
+      id,
       name,
       image,
       quantity: value,
       price,
       price_id,
-      limit: stock,
+      stock,
     };
 
     if (index !== -1) {
