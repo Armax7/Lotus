@@ -14,6 +14,12 @@ function Register() {
   return (
     <>
       <Chakra.Button
+        bg={"var(--color1)"}
+        color={"var(--color5)"}
+        _hover={{
+          background: "var(--color1-3)",
+          transform: "translateY(-4px)",
+        }}
         onClick={() => {
           setOverlay(<OverlayOne />);
           onOpen();

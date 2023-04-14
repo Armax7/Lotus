@@ -60,7 +60,7 @@ function Home({ artworks }) {
           margin={"20px 0 8px"}
           as="h1"
           textAlign="center"
-          fontSize="30px"
+          fontSize="26px"
           fontWeight="300"
           color="var(--color1)"
         >

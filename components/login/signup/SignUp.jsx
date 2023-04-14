@@ -116,11 +116,11 @@ function SignUp({ className = style.HStack, ...props }) {
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
       <Chakra.HStack className={className} {...props}>
         <Chakra.Flex
-          w="full"
-          h="full"
+          w="100%"
           alignItems="center"
           justifyContent="center"
-          display={{ base: "none", md: "flex" }}
+          fontFamily={"Poppins"}
+          // display={{ base: "none", md: "flex" }}
         >
           <Chakra.Stack w="full" maxW="md" spacing={4} p={6}>
             <Chakra.Box
@@ -128,7 +128,9 @@ function SignUp({ className = style.HStack, ...props }) {
               justifyContent="center"
               alignItems="flex-end"
             >
-              <Chakra.Heading fontSize="2xl">Crea tu cuenta</Chakra.Heading>
+              <Chakra.Heading fontSize="2xl" fontFamily={"Poppins"}>
+                Crea tu cuenta
+              </Chakra.Heading>
             </Chakra.Box>
             <div className={style.separator}>
               <hr className={style.hr} />
