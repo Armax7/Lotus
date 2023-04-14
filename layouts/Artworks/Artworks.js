@@ -63,7 +63,7 @@ function Artworks({
       queryFn: () => QueryFns.getAllArtworksByQueryAxios(clearedValues),
     });
   }
-  const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 380px)");
+  const [isLargerThan420] = Chakra.useMediaQuery("(min-width: 420px)");
 
   const formRef = useRef();
   const formFocusClick = () => {
@@ -98,7 +98,7 @@ function Artworks({
           Buscar por nombre: <b>{filters.name}</b>
         </Chakra.Box>
 
-        {isLargerThan355 ? (
+        {isLargerThan420 ? (
           <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
             <Chakra.TabList>
               <Chakra.Tab
