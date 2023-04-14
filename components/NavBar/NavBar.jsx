@@ -7,13 +7,13 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import * as Components from "../../components";
 import React, { useEffect, useState, useRef } from "react";
 import style from "../../styles/navBar/navBar.module.css";
-
+import axios from "axios";
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
 
 function NavBar({
   classname,
-  avatarImage = "https://bit.ly/dan-abramov",
+  avatarImage = "https://img.freepik.com/iconos-gratis/pintura_318-784046.jpg?w=2000",
   ...props
 }) {
   const tabIndex = { home: 0, artworks: 1, cart: 2 };
@@ -58,20 +58,27 @@ function NavBar({
     datosUsuario2();
   }, []);
 
-  // function handleTabsIndex() {
-  //   let property = router.pathname.substring(1);
-
-  //   if (!property) {
-  //     return tabIndex["home"];
-  //   }
-
-  //   return tabIndex[property];
-  // }
-  // const navRef = useRef();
-  // router.pathname === "/" && navRef.current.focus();
-  // console.log(navRef);
   const [isLargerThan520] = Chakra.useMediaQuery("(min-width: 520px)");
   const [isLargerThan730] = Chakra.useMediaQuery("(min-width: 730px)");
+
+  //Creo un estado local en el cual se guarda datos del usuario (en este caso el nombre)
+
+  const [myUuid, setMyUuid] = useState("");
+  const [allData, setAllData] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      let uuid = await SupaHelpers.getUserId();
+      setMyUuid(uuid);
+      let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
+        .data;
+      let userData = (await allUsers?.filter((u) => u.id == uuid))[0];
+      let user = await SupaHelpers.getUserName();
+      setUserData(user);
+      setAllData(userData);
+    }
+    fetchData();
+  }, [allData]);
 
   return (
     <div
@@ -209,7 +216,11 @@ function NavBar({
                           <Chakra.Avatar
                             w="40px"
                             h="40px"
-                            src={avatarImage}
+                            src={
+                              allData?.image
+                                ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
+                                : avatarImage
+                            }
                             bg="purple"
                             transition={"transform .2s"}
                             sx={{
@@ -230,26 +241,28 @@ function NavBar({
                         <Chakra.Center>
                           <Chakra.Avatar
                             size={"2xl"}
-                            src={avatarImage}
+                            src={
+                              allData?.image
+                                ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
+                                : avatarImage
+                            }
                             bg="purple"
                           />
                         </Chakra.Center>
                         <br />
                         <Chakra.Center>
                           <p>
-                            {
-                              logged && userData2?.user_metadata?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
-                                ? userData2.user_metadata.name
-                                : userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
-                            }
+                            {logged && userData // mostrar el nombre de usuario de Google si se inicia sesión con Google
+                              ? userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
+                              : userData2?.user_metadata?.name}
                           </p>
                         </Chakra.Center>
 
                         <br />
                         <Chakra.MenuDivider />
-                        <Chakra.MenuItem>
-                          <Link href="/profile">Profile</Link>
-                        </Chakra.MenuItem>
+                        <Link href="/profile">
+                          <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                        </Link>
                         <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
@@ -471,9 +484,9 @@ function NavBar({
 
                             <br />
                             <Chakra.MenuDivider />
-                            <Chakra.MenuItem>
-                              <Link href="/profile">Profile</Link>
-                            </Chakra.MenuItem>
+                            <Link href="/profile">
+                              <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                            </Link>
                             <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
