@@ -80,7 +80,7 @@ function CartItem({ product, onDelete }) {
               <Chakra.AlertIcon />
               <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
               <Chakra.AlertDescription>
-                {stripeProduct.error.message}
+                {stripeProduct.error.message || "Unhandled Error..."}
               </Chakra.AlertDescription>
               <Chakra.Spinner size={"md"} />
             </Chakra.Alert>
