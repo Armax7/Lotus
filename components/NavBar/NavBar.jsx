@@ -70,8 +70,9 @@ function NavBar({
     async function fetchData() {
       let uuid = await SupaHelpers.getUserId();
       setMyUuid(uuid);
-      let allUsers = (await axios.get("http://localhost:3000/api/user-details"))
-        .data;
+      let allUsers = await axios
+        .get(`${process.env.NEXT_PUBLIC_HOST}/api/user-details`)
+        .then((res) => res.data);
       let userData = (await allUsers?.filter((u) => u.id == uuid))[0];
       let user = await SupaHelpers.getUserName();
       setUserData(user);
@@ -252,11 +253,9 @@ function NavBar({
                         <br />
                         <Chakra.Center>
                           <p>
-                            {
-                              logged && userData2?.user_metadata?.name // mostrar el nombre de usuario de Google si se inicia sesión con Google
-                                ? userData2.user_metadata.name
-                                : userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
-                            }
+                            {logged && userData // mostrar el nombre de usuario de Google si se inicia sesión con Google
+                              ? userData // mostrar el nombre de usuario si se inicia sesión en tu sitio web
+                              : userData2?.user_metadata?.name}
                           </p>
                         </Chakra.Center>
 
