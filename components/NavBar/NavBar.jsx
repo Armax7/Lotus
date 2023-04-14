@@ -407,7 +407,7 @@ function NavBar({
               size={"xs"}
             >
               <Chakra.DrawerContent
-                bg={"var(--black-1)"}
+                bg={"var(--color2-2)"}
                 style={{ maxWidth: "250px" }}
                 display={"flex"}
                 flexDir={"column"}
