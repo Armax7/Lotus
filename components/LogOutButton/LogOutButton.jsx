@@ -1,6 +1,6 @@
 import * as Chakra from "@chakra-ui/react";
 import * as UserAuth from "../../helpers/supabase_helpers/user_management";
-
+import { useRouter } from "next/router";
 
 function LogOutButton({
   colorScheme = "blue",
@@ -10,11 +10,12 @@ function LogOutButton({
   marginTop = "auto",
   marginBottom = "auto",
 }) {
+  const router = useRouter();
   const handleLogout = async () => {
     try {
       await UserAuth.userLogOut();
-      console.log(await UserAuth.loggedStatus());
-      location.reload();
+      router.push("/");
+      router.reload();
     } catch (error) {
       console.log(error.message);
     }
@@ -32,11 +33,7 @@ function LogOutButton({
       mt={marginTop}
       mb={marginBottom}
     >
-    
-  
-    Log Out
-  
-
+      Log Out
     </Chakra.Button>
   );
 }
