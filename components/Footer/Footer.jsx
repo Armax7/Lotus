@@ -1,6 +1,7 @@
 import style from "./Footer.module.css";
 import * as Chakra from "@chakra-ui/react";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
+import * as Components from "../../components"
 
 function Footer() {
   return (
@@ -9,7 +10,9 @@ function Footer() {
       py="4"
       padding="22px"
       background="var(--color1)"
-      color="#F9F5E7"
+      color="var(--color5)"
+      fontFamily={"Poppins"}
+      fontSize={"12px"}
     >
       <Chakra.Flex
         maxW={"1400px"}
@@ -20,12 +23,12 @@ function Footer() {
         textAlign="center"
       >
         <Chakra.Box minW="250px" textAlign="center" m="18px auto">
-          <Chakra.Box mb="2">
+          <Chakra.Box>
             <hr className={style.hr} />
             <Chakra.Text fontSize="xl" fontWeight="bold">
               Ubicación
             </Chakra.Text>
-            <Chakra.Text _hover={{ color: "var(--color3)" }}>
+            <Chakra.Text _hover={{ color: "var(--color3)" }} mt={"4px"}>
               Calle-00, Santiago, Metropolitana, Chile
             </Chakra.Text>
           </Chakra.Box>
@@ -34,28 +37,24 @@ function Footer() {
         <Chakra.Box minW="250px" textAlign="center" m="18px auto">
           <Chakra.Box>
             <hr className={style.hr} />
-            <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
-              Numero de contacto
+            <Chakra.Text fontSize="xl" fontWeight="bold"  mb={"4px"}>
+              Conócenos
             </Chakra.Text>
-            <Chakra.Text _hover={{ color: "var(--color3)" }}>
-              +00 000 000 00 00
-            </Chakra.Text>
+            <Components.AboutUs />
           </Chakra.Box>
         </Chakra.Box>
 
         <Chakra.Box minW="250px" textAlign="center" m="18px auto">
-          <Chakra.List spacing="2" mb="2">
+          <Chakra.List mb="2">
             <hr className={style.hr} />
-            <Chakra.Text fontSize="xl" fontWeight="bold" mb="2">
+            <Chakra.Text fontSize="xl" fontWeight="bold">
               Información
             </Chakra.Text>
             <Chakra.ListItem>
-              <Chakra.Text _hover={{ color: "var(--color3)" }}>
-                Contacto
-              </Chakra.Text>
+              <Components.ContactForm/>
             </Chakra.ListItem>
             <Chakra.ListItem>
-              <Chakra.Text _hover={{ color: "var(--color3)" }}>
+              <Chakra.Text _hover={{ color: "var(--color3)" }} mt={"4px"}>
                 Términos y condiciones
               </Chakra.Text>
             </Chakra.ListItem>

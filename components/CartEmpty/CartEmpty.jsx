@@ -12,13 +12,20 @@ function CartEmpty({ empty, ...props }) {
       status="warning"
       justifyContent="center"
       flexDirection="column"
-      height="80vh"
+      h={"100vh"}
+      minH={"400px"}
+      maxH="calc(100vh - 235px)"
+      fontFamily={"Poppins"}
     >
-      <AlertIcon boxSize="80px" mr={0} />
-      <AlertTitle mt={4} mb={10} fontSize="4xl" textAlign="center">
+      <AlertIcon boxSize={"60px"} mr={0} />
+      <AlertTitle lineHeight={"60px"} fontSize="4xl" textAlign="center">
         No hay productos en tu carrito
       </AlertTitle>
-      <AlertDescription fontSize="xl" textAlign="center">
+      <AlertDescription
+        fontSize="xl"
+        textAlign="center"
+        color={"var(--color1)"}
+      >
         Agrega productos a tu carrito para poder realizar la compra.
       </AlertDescription>
     </Alert>

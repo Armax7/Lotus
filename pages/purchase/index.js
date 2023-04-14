@@ -1,22 +1,72 @@
 import * as Chakra from "@chakra-ui/react";
+import * as ReactQuery from "@tanstack/react-query";
+import * as QueryKeys from "../../helpers/page_helpers/CheckoutSession_helpers/query_keys";
+import * as QueryFns from "../../helpers/page_helpers/CheckoutSession_helpers/query_fn";
 
-function Purchase({ success }) {
+function Purchase({ success, session_id }) {
+  const queryClient = ReactQuery.useQueryClient();
+
+  const session = ReactQuery.useQuery(
+    [QueryKeys.QK_CHECKOUT_SESSION_BY_ID, session_id],
+    async () => await QueryFns.getCheckoutSessionByIdAxios(session_id),
+    {
+      onSuccess: (data) => {
+        localStorage.removeItem("cartItems");
+      },
+    }
+  );
+
   return (
-    <Chakra.Box>
+    <Chakra.Box
+      bg={"var(--color5)"}
+      minH={"calc(100vh - 327px)"}
+      fontFamily={"Poppins"}
+      fontSize={"20px"}
+      padding={"40px"}
+    >
       {success === "true" ? (
-        <Chakra.Alert status="success">
-          <Chakra.AlertIcon />
-          <Chakra.AlertTitle>Thank you</Chakra.AlertTitle>
-          <Chakra.AlertDescription>
-            You purchase successful
+        <Chakra.Alert
+          status="success"
+          display={"flex"}
+          flexDir={"column"}
+          justifyContent={"center"}
+          maxW={"400px"}
+          w={"100%"}
+          minH={"400px"}
+          h={"100%"}
+          borderRadius={"1000px"}
+          m={"auto"}
+          color={"var(--black)"}
+        >
+          <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"} />
+          <Chakra.AlertTitle m={"0 auto"} lineHeight={"50px"}>
+            Gracias
+          </Chakra.AlertTitle>
+          <Chakra.AlertDescription m={"0 auto"}>
+            Tu compra fue exitosa
           </Chakra.AlertDescription>
         </Chakra.Alert>
       ) : (
-        <Chakra.Alert status="warning">
-          <Chakra.AlertIcon />
-          <Chakra.AlertTitle>We are sorry</Chakra.AlertTitle>
-          <Chakra.AlertDescription>
-            We could not complete your purchase
+        <Chakra.Alert
+          status="warning"
+          display={"flex"}
+          flexDir={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          maxW={"400px"}
+          w={"100%"}
+          minH={"400px"}
+          h={"100%"}
+          borderRadius={"1000px"}
+          m={"auto"}
+          color={"var(--black)"}
+        >
+          <Chakra.AlertIcon m={"0 auto"} transform={"scale(2)"} mb={"10px"} />
+          <Chakra.AlertTitle m={"0 auto"} lineHeight={"50px"}>
+            Lo sentimos
+          </Chakra.AlertTitle>
+          <Chakra.AlertDescription textAlign={"center"}>
+            No pudimos completar tu compra
           </Chakra.AlertDescription>
         </Chakra.Alert>
       )}
@@ -25,9 +75,20 @@ function Purchase({ success }) {
 }
 
 export async function getServerSideProps(context) {
-  const { success = false } = context.query;
+  const queryClient = new ReactQuery.QueryClient();
+  const { success = false, session_id } = context.query;
 
-  return { props: { success } };
+  await queryClient.prefetchQuery([QueryKeys.QK_CHECKOUT_SESSION_BY_ID], () =>
+    QueryFns.getCheckoutSessionByIdAxios(session_id)
+  );
+
+  return {
+    props: {
+      dehydratedState: ReactQuery.dehydrate(queryClient),
+      success,
+      session_id,
+    },
+  };
 }
 
 export default Purchase;

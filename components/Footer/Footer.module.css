@@ -6,6 +6,5 @@
     transition: transform .2s;
 }
 .smIcons:hover{
-    transform: scale(2) translateY(-4px);
-    
+    transform: scale(2) translateY(-1px);
 }

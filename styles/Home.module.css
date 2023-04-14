@@ -1,7 +1,7 @@
 .container {
   background: var(--color5);
   font-family: "Poppins";
-  padding-bottom: 38px;
+  padding-bottom: 12px;
 }
 
 .main {
@@ -33,7 +33,7 @@
   text-decoration: none;
 }
 .svg{
-  margin: 0 auto;
+  margin: 52px auto 0;
 }
 .title a:hover,
 .title a:focus,
@@ -55,9 +55,9 @@
 .description {
   margin: 4rem 0;
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 300;
-  color: var(--color2);
+  color: var(--black);
 }
 
 .code {

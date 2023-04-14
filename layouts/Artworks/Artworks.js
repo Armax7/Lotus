@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
@@ -47,18 +47,44 @@ function Artworks({
   }
 
   async function handleOnFilter(event) {
-    filteredArtworks.refetch();
+    await filteredArtworks.refetch();
   }
 
+  async function handleOnClickResetFilters(event) {
+    const clearedValues = {
+      name: "",
+      techniques: [],
+      categories: [],
+      supports: [],
+    };
+    setFilters(clearedValues);
+    await queryClient.fetchQuery({
+      queryKey: [QueryKeys.QK_ARTWORKS_BY_QUERY],
+      queryFn: () => QueryFns.getAllArtworksByQueryAxios(clearedValues),
+    });
+  }
+  const [isLargerThan355] = Chakra.useMediaQuery("(min-width: 380px)");
+
+  const formRef = useRef();
+  const formFocusClick = () => {
+    formRef.current.focus();
+  };
   return (
-    <div style={{background:"var(--color5)", paddingBottom:"38px"}}>
+    <div style={{ background: "var(--color5)", paddingBottom: "12px" }}>
       <Chakra.Box
         maxW={"1200px"}
         m={"auto"}
+        padding={"0 12px"}
         display={"flex"}
         flexDir={"column"}
       >
-        <Components.SearchBar m={"auto"} onChange={handleNameOnChange} />
+        <Components.SearchBar
+          referencia={formRef}
+          m={"24px auto 0"}
+          value={filters.name}
+          onChange={handleNameOnChange}
+          onEnter={handleOnFilter}
+        />
         <Chakra.Box
           bg={"var(--color1-2)"}
           m={"22px 0"}
@@ -66,95 +92,235 @@ function Artworks({
           padding={"12px"}
           color={"var(--white)"}
           fontFamily={"Poppins"}
+          onClick={formFocusClick}
+          cursor={"pointer"}
         >
           Buscar por nombre: <b>{filters.name}</b>
         </Chakra.Box>
 
-        <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
-          <Chakra.TabList>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Tecnicas <ChevronDownIcon />
-            </Chakra.Tab>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Categorías <ChevronDownIcon />
-            </Chakra.Tab>
-            <Chakra.Tab
-              _hover={{
-                background: "var(--color1-3)",
-                color: "var(--color5)",
-                transform: "translateY(-4px)",
-              }}
-            >
-              Soporte <ChevronDownIcon />
-            </Chakra.Tab>
-          </Chakra.TabList>
+        {isLargerThan355 ? (
+          <Chakra.Tabs isFitted variant="soft-rounded" colorScheme="lotus">
+            <Chakra.TabList>
+              <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Tecnicas <ChevronDownIcon />
+              </Chakra.Tab>
 
-          <Chakra.TabPanels>
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={techniques}
-                onChange={handleTechniqueOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
+              <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Categorías <ChevronDownIcon />
+              </Chakra.Tab>
 
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={categories}
-                onChange={handleCategoryOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
+              <Chakra.Tab
+                fontFamily={"Poppins"}
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px"}
+                _hover={{
+                  background: "var(--color1-3)",
+                  color: "var(--color5)",
+                  transform: "translateY(-4px)",
+                }}
+              >
+                Soporte <ChevronDownIcon />
+              </Chakra.Tab>
+            </Chakra.TabList>
 
-            <Chakra.TabPanel>
-              <Components.CheckboxGroup
-                options={supports}
-                onChange={handleSupportOnChange}
-                colorScheme={"lotus"}
-                bgColor={"var(--color5)"}
-                borderRadius={"1rem"}
-                p={"1rem"}
-              />
-            </Chakra.TabPanel>
-          </Chakra.TabPanels>
-        </Chakra.Tabs>
+            <Chakra.TabPanels>
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={techniques}
+                  value={filters.techniques}
+                  onChange={handleTechniqueOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.TabPanel>
 
-        <Chakra.Button
-          alignSelf={"center"}
-          width={"20%"}
-          maxW={"500px"}
-          minW={"320px"}
-          margin={"10px auto"}
-          borderRadius={"100px"}
-          fontSize={"22px"}
-          onClick={handleOnFilter}
-          bgColor="var(--color1)"
-          color={"var(--white)"}
-          _hover={{
-            backgroundColor: "var(--color1-3)",
-            transform: "translateY(-4px)",
-          }}
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={categories}
+                  value={filters.categories}
+                  onChange={handleCategoryOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.TabPanel>
+
+              <Chakra.TabPanel>
+                <Components.CheckboxGroup
+                  options={supports}
+                  value={filters.supports}
+                  onChange={handleSupportOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.TabPanel>
+            </Chakra.TabPanels>
+          </Chakra.Tabs>
+        ) : (
+          <Chakra.Accordion allowToggle fontFamily={"Poppins"}>
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px 0"}
+                bgColor="var(--color3)"
+                color={"var(--black)"}
+                borderRadius={"100px"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _focus={{
+                  backgroundColor: "var(--color1)",
+                  color: "var(--color5)",
+                }}
+              >
+                <p>Tecnicas</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={techniques}
+                  value={filters.techniques}
+                  onChange={handleTechniqueOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px 0"}
+                bgColor="var(--color3)"
+                color={"var(--black)"}
+                borderRadius={"100px"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _focus={{
+                  backgroundColor: "var(--color1)",
+                  color: "var(--color5)",
+                }}
+              >
+                <p>Categorias...</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={categories}
+                  value={filters.categories}
+                  onChange={handleCategoryOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+
+            <Chakra.AccordionItem>
+              <Chakra.AccordionButton
+                fontSize={"16px"}
+                fontWeight={"bold"}
+                margin={"6px 0"}
+                bgColor="var(--color3)"
+                color={"var(--black)"}
+                borderRadius={"100px"}
+                display={"flex"}
+                justifyContent={"space-between"}
+                _focus={{
+                  backgroundColor: "var(--color1)",
+                  color: "var(--color5)",
+                }}
+              >
+                <p>Soportes</p>
+                <AccordionIcon transform={"scale(1.5)"} />
+              </Chakra.AccordionButton>
+
+              <Chakra.AccordionPanel>
+                <Components.CheckboxGroup
+                  options={supports}
+                  value={filters.supports}
+                  onChange={handleSupportOnChange}
+                  colorScheme={"lotus"}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"1rem"}
+                  p={"1rem"}
+                />
+              </Chakra.AccordionPanel>
+            </Chakra.AccordionItem>
+          </Chakra.Accordion>
+        )}
+
+        <Chakra.Flex
+          justify={"center"}
+          flexWrap={"wrap"}
+          fontFamily={"Poppins"}
+          margin={"12px 0"}
         >
-          Filtrar
-        </Chakra.Button>
+          <Chakra.Button
+            width={"100%"}
+            maxW={"220px"}
+            m={"6px"}
+            borderRadius={"100px"}
+            fontSize={"16px"}
+            onClick={handleOnFilter}
+            bgColor="var(--color1)"
+            color={"var(--white)"}
+            _hover={{
+              backgroundColor: "var(--color1-3)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Filtrar
+          </Chakra.Button>
+          <Chakra.Button
+            width={"100%"}
+            maxW={"220px"}
+            m={"6px"}
+            borderRadius={"100px"}
+            fontSize={"16px"}
+            onClick={handleOnClickResetFilters}
+            bgColor="var(--color1)"
+            color={"var(--white)"}
+            _hover={{
+              backgroundColor: "var(--color1-3)",
+              transform: "translateY(-4px)",
+            }}
+          >
+            Reiniciar Filtros
+          </Chakra.Button>
+        </Chakra.Flex>
         <Components.CardContainer cards={filteredArtworks.data} />
       </Chakra.Box>
     </div>

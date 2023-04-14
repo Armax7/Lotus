@@ -6,6 +6,7 @@ export default async function mailHandler(req, res) {
   
     switch (method) {
       case Methods.GET:
+        break;
       case Methods.POST:
         return await Handlers.handleSendMail(req, res)
       case Methods.PUT:
