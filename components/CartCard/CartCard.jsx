@@ -45,7 +45,7 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Chakra.Flex flexDir={"column"} w={"100%"}>
+          <Chakra.Flex flexDir={"column"}>
             <Chakra.Box width={"100%"} minW={"150px"}>
               <Chakra.Text
                 fontSize={{ base: "md", md: "2xl" }}
@@ -70,16 +70,42 @@ function CartItem({ product, onDelete }) {
             {stripeProduct.isLoading ? (
               <Chakra.Alert
                 status="info"
-                maxW={"calc(100% - 10px)"}
-                borderRadius={"100px"}
-                fontSize={"14px"}
-                // mx={"5px"}
-                // minWidth={"100px"}
+                mx={"5px"}
+                maxW={"200px"}
+                minWidth={"100px"}
               >
                 <Chakra.AlertIcon />
-                <Chakra.AlertTitle 
-                lineHeight={"14px"}>Revisando pedido...</Chakra.AlertTitle>
+                <Chakra.AlertTitle>Revisando pedido...</Chakra.AlertTitle>
                 <Chakra.Spinner size={"md"} />
+              </Chakra.Alert>
+            ) : stripeProduct.isError ? (
+              <Chakra.Alert
+                status="error"
+                mx={"5px"}
+                maxW={"200px"}
+                minWidth={"100px"}
+              >
+                <Chakra.AlertIcon />
+                <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
+                <Chakra.AlertDescription>
+                  {stripeProduct.error.message || "Unhandled Error..."}
+                </Chakra.AlertDescription>
+                <Chakra.Spinner size={"md"} />
+              </Chakra.Alert>
+            ) : product.limit <= 0 || !stripeProduct.data.active ? (
+              <Chakra.Alert
+                status="error"
+                maxW={"200px"}
+                minWidth={"100px"}
+                mx={"5px"}
+              >
+                <Chakra.Flex>
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertTitle lineHeight={"14px"}>
+                    Revisando pedido...
+                  </Chakra.AlertTitle>
+                  <Chakra.Spinner size={"md"} />
+                </Chakra.Flex>
               </Chakra.Alert>
             ) : stripeProduct.isError ? (
               <Chakra.Alert

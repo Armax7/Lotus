@@ -30,7 +30,7 @@ const ProfileBuckets = () => {
 
     if (data) {
       console.log("este es data ", data);
-      await axios.put(`http://localhost:3000/api/user-details`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/user-details`, {
         id: userID,
         image: data.path,
       });
