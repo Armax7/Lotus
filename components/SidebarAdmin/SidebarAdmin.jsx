@@ -1,19 +1,21 @@
 import * as Chakra from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FiHome } from "react-icons/fi";
-import { FiUser, FiStar, FiSlack } from "react-icons/fi";
+import {  FiHome, FiUser, FiStar, FiSlack , FiImage,FiMessageSquare} from "react-icons/fi";
 
 function SidebarAdmin() {
   const router = useRouter();
 
   const links = [
-    { href: "/dashboard/", label: "Obras", icon: FiStar },
+    { href: "/dashboard/", label: "Obras", icon:FiImage },
     {
       href: "/dashboard/",
       label: "Propiedades de las Obras",
       icon: FiSlack,
     },
     { href: "/dashboard", label: "Usuarios", icon: FiUser },
+    { href: "/dashboard", label: "Reviews", icon: FiStar },
+    { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare },
+   
 
     { href: "/", label: "Home", icon: FiHome },
   ];
