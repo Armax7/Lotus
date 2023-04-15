@@ -137,13 +137,6 @@ function Cart() {
     <div className={style.container}>
       {cart.length ? (
         <div className={style.wrapper}>
-          {!logged ? (
-            <Components.Alert
-              success="info"
-              title="Aviso"
-              description="Inicia sesion para que tu carrito pueda guardarse"
-            />
-          ) : null}
           <div className={style.cards}>
             {cart.map((cartItem, index) => {
               return (
