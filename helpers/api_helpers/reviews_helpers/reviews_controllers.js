@@ -1,5 +1,17 @@
 import { supabase } from "../../../lib/supabaseClient";
 
+
+
+export async function getAllReviews() {
+  let { data: allReviews, error } = await supabase
+    .from("reviews")
+    .select("*")
+
+
+  if (error) throw error;
+  return allReviews;
+}
+
 export async function getAllReviewsByArtworkId(artworkId) {
   let { data: reviews, error } = await supabase
     .from("reviews")
@@ -47,11 +59,9 @@ export async function updateReview(reviewId, updatedReview) {
       .match({ id: reviewId });
   
     if (error) {
-      console.log('Error actualizando la review:', error.message);
       return error.message;
     }
   
-    console.log('Review actualizada exitosamente:', data);
     return data;
   }
   
@@ -64,7 +74,7 @@ export async function updateReview(reviewId, updatedReview) {
       .match({ id: reviewId });
   
     if (error) {
-      console.error('Error eliminando la review :', error.message);
+   
       return error.message;
     }
   

@@ -3,8 +3,14 @@ import * as Controllers from "./reviews_controllers";
 export async function handleGet(req, res) {
   const artworkId = req.query.artwork_id
   try {
-    const reviews = await Controllers.getAllReviewsByArtworkId(artworkId);
-    return res.status(200).json(reviews);
+    if(!artworkId) {
+      const allReviews = await Controllers.getAllReviews();
+      return res.status(200).json(allReviews);
+    }else {
+      const reviews = await Controllers.getAllReviewsByArtworkId(artworkId);
+      return res.status(200).json(reviews);
+    }
+    
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -32,8 +38,8 @@ export async function handlePostReview(req, res) {
 
 
 export async function handlePut(req, res) {
-  const reviewUpdate = req.body;
-  const reviewId = req.query.review_id
+  const reviewUpdate = req.body.reviewUpdate;
+  const reviewId = req.body.review_id
   try {
     const response = await Controllers.updateReview(reviewId, reviewUpdate);
     return res.status(200).json("Su calificacion a sido modificada");
@@ -43,7 +49,7 @@ export async function handlePut(req, res) {
 }
 
 export async function handleDelete(req, res) {
-  const reviewId = req.query.review_id
+  const reviewId = req.body.review_id
   
   try {
     const response = await Controllers.deleteReview(reviewId);
