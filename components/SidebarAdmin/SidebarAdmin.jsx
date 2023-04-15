@@ -1,25 +1,28 @@
-import { Icon, IconProps } from "@chakra-ui/react";
-import { SettingsIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
-import { Link } from "next/link";
-import {
-  AttachMoneyIcon,
-  BarChartIcon,
-  ChatIcon,
-  ChatOutlineIcon,
-  DynamicFeedIcon,
-  LineIcon,
-  PermIdentityIcon,
-  ReportIcon,
-  StoreIcon,
-  TimelineIcon,
-  TrendingUpIcon,
-} from "@chakra-ui/icons";
+import { useRouter } from "next/router";
+import {  FiHome, FiUser, FiStar, FiSlack , FiImage,FiMessageSquare} from "react-icons/fi";
 
 function SidebarAdmin() {
+  const router = useRouter();
+
+  const links = [
+    { href: "/dashboard/", label: "Obras", icon:FiImage },
+    {
+      href: "/dashboard/",
+      label: "Propiedades de las Obras",
+      icon: FiSlack,
+    },
+    { href: "/dashboard", label: "Usuarios", icon: FiUser },
+    { href: "/dashboard", label: "Reviews", icon: FiStar },
+    { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare },
+   
+
+    { href: "/", label: "Home", icon: FiHome },
+  ];
   return (
-    <Chakra.Box w="20%" h="100vh" bg="gray.200" p="4">
-      <Chakra.VStack spacing="4" align="stretch">
+    <Chakra.Box w="20%" h="100vh" bg="white" p="6">
+      <br></br>
+      <Chakra.VStack spacing="6" align="stretch">
         <svg
           style={{ maxWidth: "340px" }}
           xmlns="http://www.w3.org/2000/svg"
@@ -64,21 +67,40 @@ function SidebarAdmin() {
           </g>
         </svg>
         <br></br>
-        <Chakra.Heading size="md" color="var(--color2)">
-          Sidebar
-        </Chakra.Heading>
-        <Chakra.Text color="var(--color2)" mt={"4px"}>
-          Obras
-        </Chakra.Text>
-        <Chakra.Text color="var(--color2)" mt={"4px"}>
-          Propiedades de las Obras
-        </Chakra.Text>
-        <Chakra.Text color="var(--color2)" mt={"4px"}>
-          Usuarios
-        </Chakra.Text>
-        <Chakra.Heading size="md" color="var(--color2)">
-          Home
-        </Chakra.Heading>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Chakra.Stack spacing="12" ml="6" m="4">
+          {links.map((link) => (
+            <Chakra.Box
+              key={link.href}
+              as="button"
+              onClick={() => router.push(link.href)}
+              p="10"
+              fontFamily={"Poppins"}
+              fontSize={"22px"}
+              borderRadius="md"
+              bg={
+                router.pathname === link.href
+                  ? "var(--color1-3)"
+                  : "var(--color1-3)"
+              }
+              _hover={{ bg: "var(--color2)" }}
+              cursor="pointer"
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-start"
+            >
+              <link.icon />
+              <Chakra.Box mt="22" ml="18">
+                {link.label}
+              </Chakra.Box>
+            </Chakra.Box>
+          ))}
+        </Chakra.Stack>
+        <Chakra.Heading size="md" color="var(--color1)"></Chakra.Heading>
       </Chakra.VStack>
     </Chakra.Box>
   );
