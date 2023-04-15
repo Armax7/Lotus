@@ -262,9 +262,10 @@ function NavBar({
                         <br />
                         <Chakra.MenuDivider />
                         <Link href="/profile">
-                          <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                          <Chakra.MenuItem>Perfil</Chakra.MenuItem>
                         </Link>
-                        <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                        <Link href="/formCreate">
+                        <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem></Link>
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
                         </Chakra.Flex>
@@ -486,9 +487,10 @@ function NavBar({
                             <br />
                             <Chakra.MenuDivider />
                             <Link href="/profile">
-                              <Chakra.MenuItem>Profile</Chakra.MenuItem>
+                              <Chakra.MenuItem>Perfil</Chakra.MenuItem>
                             </Link>
-                            <Chakra.MenuItem>Account Settings</Chakra.MenuItem>
+                            <Link href="/formCreate">
+                            <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem></Link>
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
                             </Chakra.Flex>
