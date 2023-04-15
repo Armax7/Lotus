@@ -25,3 +25,4 @@ export { default as ToTopButton } from "./ToTopButton/ToTopButton";
 export { default as FormUserCreate } from "./FormUserCreate/FormUserCreate";
 export { default as SidebarAdmin } from "./SidebarAdmin/SidebarAdmin";
 export { default as Dropdown } from "./Dropdown/Dropdown";
+export { default as PostArtworkForm } from "./PostArtworkForm/PostArtworkForm";
