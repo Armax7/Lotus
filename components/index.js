@@ -22,6 +22,9 @@ export { default as FormDrawerData } from "./FormDrawerData/FormDrawerData";
 export { default as ProfileBuckets } from "./ProfileBuckets/ProfileBuckets";
 export { default as ContactForm } from "./ContactForm/ContactForm";
 export { default as ToTopButton } from "./ToTopButton/ToTopButton";
-export { default as FormUserCreate } from "./FormUserCreate/FormUserCreate"
+export { default as FormUserCreate } from "./FormUserCreate/FormUserCreate";
+export { default as SidebarAdmin } from "./SidebarAdmin/SidebarAdmin";
+export { default as Dropdown } from "./Dropdown/Dropdown";
+export { default as PostArtworkForm } from "./PostArtworkForm/PostArtworkForm";
 export { default as SidebarAdmin } from "./SidebarAdmin/SidebarAdmin"
 export { default as Alert } from "./Alert/Alert"
