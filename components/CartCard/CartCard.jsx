@@ -24,7 +24,7 @@ function CartItem({ product, onDelete }) {
       width="100%"
       maxW={"1000px"}
       minW={"min-content"}
-      h={"220px"}
+      h={"260px"}
       minH={"200px"}
       margin="12px auto"
     >
@@ -45,10 +45,11 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Chakra.Flex flexDir={"column"}>
+          <Chakra.Flex flexDir={"column"} w={"100%"} minW={"150px"}>
             <Chakra.Box width={"100%"} minW={"150px"}>
               <Chakra.Text
                 fontSize={{ base: "md", md: "2xl" }}
+                lineHeight={"22px"}
                 fontWeight="bold"
               >
                 {product.name}
@@ -70,9 +71,10 @@ function CartItem({ product, onDelete }) {
             {stripeProduct.isLoading ? (
               <Chakra.Alert
                 status="info"
-                mx={"5px"}
-                maxW={"200px"}
-                minWidth={"100px"}
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
               >
                 <Chakra.AlertIcon />
                 <Chakra.AlertTitle>Revisando pedido...</Chakra.AlertTitle>
@@ -95,24 +97,26 @@ function CartItem({ product, onDelete }) {
             ) : product.limit <= 0 || !stripeProduct.data.active ? (
               <Chakra.Alert
                 status="error"
-                maxW={"200px"}
-                minWidth={"100px"}
-                mx={"5px"}
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
               >
-                <Chakra.Flex>
+                <Chakra.Flex alignItems={"center"}>
                   <Chakra.AlertIcon />
                   <Chakra.AlertTitle lineHeight={"14px"}>
                     Revisando pedido...
                   </Chakra.AlertTitle>
-                  <Chakra.Spinner size={"md"} />
+                  <Chakra.Spinner />
                 </Chakra.Flex>
               </Chakra.Alert>
             ) : stripeProduct.isError ? (
               <Chakra.Alert
                 status="error"
                 maxW={"calc(100% - 10px)"}
+                minW={"100px"}
                 borderRadius={"100px"}
-                fontSize={"14px"}
+                fontSize={"12px"}
               >
                 <Chakra.AlertIcon />
                 <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
@@ -124,19 +128,22 @@ function CartItem({ product, onDelete }) {
             ) : product.limit <= 0 || !stripeProduct.data.active ? (
               <Chakra.Alert
                 status="error"
-                margin="50px 0 15px 0"
-                flexFlow={"column wrap"}
-                justifyContent={"flex-start"}
+                flexWrap={"wrap"}
+                padding={"12px"}
                 maxW={"calc(100% - 10px)"}
                 borderRadius={"100px"}
-                fontSize={"14px"}
-                mx={"5px"}
+                fontSize={"12px"}
               >
-                <Chakra.Flex>
+                <Chakra.Flex alignItems={"center"}>
                   <Chakra.AlertIcon />
-                  <Chakra.AlertTitle>Lo sentimos...</Chakra.AlertTitle>
+                  <Chakra.AlertTitle lineHeight={"12px"}>
+                    Lo sentimos...
+                  </Chakra.AlertTitle>
                 </Chakra.Flex>
-                <Chakra.AlertDescription textAlign={"center"}>
+                <Chakra.AlertDescription
+                  lineHeight={"16px"}
+                  textAlign={"center"}
+                >
                   Estas obra ya no está disponible
                 </Chakra.AlertDescription>
               </Chakra.Alert>
@@ -144,8 +151,9 @@ function CartItem({ product, onDelete }) {
               <Chakra.Alert
                 status="success"
                 maxW={"calc(100% - 10px)"}
+                minW={"100px"}
                 borderRadius={"100px"}
-                fontSize={"14px"}
+                fontSize={"12px"}
               >
                 <Chakra.AlertIcon />
                 <Chakra.AlertTitle>Disponible</Chakra.AlertTitle>
