@@ -24,7 +24,8 @@ function CartItem({ product, onDelete }) {
       width="100%"
       maxW={"1000px"}
       minW={"min-content"}
-      h={"200px"}
+      h={"260px"}
+      minH={"200px"}
       margin="12px auto"
     >
       <Chakra.Flex
@@ -44,75 +45,121 @@ function CartItem({ product, onDelete }) {
               borderRadius={"inherit"}
             />
           </div>
-          <Chakra.Box width={"100%"} minW={"150px"}>
-            <Chakra.Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
-              {product.name}
-            </Chakra.Text>
-            <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
-              Cantidad: {product.quantity}
-            </Chakra.Text>
-            <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
-              Precio: ${product.price}
-            </Chakra.Text>
-            <hr className={style.hr} />
-            <Chakra.Text fontSize={{ base: "md", md: "2xl" }} fontWeight="bold">
-              Total: ${product.quantity * product.price}
-            </Chakra.Text>
-          </Chakra.Box>
-          {stripeProduct.isLoading ? (
-            <Chakra.Alert
-              status="info"
-              mx={"5px"}
-              maxW={"200px"}
-              minWidth={"100px"}
-            >
-              <Chakra.AlertIcon />
-              <Chakra.AlertTitle>Revisando pedido...</Chakra.AlertTitle>
-              <Chakra.Spinner size={"md"} />
-            </Chakra.Alert>
-          ) : stripeProduct.isError ? (
-            <Chakra.Alert
-              status="error"
-              mx={"5px"}
-              maxW={"200px"}
-              minWidth={"100px"}
-            >
-              <Chakra.AlertIcon />
-              <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
-              <Chakra.AlertDescription>
-                {stripeProduct.error.message || "Unhandled Error..."}
-              </Chakra.AlertDescription>
-              <Chakra.Spinner size={"md"} />
-            </Chakra.Alert>
-          ) : product.limit <= 0 || !stripeProduct.data.active ? (
-            <Chakra.Alert
-              status="error"
-              margin="50px 0 15px 0"
-              flexFlow={"column wrap"}
-              justifyContent={"flex-start"}
-              maxW={"200px"}
-              minWidth={"100px"}
-              mx={"5px"}
-            >
-              <Chakra.Flex>
+          <Chakra.Flex flexDir={"column"} w={"100%"} minW={"150px"}>
+            <Chakra.Box width={"100%"} minW={"150px"}>
+              <Chakra.Text
+                fontSize={{ base: "md", md: "2xl" }}
+                lineHeight={"22px"}
+                fontWeight="bold"
+              >
+                {product.name}
+              </Chakra.Text>
+              <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
+                Cantidad: {product.quantity}
+              </Chakra.Text>
+              <Chakra.Text fontSize={{ base: "sm", md: "md" }}>
+                Precio: ${product.price}
+              </Chakra.Text>
+              <hr className={style.hr} />
+              <Chakra.Text
+                fontSize={{ base: "md", md: "2xl" }}
+                fontWeight="bold"
+              >
+                Total: ${product.quantity * product.price}
+              </Chakra.Text>
+            </Chakra.Box>
+            {stripeProduct.isLoading ? (
+              <Chakra.Alert
+                status="info"
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
+              >
                 <Chakra.AlertIcon />
-                <Chakra.AlertTitle>Lo sentimos...</Chakra.AlertTitle>
-              </Chakra.Flex>
-              <Chakra.AlertDescription textAlign={"center"}>
-                Estas obra ya no está disponible
-              </Chakra.AlertDescription>
-            </Chakra.Alert>
-          ) : (
-            <Chakra.Alert
-              status="success"
-              mx={"5px"}
-              maxW={"200px"}
-              minWidth={"100px"}
-            >
-              <Chakra.AlertIcon />
-              <Chakra.AlertTitle>Disponible</Chakra.AlertTitle>
-            </Chakra.Alert>
-          )}
+                <Chakra.AlertTitle>Revisando pedido...</Chakra.AlertTitle>
+                <Chakra.Spinner size={"md"} />
+              </Chakra.Alert>
+            ) : stripeProduct.isError ? (
+              <Chakra.Alert
+                status="error"
+                mx={"5px"}
+                maxW={"200px"}
+                minWidth={"100px"}
+              >
+                <Chakra.AlertIcon />
+                <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
+                <Chakra.AlertDescription>
+                  {stripeProduct.error.message || "Unhandled Error..."}
+                </Chakra.AlertDescription>
+                <Chakra.Spinner size={"md"} />
+              </Chakra.Alert>
+            ) : product.limit <= 0 || !stripeProduct.data.active ? (
+              <Chakra.Alert
+                status="error"
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
+              >
+                <Chakra.Flex alignItems={"center"}>
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertTitle lineHeight={"14px"}>
+                    Revisando pedido...
+                  </Chakra.AlertTitle>
+                  <Chakra.Spinner />
+                </Chakra.Flex>
+              </Chakra.Alert>
+            ) : stripeProduct.isError ? (
+              <Chakra.Alert
+                status="error"
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
+              >
+                <Chakra.AlertIcon />
+                <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
+                <Chakra.AlertDescription>
+                  {stripeProduct.error.message}
+                </Chakra.AlertDescription>
+                <Chakra.Spinner size={"md"} />
+              </Chakra.Alert>
+            ) : product.limit <= 0 || !stripeProduct.data.active ? (
+              <Chakra.Alert
+                status="error"
+                flexWrap={"wrap"}
+                padding={"12px"}
+                maxW={"calc(100% - 10px)"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
+              >
+                <Chakra.Flex alignItems={"center"}>
+                  <Chakra.AlertIcon />
+                  <Chakra.AlertTitle lineHeight={"12px"}>
+                    Lo sentimos...
+                  </Chakra.AlertTitle>
+                </Chakra.Flex>
+                <Chakra.AlertDescription
+                  lineHeight={"16px"}
+                  textAlign={"center"}
+                >
+                  Estas obra ya no está disponible
+                </Chakra.AlertDescription>
+              </Chakra.Alert>
+            ) : (
+              <Chakra.Alert
+                status="success"
+                maxW={"calc(100% - 10px)"}
+                minW={"100px"}
+                borderRadius={"100px"}
+                fontSize={"12px"}
+              >
+                <Chakra.AlertIcon />
+                <Chakra.AlertTitle>Disponible</Chakra.AlertTitle>
+              </Chakra.Alert>
+            )}
+          </Chakra.Flex>
         </div>
         <Chakra.Button
           bg={"var(--color2)"}
