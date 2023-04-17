@@ -21,7 +21,6 @@ export default function ToTopButton() {
     window.scrollTo(0, document.body.scrollHeight, "smooth");
   }
 
-
   return (
     <Chakra.Button
       onClick={toTop ? scrollToTop : scrollToBottom}
