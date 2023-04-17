@@ -7,7 +7,7 @@
 }
 
 .contentWrapper {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 180px);
   width: 100%;
   max-width:1300px;
   position: relative;
@@ -24,7 +24,7 @@
 
 .backButton{
   z-index: 1;
-  position: absolute;
-  top: -30px;
-  left: 0;
+  position: fixed;
+  top: 92px;
+  left: 12px;
 }

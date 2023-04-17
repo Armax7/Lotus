@@ -43,13 +43,13 @@ const Carousel = ({ images, ...props }) => {
             icon={<ChevronLeftIcon />}
             position="absolute"
             top="50%"
-            left="0"
-            h={"100%"}
+            left="12px"
+            h={"20%"}
             transform="translateY(-50%)"
             onClick={handlePrevClick}
             bg={"var(--black-2)"}
             color={"var(--color5)"}
-            borderRadius="12px 0 0 12px"
+            borderRadius="12px"
             _hover={{background:"var(--color1-2)", fontSize:"36px"}}
           />
 
@@ -59,13 +59,13 @@ const Carousel = ({ images, ...props }) => {
             icon={<ChevronRightIcon />}
             position="absolute"
             top="50%"
-            right="0"
-            h={"100%"}
+            right="12px"
+            h={"20%"}
             transform="translateY(-50%)"
             onClick={handleNextClick}
             bg={"var(--black-2)"}
             color={"var(--color5)"}
-            borderRadius="0 12px 12px 0"
+            borderRadius="12px"
             _hover={{background:"var(--color1-2)", fontSize:"36px"}}
           />
         </>

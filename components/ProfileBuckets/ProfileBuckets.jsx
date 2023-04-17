@@ -51,9 +51,6 @@ const ProfileBuckets = () => {
 
   return (
     <div className={styles.container}>
-      <label htmlFor="file" className={styles.fileInput}>
-        Choose an image
-      </label>
       <input
         type="file"
         id="file_input"
@@ -71,23 +68,27 @@ const ProfileBuckets = () => {
             alt="Archivo seleccionado"
             className={styles.selectedFileImg}
           />
-          <Chakra.Button
-            onClick={handleDeleteClick}
-            className={styles.selectedFileButton}
-            bgColor="red"
-          >
-            {" "}
-            Borrar{" "}
-          </Chakra.Button>
-          <Chakra.Button
-            onClick={handleUpload}
-            handleDeleteClick
-            className={styles.selectedFileButton}
-            bgColor="green"
-          >
-            {" "}
-            Subir{" "}
-          </Chakra.Button>
+          <Chakra.Flex justifyContent={"space-evenly"}>
+            <Chakra.Button
+              onClick={handleDeleteClick}
+              className={styles.selectedFileButton}
+              bgColor="var(--color1)"
+              color="var(--color5)"
+              _hover={{transform: "translateY(-4px)"}}
+            >
+              Borrar
+            </Chakra.Button>
+            <Chakra.Button
+              onClick={handleUpload}
+              handleDeleteClick
+              className={styles.selectedFileButton}
+              bgColor="var(--color2)"
+              color="var(--color5)"
+              _hover={{transform: "translateY(-4px)"}}
+            >
+              Subir
+            </Chakra.Button>
+          </Chakra.Flex>
         </div>
       )}
     </div>
