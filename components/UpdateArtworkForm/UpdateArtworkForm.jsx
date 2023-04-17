@@ -6,6 +6,7 @@ import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 import * as Components from "../../components";
 import * as BucketsHelper from "../../helpers/supabase_helpers/buckets";
+import validate from "./validate";
 
 function UpdateArtworkForm({
   artwork,
@@ -23,6 +24,7 @@ function UpdateArtworkForm({
 
   const queryClient = new ReactQuery.QueryClient();
 
+  const [errors, setErrors] = useState({ name: "" });
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     name: artwork.name ?? "",
@@ -117,22 +119,28 @@ function UpdateArtworkForm({
         ...(imageFile && { image: fileUrl }),
       };
 
-      await onSubmitProp(dataPreview);
+      setErrors(validate(dataPreview));
+      const currentErrors = validate(dataPreview);
 
-      setFormData({
-        name: artwork.name ?? "",
-        description: artwork.description ?? "",
-        size: artwork.size ?? "",
-        price: artwork.price ?? "",
-        author: artwork.author_id ?? "",
-        category: artwork.category_id ?? "",
-        technique: artwork.technique_id ?? "",
-        support: artwork.support_id ?? "",
-        stock: artwork.stock ?? "",
-        available: artwork.available,
-      });
-      setImageFile(null);
-      onCloseProp();
+      if (Object.values(currentErrors).length <= 0) {
+        await onSubmitProp(dataPreview);
+
+        setFormData({
+          name: artwork.name ?? "",
+          description: artwork.description ?? "",
+          size: artwork.size ?? "",
+          price: artwork.price ?? "",
+          author: artwork.author_id ?? "",
+          category: artwork.category_id ?? "",
+          technique: artwork.technique_id ?? "",
+          support: artwork.support_id ?? "",
+          stock: artwork.stock ?? "",
+          available: artwork.available,
+        });
+        setImageFile(null);
+        setErrors({ name: "" });
+        onCloseProp();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -152,7 +160,7 @@ function UpdateArtworkForm({
             <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
               Nombre de la obra:
             </Chakra.FormLabel>
-            <Chakra.FormControl id="name_update">
+            <Chakra.FormControl id="name_update" isInvalid={!!errors.name}>
               <Chakra.Input
                 name="name"
                 value={formData.name}
@@ -163,6 +171,11 @@ function UpdateArtworkForm({
                 maxW={"500px"}
                 minW={"100px"}
               />
+              {!!errors.name ? (
+                <Chakra.FormHelperText>
+                  Nombre de la obra no puede estar vació
+                </Chakra.FormHelperText>
+              ) : null}
             </Chakra.FormControl>
           </Chakra.Flex>
           <Chakra.FormLabel m={"5px"} fontSize={"2xl"} whiteSpace={"nowrap"}>
