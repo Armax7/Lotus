@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export default function ToTopButton() {
   function scrollToTop() {
     window.scrollTo({
-      top: 1,
+      top: 0,
       behavior: "smooth",
     });
   }
