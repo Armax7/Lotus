@@ -93,25 +93,29 @@ function FormDrawerData() {
       <Chakra.Button
         ref={btnRef}
         onClick={onOpen}
-        color="black"
+        color="var(--color5)"
         borderRadius="full"
-        w="50px"
-        h="50px"
+        background={"var(--color2)"}
+        _hover={{ background: "var(--color1)", color: "var(--color5)" }}
       >
-        <BsPencilSquare />
+        Editar informacion
+        <Chakra.Box ml={"4px"}>
+          <BsPencilSquare />
+        </Chakra.Box>
       </Chakra.Button>
       <form onSubmit={handleSubmit}>
         <Chakra.Drawer isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef}>
           <Chakra.DrawerOverlay />
-          <Chakra.DrawerContent>
+          <Chakra.DrawerContent bg={"var(--color5)"} color={"var(--black)"}>
             <Chakra.DrawerCloseButton />
 
-            <Chakra.DrawerHeader>Formulario de datos</Chakra.DrawerHeader>
+            <Chakra.DrawerHeader color={"var(--color1)"}>Formulario de datos</Chakra.DrawerHeader>
 
             <Chakra.DrawerBody className={style.drawerBody}>
               <Chakra.FormControl id="name" mb="4">
                 <Chakra.FormLabel>Nombre</Chakra.FormLabel>
                 <Chakra.Input
+                  borderColor={"var(--color1)"}
                   type="text"
                   name="name"
                   value={newData.name || ""}
@@ -122,6 +126,7 @@ function FormDrawerData() {
               <Chakra.FormControl id="address" mb="4">
                 <Chakra.FormLabel>Dirección</Chakra.FormLabel>
                 <Chakra.Input
+                  borderColor={"var(--color1)"}
                   name="address"
                   value={newData.address || ""}
                   onChange={handleChange}
@@ -129,11 +134,22 @@ function FormDrawerData() {
               </Chakra.FormControl>
             </Chakra.DrawerBody>
 
-            <Chakra.DrawerFooter>
-              <Chakra.Button variant="outline" mr={3} onClick={onClose}>
+            <Chakra.DrawerFooter margin={"auto"}>
+              <Chakra.Button
+                variant="outline"
+                mr={3}
+                onClick={onClose}
+                borderColor={"var(--color1)"}
+                color={"var(--color1)"}
+              >
                 Cancelar
               </Chakra.Button>
-              <Chakra.Button colorScheme="blue" onClick={handleUpdate}>
+              <Chakra.Button
+                colorScheme="blue"
+                onClick={handleUpdate}
+                bg={"var(--color1)"}
+                color={"var(--color5)"}
+              >
                 Actualizar
               </Chakra.Button>
             </Chakra.DrawerFooter>

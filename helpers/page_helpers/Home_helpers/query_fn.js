@@ -61,6 +61,21 @@ export async function getAuthorByIdAxios(id) {
   return res;
 }
 
+export async function getAllAuthorsAxios() {
+  const response = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/authors`)
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return response;
+}
+
 export async function getAllArtworksByQueryAxios({
   name,
   techniques,
