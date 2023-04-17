@@ -131,6 +131,7 @@ function UpdateArtworkForm({
         stock: artwork.stock ?? "",
         available: artwork.available,
       });
+      setImageFile(null);
       onCloseProp();
     } catch (error) {
       console.log(error);
