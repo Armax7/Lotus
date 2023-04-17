@@ -28,3 +28,5 @@ export { default as PostArtworkForm } from "./PostArtworkForm/PostArtworkForm";
 export { default as SidebarAdmin } from "./SidebarAdmin/SidebarAdmin"
 export { default as Alert } from "./Alert/Alert" 
 export { default as DeleteArtworkAdmin } from "./DeleteArtworkAdmin/DeleteArtworkAdmin"
+export { default as Opinions } from "./Opinions/Opinions"
+export { default as EditOpinion } from "./EditOpinion/EditOpinion"

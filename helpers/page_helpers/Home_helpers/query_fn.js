@@ -232,3 +232,53 @@ export async function getArtworkByNameAxios(name) {
 
   return res;
 }
+
+export async function getReviewsByArtworkId(id) {
+  const res = await axios
+    .get(`${process.env.NEXT_PUBLIC_HOST}/api/reviews?artwork_id=${id}`)
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
+
+export async function deleteReview(id) {
+  const res = await axios
+    .delete(`${process.env.NEXT_PUBLIC_HOST}/api/reviews`, { data: { review_id: id }})
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
+export async function updateReview(rating, comment, id) {
+  const res = await axios
+    .put(`${process.env.NEXT_PUBLIC_HOST}/api/reviews`,
+     { review_id: id, 
+     reviewUpdate: {rating: rating, comment : comment} 
+    })
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
