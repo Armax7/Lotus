@@ -1,15 +1,28 @@
 import { Avatar, Badge, Box, Flex, Icon, IconButton, Text } from "@chakra-ui/react";
 import { StarIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import * as Components from "../../components"
-import { useState } from "react";
-import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn"
+import { useEffect, useState } from "react";
+import { getUserId, loggedStatus } from "../../helpers/supabase_helpers/user_management"
 
 
-const Opinion = ({ name, rating, date, comment, imageUrl, id, handleDelete, handleUpdate}) => {
+const Opinion = ({ name, rating, date,user_id, comment, imageUrl, id, handleDelete, handleUpdate}) => {
   const stars = [];
   const datePut = date.split("T")[0]
   const [isOpen, setIsOpen] = useState(false);
+  const [isLog, setIsLog] = useState(false);
+  const [userId, setUserId] = useState();
 
+  async function isLogged(){
+    const result = await loggedStatus();
+    const id = await getUserId();
+    if(!result || !id){
+      return false; 
+    } else {
+      console.log(id + " " + result)
+    setIsLog(result);
+    setUserId(id);
+    }
+  }
 
   function onClose() {
     setIsOpen(false);
@@ -19,6 +32,10 @@ const Opinion = ({ name, rating, date, comment, imageUrl, id, handleDelete, hand
     
     setIsOpen(false);
   }
+
+  useEffect(() =>{
+   isLogged();
+  }, [])
 
   
   for (let i = 1; i <= 5; i++) {
@@ -59,7 +76,7 @@ const Opinion = ({ name, rating, date, comment, imageUrl, id, handleDelete, hand
       </Box>
     </Flex>
     <Text mt={4}>{comment}</Text>
-    <Flex position="absolute" top={0} right={0} mt={2} mr={2}>
+    { isLog && userId === user_id ? <Flex position="absolute" top={0} right={0} mt={2} mr={2}>
       <IconButton
         icon={<Icon as={EditIcon} />}
         aria-label="Editar opinión"
@@ -85,6 +102,8 @@ const Opinion = ({ name, rating, date, comment, imageUrl, id, handleDelete, hand
         onClick={() => handleDelete(id)}
       />
     </Flex>
+  : null  
+  }
   </Box>
   
   

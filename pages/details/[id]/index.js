@@ -78,6 +78,7 @@ function DetailsPage(context) {
           />
         </div>
       </Chakra.Box>
+      <div style={{background: "#f9f5e7"}} >
       <Chakra.Heading as="h1" size="xl">
         Valoraciones
       </Chakra.Heading>
@@ -86,6 +87,7 @@ function DetailsPage(context) {
           ? review.map((review) => (
               <Components.Opinions
                 key={review.id}
+                user_id={review.user_id}
                 rating={review.rating}
                 comment={review.comment}
                 name={review.user_name}
@@ -98,6 +100,7 @@ function DetailsPage(context) {
             ))
           : null}
       </Chakra.Flex>
+      </div>
     </>
   );
 }
