@@ -18,7 +18,6 @@ const Opinion = ({ name, rating, date,user_id, comment, imageUrl, id, handleDele
     if(!result || !id){
       return false; 
     } else {
-      console.log(id + " " + result)
     setIsLog(result);
     setUserId(id);
     }
