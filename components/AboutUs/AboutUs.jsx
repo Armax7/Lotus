@@ -1,129 +1,193 @@
 import * as Chakra from "@chakra-ui/react";
+import { useState } from "react";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 //import * as Components from "../../components"
 
 function AboutUs() {
+  const [leerMas, setLeerMas] = useState(false);
+
   const { isOpen, onOpen, onClose } = Chakra.useDisclosure();
   return (
     <>
-      <button onClick={onOpen}>Quiénes somos</button>
+      <Chakra.Text
+        onClick={onOpen}
+        cursor={"pointer"}
+        transition={"font-size .2s"}
+        _hover={{ fontSize: "13px" }}
+      >
+        Quiénes somos
+      </Chakra.Text>
 
-      <Chakra.Modal isOpen={isOpen} onClose={onClose} backgroundColor="#f9f5e7">
+      <Chakra.Modal isOpen={isOpen} onClose={onClose} isCentered={leerMas ? false : true}>
         <Chakra.ModalOverlay />
-        <Chakra.ModalContent maxH="1100px" maxW="1300px">
-          <Chakra.ModalHeader fontSize="3xl" fontWeight="bold">
+        <Chakra.ModalContent
+          maxW="1200px"
+          minW="300px"
+          m={"20px 12px"}
+          backgroundColor="var(--color5)"
+          color={"var(--black)"}
+          fontFamily={"Poppins"}
+          borderRadius={"12px"}
+        >
+          <Chakra.ModalHeader
+            fontSize="32px"
+            fontWeight="600"
+            display={"flex"}
+            alignItems={"center"}
+          >
             <svg
-              style={{ maxWidth: "340px" }}
+              style={{
+                width: "100%",
+                maxWidth: "80px",
+                marginRight: "12px",
+              }}
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 304.13 58.64"
+              viewBox="0 0 100.06 57.39"
             >
-              <title>Recurso 1</title>
+              <title>Recurso 2</title>
               <g id="Capa_2" data-name="Capa 2">
                 <g id="Capa_1-2" data-name="Capa 1">
                   <path
                     fill="var(--color1)"
-                    d="M114.6,58.46c-5.11.62-10.25-1.23-15.27-3.05-3.75-1.37-7-.8-10.51.48C73,61.69,59.11,58.29,47.75,46c-4.94-5.36-4.53-7.21,2.36-9.9,1.87-.72,3.66-1.67,5.74-1.84,3.13-.25,3.87-2.11,2.7-4.79a42.06,42.06,0,0,1-2.41-8.94c-.78-4.12-.18-4.87,3.88-4.87a51.26,51.26,0,0,1,11.15,1.65c2.38.54,3.72,0,4-2.81A37.32,37.32,0,0,1,78.18,4c1.25-2.93,3.21-3.52,5.68-1.43,2.77,2.34,5.54,4.7,8.1,7.26,1.87,1.87,3.08,2.47,5.08,0a50,50,0,0,1,7.29-6.94c3.08-2.56,5-2.07,6.49,1.57a33.48,33.48,0,0,1,3,10.43c.2,2.62,1.35,3.45,4,2.51a36,36,0,0,1,11.5-1.79c3.2-.06,4.16,1.59,3.6,4.31a56.19,56.19,0,0,1-2.62,9.72c-1.33,3.25-.29,4.31,2.81,4.68,3.26.38,6.13,2,9,3.37,2.68,1.31,3,3.31,1.27,5.59C137.88,50.43,127.06,59.35,114.6,58.46Zm.05-4.25c5.87-.08,13.29-3,18.39-7.39,1.77-1.54,4.87-3.06,4.38-5.28s-4-2.1-6.22-2.93c-2.93-1.09-5.33-1.08-7.54,2.08a26.57,26.57,0,0,1-11,8.64c-1.71.78-5.12.55-4.76,2.67.42,2.49,3.88,1.46,5.94,2.16A3.1,3.1,0,0,0,114.65,54.21Zm-39.71,0a4.17,4.17,0,0,0,1.19-.16c1.36-.64,3.77.28,4-1.77s-2-2.18-3.39-2.82c-4.2-1.89-8.33-4.18-10.84-8-2.77-4.26-6-4-9.88-2.4-1.11.45-2.2,1-3.35,1.35-1.93.61-1.88,1.48-.63,2.83C58.25,49.93,65.67,54,74.94,54.26ZM88,28.45c.7-2.7.78-4.87,1.77-6.49,2.45-4,.92-6.87-2.13-9.46C86,11,84.51,7.86,82.62,8.41c-2.52.73-2.18,4.27-2.67,6.67-.41,2-1.86,4.34-.11,6.16C82.22,23.71,85,25.8,88,28.45Zm12.64-.8c2.86-2.14,5.39-4,7.95-5.94a2.82,2.82,0,0,0,1-2.88,40.29,40.29,0,0,0-2.09-9.38c-.45-1.2-1-2.08-2.22-.93-2.66,2.44-5.55,4.72-7.29,8-1.3,2.44,1,4.25,1.43,6.42C99.69,24.35,100.17,25.75,100.68,27.65ZM112.91,34c3-.58,5.15-1.35,7.22-1.28,3.1.09,4.74-1.07,5.33-4.07.5-2.55,3.21-5.74,1.41-7.38-2-1.81-5.53.09-8.26.95-1.93.61-4.47.89-4.61,3.71a21,21,0,0,1-1.23,6.25C112.37,33.3,112.42,34.06,112.91,34ZM65,20.76c-3-.37-4,.22-3.28,2.33s1.17,4.11,1.92,6.11c.82,2.16,10.06,5.63,12.12,4.64a1.35,1.35,0,0,0,.54-.52c.48-.86-2.55-9.85-3.56-10.19C69.85,22.16,66.89,21.33,65,20.76ZM69.54,37.6c3,5.13,10.82,9.57,15.16,8.94C81.54,40.6,76.31,38.27,69.54,37.6ZM104,46.77c5.41.12,13-4.38,15.09-9.07C112.48,38.31,107.3,40.87,104,46.77ZM89,40.86a19,19,0,0,0-8.75-13C81,33.1,82.6,37.83,89,40.86Zm19.38-12.58c-4.17,2.93-7.6,6.33-8.17,12.37C106.22,38.12,107.88,33.58,108.37,28.28Zm-13.86-4.7c-2.22,4.74-2,8.93-1.46,13.14.09.73.38,1.71,1.29,1.84s1.27-.86,1.45-1.59A20.75,20.75,0,0,0,94.51,23.58Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M283.82,58.38c-7.7-.41-14.77-2.12-21.16-6.31-2.4-1.57-2.39-2.93-1-5.25,1.52-2.49,2.82-2.06,4.82-.77,6,3.89,12.56,6,19.87,5.19A13.52,13.52,0,0,0,291,50c3-1.47,5.17-3.67,5.22-7.09,0-3.61-2.15-6.06-5.35-7.37-5.11-2.11-10.53-3.22-15.83-4.73-4.81-1.37-9.63-3-11.8-8.18C259.24,13,265.91,2,276.61.47,284-.58,291.05,0,297.7,3.68,300.41,5.19,302,6.63,300,10c-1.36,2.28-2.4,2.26-4.39.93a22,22,0,0,0-19.22-3.15c-3.8,1.12-6.48,4.3-6.46,7.85,0,3.85,2.16,6.35,5.7,7.44,5.77,1.77,11.7,3.09,17.42,5,5.28,1.77,9.62,4.71,10.76,10.86,1.1,5.94-.27,11.07-5,14.82C294.45,57.2,289.08,58.08,283.82,58.38Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M212.38,18.51c.34,5.57-.6,11.91.78,18.16S217.4,48,223.71,50.33c3.39,1.25,2.62,4,2,6-.7,2.53-2.94,1-4.41.52C212,54.06,206,45.42,205.17,34.53c-.76-9.93-.45-19.86-.7-29.78-.08-3.33,1-4.45,4.38-4.48s3.65,1.59,3.57,4.23C212.28,8.93,212.38,13.37,212.38,18.51Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M253.6,20c-.15,5.13.51,11.87-.87,18.52-1.88,9.1-6.59,15.78-15.87,18.5-1.31.38-3.27,1.5-3.76-.54s-1.5-4.82,1.46-6c8.44-3.26,11-10,11.16-18.26.21-9.39.48-18.79.52-28.19,0-2.72.71-3.84,3.63-3.79,2.7,0,3.9.7,3.78,3.63C253.46,8.78,253.6,13.62,253.6,20Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M7.85,22.17c0,6.18-.14,12.36.05,18.54C8,44.09,6,43.86,3.75,43.93S0,43.69,0,40.74Q.18,22.4,0,4.05C0,.81,1.56.36,4.24.29,7.07.22,8,1.22,7.9,4,7.73,10.07,7.85,16.12,7.85,22.17Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M173,7.37c-6.58,0-13.16-.09-19.74,0-2.83.06-3.7-1.08-3.76-3.81C149.39.71,150.8.33,153.17.34q19.94.1,39.87,0c2.73,0,3.87.85,3.83,3.7s-1.36,3.38-3.78,3.35C186.38,7.31,179.67,7.37,173,7.37Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M169.51,35.42c0-6,.11-12.08,0-18.12-.08-2.79,1.15-3.41,3.62-3.34,2.24.06,3.82.14,3.79,3.15q-.17,18.74,0,37.46c0,3-1.6,3-3.82,3.12-2.48.08-3.68-.55-3.61-3.34C169.62,48.05,169.52,41.73,169.51,35.42Z"
-                  />
-                  <path
-                    fill="var(--color2)"
-                    d="M19.65,51.14c5.52,0,11,.09,16.56,0,2.5-.06,3.25.9,3.26,3.31s-.92,3.27-3.34,3.25c-10.77-.08-21.55-.11-32.32,0C1,57.72.62,56.44.42,54.05c-.25-3,1.5-2.91,3.47-2.9H19.65Z"
+                    d="M70.16,57.2c-5.11.63-10.25-1.22-15.26-3-3.76-1.37-7-.8-10.52.48C28.58,60.43,14.68,57,3.31,44.7c-4.93-5.36-4.52-7.22,2.37-9.9,1.86-.73,3.65-1.68,5.74-1.85,3.13-.25,3.86-2.1,2.7-4.78a41.63,41.63,0,0,1-2.41-8.94c-.79-4.12-.18-4.87,3.88-4.87A50.57,50.57,0,0,1,26.73,16c2.39.54,3.72,0,4-2.81a36.72,36.72,0,0,1,3-10.45C35-.17,37-.77,39.42,1.32,42.19,3.67,45,6,47.53,8.59c1.86,1.87,3.07,2.47,5.07,0a51,51,0,0,1,7.29-6.94C63-1,64.85-.47,66.39,3.18a33.14,33.14,0,0,1,3,10.42c.2,2.63,1.36,3.46,4,2.52a36,36,0,0,1,11.5-1.79c3.2-.06,4.17,1.59,3.6,4.31a55.2,55.2,0,0,1-2.62,9.71c-1.33,3.25-.28,4.31,2.82,4.68s6.13,2,9,3.38c2.69,1.31,3,3.31,1.28,5.59C93.44,49.18,82.63,58.09,70.16,57.2Zm0-4.24c5.88-.08,13.29-3,18.39-7.39C90.37,44,93.47,42.5,93,40.29s-4-2.11-6.22-2.93c-2.93-1.09-5.34-1.08-7.54,2.08a26.63,26.63,0,0,1-11,8.64c-1.71.78-5.13.55-4.76,2.67.42,2.49,3.87,1.46,5.94,2.15A3,3,0,0,0,70.21,53Zm-39.7,0a3.74,3.74,0,0,0,1.18-.17c1.36-.64,3.78.28,4-1.77s-2-2.18-3.4-2.82c-4.2-1.88-8.32-4.17-10.83-8-2.78-4.26-6-4-9.88-2.41-1.12.46-2.21,1-3.35,1.36-1.94.6-1.88,1.48-.64,2.82C13.82,48.68,21.24,52.75,30.51,53ZM43.61,27.2c.69-2.7.77-4.88,1.76-6.5,2.46-4,.92-6.86-2.13-9.46-1.71-1.45-3.17-4.64-5.06-4.09-2.52.74-2.17,4.28-2.67,6.68-.4,2-1.85,4.33-.1,6.16C37.79,22.46,40.56,24.55,43.61,27.2Zm12.64-.8c2.86-2.14,5.39-4.06,8-5.94a2.81,2.81,0,0,0,1-2.88A39.78,39.78,0,0,0,63.09,8.2c-.45-1.21-1-2.08-2.21-.93-2.66,2.44-5.56,4.71-7.29,8-1.31,2.43,1,4.25,1.42,6.42C55.26,23.1,55.74,24.5,56.25,26.4Zm12.22,6.37c3-.58,5.15-1.35,7.23-1.29,3.1.09,4.73-1.06,5.33-4.07.5-2.54,3.21-5.73,1.4-7.37-2-1.81-5.52.08-8.25.94-1.94.62-4.48.89-4.62,3.71A21.08,21.08,0,0,1,68.34,31C67.93,32.05,68,32.8,68.47,32.77ZM20.58,19.51c-3-.38-4,.22-3.28,2.33s1.17,4.11,1.93,6.1c.82,2.17,10.06,5.64,12.11,4.65a1.23,1.23,0,0,0,.54-.52c.48-.87-2.55-9.86-3.56-10.19C25.41,20.91,22.46,20.08,20.58,19.51Zm4.53,16.83c3,5.14,10.82,9.58,15.16,8.95C37.1,39.34,31.87,37,25.11,36.34Zm34.45,9.18c5.41.12,13-4.38,15.1-9.07C68,37.06,62.87,39.62,59.56,45.52Zm-15-5.92a19,19,0,0,0-8.75-13C36.56,31.85,38.16,36.58,44.55,39.6ZM63.94,27C59.76,30,56.33,33.36,55.77,39.4,61.78,36.87,63.44,32.32,63.94,27ZM50.08,22.32c-2.23,4.74-2,8.94-1.47,13.15.1.73.39,1.71,1.3,1.83s1.26-.86,1.44-1.59A20.75,20.75,0,0,0,50.08,22.32Z"
                   />
                 </g>
               </g>
             </svg>
-            Quienes somos
+            <p>¿Quienes somos?</p>
           </Chakra.ModalHeader>
           <Chakra.ModalCloseButton />
           <Chakra.ModalBody>
-            <Chakra.Box></Chakra.Box>
-            <Chakra.Divider color="#a7727d" />
-            <Chakra.Text mb="2" fontSize="lg" fontWeight="medium">
+            <Chakra.Divider borderColor="var(--color1)" />
+            <Chakra.Text
+              m={"12px 0 0"}
+              fontSize="16px"
+              fontWeight="400"
+              textAlign={"justify"}
+              p={"12px"}
+            >
               Lotus tiene como objetivo ser un puente entre los artistas y sus
               compradores haciendo de la compra de arte en línea una experiencia
               fácil y agradable.
             </Chakra.Text>
-            <Chakra.Text mb="2" fontSize="lg" fontWeight="medium">
-              Creemos que el arte es una forma poderosa de expresión y que puede
-              mejorar nuestras vidas de muchas maneras. Ya sea que esté buscando
-              una obra de arte para decorar su hogar, para regalar a un ser
-              querido o simplemente para enriquecer su colección personal,
-              estamos aquí para ayudarlo a encontrar la pieza perfecta.
-            </Chakra.Text>
-            <Chakra.Text mb="2" fontSize="lg" fontWeight="medium">
-              Nuestra galería se compone de obras de todo tipo de artistas
-              emergentes y consagrados, de diferentes estilos y en diferentes
-              soportes. Cualquier usuario puede completar el formulario de
-              solicitud de publicación de obra y comercializar con nosotros su
-              creación.
-            </Chakra.Text>
-            <Chakra.Text mb="2" fontSize="lg" fontWeight="medium">
-              Nos esforzamos por brindar un excelente servicio al cliente y
-              hacer que su experiencia de compra sea lo más satisfactoria
-              posible. Si tiene alguna pregunta o necesita ayuda en cualquier
-              momento durante su proceso de compra, no dude en contactarnos.
-              Estamos aquí para ayudarlo y asegurarnos de que esté satisfecho
-              con su compra.
-            </Chakra.Text>
+            <Chakra.Button
+              onClick={() => setLeerMas(true)}
+              display={leerMas && "none"}
+              bg={"var(--color3)"}
+              color={"var(--color2)"}
+              m={"0 12px"}
+              _hover={{
+                background: "var(--color1)",
+                color: "var(--color5)",
+                transform: "translateY(-4px)",
+              }}
+            >
+              Leer mas...
+            </Chakra.Button>
+            {leerMas && (
+              <>
+                <Chakra.Text
+                  fontSize="16px"
+                  fontWeight="400"
+                  textAlign={"justify"}
+                  p={"12px"}
+                >
+                  Creemos que el arte es una forma poderosa de expresión y que
+                  puede mejorar nuestras vidas de muchas maneras. Ya sea que
+                  esté buscando una obra de arte para decorar su hogar, para
+                  regalar a un ser querido o simplemente para enriquecer su
+                  colección personal, estamos aquí para ayudarlo a encontrar la
+                  pieza perfecta.
+                </Chakra.Text>
+                <Chakra.Text
+                  fontSize="16px"
+                  fontWeight="400"
+                  textAlign={"justify"}
+                  p={"12px"}
+                >
+                  Nuestra galería se compone de obras de todo tipo de artistas
+                  emergentes y consagrados, de diferentes estilos y en
+                  diferentes soportes. Cualquier usuario puede completar el
+                  formulario de solicitud de publicación de obra y comercializar
+                  con nosotros su creación.
+                </Chakra.Text>
+                <Chakra.Text
+                  fontSize="16px"
+                  fontWeight="400"
+                  textAlign={"justify"}
+                  p={"12px"}
+                >
+                  Nos esforzamos por brindar un excelente servicio al cliente y
+                  hacer que su experiencia de compra sea lo más satisfactoria
+                  posible. Si tiene alguna pregunta o necesita ayuda en
+                  cualquier momento durante su proceso de compra, no dude en
+                  contactarnos. Estamos aquí para ayudarlo y asegurarnos de que
+                  esté satisfecho con su compra.
+                </Chakra.Text>
+              </>
+            )}
             <br />
-            <Chakra.Text fontSize="2xl" fontWeight="bold" mb="2">
-              Quienes están detras del proyecto Lotus
+            <Chakra.Text fontSize="32px" fontWeight="600" m="12px 0">
+              ¿Quienes están detras del proyecto Lotus?
             </Chakra.Text>
-            <Chakra.Divider
-              orientation="horizontal"
-              backgroundColor="#804674"
-            />
 
-            <Chakra.Grid templateColumns="repeat(6, 1fr)" gap={6}>
-              <Chakra.Box>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Rocio.jfif?t=2023-04-11T23%3A19%3A00.643Z" />
+            <Chakra.Divider borderColor={"var(--color1)"} />
+
+            <Chakra.Grid
+              maxW={"1000px"}
+              m={"24px auto 0"}
+              gridTemplateColumns={"repeat(auto-fill, minmax(280px, 300px))"}
+              justifyContent={"center"}
+              gap={"24px 6px"}
+            >
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Rocio.jfif?t=2023-04-11T23%3A19%3A00.643Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
                   <Chakra.Text fontWeight="bold">
                     María del Rocío Barrios
-                    <Chakra.Badge ml="1" colorScheme="green">
-                      New
-                    </Chakra.Badge>
                   </Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/mar%C3%ADa-del-roc%C3%ADo-barrios-610061206/"
                   >
-                    
                     <BsLinkedin />
                   </Chakra.Link>
                 </Chakra.Box>
               </Chakra.Box>
-              <Chakra.Divider orientation="vertical" mr={12} ml={12} />
-              <Chakra.Box>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Jorge.jpeg?t=2023-04-11T23%3A33%3A56.194Z" />
+
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Jorge.jpeg?t=2023-04-11T23%3A33%3A56.194Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
                   <Chakra.Text fontWeight="bold">Jorge Mathez</Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/jorge-mathez-598597260/"
                   >
@@ -132,13 +196,28 @@ function AboutUs() {
                   </Chakra.Link>
                 </Chakra.Box>
               </Chakra.Box>
-              <Chakra.Divider orientation="vertical" mr={12} ml={12} />
-              <Chakra.Box>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/jesus.jpeg?t=2023-04-11T23%3A23%3A32.004Z" />
+
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/jesus.jpeg?t=2023-04-11T23%3A23%3A32.004Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
-                  <Chakra.Text fontWeight="bold">Jesús Daniel Roa Morales</Chakra.Text>
+                  <Chakra.Text fontWeight="bold">
+                    Jesús Daniel Roa Morales
+                  </Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/jes%C3%BAs-daniel-roa-morales-17aaa6252/"
                   >
@@ -147,13 +226,26 @@ function AboutUs() {
                   </Chakra.Link>
                 </Chakra.Box>
               </Chakra.Box>
-              <Chakra.Divider orientation="vertical" mr={12} ml={12} />
-              <Chakra.Box>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Marina.jpg?t=2023-04-11T23%3A26%3A11.271Z" />
+
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Marina.jpg?t=2023-04-11T23%3A26%3A11.271Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
                   <Chakra.Text fontWeight="bold">Marina López</Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/marina~lopez/"
                   >
@@ -162,13 +254,28 @@ function AboutUs() {
                   </Chakra.Link>
                 </Chakra.Box>
               </Chakra.Box>
-              <Chakra.Divider orientation="vertical" mr={12} ml={12} />
-              <Chakra.Box>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Armando.jfif?t=2023-04-12T00%3A17%3A22.240Z" />
+
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Armando.jfif?t=2023-04-12T00%3A17%3A22.240Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
-                  <Chakra.Text fontWeight="bold">Armando Isaac García Del Rincón</Chakra.Text>
+                  <Chakra.Text fontWeight="bold">
+                    Armando Isaac García Del Rincón
+                  </Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/armando-isaac-garcia/"
                   >
@@ -177,13 +284,28 @@ function AboutUs() {
                   </Chakra.Link>
                 </Chakra.Box>
               </Chakra.Box>
-              <Chakra.Divider orientation="vertical" mr={12} ml={12} />
-              <Chakra.Box paddingBottom={6}>
-                <Chakra.Avatar src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Maxi.jfif?t=2023-04-12T00%3A17%3A41.732Z" />
+
+              <Chakra.Box
+                h={"120px"}
+                w={"100%"}
+                maxW={"300px"}
+                minW={"280px"}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Chakra.Avatar
+                  src="https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/imagebuck/Profile-Equipo/Maxi.jfif?t=2023-04-12T00%3A17%3A41.732Z"
+                  h={"100%"}
+                  w={"120px"}
+                />
                 <Chakra.Box ml="3">
-                  <Chakra.Text fontWeight="bold">Maximiliano Pogonza</Chakra.Text>
+                  <Chakra.Text fontWeight="bold">
+                    Maximiliano Pogonza
+                  </Chakra.Text>
                   <Chakra.Text fontSize="sm">UI Engineer</Chakra.Text>
                   <Chakra.Link
+                    color={"#0e76a8"}
+                    fontSize={"20px"}
                     target="_blank"
                     href="https://www.linkedin.com/in/maximiliano-pogonza-574663186/"
                   >
@@ -198,9 +320,10 @@ function AboutUs() {
 
           <Chakra.ModalFooter>
             <Chakra.Button
-              backgroundColor="#804674"
-              color="#F9F5E7"
-              mr={3}
+              backgroundColor="var(--color1)"
+              color="var(--color5)"
+              padding={"12px 20px"}
+              _hover={{ transform: "translateY(-4px)" }}
               onClick={onClose}
             >
               Cerrar
