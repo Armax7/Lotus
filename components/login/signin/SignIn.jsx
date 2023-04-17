@@ -93,7 +93,7 @@ export default function SignIn({ ...props }) {
           justifyContent="center"
           fontFamily="Poppins"
         >
-          <chakra.Stack w="100%"  spacing={8} p={8}>
+          <chakra.Stack w="100%" spacing={8} p={8}>
             <chakra.Box
               display="flex"
               justifyContent="center"
@@ -207,21 +207,10 @@ export default function SignIn({ ...props }) {
             >
               Ingresar
             </chakra.Button>
-
-            <chakra.Button
-              bg="var(--color1)"
-              color="var(--color5)"
-              _hover={{
-                background: "var(--color1-3)",
-                transform: "translateY(-4px)",
-              }}
-              style={{ width: "100%", marginTop: "16px" }}
-            >
-              Crea tu cuenta
-            </chakra.Button>
           </chakra.Stack>
         </chakra.Flex>
       </chakra.HStack>
     </form>
   );
+  
 }

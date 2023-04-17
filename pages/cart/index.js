@@ -133,11 +133,13 @@ function Cart() {
     }
   }
 
+  const [isLargerThan590] = Chakra.useMediaQuery("(min-width: 590px)");
+
   return (
     <div className={style.container}>
       {cart.length ? (
         <div className={style.wrapper}>
-          <div className={style.cards}>
+          <div className={style.cards} >
             {cart.map((cartItem, index) => {
               return (
                 <Components.CartCard
