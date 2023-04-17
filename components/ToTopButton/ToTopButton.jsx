@@ -9,16 +9,17 @@ export default function ToTopButton() {
       behavior: "smooth",
     });
   }
-  
+  const [toTop, setToTop] = useState(false);
+
+  useEffect(()=>{
+    window.addEventListener("scroll", () => {
+      window.scrollY >= 140 ? setToTop(true) : setToTop(false);
+    });
+  },[])
+
   function scrollToBottom() {
     window.scrollTo(0, document.body.scrollHeight, "smooth");
   }
-
-  const [toTop, setToTop] = useState(false);
-
-  window.addEventListener("scroll", () => {
-    window.scrollY >= 140 ? setToTop(true) : setToTop(false);
-  });
 
   return (
     <Chakra.Button
