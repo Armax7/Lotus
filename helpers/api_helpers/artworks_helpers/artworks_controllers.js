@@ -196,7 +196,9 @@ export async function updateArtwork({
       ...(description && { description: description }),
       ...(image && { images: [image] }),
       ...(price && { default_price: stripePriceResponse }),
-      ...(typeof available === "boolean" ? { active: available } : null),
+      ...(typeof available === "boolean"
+        ? { active: stock && stock <= 0 ? false : available }
+        : null),
       ...(stock && { unit_label: stock }),
     });
 

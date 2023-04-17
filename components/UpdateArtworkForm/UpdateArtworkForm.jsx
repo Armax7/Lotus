@@ -7,6 +7,7 @@ import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 import * as Components from "../../components";
 import * as BucketsHelper from "../../helpers/supabase_helpers/buckets";
 import validate from "./validate";
+import * as ProductManagment from "../../helpers/stripe_helpers/product_management";
 
 function UpdateArtworkForm({
   artwork,
@@ -27,15 +28,15 @@ function UpdateArtworkForm({
   const [errors, setErrors] = useState({ name: "" });
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
-    name: artwork.name ?? "",
-    description: artwork.description ?? "",
-    size: artwork.size ?? "",
-    price: artwork.price ?? "",
-    author: artwork.author_id ?? "",
-    category: artwork.category_id ?? "",
-    technique: artwork.technique_id ?? "",
-    support: artwork.support_id ?? "",
-    stock: artwork.stock ?? "",
+    name: artwork.name,
+    description: "",
+    size: "",
+    price: undefined,
+    author: artwork.author_id,
+    category: artwork.category_id,
+    technique: artwork.technique_id,
+    support: artwork.support_id,
+    stock: artwork.stock,
     available: artwork.available,
   });
 
@@ -115,7 +116,6 @@ function UpdateArtworkForm({
       const dataPreview = {
         ...formData,
         id: artwork.id,
-        available: formData.available && formData.stock > 0,
         ...(imageFile && { image: fileUrl }),
       };
 
@@ -126,15 +126,15 @@ function UpdateArtworkForm({
         await onSubmitProp(dataPreview);
 
         setFormData({
-          name: artwork.name ?? "",
-          description: artwork.description ?? "",
-          size: artwork.size ?? "",
-          price: artwork.price ?? "",
-          author: artwork.author_id ?? "",
-          category: artwork.category_id ?? "",
-          technique: artwork.technique_id ?? "",
-          support: artwork.support_id ?? "",
-          stock: artwork.stock ?? "",
+          name: artwork.name,
+          description: "",
+          size: "",
+          price: undefined,
+          author: artwork.author_id,
+          category: artwork.category_id,
+          technique: artwork.technique_id,
+          support: artwork.support_id,
+          stock: artwork.stock,
           available: artwork.available,
         });
         setImageFile(null);
@@ -242,13 +242,12 @@ function UpdateArtworkForm({
                   handleInputOnChange({ target: { name: "price", value } })
                 }
                 onKeyDown={(e) => (e.key === "Enter" ? e.target.blur() : null)}
-                placeholder={artwork.price}
                 min={0}
                 precision={2}
                 bgColor={"var(--color5)"}
                 borderRadius={"5px"}
               >
-                <Chakra.NumberInputField />
+                <Chakra.NumberInputField placeholder={artwork.price} />
                 <Chakra.NumberInputStepper>
                   <Chakra.NumberIncrementStepper />
                   <Chakra.NumberDecrementStepper />
@@ -385,9 +384,8 @@ function UpdateArtworkForm({
                 <Chakra.Switch
                   id="available_update"
                   name="available"
-                  defaultChecked={formData.available}
-                  isDisabled={formData.stock <= 0}
-                  isChecked={formData.stock > 0 && formData.available}
+                  defaultChecked={artwork.available}
+                  isChecked={formData.available}
                   size={"lg"}
                   onChange={handleBoolInputOnChange}
                 />
