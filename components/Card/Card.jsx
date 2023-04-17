@@ -2,6 +2,7 @@ import * as Chakra from "@chakra-ui/react";
 import Link from "next/link";
 import style from "./Card.module.css";
 import { largeTextHandler } from "../../helpers/utils";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 function Card({
   artwork,
   spacing: spacingProp = 4,
@@ -53,6 +54,14 @@ function Card({
                     {`$${price}`}
                     <span className={style.coin}>USD</span>
                   </Chakra.Text>
+                  <Chakra.Flex justifyContent="end" rounded="md" px={1}>
+                    <Chakra.Icon
+                      as={MdFavoriteBorder}
+                      color="#FB8500"
+                      cursor="pointer"
+                      boxSize={23}
+                    />
+                  </Chakra.Flex>
                 </div>
               </Chakra.CardBody>
             </Chakra.Card>

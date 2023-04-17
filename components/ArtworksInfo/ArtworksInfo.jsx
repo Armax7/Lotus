@@ -2,7 +2,7 @@ import { Box, Heading, Badge, Text } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
 import AddToCart from "../AddToCart/AddToCart";
 
-const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
+const ArtworksInfo = ({ ratingProm, author, rate, artwork, ...props }) => {
   //const [isAvailable, setIsAvailable] = useState(true);
   return (
     <Box fontFamily={"Poppins"} w={"100%"} minW={"296px"} maxW={"520px"}>
@@ -63,7 +63,7 @@ const ArtworksInfo = ({ author, rate, artwork, ...props }) => {
         </Text>
       )}
 
-      <RatingStars ratingDb={artwork.rating} />
+      <RatingStars ratingDb={ratingProm ? ratingProm : artwork.rating} />
       <AddToCart
         id={artwork.id}
         stock={artwork.stock}
