@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryKeys from "../../../helpers/page_helpers/Home_helpers/query_keys";
@@ -7,9 +8,26 @@ import * as Components from "../../../components";
 import style from "../../../styles/Details.module.css";
 
 function DetailsPage(context) {
+  const [review, setReview] = useState([]);
+  const [RatingProm, setRatingProm] = useState(0);
+
   const queryClient = ReactQuery.useQueryClient();
   const router = useRouter();
   const { id: artworkId } = router.query;
+
+  useEffect(() => {
+    async function fetchreviews() {
+      const reviewsData = await QueryFns.getReviewsByArtworkId(artworkId);
+      const totalRatings = reviewsData.reduce((acc, curr) => {
+        return acc + curr.rating;
+      }, 0);
+      const averageRating =
+        reviewsData.length > 0 ? totalRatings / reviewsData.length : 0;
+      setRatingProm(averageRating);
+      setReview(reviewsData);
+    }
+    fetchreviews();
+  }, [artworkId]);
 
   const showcase = ReactQuery.useQuery([QueryKeys.QK_SHOWCASE], async () => {
     const showcases = await QueryFns.getShowcaseByIdAxios(artworkId);
@@ -32,19 +50,80 @@ function DetailsPage(context) {
   const imageUrl = showcase.data.map((obj) => obj.image);
   imageUrl.unshift(artwork.data.artwork.image);
 
+  const handleDeleteReviews = async (id, rating) => {
+    const res = await QueryFns.deleteReview(id);
+    const reviewFilter = review.filter((reviews) => reviews.id !== id)
+    
+    
+    // Calcular el nuevo promedio de rating
+    const totalRatings = reviewFilter.reduce((acc, curr) => {
+      return acc + curr.rating;
+    }, 0);
+    const averageRating = reviewFilter.length > 0 ? totalRatings / reviewFilter.length : 0;
+    
+    setReview(reviewFilter);
+    setRatingProm(averageRating);
+  };
+
+  const handleUpdateReviews = async (id, rating, comment) => {
+    await QueryFns.updateReview(rating, comment, id);
+
+    const index = review.findIndex((review) => review.id === id);
+    const reviewToUpdate = { ...review[index] };
+    reviewToUpdate.rating = rating;
+    reviewToUpdate.comment = comment;
+    const updatedReviews = [...review];
+    updatedReviews[index] = reviewToUpdate;
+    const totalRatings = updatedReviews.reduce((acc, curr) => {
+      return acc + curr.rating;
+    }, 0);
+    const averageRating =
+      updatedReviews.length > 0 ? totalRatings / updatedReviews.length : 0;
+
+    setRatingProm(averageRating);
+
+    setReview(updatedReviews);
+  };
+
   return (
-    <Chakra.Box className={style.container}>
-      <div className={style.contentWrapper}>
-        <div className={style.backButton}>
-          <Components.BackButton/>
+    <>
+      <Chakra.Box className={style.container}>
+        <div className={style.contentWrapper}>
+          <div className={style.backButton}>
+            <Components.BackButton />
+          </div>
+          <Components.Carousel images={imageUrl} />
+          <Components.ArtworksInfo
+            author={artwork.data.author[0]}
+            artwork={artwork.data.artwork}
+            ratingProm={RatingProm}
+          />
         </div>
-        <Components.Carousel images={imageUrl} />
-        <Components.ArtworksInfo
-          author={artwork.data.author[0]}
-          artwork={artwork.data.artwork}
-        />
+      </Chakra.Box>
+      <div style={{ background: "#f9f5e7" }}>
+        <Chakra.Heading as="h1" size="xl">
+          Valoraciones
+        </Chakra.Heading>
+        <Chakra.Flex flexWrap="wrap" justifyContent="space-between">
+          {review && review.length > 0
+            ? review.map((review) => (
+                <Components.Opinions
+                  key={review.id}
+                  user_id={review.user_id}
+                  rating={review.rating}
+                  comment={review.comment}
+                  name={review.user_name}
+                  date={review.created_at}
+                  imageUrl={review.user_image}
+                  id={review.id}
+                  handleDelete={handleDeleteReviews}
+                  handleUpdate={handleUpdateReviews}
+                />
+              ))
+            : null}
+        </Chakra.Flex>
       </div>
-    </Chakra.Box>
+    </>
   );
 }
 

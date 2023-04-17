@@ -19,8 +19,23 @@ export async function getAllReviewsByArtworkId(artworkId) {
     .eq("artwork_id", artworkId);
 
   if (error) throw error;
+
+  for (let i = 0; i < reviews.length; i++) {
+    let { data: user, error } = await supabase
+      .from("user_details")
+      .select("name, image")
+      .eq("id", reviews[i].user_id)
+      .single();
+
+    if (error) throw error;
+
+    reviews[i].user_name = user.name;
+    reviews[i].user_image = user.image;
+  }
+
   return reviews;
 }
+
 
 export async function getAllReviewsByUserId(userId) {
   let { data: reviews, error } = await supabase
@@ -78,7 +93,7 @@ export async function updateReview(reviewId, updatedReview) {
       return error.message;
     }
   
-    console.log('Review eliminada exitosamente:', data);
+    
     return data;
   }
   

@@ -83,36 +83,6 @@ function CartItem({ product, onDelete }) {
             ) : stripeProduct.isError ? (
               <Chakra.Alert
                 status="error"
-                mx={"5px"}
-                maxW={"200px"}
-                minWidth={"100px"}
-              >
-                <Chakra.AlertIcon />
-                <Chakra.AlertTitle>Error: </Chakra.AlertTitle>
-                <Chakra.AlertDescription>
-                  {stripeProduct.error.message || "Unhandled Error..."}
-                </Chakra.AlertDescription>
-                <Chakra.Spinner size={"md"} />
-              </Chakra.Alert>
-            ) : product.limit <= 0 || !stripeProduct.data.active ? (
-              <Chakra.Alert
-                status="error"
-                maxW={"calc(100% - 10px)"}
-                minW={"100px"}
-                borderRadius={"100px"}
-                fontSize={"12px"}
-              >
-                <Chakra.Flex alignItems={"center"}>
-                  <Chakra.AlertIcon />
-                  <Chakra.AlertTitle lineHeight={"14px"}>
-                    Revisando pedido...
-                  </Chakra.AlertTitle>
-                  <Chakra.Spinner />
-                </Chakra.Flex>
-              </Chakra.Alert>
-            ) : stripeProduct.isError ? (
-              <Chakra.Alert
-                status="error"
                 maxW={"calc(100% - 10px)"}
                 minW={"100px"}
                 borderRadius={"100px"}
