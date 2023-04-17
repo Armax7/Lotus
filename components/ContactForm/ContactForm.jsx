@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as Chakra from "@chakra-ui/react";
 import Link from "next/link";
+import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -8,20 +9,46 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
   const { isOpen, onOpen, onClose } = Chakra.useDisclosure();
   const [isMessageSent, setIsMessageSent] = useState(false);
+  const [user, setUser] = useState(null);
+  const [mail, setMail] = useState(null);
+  const finalFocusRef = useRef();
+
+  const loguearse = async () => {
+    const data = await SupaHelpers.loggedStatus();
+    console.log(data);
+    if (data === true) {
+      const user = await SupaHelpers.getUserName();
+      const mail = await SupaHelpers.getUserEmail();
+      console.log(user);
+      setUser(user);
+      setMail(mail);
+      setName(user.name || "");
+      setEmail(user.email || "");
+    }
+  };
+
+  useEffect(() => {
+    loguearse();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Message:", message);
     setIsMessageSent(true);
+    setMessage("");
   };
 
   return (
     <>
       <button onClick={onOpen}>Contacto</button>
 
-      <Chakra.Modal isOpen={isOpen} onClose={onClose}>
+      <Chakra.Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          setIsMessageSent(false);
+        }}
+        finalFocusRef={finalFocusRef}
+      >
         <Chakra.ModalOverlay />
         <Chakra.ModalContent bg="var(--color3)">
           <Chakra.ModalHeader>
@@ -91,55 +118,103 @@ const ContactForm = () => {
               </Chakra.Alert>
             ) : null}
 
-            <form onSubmit={handleSubmit}>
-              <Chakra.FormControl id="name" isRequired>
-                <Chakra.FormLabel>Nombre</Chakra.FormLabel>
-                <Chakra.Input
-                  placeholder="Tu Nombre"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </Chakra.FormControl>
+            {user ? (
+              <>
+                <form onSubmit={handleSubmit}>
+                  <Chakra.FormControl id="name" autocomplet="name" isRequired>
+                    <Chakra.FormLabel>Nombre</Chakra.FormLabel>
+                    <Chakra.Input
+                      placeholder="Tu Nombre"
+                      value={user}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </Chakra.FormControl>
 
-              <Chakra.FormControl id="email" isRequired>
-                <Chakra.FormLabel>Email</Chakra.FormLabel>
-                <Chakra.Input
-                  type="email"
-                  placeholder="Tu email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-                <Chakra.FormHelperText></Chakra.FormHelperText>
-              </Chakra.FormControl>
+                  <Chakra.FormControl id="email" autocomplet="email" isRequired>
+                    <Chakra.FormLabel>Email</Chakra.FormLabel>
+                    <Chakra.Input
+                      type="email"
+                      placeholder="Tu email"
+                      value={mail}
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                    <Chakra.FormHelperText></Chakra.FormHelperText>
+                  </Chakra.FormControl>
 
-              <Chakra.FormControl id="message" isRequired>
-                <Chakra.FormLabel>Mensaje</Chakra.FormLabel>
-                <Chakra.Textarea
-                  placeholder="Su Mensaje"
-                  value={message}
-                  onChange={(event) => setMessage(event.target.value)}
-                />
-              </Chakra.FormControl>
+                  <Chakra.FormControl id="message" isRequired>
+                    <Chakra.FormLabel>Mensaje</Chakra.FormLabel>
+                    <Chakra.Textarea
+                      placeholder="Su Mensaje"
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
+                    />
+                  </Chakra.FormControl>
 
-              <Chakra.Button mt={4} colorScheme="blue" type="submit">
-                Enviar
-              </Chakra.Button>
-              <br></br>
-              <Link href="/formCreate">
-                <Chakra.Button
-                  mt={4}
-                  mb={4}
-                  colorScheme="blue"
-                  onClick={onClose}
-                >
-                  Subí tu obra
+                  <Chakra.Button mt={4} colorScheme="blue" type="submit">
+                    Enviar
+                  </Chakra.Button>
+                  <br></br>
+                  <Link href="/formCreate">
+                    <Chakra.Button
+                      mt={4}
+                      mb={4}
+                      colorScheme="blue"
+                      onClick={onClose}
+                    >
+                      Subí tu obra
+                    </Chakra.Button>
+                  </Link>
+                </form>
+              </>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <Chakra.FormControl id="name" autocomplet="name" isRequired>
+                  <Chakra.FormLabel>Nombre</Chakra.FormLabel>
+                  <Chakra.Input
+                    placeholder="Tu Nombre"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </Chakra.FormControl>
+
+                <Chakra.FormControl id="email" autocomplet="email" isRequired>
+                  <Chakra.FormLabel>Email</Chakra.FormLabel>
+                  <Chakra.Input
+                    type="email"
+                    placeholder="Tu email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                  <Chakra.FormHelperText></Chakra.FormHelperText>
+                </Chakra.FormControl>
+
+                <Chakra.FormControl id="message" isRequired>
+                  <Chakra.FormLabel>Mensaje</Chakra.FormLabel>
+                  <Chakra.Textarea
+                    placeholder="Su Mensaje"
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                  />
+                </Chakra.FormControl>
+
+                <Chakra.Button mt={4} colorScheme="blue" type="submit">
+                  Enviar
                 </Chakra.Button>
-              </Link>
-            </form>
+                <br></br>
+              </form>
+            )}
           </Chakra.ModalBody>
 
           <Chakra.ModalFooter>
-            <Chakra.Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Chakra.Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                setIsMessageSent(false);
+                onClose();
+              }}
+              ref={finalFocusRef}
+            >
               Cerrar
             </Chakra.Button>
           </Chakra.ModalFooter>
