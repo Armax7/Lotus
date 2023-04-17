@@ -176,8 +176,8 @@ function Purchase({ success, session_id }) {
       .then((r) => console.log(r))
       .catch((e) => console.log(e));
   }
-
-  session.data?.payment_status === "paid" && sendmail();
+  
+  session.data?.payment_status === "paid" && cart?.length ? sendmail() : null;
 
   return (
     <Chakra.Box
