@@ -7,7 +7,6 @@ import axios from "axios";
 import { PATH } from "../../components/ProfileBuckets/ProfileBuckets.jsx";
 import * as Components from "../../components";
 import style from "../../styles/profile.module.css";
-
 //import style from "./profile.module.css";
 
 const Profile = ({
@@ -54,102 +53,169 @@ const Profile = ({
     fetchData();
   }, [path]);
 
+  const [isLargerThan580] = Chakra.useMediaQuery("(min-width: 580px)");
   return (
-    <Chakra.Flex w="100%" h="100vh" margin="auto" justifyContent="center">
-      <Chakra.Flex
-        height="90vh"
-        margin="auto"
-        flexDirection="column"
-        width="45%"
-        alignItems="center"
+    <Chakra.Box
+      w="100%"
+      maxW={"1400px"}
+      minH={"calc(100vh - 242px)"}
+      margin="auto"
+      fontFamily={"Poppins"}
+      color={"var(--black)"}
+    >
+      <Chakra.Box
+        w={"100%"}
+        position={"relative"}
+        display={"flex"}
+        flexDir={"column"}
+        justifyContent={"center"}
       >
-        <Chakra.Flex width="80%">
-          <Components.FormDrawerData />
-        </Chakra.Flex>
-        <Chakra.Container
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          marginTop="15%"
-        >
-          <Chakra.Image
-            src={
-              allData?.image
-                ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
-                : avatarImage
-            }
-            alt="IMAGEN"
-            borderRadius="full"
-            width="230px"
-            height="230px"
-            className={style.stylesImg}
-            onClick={() => setIsModalOpen(true)}
-          />
-          {/** */}
-          <Chakra.Modal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
+        <Chakra.Flex margin="auto" alignItems="center" p={"24px 12px 0"}>
+          <Chakra.Box
+            background={"var(--color3)"}
+            borderRadius={"full"}
+            padding={"12px"}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexWrap={"wrap"}
+            zIndex={"100"}
           >
-            <Chakra.ModalOverlay />
-            <Chakra.ModalContent>
-              <Chakra.ModalHeader>Seleccionar imagen</Chakra.ModalHeader>
-              <Chakra.ModalCloseButton />
-              <Chakra.ModalBody>
-                <Components.ProfileBuckets />
-              </Chakra.ModalBody>
-            </Chakra.ModalContent>
-          </Chakra.Modal>
-          {/** */}
-          <Chakra.Container>
-            <Chakra.Text
-              textAlign="center"
-              fontSize="42px"
-              color="black"
-              fontWeight="bold"
-              textDecoration="underline"
+            <Chakra.Image
+              src={
+                allData?.image
+                  ? `https://sppydtsxdhpyuhwzppca.supabase.co/storage/v1/object/public/Image_Client/${allData.image}`
+                  : avatarImage
+              }
+              alt="IMAGEN"
+              borderRadius="full"
+              width={isLargerThan580 ? "200px" : "120px"}
+              height={isLargerThan580 ? "200px" : "120px"}
+              objectFit={"cover"}
+              className={style.stylesImg}
+              onClick={() => setIsModalOpen(true)}
+              border={"4px solid var(--color2)"}
+              transition={"transform .2s"}
+              _hover={{ transform: "translateY(-4px)" }}
+              cursor={"pointer"}
+            />
+            <Chakra.Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              isCentered
             >
-              {`${allData?.name ? allData.name : ""}`}
-              {`${userData2?.name ? userData2.user_metadata?.name : ""}`}
-            </Chakra.Text>
-          </Chakra.Container>
-        </Chakra.Container>
-      </Chakra.Flex>
-      <Chakra.Flex
-        flexDirection="column"
-        width="55%"
-        justifyContent="center"
-        alignItems="center"
-        padding="0 2%"
-        h="100vh"
-      >
-        <Chakra.Flex
-          margin="auto"
-          width="100%"
-          height="40%"
-          background="rgb(217,217,217, 40%)"
-          borderRadius="20px"
-        >
-          <Chakra.Flex
-            flexDirection="column"
-            w="95%"
-            border="1px"
-            borderColor="blue.500"
-            color="white"
-            fontSize="20px"
-            fontWeight="bold"
-            margin="auto"
-            padding="25px"
-            borderRadius="15px"
-          >
-            <Chakra.Text color="black">▪ Nombre: {allData?.name}</Chakra.Text>
-            <Chakra.Text color="black">
-              ▪ Direccion: {allData?.address}
-            </Chakra.Text>
-          </Chakra.Flex>
+              <Chakra.ModalOverlay />
+              <Chakra.ModalContent
+                background={"var(--color5)"}
+                borderRadius={"12px"}
+                maxW={"490px"}
+                color={"var(--black)"}
+              >
+                <Chakra.ModalHeader>Seleccionar imagen</Chakra.ModalHeader>
+                <Chakra.ModalCloseButton  color={"var(--color2)"} _hover={{background: "var(--color1)"}}/>
+                <Chakra.ModalBody>
+                  <Components.ProfileBuckets />
+                </Chakra.ModalBody>
+              </Chakra.ModalContent>
+            </Chakra.Modal>
+            <Chakra.Box m={"0 12px"}>
+              <Chakra.Text
+                width={"100%"}
+                maxW={"400px"}
+                fontSize="24px"
+                color="var(--color2)"
+                fontWeight="bold"
+                m={"4px 0"}
+              >
+                {`${allData?.name ? allData.name : ""}`}
+                {`${userData2?.name ? userData2.user_metadata?.name : ""}`}
+              </Chakra.Text>
+              <Chakra.Box>
+                <Components.FormDrawerData />
+              </Chakra.Box>
+            </Chakra.Box>
+          </Chakra.Box>
         </Chakra.Flex>
-      </Chakra.Flex>
-    </Chakra.Flex>
+
+        <Chakra.Box
+          margin={"0 auto"}
+          width={"100%"}
+          minH={"calc(100vh - 490px)"}
+          p={"12px"}
+          display={"flex"}
+          flexWrap={"wrap"}
+          justifyContent={"space-evenly"}
+        >
+          <Chakra.Box
+            width={"100%"}
+            maxW={"600px"}
+            minW={"300px"}
+            display={"flex"}
+            justifyContent={"center"}
+            zIndex={"100"}
+            background={"var(--color3-1)"}
+            borderRadius={"12px"}
+            margin={"12px 0"}
+          >
+            <Chakra.Box fontSize={"20px"}>
+              <Chakra.Text
+                w={"100%"}
+                fontSize={"26px"}
+                fontWeight={"bold"}
+                color={"var(--black)"}
+                mb={"16px"}
+              >
+                Informacion del usuario:
+              </Chakra.Text>
+              <Chakra.Text w={"100%"}>
+                <b style={{ color: "var(--color2)" }}>Nombre:</b>{" "}
+                {allData?.name}
+              </Chakra.Text>
+              <Chakra.Text w={"100%"}>
+                <b style={{ color: "var(--color2)" }}>Direccion:</b>{" "}
+                {allData?.address}
+              </Chakra.Text>
+            </Chakra.Box>
+          </Chakra.Box>
+
+          <Chakra.Flex
+            width={"100%"}
+            maxW={"600px"}
+            minW={"300px"}
+            justifyContent={"center"}
+            zIndex={"100"}
+            background={"var(--color3-1)"}
+            borderRadius={"12px"}
+            margin={"12px 0"}
+          >
+            <Chakra.Box>
+              <Chakra.Text
+                fontSize={"26px"}
+                fontWeight={"bold"}
+                color={"var(--black)"}
+                mb={"16px"}
+              >
+                Cuadros comprados:
+              </Chakra.Text>
+            </Chakra.Box>
+          </Chakra.Flex>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 320"
+            style={{
+              position: "absolute",
+              bottom: "0px",
+              fill: "var(--color1)",
+              zIndex: "10",
+              width: "100vw",
+            }}
+          >
+            <path d="M0,288L120,256C240,224,480,160,720,149.3C960,139,1200,181,1320,202.7L1440,224L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+          </svg>
+        </Chakra.Box>
+      </Chakra.Box>
+    </Chakra.Box>
   );
 };
 
