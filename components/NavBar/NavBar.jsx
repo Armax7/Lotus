@@ -91,7 +91,7 @@ function NavBar({
         fontFamily: "Poppins",
         position: "sticky",
         top: "0",
-        zIndex: "10",
+        zIndex: "1000",
       }}
       {...props}
     >

@@ -30,3 +30,5 @@ export { default as Alert } from "./Alert/Alert"
 export { default as DeleteArtworkAdmin } from "./DeleteArtworkAdmin/DeleteArtworkAdmin"
 export { default as Opinions } from "./Opinions/Opinions"
 export { default as EditOpinion } from "./EditOpinion/EditOpinion"
+export { default as UpdateArtworkForm } from "./UpdateArtworkForm/UpdateArtworkForm";
+
