@@ -64,7 +64,7 @@ export async function getArtworksFilteredByQuery({
   return artworks;
 }
 
-export async function getArtworkStripeProductById(artworkId){
+export async function getArtworkStripeProductById(artworkId) {
   const product = await stripe.products.retrieve(artworkId);
   return product;
 }
@@ -168,7 +168,9 @@ export async function updateArtwork({
       .from("artworks")
       .select("stripe_price_id")
       .eq("id", artworkId)
-      .then((res) => res.data.at(0).stripe_price_id);
+      .then((res) => {
+        return res.data.at(0).stripe_price_id;
+      });
 
     if (priceId.error) {
       response.error = {

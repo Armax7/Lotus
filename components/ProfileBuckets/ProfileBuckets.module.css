@@ -2,13 +2,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Poppins";
+    /* padding: 12px; */
   }
   
   .fileInput {
-    margin-top: 10px;
-    color: rgb(7, 1, 1);
+    color: var(--black);
+    display: flex;
+    flex-wrap: wrap;
   }
   
+  .fileInput::file-selector-button{
+    font-weight: 500;
+    background-color: var(--color2);
+    color: var(--color5);
+    padding: 12px 16px;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .fileInput::file-selector-button:hover{
+    transform: translateY(-2px);
+  }
+  .fileInput::file-selector-button:active{
+    background-color: var(--color1);
+  }
+
+  .fileInput::file-selector-
+
   .selected-file {
     display: flex;
     flex-direction: column;

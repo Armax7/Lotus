@@ -1,19 +1,32 @@
 import * as Chakra from "@chakra-ui/react";
-import { ChevronUpIcon } from "@chakra-ui/icons";
+import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 export default function ToTopButton() {
-  function scrollToTop(){
+  function scrollToTop() {
     window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    })
+      top: 0,
+      behavior: "smooth",
+    });
   }
+  const [toTop, setToTop] = useState(false);
+
+  useEffect(()=>{
+    window.addEventListener("scroll", () => {
+      window.scrollY >= 140 ? setToTop(true) : setToTop(false);
+    });
+  },[])
+
+  function scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight, "smooth");
+  }
+
   return (
     <Chakra.Button
-    onClick={scrollToTop}
-    position={"fixed"}
-    bottom={"40px"}
-    right={"40px"}
+      onClick={toTop ? scrollToTop : scrollToBottom}
+      position={"fixed"}
+      bottom={"40px"}
+      right={"40px"}
       bg={"var(--black-1)"}
       color={"var(--color5)"}
       borderRadius={"100px"}
@@ -25,7 +38,7 @@ export default function ToTopButton() {
         transform: "translateY(-4px)",
       }}
     >
-      <ChevronUpIcon />
+      {toTop ? <ChevronUpIcon /> : <ChevronDownIcon />}
     </Chakra.Button>
   );
 }
