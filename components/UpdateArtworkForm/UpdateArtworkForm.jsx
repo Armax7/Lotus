@@ -1,12 +1,16 @@
+import axios from "axios";
 import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import { useState } from "react";
 import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
-import * as Components from "..";
+import * as Components from "../../components";
+import * as BucketsHelper from "../../helpers/supabase_helpers/buckets";
 
 function UpdateArtworkForm({
   artwork,
+  onSubmit: onSubmitProp = defaultUpdateOnSubmit,
+  onClose: onCloseProp = () => {},
   justifyContent: justifyContentProp = "space-evenly",
   bgColor: bgColorProp = "var(--color3)",
   className: classNameProp,
@@ -21,32 +25,72 @@ function UpdateArtworkForm({
 
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    size: "",
-    price: undefined,
-    author: undefined,
+    name: artwork.name ?? "",
+    description: artwork.description ?? "",
+    size: artwork.size ?? "",
+    price: artwork.price ?? "",
+    author: artwork.author_id ?? "",
+    category: artwork.category_id ?? "",
+    technique: artwork.technique_id ?? "",
+    support: artwork.support_id ?? "",
+    stock: artwork.stock ?? "",
+    available: artwork.available,
   });
 
-  const authors = ReactQuery.useQuery(
-    [QueryKeys.QK_AUTHORS],
-    QueryFns.getAllAuthorsAxios,
-    {
-      onError: (error) => {
-        console.log("🚀 ~ file: UpdateArtworkForm.js:26 ~ error:", error);
-        return;
+  const queries = ReactQuery.useQueries({
+    queries: [
+      {
+        queryKey: [QueryKeys.QK_AUTHORS],
+        queryFn: QueryFns.getAllAuthorsAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: UpdateArtworkForm.js:26 ~ error:", error);
+          return;
+        },
       },
-    }
-  );
+      {
+        queryKey: [QueryKeys.QK_CATEGORIES],
+        queryFn: QueryFns.getCategoriesAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: UpdateArtworkForm.jsx:47 ~ error:", error);
+          return;
+        },
+      },
+      {
+        queryKey: [QueryKeys.QK_TECHNIQUES],
+        queryFn: QueryFns.getTechniquesAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: UpdateArtworkForm.jsx:55 ~ error:", error);
+          return;
+        },
+      },
+      {
+        queryKey: [QueryKeys.QK_SUPPORTS],
+        queryFn: QueryFns.getSupportsAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: UpdateArtworkForm.jsx:65 ~ error:", error);
+          return;
+        },
+      },
+    ],
+  });
+  const [authors, categories, techniques, supports] = queries;
 
   function handleInputOnChange(event) {
-    // setFormData((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [event.target.name]: event.target.value,
-    //   };
-    // });
-    console.log(event.target.value);
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }
+
+  function handleBoolInputOnChange(event) {
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        [event.target.name]: event.target.checked,
+      };
+    });
   }
 
   function handleImageOnChange(event) {
@@ -55,19 +99,46 @@ function UpdateArtworkForm({
 
   function handleImageOnDelete(event) {
     event.preventDefault();
+    document.getElementById("image_update").value = "";
     setImageFile(null);
   }
 
-  function handleDropdownOnChange(event) {
+  async function handleOnSubmit(event) {
     event.preventDefault();
-    console.log(
-      "🚀 ~ file: UpdateArtworkForm.jsx:47 ~ handleDropdownOnChange ~ event.target.value:",
-      event.target.value
-    );
+    try {
+      const fileUrl = imageFile
+        ? await BucketsHelper.uploadArtworkImage(imageFile)
+        : false;
+
+      const dataPreview = {
+        ...formData,
+        id: artwork.id,
+        available: formData.available && formData.stock > 0,
+        ...(imageFile && { image: fileUrl }),
+      };
+
+      await onSubmitProp(dataPreview);
+
+      setFormData({
+        name: artwork.name ?? "",
+        description: artwork.description ?? "",
+        size: artwork.size ?? "",
+        price: artwork.price ?? "",
+        author: artwork.author_id ?? "",
+        category: artwork.category_id ?? "",
+        technique: artwork.technique_id ?? "",
+        support: artwork.support_id ?? "",
+        stock: artwork.stock ?? "",
+        available: artwork.available,
+      });
+      onCloseProp();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
-    <form>
+    <form onSubmit={handleOnSubmit}>
       <Chakra.Flex
         className={classNameProp}
         justifyContent={justifyContentProp}
@@ -151,20 +222,23 @@ function UpdateArtworkForm({
             </Chakra.FormLabel>
             <Chakra.FormControl id="price_update">
               <Chakra.NumberInput
-                defaultValue={artwork.price}
+                name="price"
+                value={formData.price}
+                onChange={(value) =>
+                  handleInputOnChange({ target: { name: "price", value } })
+                }
+                onKeyDown={(e) => (e.key === "Enter" ? e.target.blur() : null)}
+                placeholder={artwork.price}
                 min={0}
                 precision={2}
                 bgColor={"var(--color5)"}
                 borderRadius={"5px"}
               >
-                <Chakra.NumberInputField
-                  name={"price"}
-                  value={formData.price}
-                  onChange={handleInputOnChange}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" ? e.target.blur() : null
-                  }
-                />
+                <Chakra.NumberInputField />
+                <Chakra.NumberInputStepper>
+                  <Chakra.NumberIncrementStepper />
+                  <Chakra.NumberDecrementStepper />
+                </Chakra.NumberInputStepper>
               </Chakra.NumberInput>
             </Chakra.FormControl>
           </Chakra.Flex>
@@ -177,12 +251,12 @@ function UpdateArtworkForm({
             ) : authors.isError ? (
               <Chakra.Button isDisabled>Selecciona autor</Chakra.Button>
             ) : (
-              <Chakra.FormControl id="size_update">
+              <Chakra.FormControl id="author_update">
                 <Components.Dropdown
                   options={authors.data}
                   name={"author"}
                   value={formData.author}
-                  onChange={handleDropdownOnChange}
+                  onChange={handleInputOnChange}
                   bgColor={"var(--color5)"}
                   w={"fit-content"}
                   minW={"100px"}
@@ -190,14 +264,138 @@ function UpdateArtworkForm({
               </Chakra.FormControl>
             )}
           </Chakra.Flex>
+          <Chakra.Flex m={"5px"}>
+            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+              Categoría de la obra:
+            </Chakra.FormLabel>
+            {categories.isLoading ? (
+              <Chakra.Button isLoading loadingText={"Cargando..."} />
+            ) : categories.isError ? (
+              <Chakra.Button isDisabled>Seleccionar categoría</Chakra.Button>
+            ) : (
+              <Chakra.FormControl id="category_update">
+                <Components.Dropdown
+                  options={categories.data}
+                  name={"category"}
+                  value={formData.category}
+                  onChange={handleInputOnChange}
+                  bgColor={"var(--color5)"}
+                  w={"fit-content"}
+                  minW={"100px"}
+                />
+              </Chakra.FormControl>
+            )}
+          </Chakra.Flex>
+          <Chakra.Flex m={"5px"}>
+            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+              Técnica de la obra:
+            </Chakra.FormLabel>
+            {techniques.isLoading ? (
+              <Chakra.Button isLoading loadingText={"Cargando..."} />
+            ) : techniques.isError ? (
+              <Chakra.Button isDisabled>Seleccionar técnica</Chakra.Button>
+            ) : (
+              <Chakra.FormControl id="technique_update">
+                <Components.Dropdown
+                  options={techniques.data}
+                  name={"technique"}
+                  value={formData.technique}
+                  onChange={handleInputOnChange}
+                  bgColor={"var(--color5)"}
+                  w={"fit-content"}
+                  minW={"100px"}
+                />
+              </Chakra.FormControl>
+            )}
+          </Chakra.Flex>
+          <Chakra.Flex m={"5px"}>
+            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+              Soporte de la obra:
+            </Chakra.FormLabel>
+            {supports.isLoading ? (
+              <Chakra.Button isLoading loadingText={"Cargando..."} />
+            ) : supports.isError ? (
+              <Chakra.Button isDisabled>Seleccionar soporte</Chakra.Button>
+            ) : (
+              <Chakra.FormControl id="support_update">
+                <Components.Dropdown
+                  options={supports.data}
+                  name={"support"}
+                  value={formData.support}
+                  onChange={handleInputOnChange}
+                  bgColor={"var(--color5)"}
+                  w={"fit-content"}
+                  minW={"100px"}
+                />
+              </Chakra.FormControl>
+            )}
+          </Chakra.Flex>
+          <Chakra.Flex m={"5px"} gap={"30px"}>
+            <Chakra.Flex>
+              <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+                Stock:
+              </Chakra.FormLabel>
+              <Chakra.FormControl
+                id="stock_update"
+                maxW={"100px"}
+                minW={"75px"}
+              >
+                <Chakra.NumberInput
+                  name="stock"
+                  value={formData.stock}
+                  onChange={(value) =>
+                    handleInputOnChange({ target: { name: "stock", value } })
+                  }
+                  onKeyDown={(e) =>
+                    e.key === "Enter" ? e.target.blur() : null
+                  }
+                  placeholder={artwork.stock}
+                  min={0}
+                  precision={0}
+                  bgColor={"var(--color5)"}
+                  borderRadius={"5px"}
+                >
+                  <Chakra.NumberInputField />
+                  <Chakra.NumberInputStepper>
+                    <Chakra.NumberIncrementStepper />
+                    <Chakra.NumberDecrementStepper />
+                  </Chakra.NumberInputStepper>
+                </Chakra.NumberInput>
+              </Chakra.FormControl>
+            </Chakra.Flex>
+            <Chakra.Flex>
+              <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+                Disponible?{" "}
+              </Chakra.FormLabel>
+              <Chakra.FormControl alignSelf={"center"}>
+                <Chakra.Switch
+                  id="available_update"
+                  name="available"
+                  defaultChecked={formData.available}
+                  isDisabled={formData.stock <= 0}
+                  isChecked={formData.stock > 0 && formData.available}
+                  size={"lg"}
+                  onChange={handleBoolInputOnChange}
+                />
+              </Chakra.FormControl>
+            </Chakra.Flex>
+          </Chakra.Flex>
+          <Chakra.Button
+            type="submit"
+            bgColor={"var(--color1)"}
+            color={"white"}
+          >
+            Submit
+          </Chakra.Button>
         </Chakra.Flex>
-        <Chakra.Flex flexDirection={"column"}>
+        <Chakra.Flex flexDirection={"column"} w={"30%"}>
           <Chakra.Image
+            m={"auto"}
             src={imageFile ? URL.createObjectURL(imageFile) : artwork.image}
           />
           {imageFile && (
             <Chakra.Button
-              onChange={handleImageOnDelete}
+              onClick={handleImageOnDelete}
               bgColor={"red"}
               color={"white"}
               m={"5px"}
@@ -209,6 +407,13 @@ function UpdateArtworkForm({
       </Chakra.Flex>
     </form>
   );
+}
+
+export async function defaultUpdateOnSubmit(data) {
+  const response = await axios
+    .put(`${process.env.NEXT_PUBLIC_HOST}/api/artworks`, data)
+    .then((res) => res.data);
+  return response;
 }
 
 export default UpdateArtworkForm;
