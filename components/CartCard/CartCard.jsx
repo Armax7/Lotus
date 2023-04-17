@@ -12,13 +12,6 @@ function CartItem({ product, onDelete }) {
     () => QueryFns.getArtworkFromStripeByIdAxios(product.id),
     {
       onError: (error) => console.log(error),
-      onSettled: (data) => {
-        console.log(
-          "🚀 ~ file: CartCard.jsx:17 ~ CartItem ~ data:",
-          stripeProduct
-        );
-        return;
-      },
     }
   );
 
