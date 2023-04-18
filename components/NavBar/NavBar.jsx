@@ -202,15 +202,19 @@ function NavBar({
               </Chakra.Button>
             </Link>
 
-            <Link href="/profile">
-              <a>
-                <MdFavoriteBorder
-                  color="#FB8500"
-                  cursor="pointer"
-                  size={25}
-                />
-              </a>
-            </Link>
+            <div>
+              {logged === true ? (
+                <Link href="/profile">
+                  <a>
+                    <MdFavoriteBorder
+                      color="#80467491"
+                      cursor="pointer"
+                      size={27}
+                    />
+                  </a>
+                </Link>
+              ) : null}
+            </div>
 
             {logged == true ? (
               <div className="logedContainer">
