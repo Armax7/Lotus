@@ -4,6 +4,7 @@ import Link from "next/link";
 import style from "./Card.module.css";
 import { largeTextHandler } from "../../helpers/utils";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 
 function Card({
   artwork,
@@ -27,12 +28,21 @@ function Card({
     author_id,
   } = artwork;
 
-  const handleLinkClick = () => {
-    Swal.fire({
-      text: "Necesitas iniciar sesión para agregar Obras a favoritos",
-      icon: "warning",
-      confirmButtonText: "OK",
-    });
+  const handleLinkClick = async () => {
+    const data = await SupaHelpers.loggedStatus();
+    if (data === true) {
+      Swal.fire({
+        text: "Añadido a favoritos",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } else {
+      Swal.fire({
+        text: "Necesitas iniciar sesión para agregar Obras a favoritos",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   return (
