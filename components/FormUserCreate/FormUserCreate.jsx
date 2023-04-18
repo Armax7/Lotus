@@ -5,6 +5,8 @@ import * as Components from "../../components";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
+import * as BucketsHelper from "../../helpers/supabase_helpers/buckets";
+import { supabase } from "../../lib/supabaseClient";
 
 function validateFormCreate(input) {
   const error = {};
@@ -29,41 +31,64 @@ function validateFormCreate(input) {
   if (!input.categories) {
     error.categories = "Debe seleccionar una o más categorías";
   }
-  if (!input.supports) {
-    error.supports = "Debe seleccionar un soporte";
+  if (!input.support) {
+    error.support = "Debe seleccionar un soporte";
   }
   return error;
 }
 
+export const PATH = {
+  path: "",
+};
+
 function FormUserCreate() {
   const optionsMOCK = ["option1", "option2", "option3"];
 
-  const techniques = ReactQuery.useQuery(
-    [QueryKeys.QK_TECHNIQUES],
-    QueryFns.getTechniquesAxios
-  );
+  const queries = ReactQuery.useQueries({
+    queries: [
+      {
+        queryKey: [QueryKeys.QK_CATEGORIES],
+        queryFn: QueryFns.getCategoriesAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: FormUserCreate.jsx:47 ~ error:", error);
+          return;
+        },
+      },
+      {
+        queryKey: [QueryKeys.QK_TECHNIQUES],
+        queryFn: QueryFns.getTechniquesAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: FormUserCreate.jsx:55 ~ error:", error);
+          return;
+        },
+      },
+      {
+        queryKey: [QueryKeys.QK_SUPPORTS],
+        queryFn: QueryFns.getSupportsAxios,
+        onError: (error) => {
+          console.log("🚀 ~ file: FormUserCreate.jsx:65 ~ error:", error);
+          return;
+        },
+      },
+    ],
+  });
+  const [categories, techniques, supports] = queries;
 
-  const categories = ReactQuery.useQuery(
-    [QueryKeys.QK_CATEGORIES],
-    QueryFns.getCategoriesAxios
-  );
-
-  const supports = ReactQuery.useQuery(
-    [QueryKeys.QK_SUPPORTS],
-    QueryFns.getSupportsAxios
-  );
-  console.log(supports.data + "const de supports");
-
+  const [message, setMessage] = useState("");
+  const [isMessageSent, setIsMessageSent] = useState(false);
   const [errors, setErrors] = useState({});
+  const [imageFile, setImageFile] = useState(null);
   const [input, setInput] = useState({
     name: "",
+    author: "",
     stock: "",
-    image: "",
+    imageFile,
     size: "",
     price: "",
-    techniques: [],
-    categories: [],
-    supports: "",
+    techniques: "",
+    categories: "",
+    support: "",
+    description: "",
   });
 
   function handleInputOnChange(e) {
@@ -80,14 +105,40 @@ function FormUserCreate() {
     );
   }
 
+  function handleImageOnChange(e) {
+    setImageFile(e.target.files[0]);
+  }
+
   function handleSubmit(el) {
     el.preventDefault();
     console.log(input);
+
+    // const fileUpLoad = imageFile
+    //   ? BucketsHelper.uploadArtworkImage(imageFile)
+    //   : false;
+
+    // const dataUpload = {
+    //   ...input,
+    //   ...(imageFile && { image: fileUpLoad }),
+
     setErrors(validateFormCreate(input));
     const horrores = validateFormCreate(input);
+
     if (Object.values(horrores).length !== 0) {
       alert("Por favor complete todos los campos obligatorios");
     } else {
+      const { data, error } = supabase.storage
+      .from("imagebuck")
+      .upload("imagebuck/img" + imageFile?.name, imageFile);
+
+    if (data) {
+      console.log("este es data ", data);
+      axios.post(`${process.env.NEXT_PUBLIC_HOST}/artworks`);
+    }
+
+      alert("¡Solicitud enviada!");
+      setIsMessageSent(true);
+      setMessage("");
     }
   }
 
@@ -106,91 +157,160 @@ function FormUserCreate() {
                 Envíe su propia obra
               </Chakra.Heading>
               <Chakra.Divider />
-              <Chakra.FormControl mt={2}>
-                <Chakra.FormLabel>Nombre de la obra</Chakra.FormLabel>
+              <Chakra.Flex>
+                <Chakra.FormControl mt={2}>
+                  <Chakra.FormLabel>Nombre de la obra</Chakra.FormLabel>
+                  <Chakra.Input
+                    placeholder="Nombre..."
+                    type="text"
+                    value={input.name}
+                    name="name"
+                    onChange={(e) => handleInputOnChange(e)}
+                  />
+                  <Chakra.HStack>
+                    {errors.name && <p>{errors.name}</p>}
+                  </Chakra.HStack>
+                </Chakra.FormControl>
+              </Chakra.Flex>
+              <Chakra.Flex>
+                <Chakra.FormControl>
+                  <Chakra.FormLabel>Imágen de la obra</Chakra.FormLabel>
+                  <Chakra.Input
+                    type={"file"}
+                    value={input.image}
+                    name="image"
+                    onChange={(e) => handleImageOnChange(e)}
+                  />
+                </Chakra.FormControl>
+              </Chakra.Flex>
+              <Chakra.Flex>
+                <Chakra.FormControl>
+                  <Chakra.FormLabel>Tamaño</Chakra.FormLabel>
+                  <Chakra.Input
+                    placeholder="50X70cm..."
+                    value={input.size}
+                    name="size"
+                    onChange={(e) => handleInputOnChange(e)}
+                  />
+                </Chakra.FormControl>
+              </Chakra.Flex>
+              <Chakra.Flex>
+                <Chakra.FormControl>
+                  <Chakra.FormLabel>
+                    Cantidad de ejemplares disponibles
+                  </Chakra.FormLabel>
+                  <Chakra.Input
+                    placeholder="8"
+                    type="number"
+                    min={1}
+                    value={input.stock}
+                    name="stock"
+                    onChange={(e) => handleInputOnChange(e)}
+                  />
+                  Unidades
+                </Chakra.FormControl>
+              </Chakra.Flex>
+
+              <Chakra.Flex>
+                <Chakra.FormLabel>Técnica utilizada</Chakra.FormLabel>
+                {techniques.isLoading ? (
+                  <Chakra.Button isLoading loadingText={"Cargando..."} />
+                ) : techniques.isError ? (
+                  <Chakra.Button isDisabled>Seleccionar técnica</Chakra.Button>
+                ) : (
+                  <Chakra.FormControl>
+                    <Components.Dropdown
+                      options={techniques.data}
+                      value={input.techniques}
+                      name="techniques"
+                      onChange={(e) => handleInputOnChange(e)}
+                    />
+                  </Chakra.FormControl>
+                )}
+              </Chakra.Flex>
+
+              <Chakra.Flex>
+                <Chakra.FormLabel>Categoría de la obra</Chakra.FormLabel>
+                {categories.isLoading ? (
+                  <Chakra.Button isLoading loadingText={"Cargando..."} />
+                ) : categories.isError ? (
+                  <Chakra.Button isDisabled>
+                    Seleccionar categoría
+                  </Chakra.Button>
+                ) : (
+                  <Chakra.FormControl>
+                    <Components.Dropdown
+                      options={categories.data}
+                      value={input.categories}
+                      name="categories"
+                      onChange={(e) => handleInputOnChange(e)}
+                    />
+                  </Chakra.FormControl>
+                )}
+              </Chakra.Flex>
+
+              <Chakra.Flex>
+                <Chakra.FormLabel>Soporte de la obra</Chakra.FormLabel>
+                {supports.isLoading ? (
+                  <Chakra.Button isLoading loadingText={"Cargando..."} />
+                ) : supports.isError ? (
+                  <Chakra.Button isDisabled>Seleccionar soporte</Chakra.Button>
+                ) : (
+                  <Chakra.FormControl>
+                    <Components.Dropdown
+                      options={supports.data}
+                      value={input.support}
+                      name="support"
+                      onChange={(e) => handleInputOnChange(e)}
+                    />
+                  </Chakra.FormControl>
+                )}
+              </Chakra.Flex>
+
+              <Chakra.FormControl>
+                <Chakra.FormLabel>Nombre del autor</Chakra.FormLabel>
                 <Chakra.Input
                   placeholder="Nombre..."
                   type="text"
-                  value={input.name}
-                  name="name"
+                  name="author"
+                  value={input.author}
+                  onChange={(e) => handleInputOnChange(e)}
                 />
               </Chakra.FormControl>
               <Chakra.FormControl>
-                <Chakra.FormLabel>Imágen de la obra</Chakra.FormLabel>
-                <Chakra.Input placeholder="-archivo-" name="image"/>
-              </Chakra.FormControl>
-              <Chakra.FormControl>
-                <Chakra.FormLabel>Tamaño</Chakra.FormLabel>
-                <Chakra.Input placeholder="50X70cm..." name="size"/>
-              </Chakra.FormControl>
-              <Chakra.FormControl>
-                <Chakra.FormLabel>
-                  Cantidad de ejemplares disponibles
-                </Chakra.FormLabel>
-                <Chakra.Input placeholder="8" type="number" min={1} name="stock"/>
-                Unidades
+                <Chakra.FormLabel>Descripción de la obra</Chakra.FormLabel>
+                <Chakra.Input
+                  placeholder="Descripción..."
+                  type="text"
+                  name="description"
+                  value={input.description}
+                  onChange={(e) => handleInputOnChange(e)}
+                />
               </Chakra.FormControl>
 
-              <Chakra.Accordion defaultIndex={[0]} allowMultiple>
-                <Chakra.AccordionItem>
-                  <Chakra.FormControl>
-                    <Chakra.FormLabel>
-                      <Chakra.AccordionButton>
-                        Técnicas utilizadas
-                        <ChevronDownIcon />
-                      </Chakra.AccordionButton>
-                      <Chakra.AccordionPanel>
-                        <Components.CheckboxGroup options={techniques.data} name="techniques"/>
-                      </Chakra.AccordionPanel>
-                    </Chakra.FormLabel>
-                  </Chakra.FormControl>
-                </Chakra.AccordionItem>
-                <Chakra.AccordionItem>
-                  <Chakra.FormControl>
-                    <Chakra.FormLabel>
-                      <Chakra.AccordionButton>
-                        Categorías
-                        <ChevronDownIcon />
-                      </Chakra.AccordionButton>
-                      <Chakra.AccordionPanel>
-                        <Components.CheckboxGroup options={categories.data} name="categories"/>
-                      </Chakra.AccordionPanel>
-                    </Chakra.FormLabel>
-                  </Chakra.FormControl>
-                </Chakra.AccordionItem>
-                <Chakra.FormControl>
-                  <Chakra.FormLabel>Soporte de la obra</Chakra.FormLabel>
-                  <Components.Dropdown options={optionsMOCK} name="supports"/>
-                </Chakra.FormControl>
-              </Chakra.Accordion>
+              <Chakra.FormControl>
+                <Chakra.FormLabel>Precio sugerido (USD)</Chakra.FormLabel>
+                <Chakra.Input
+                  placeholder="Precio..."
+                  type="number"
+                  name="price"
+                  value={input.price}
+                  onChange={(e) => handleInputOnChange(e)}
+                />
+              </Chakra.FormControl>
+              <Chakra.Button
+                type="submit"
+                bg="var(--color1)"
+                color="var(--color5)"
+                _hover={{
+                  background: "var(--color1-3)",
+                  transform: "translateY(-4px)",
+                }}
+                style={{ width: "100%" }}
+              >
+                Enviar solicitud
+              </Chakra.Button>
             </Chakra.Box>
-
-            <Chakra.FormControl>
-              <Chakra.FormLabel>Nombre del autor</Chakra.FormLabel>
-              <Chakra.Input placeholder="Nombre..." type="text" />
-            </Chakra.FormControl>
-            <Chakra.FormControl>
-              <Chakra.FormLabel>Descripción de la obra</Chakra.FormLabel>
-              <Chakra.Input placeholder="Descripción..." />
-            </Chakra.FormControl>
-
-            <Chakra.FormControl>
-              <Chakra.FormLabel>Precio sugerido</Chakra.FormLabel>
-              <Chakra.Input placeholder="Precio..." />
-              USD
-            </Chakra.FormControl>
-            <Chakra.Button
-              type="submit"
-              bg="var(--color1)"
-              color="var(--color5)"
-              _hover={{
-                background: "var(--color1-3)",
-                transform: "translateY(-4px)",
-              }}
-              style={{ width: "100%" }}
-            >
-              Enviar solicitud
-            </Chakra.Button>
           </Chakra.Stack>
         </Chakra.Flex>
       </Chakra.HStack>
