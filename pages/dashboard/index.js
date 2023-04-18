@@ -32,7 +32,7 @@ function Dashboard() {
         categories={categories.data}
         supports={supports.data}
         showAvailableOnly={false}
-        baseHref={"/dashboard/details"}
+        baseHref={"/dashboard/artwork"}
       />
     </Chakra.Box>
   );
