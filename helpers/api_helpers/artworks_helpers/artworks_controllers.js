@@ -271,7 +271,9 @@ export async function deleteArtwork({ id: artworkId }) {
       throw response.error;
     }
 
-    const stripeResponse = await stripe.products.del(artworkId);
+    const stripeResponse = await stripe.products.update(artworkId, {
+      active: false,
+    });
 
     response.supa = supaResponse;
     response.stripe = stripeResponse;
