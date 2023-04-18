@@ -4,8 +4,9 @@ import style from "./CartContainer.module.css";
 
 function CardContainer({
   cards,
-  columns: columnsProp = 3,
   showAvailableOnly = true,
+  baseHref: baseHrefProp,
+  columns: columnsProp = 3,
   ...props
 }) {
   return (
@@ -17,7 +18,13 @@ function CardContainer({
               <Components.Card key={artwork.id} artwork={artwork} />
             ) : null;
           } else {
-            return <Components.Card key={artwork.id} artwork={artwork} />;
+            return (
+              <Components.Card
+                key={artwork.id}
+                artwork={artwork}
+                baseHref={baseHrefProp}
+              />
+            );
           }
         })}
       <Components.ToTopButton />
