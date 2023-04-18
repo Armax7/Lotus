@@ -3,6 +3,8 @@ import Link from "next/link";
 import style from "./Card.module.css";
 import { largeTextHandler } from "../../helpers/utils";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+
+
 function Card({
   artwork,
   spacing: spacingProp = 4,
@@ -23,6 +25,10 @@ function Card({
     support_id,
     author_id,
   } = artwork;
+
+  const handleLinkClick = () => {
+    alert("por favor loguerse")
+  };
 
   return (
     <Chakra.VStack
@@ -60,6 +66,7 @@ function Card({
                       color="#FB8500"
                       cursor="pointer"
                       boxSize={23}
+                      onClick={handleLinkClick}
                     />
                   </Chakra.Flex>
                 </div>
