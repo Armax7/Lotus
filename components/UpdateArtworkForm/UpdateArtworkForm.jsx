@@ -392,11 +392,7 @@ function UpdateArtworkForm({
               </Chakra.FormControl>
             </Chakra.Flex>
           </Chakra.Flex>
-          <Chakra.Button
-            type="submit"
-            bgColor={"#38761D"}
-            color={"white"}
-          >
+          <Chakra.Button type="submit" bgColor={"#38761D"} color={"white"}>
             Submit
           </Chakra.Button>
           <Chakra.Button

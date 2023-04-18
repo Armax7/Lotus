@@ -74,15 +74,22 @@ function ArtworkByIdDashboard({ artworkId }) {
         >
           Editar
         </Chakra.Button>
-        <Chakra.Drawer isOpen={isOpen} placement={"top"} onClose={onClose}>
+        <Chakra.Drawer
+          isOpen={isOpen}
+          placement={"top"}
+          onClose={onClose}
+          size={"full"}
+        >
           <Chakra.DrawerOverlay />
           <Chakra.DrawerContent bgColor={"var(--color3)"}>
-            <Components.UpdateArtworkForm
-              artwork={artwork.data.artwork}
-              onSubmit={artworkMutation.mutate}
-              onClose={onClose}
-              py={"1rem"}
-            />
+            <Chakra.DrawerBody>
+              <Components.UpdateArtworkForm
+                artwork={artwork.data.artwork}
+                onSubmit={artworkMutation.mutate}
+                onClose={onClose}
+                py={"1rem"}
+              />
+            </Chakra.DrawerBody>
           </Chakra.DrawerContent>
         </Chakra.Drawer>
       </Chakra.Box>
