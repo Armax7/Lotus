@@ -61,7 +61,9 @@ export async function getArtworksFilteredByQuery({
       : query.eq("support_id", support_id);
   }
 
-  const { data: artworks, error } = await query.order("created_at");
+  const { data: artworks, error } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) throw error;
   return artworks;
