@@ -1,9 +1,13 @@
-import React from 'react'
+import { useEffect } from "react";
+import * as Components from "../../../components";
+import { useRouter } from "next/router";
 
 function ArtworkDashboard() {
-  return (
-    <div>ArtworkDashboard</div>
-  )
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/dashboard");
+  }, []);
+  return <Components.Loading />;
 }
 
-export default ArtworkDashboard
+export default ArtworkDashboard;

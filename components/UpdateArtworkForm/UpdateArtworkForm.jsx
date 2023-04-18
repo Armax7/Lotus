@@ -392,12 +392,19 @@ function UpdateArtworkForm({
               </Chakra.FormControl>
             </Chakra.Flex>
           </Chakra.Flex>
-          <Chakra.Button
-            type="submit"
-            bgColor={"var(--color1)"}
-            color={"white"}
-          >
+          <Chakra.Button type="submit" bgColor={"#38761D"} color={"white"}>
             Submit
+          </Chakra.Button>
+          <Chakra.Button
+            onClick={onCloseProp}
+            bgColor={"#820000"}
+            textColor={"white"}
+            mx={"28%"}
+            w={"250px"}
+            minW={"100px"}
+            my={"10px"}
+          >
+            Cancelar
           </Chakra.Button>
         </Chakra.Flex>
         <Chakra.Flex flexDirection={"column"} w={"30%"}>
@@ -408,7 +415,7 @@ function UpdateArtworkForm({
           {imageFile && (
             <Chakra.Button
               onClick={handleImageOnDelete}
-              bgColor={"red"}
+              bgColor={"#820000"}
               color={"white"}
               m={"5px"}
             >
