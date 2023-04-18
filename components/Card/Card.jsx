@@ -7,6 +7,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 function Card({
   artwork,
+  baseHref = "/details",
   spacing: spacingProp = 4,
   className: classNameProp = null,
   ...props
@@ -36,7 +37,7 @@ function Card({
       spacing={spacingProp}
       {...props}
     >
-      <Link href={`/details/${id}`}>
+      <Link href={`${baseHref}/${id}`}>
         <Chakra.WrapItem>
           <Chakra.Stack spacing="3">
             <Chakra.Card

@@ -1,12 +1,19 @@
 import * as Chakra from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import {  FiHome, FiUser, FiStar, FiSlack , FiImage,FiMessageSquare} from "react-icons/fi";
+import {
+  FiHome,
+  FiUser,
+  FiStar,
+  FiSlack,
+  FiImage,
+  FiMessageSquare,
+} from "react-icons/fi";
 
 function SidebarAdmin() {
   const router = useRouter();
 
   const links = [
-    { href: "/dashboard/", label: "Obras", icon:FiImage },
+    { href: "/dashboard/", label: "Obras", icon: FiImage },
     {
       href: "/dashboard/",
       label: "Propiedades de las Obras",
@@ -15,7 +22,6 @@ function SidebarAdmin() {
     { href: "/dashboard", label: "Usuarios", icon: FiUser },
     { href: "/dashboard", label: "Reviews", icon: FiStar },
     { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare },
-   
 
     { href: "/", label: "Home", icon: FiHome },
   ];
@@ -73,9 +79,9 @@ function SidebarAdmin() {
         <br></br>
         <br></br>
         <Chakra.Stack spacing="12" ml="6" m="4">
-          {links.map((link) => (
+          {links.map((link, index) => (
             <Chakra.Box
-              key={link.href}
+              key={index}
               as="button"
               onClick={() => router.push(link.href)}
               p="10"
