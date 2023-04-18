@@ -253,13 +253,13 @@ export async function updateArtwork({
   }
 }
 
-export async function deleteArtworkLogically({ id: artworkId }) {
+export async function deleteArtwork({ id: artworkId }) {
   const response = { supa: {}, stripe: {}, error: null };
 
   try {
     const supaResponse = await supabase
       .from("artworks")
-      .update({ available: false })
+      .delete()
       .eq("id", artworkId);
 
     if (supaResponse.error) {
@@ -271,9 +271,7 @@ export async function deleteArtworkLogically({ id: artworkId }) {
       throw response.error;
     }
 
-    const stripeResponse = await stripe.products.update(artworkId, {
-      active: false,
-    });
+    const stripeResponse = await stripe.products.del(artworkId);
 
     response.supa = supaResponse;
     response.stripe = stripeResponse;
