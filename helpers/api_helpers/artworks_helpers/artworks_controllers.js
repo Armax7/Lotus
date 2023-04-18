@@ -109,7 +109,7 @@ export async function postArtwork({
         currency: "usd",
         unit_amount: price * 100,
       },
-      active: available,
+      active: available && stock > 0,
       unit_label: stock,
     });
 
