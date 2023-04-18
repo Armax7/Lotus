@@ -29,8 +29,8 @@ function UpdateArtworkForm({
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     name: artwork.name,
-    description: "",
-    size: "",
+    description: undefined,
+    size: undefined,
     price: undefined,
     author: artwork.author_id,
     category: artwork.category_id,
