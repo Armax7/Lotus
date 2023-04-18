@@ -22,7 +22,8 @@ const Carousel = ({ images, ...props }) => {
       height={"100vh"}
       minH={"440px"}
       maxH={"480px"}
-      position="relative"
+      // position="relative"
+      {...props}
       // onMouseEnter={() => setShowArrows(true)}
       // onMouseLeave={() => setShowArrows(false)}
     >
@@ -50,7 +51,7 @@ const Carousel = ({ images, ...props }) => {
             bg={"var(--black-2)"}
             color={"var(--color5)"}
             borderRadius="12px"
-            _hover={{background:"var(--color1-2)", fontSize:"36px"}}
+            _hover={{ background: "var(--color1-2)", fontSize: "36px" }}
           />
 
           <IconButton
@@ -66,7 +67,7 @@ const Carousel = ({ images, ...props }) => {
             bg={"var(--black-2)"}
             color={"var(--color5)"}
             borderRadius="12px"
-            _hover={{background:"var(--color1-2)", fontSize:"36px"}}
+            _hover={{ background: "var(--color1-2)", fontSize: "36px" }}
           />
         </>
       )}

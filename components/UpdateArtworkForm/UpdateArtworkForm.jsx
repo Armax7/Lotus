@@ -399,6 +399,17 @@ function UpdateArtworkForm({
           >
             Submit
           </Chakra.Button>
+          <Chakra.Button
+            onClick={onCloseProp}
+            bgColor={"var(--color1)"}
+            textColor={"white"}
+            mx={"28%"}
+            w={"250px"}
+            minW={"100px"}
+            my={"10px"}
+          >
+            Cancelar
+          </Chakra.Button>
         </Chakra.Flex>
         <Chakra.Flex flexDirection={"column"} w={"30%"}>
           <Chakra.Image
