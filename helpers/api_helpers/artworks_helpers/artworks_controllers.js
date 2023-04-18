@@ -4,7 +4,10 @@ import { v4 as uuidV4 } from "uuid";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export async function getAllArtworks() {
-  const { data: artworks, error } = await supabase.from("artworks").select();
+  const { data: artworks, error } = await supabase
+    .from("artworks")
+    .select()
+    .order("created_at", { ascending: false });
 
   if (error) throw error;
 
@@ -58,7 +61,7 @@ export async function getArtworksFilteredByQuery({
       : query.eq("support_id", support_id);
   }
 
-  const { data: artworks, error } = await query;
+  const { data: artworks, error } = await query.order("created_at");
 
   if (error) throw error;
   return artworks;
