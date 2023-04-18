@@ -13,6 +13,8 @@ function Artworks({
   techniques = ArtworksMocks.techniques_mock,
   categories = ArtworksMocks.categories_mock,
   supports = ArtworksMocks.supports_mock,
+  showAvailableOnly: showAvailableOnlyProp = true,
+  baseHref: baseHrefProp,
 }) {
   const queryClient = ReactQuery.useQueryClient();
 
@@ -321,7 +323,11 @@ function Artworks({
             Reiniciar Filtros
           </Chakra.Button>
         </Chakra.Flex>
-        <Components.CardContainer cards={filteredArtworks.data} />
+        <Components.CardContainer
+          cards={filteredArtworks.data}
+          showAvailableOnly={showAvailableOnlyProp}
+          baseHref={baseHrefProp}
+        />
       </Chakra.Box>
     </div>
   );
