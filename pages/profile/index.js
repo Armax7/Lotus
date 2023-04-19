@@ -55,7 +55,7 @@ const Profile = ({
 
   const [isLargerThan580] = Chakra.useMediaQuery("(min-width: 580px)");
   return (
-    <div style={{width:"100%", background:"var(--color5)"}}>
+    <div style={{ width: "100%", background: "var(--color5)" }}>
       <Chakra.Box
         w="100%"
         maxW={"1400px"}
@@ -181,42 +181,6 @@ const Profile = ({
                 </Chakra.Text>
               </Chakra.Box>
             </Chakra.Box>
-
-            <Chakra.Flex
-              width={"100%"}
-              maxW={"600px"}
-              minW={"300px"}
-              justifyContent={"center"}
-              zIndex={"100"}
-              background={"var(--color3-1)"}
-              borderRadius={"12px"}
-              margin={"12px 0"}
-            >
-              <Chakra.Box>
-                <Chakra.Text
-                  fontSize={"26px"}
-                  fontWeight={"bold"}
-                  color={"var(--black)"}
-                  mb={"16px"}
-                >
-                  Favoritos:
-                </Chakra.Text>
-              </Chakra.Box>
-            </Chakra.Flex>
-
-            {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-            style={{
-              position: "absolute",
-              bottom: "0px",
-              fill: "var(--color1)",
-              zIndex: "10",
-              width: "100vw",
-            }}
-          >
-            <path d="M0,288L120,256C240,224,480,160,720,149.3C960,139,1200,181,1320,202.7L1440,224L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-          </svg> */}
           </Chakra.Box>
         </Chakra.Box>
       </Chakra.Box>
