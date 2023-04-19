@@ -3,7 +3,6 @@ import * as Utils from "../../helpers/utils";
 const SIZE_REGEX = "^[\\d]{1,}[xX]{1}[\\d]{1,}[\\s]{0,1}[a-z]{0,3}$";
 
 function validate(inputs) {
-  console.log("🚀 ~ file: validate.js:6 ~ validate ~ inputs:", inputs)
   let errors = {};
 
   if (!inputs.name || Utils.isSpace(inputs.name)) {

@@ -5,6 +5,7 @@ import * as Components from "../../components";
 import * as Layouts from "../../layouts";
 import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
+import * as ArtworkFormsAxios from "../../helpers/page_helpers/ArtworkForms_helpers/query_fns";
 //import * as Chakra from "@chakra-ui/react";
 
 function Dashboard() {
@@ -27,7 +28,17 @@ function Dashboard() {
     QueryFns.getSupportsAxios
   );
 
-  if (techniques.isLoading || categories.isLoading || supports.isLoading) {
+  const artworkPostMutation = ReactQuery.useMutation(
+    ArtworkFormsAxios.postArtworkAxios,
+    { onError: (error) => console.log(error) }
+  );
+
+  if (
+    techniques.isLoading ||
+    categories.isLoading ||
+    supports.isLoading ||
+    artworkPostMutation.isLoading
+  ) {
     return <Components.Loading />;
   }
 
@@ -60,7 +71,7 @@ function Dashboard() {
         <Chakra.DrawerOverlay />
         <Chakra.DrawerContent bgColor={"var(--color3)"}>
           <Chakra.DrawerBody>
-            <Components.PostArtworkForm onClose={onClose} />
+            <Components.PostArtworkForm onSubmit={artworkPostMutation.mutate} onClose={onClose} />
           </Chakra.DrawerBody>
         </Chakra.DrawerContent>
       </Chakra.Drawer>
