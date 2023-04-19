@@ -25,6 +25,7 @@ const theme = extendTheme({
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new ReactQuery.QueryClient());
+
   useEffect(() => {
     async function createUserDetails() {
       try {
@@ -51,8 +52,22 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   if (Component.getLayout) {
-    return Component.getLayout(<Component {...pageProps} />);
+    return (
+      <ChakraProvider theme={theme}>
+        <ReactQuery.QueryClientProvider client={queryClient}>
+          <ReactQuery.Hydrate state={pageProps.dehydratedState}>
+            <Head>
+              <title>Lotus Art Gallery</title>
+              <meta name="description" content="Lotus Art Gallery" />
+              <link rel="icon" href="/lotusIsotipo.svg" />
+            </Head>
+            {Component.getLayout(<Component {...pageProps} />)}
+          </ReactQuery.Hydrate>
+        </ReactQuery.QueryClientProvider>
+      </ChakraProvider>
+    );
   }
+
   return (
     <ChakraProvider theme={theme}>
       <ReactQuery.QueryClientProvider client={queryClient}>

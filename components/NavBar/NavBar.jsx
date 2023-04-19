@@ -10,6 +10,7 @@ import style from "../../styles/navBar/navBar.module.css";
 import axios from "axios";
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
+import { MdFavoriteBorder } from "react-icons/md";
 
 function NavBar({
   classname,
@@ -45,7 +46,7 @@ function NavBar({
   };
   useEffect(() => {
     datosUsuario();
-    console.log("userData", userData);
+    //console.log("userData", userData);
   }, []);
 
   const [userData2, setUserData2] = useState(null);
@@ -201,6 +202,20 @@ function NavBar({
               </Chakra.Button>
             </Link>
 
+            <div>
+              {logged === true ? (
+                <Link href="/profile">
+                  <a>
+                    <MdFavoriteBorder
+                      color="#80467491"
+                      cursor="pointer"
+                      size={27}
+                    />
+                  </a>
+                </Link>
+              ) : null}
+            </div>
+
             {logged == true ? (
               <div className="logedContainer">
                 <Chakra.ButtonGroup>
@@ -265,7 +280,8 @@ function NavBar({
                           <Chakra.MenuItem>Perfil</Chakra.MenuItem>
                         </Link>
                         <Link href="/formCreate">
-                        <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem></Link>
+                          <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
+                        </Link>
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
                         </Chakra.Flex>
@@ -490,7 +506,8 @@ function NavBar({
                               <Chakra.MenuItem>Perfil</Chakra.MenuItem>
                             </Link>
                             <Link href="/formCreate">
-                            <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem></Link>
+                              <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
+                            </Link>
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
                             </Chakra.Flex>

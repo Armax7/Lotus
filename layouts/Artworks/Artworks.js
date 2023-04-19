@@ -2,17 +2,17 @@ import { useState, useRef } from "react";
 import { AccordionIcon } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import * as Chakra from "@chakra-ui/react";
-import { theme } from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import * as Components from "../../components";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
-import * as ArtworksMocks from "../../helpers/mocks/layouts_mock/Artworks_mock";
 
 function Artworks({
-  techniques = ArtworksMocks.techniques_mock,
-  categories = ArtworksMocks.categories_mock,
-  supports = ArtworksMocks.supports_mock,
+  techniques,
+  categories,
+  supports,
+  showAvailableOnly: showAvailableOnlyProp = true,
+  baseHref: baseHrefProp,
 }) {
   const queryClient = ReactQuery.useQueryClient();
 
@@ -321,7 +321,21 @@ function Artworks({
             Reiniciar Filtros
           </Chakra.Button>
         </Chakra.Flex>
-        <Components.CardContainer cards={filteredArtworks.data} />
+        {filteredArtworks.isLoading ? (
+          <Components.Loading />
+        ) : filteredArtworks.isError ? (
+          <Components.Alert
+            status={"error"}
+            title={"Error: "}
+            description={JSON.stringify(filteredArtworks.error)}
+          />
+        ) : (
+          <Components.CardContainer
+            cards={filteredArtworks.data}
+            showAvailableOnly={showAvailableOnlyProp}
+            baseHref={baseHrefProp}
+          />
+        )}
       </Chakra.Box>
     </div>
   );

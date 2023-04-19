@@ -199,7 +199,7 @@ const Profile = ({
                   color={"var(--black)"}
                   mb={"16px"}
                 >
-                  Cuadros comprados:
+                  Favoritos:
                 </Chakra.Text>
               </Chakra.Box>
             </Chakra.Flex>
