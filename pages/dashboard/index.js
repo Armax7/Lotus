@@ -1,7 +1,6 @@
 import * as Chakra from "@chakra-ui/react";
 import * as ReactQuery from "@tanstack/react-query";
 import { AdminLayout } from "../../layouts";
-import { artworks_mock } from "../../helpers/mocks/layouts_mock/Artworks_mock";
 import * as Components from "../../components";
 import * as Layouts from "../../layouts";
 import * as QueryKeys from "../../helpers/page_helpers/Home_helpers/query_keys";
@@ -10,6 +9,9 @@ import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
 
 function Dashboard() {
   const queryClient = ReactQuery.useQueryClient();
+
+  const { isOpen, onOpen, onClose } = Chakra.useDisclosure();
+
   const techniques = ReactQuery.useQuery(
     [QueryKeys.QK_TECHNIQUES],
     QueryFns.getTechniquesAxios
@@ -25,8 +27,23 @@ function Dashboard() {
     QueryFns.getSupportsAxios
   );
 
+  if (techniques.isLoading || categories.isLoading || supports.isLoading) {
+    return <Components.Loading />;
+  }
+
   return (
-    <Chakra.Box w={"80%"} pt={"2rem"}>
+    <Chakra.Flex direction={"column"} w={"80%"} pt={"2rem"}>
+      <Chakra.Box mx={"75%"}>
+        <Chakra.Button
+          onClick={onOpen}
+          bgColor={"var(--color1)"}
+          textColor={"white"}
+          w={"250px"}
+          minW={"100px"}
+        >
+          Agregar obra
+        </Chakra.Button>
+      </Chakra.Box>
       <Layouts.Artworks
         techniques={techniques.data}
         categories={categories.data}
@@ -34,7 +51,20 @@ function Dashboard() {
         showAvailableOnly={false}
         baseHref={"/dashboard/artwork"}
       />
-    </Chakra.Box>
+      <Chakra.Drawer
+        isOpen={isOpen}
+        placement={"top"}
+        onClose={onClose}
+        size={"full"}
+      >
+        <Chakra.DrawerOverlay />
+        <Chakra.DrawerContent bgColor={"var(--color3)"}>
+          <Chakra.DrawerBody>
+            <Components.PostArtworkForm onClose={onClose} />
+          </Chakra.DrawerBody>
+        </Chakra.DrawerContent>
+      </Chakra.Drawer>
+    </Chakra.Flex>
   );
 }
 
