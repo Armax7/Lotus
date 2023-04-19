@@ -26,7 +26,7 @@ function Dashboard() {
   );
 
   return (
-    <Chakra.Box w={"80%"}>
+    <Chakra.Box w={"80%"} pt={"2rem"}>
       <Layouts.Artworks
         techniques={techniques.data}
         categories={categories.data}
