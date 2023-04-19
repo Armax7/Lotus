@@ -70,3 +70,24 @@ export async function updateStockOnSuccessfulCheckoutAxios({
   
   return response;
 }
+
+
+export async function postOrderDetails(user_id, cart, payment, total ) {
+  const data = await axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/api/order-details`, {
+      user_id,
+      artworks_cart: cart,
+      payment_status: payment,
+      amount_total: total
+    })
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return data;
+}
