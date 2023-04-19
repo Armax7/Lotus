@@ -43,6 +43,30 @@ function Purchase({ success, session_id }) {
     ? sendEmail(emailData)
     : null;
 
+    
+  async function postOrder() {
+
+    const userId = cart[0].userId
+    const paymentStatus = session.data?.payment_status
+    const total = session.data.amount_total
+    
+    await QueryFns.postOrderDetails(userId, cart, paymentStatus, total )
+   }
+
+   function handlePaymentSuccess() {
+    if (session.data?.payment_status === "paid" && cart?.length) {
+      postOrder();
+    }
+  }
+
+  useEffect(() => {
+    handlePaymentSuccess();
+  }, [session.data?.payment_status]);
+   
+ 
+
+
+
   return (
     <Chakra.Box
       bg={"var(--color5)"}
