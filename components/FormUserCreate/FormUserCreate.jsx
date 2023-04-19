@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import * as Chakra from "@chakra-ui/react";
 import styles from "../ProfileBuckets/ProfileBuckets.module.css";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import * as Components from "../../components";
 import * as ReactQuery from "@tanstack/react-query";
 import * as QueryFns from "../../helpers/page_helpers/Home_helpers/query_fn";
@@ -22,7 +22,7 @@ function validateFormCreate(input) {
     error.stock = "Deben estar disponible una o más unidades";
   }
   if (!input.image) {
-    error.image = "Debe seleccionar una o más imágenes";
+    error.image = "Debe seleccionar una imágen";
   }
   if (!input.size) {
     error.size = "Debe indicar las medidas de la obra";
@@ -30,24 +30,36 @@ function validateFormCreate(input) {
   if (!input.price) {
     error.price = "Debe indicar un monto sugerido";
   }
-  if (!input.techniques) {
-    error.techniques = "Seleccione una técnica";
+  if (!input.techniques_id) {
+    error.techniques_id = "Seleccione una técnica";
   }
-  if (!input.categories) {
-    error.categories = "Seleccione una categoría";
+  if (!input.categories_id) {
+    error.categories_id = "Seleccione una categoría";
   }
-  if (!input.support) {
-    error.support = "Debe seleccionar un soporte";
+  if (!input.support_id) {
+    error.support_id = "Debe seleccionar un soporte";
   }
   return error;
 }
 
-export const PATH = {
-  path: "",
-};
-
-function FormUserCreate() {
-  const optionsMOCK = ["option1", "option2", "option3"];
+function FormUserCreate({ onSubmit: onSubmitProp = defaultPostOnSubmit }) {
+  const [errors, setErrors] = useState({});
+  console.log(errors);
+  const [imageFile, setImageFile] = useState(null);
+  //console.log("imageFile es", imageFile);
+  const [input, setInput] = useState({
+    name: "",
+    description: "",
+    image: "",
+    size: "",
+    price: undefined,
+    author_id: undefined,
+    stock: 0,
+    techniques_id: undefined,
+    categories_id: undefined,
+    support_id: undefined,
+    available: false,
+  });
 
   const queries = ReactQuery.useQueries({
     queries: [
@@ -87,89 +99,92 @@ function FormUserCreate() {
   });
   const [authors, categories, techniques, supports] = queries;
 
-  const [message, setMessage] = useState("");
-  const [isMessageSent, setIsMessageSent] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [imageFile, setImageFile] = useState(null);
-  const [userIsAuthor, setUserIsAuthor] = useState(null);
-  console.log("imageFile es", imageFile);
-  const [input, setInput] = useState({
-    name: "",
-    description: "",
-    image: "",
-    size: "",
-    price: "",
-    author_id: "",
-    stock: "",
-    technique_id: "",
-    category_id: "",
-    support_id: "",
-  });
-
   function handleInputOnChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+    setInput((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
     });
     console.log(input);
-    setErrors(
-      validateFormCreate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    // setErrors(
+    //   validateFormCreate({
+    //     ...input,
+    //     [e.target.name]: e.target.value,
+    //   })
+    // );
   }
 
   function handleImageOnChange(e) {
     setImageFile(e.target.files[0]);
   }
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    //document.getElementById("image_update").value = ""
     setImageFile(null);
   };
 
-  async function postingImage(el) {
-    el.preventDefault();
-    console.log(input);
+  // async function postingImage(el) {
+  //   el.preventDefault();
+  //   console.log(input);
 
-    const fileUpLoad = imageFile
-      ? await BucketsHelper.uploadArtworkImage(imageFile)
-      : false;
+  //   const fileUpLoad = imageFile
+  //     ? await BucketsHelper.uploadArtworkImage(imageFile)
+  //     : false;
 
-    const dataUpload = {
-      ...input,
-      ...(imageFile && { image: fileUpLoad }),
-    };
-    return dataUpload;
-  }
+  //   const dataUpload = {
+  //     ...input,
+  //     ...(imageFile && { image: fileUpLoad }),
+  //   };
+  //   return dataUpload;
+  // }
 
   async function handleSubmit(el) {
     el.preventDefault();
     console.log(input);
 
-    setErrors(validateFormCreate(input));
-    const horrores = validateFormCreate(input);
+    try {
+      const fileUpLoad = imageFile
+        ? await BucketsHelper.uploadArtworkImage(imageFile)
+        : null;
 
-    if (Object.values(horrores).length !== 0) {
-      Swal.fire("Por favor complete todos los campos obligatorios");
-    } else {
-      //postArwork
-      setInput({
-        name: "",
-        description: "",
-        image: "",
-        size: "",
-        price: "",
-        author_id: "",
-        stock: "",
-        technique_id: "",
-        category_id: "",
-        support_id: "",
+      const dataUpload = {
+        ...input,
+        ...(imageFile && { image: fileUpLoad }),
+      };
+
+      setErrors(validateFormCreate({ ...dataUpload, imageUrl: imageFile }));
+      const horrores = validateFormCreate({
+        ...dataUpload,
+        imageUrl: imageFile,
       });
 
-      Swal.fire("¡Solicitud enviada!");
-      setIsMessageSent(true);
-      setMessage("");
+      if (Object.values(horrores).length <= 0) {
+        await onSubmitProp(dataUpload);
+        //postArwork
+        setInput({
+          name: "",
+          description: "",
+          size: "",
+          price: undefined,
+          author_id: undefined,
+          stock: 0,
+          techniques_id: undefined,
+          categories_id: undefined,
+          support_id: undefined,
+        });
+        setImageFile(null);
+        setErrors({});
+        Swal.fire("¡Solicitud enviada!");
+        // setIsMessageSent(true);
+        // setMessage("");
+      } else {
+        Swal.fire("Por favor complete todos los campos obligatorios");
+        console.log("Existen estos errores" + horrores);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -207,7 +222,7 @@ function FormUserCreate() {
                   />
                   {!!errors.name ? (
                     <Chakra.FormHelperText color={"#9B2C2C"}>
-                      Todas las obras requieren un nombre
+                      {errors.name}
                     </Chakra.FormHelperText>
                   ) : null}
                 </Chakra.FormControl>
@@ -240,22 +255,12 @@ function FormUserCreate() {
                         >
                           Borrar
                         </Chakra.Button>
-                        <Chakra.Button
-                          onClick={handleSubmit}
-                          handleDeleteClick
-                          className={styles.selectedFileButton}
-                          bgColor="var(--color2)"
-                          color="var(--color5)"
-                          _hover={{ transform: "translateY(-4px)" }}
-                        >
-                          Subir
-                        </Chakra.Button>
                       </Chakra.Flex>
                     </div>
                   )}
                   {!!errors.image ? (
                     <Chakra.FormHelperText color={"#9B2C2C"}>
-                      Debe seleccionar una o más imágenes
+                      {errors.image}
                     </Chakra.FormHelperText>
                   ) : null}
                 </Chakra.FormControl>
@@ -271,7 +276,7 @@ function FormUserCreate() {
                   />
                   {!!errors.size ? (
                     <Chakra.FormHelperText color={"#9B2C2C"}>
-                      Debe indicar las medidas de la obra
+                      {errors.size}
                     </Chakra.FormHelperText>
                   ) : null}
                 </Chakra.FormControl>
@@ -291,7 +296,7 @@ function FormUserCreate() {
                   />
                   {!!errors.stock ? (
                     <Chakra.FormHelperText color={"#9B2C2C"}>
-                      Deben estar disponible una o más unidades
+                      {errors.stock}
                     </Chakra.FormHelperText>
                   ) : null}
                 </Chakra.FormControl>
@@ -307,13 +312,13 @@ function FormUserCreate() {
                   <Chakra.FormControl>
                     <Components.Dropdown
                       options={techniques.data}
-                      value={input.technique_id}
-                      name="technique_id"
-                      onChange={(e) => handleInputOnChange(e)}
+                      value={input.techniques_id}
+                      name="techniques_id"
+                      onChange={handleInputOnChange}
                     />
-                    {!!errors.techniques ? (
+                    {!!errors.techniques_id ? (
                       <Chakra.FormHelperText color={"#9B2C2C"}>
-                        Seleccione una técnica
+                        {errors.techniques_id}
                       </Chakra.FormHelperText>
                     ) : null}
                   </Chakra.FormControl>
@@ -332,13 +337,13 @@ function FormUserCreate() {
                   <Chakra.FormControl>
                     <Components.Dropdown
                       options={categories.data}
-                      value={input.category_id}
-                      name="category_id"
-                      onChange={(e) => handleInputOnChange(e)}
+                      value={input.categories_id}
+                      name="categories_id"
+                      onChange={handleInputOnChange}
                     />
-                    {!!errors.categories ? (
+                    {!!errors.categories_id ? (
                       <Chakra.FormHelperText color={"#9B2C2C"}>
-                        Seleccione una categoría
+                        {errors.categories_id}
                       </Chakra.FormHelperText>
                     ) : null}
                   </Chakra.FormControl>
@@ -357,11 +362,11 @@ function FormUserCreate() {
                       options={supports.data}
                       value={input.support_id}
                       name="support_id"
-                      onChange={(e) => handleInputOnChange(e)}
+                      onChange={handleInputOnChange}
                     />
-                    {!!errors.support ? (
+                    {!!errors.support_id ? (
                       <Chakra.FormHelperText color={"#9B2C2C"}>
-                        Seleccione un soporte
+                        {errors.support_id}
                       </Chakra.FormHelperText>
                     ) : null}
                   </Chakra.FormControl>
@@ -380,11 +385,11 @@ function FormUserCreate() {
                       options={authors.data}
                       value={input.author_id}
                       name="author_id"
-                      onChange={(e) => handleInputOnChange(e)}
+                      onChange={handleInputOnChange}
                     />
-                    {!!errors.authors_id ? (
+                    {!!errors.author_id ? (
                       <Chakra.FormHelperText color={"#9B2C2C"}>
-                        Todas las obras requieren un autor
+                        {errors.author_id}
                       </Chakra.FormHelperText>
                     ) : null}
                   </Chakra.FormControl>
@@ -413,7 +418,7 @@ function FormUserCreate() {
                 />
                 {!!errors.price ? (
                   <Chakra.FormHelperText color={"#9B2C2C"}>
-                    Indique un precio (USD)
+                    {errors.price}
                   </Chakra.FormHelperText>
                 ) : null}
               </Chakra.FormControl>
@@ -435,6 +440,12 @@ function FormUserCreate() {
       </Chakra.HStack>
     </form>
   );
+}
+
+export async function defaultPostOnSubmit(data) {
+  const response = await axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/api/artworks`, data)
+    .then((res) => res.data);
 }
 
 export default FormUserCreate;
