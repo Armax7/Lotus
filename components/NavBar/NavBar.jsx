@@ -416,7 +416,7 @@ function NavBar({
                       bgPosition="center bottom 80px"
                       bgSize="26%"
                     >
-                      <Components.SignIn />
+                      <Components.SignIn onClose={SignIn.onClose} />
                     </Chakra.DrawerBody>
                   </Chakra.DrawerContent>
                 </Chakra.Drawer>
