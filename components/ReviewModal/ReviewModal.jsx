@@ -21,7 +21,7 @@ const postReview = async (userId, artworkId, rating, commments) => {
   await QueryFns.postReview(userId, artworkId, rating, commments)
 }
 
-export default function ReviewModal({ userId, artworkId, isOpen, onClose, onSubmit }) {
+export default function ReviewModal({ userId, artworkId, isOpen, onClose, onSubmit, ...props }) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   

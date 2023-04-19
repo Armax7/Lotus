@@ -30,7 +30,7 @@ function MyPurchases() {
     <div style={{backgroundColor:"#f9f5e7"}}>
       <Heading as="h1" size="xl">Mis Compras</Heading>
       {orders.length ? orders.map((order) => {
-        return <Components.CardOrderContainer order={order} /> 
+        return <Components.CardOrderContainer key={order.id} order={order} /> 
       }):  
       <Alert
       backgroundColor="#f9f5e7"

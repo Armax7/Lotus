@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { Box, Grid, Table, Tr, Td, Th, Tbody, Thead, Image, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Table,
+  Tr,
+  Td,
+  Th,
+  Tbody,
+  Thead,
+  Image,
+  IconButton,
+} from "@chakra-ui/react";
 import { ChatIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import * as Components from "../../components";
 
-const CardOrder = ({ purchases }) => {
+const CardOrder = ({ purchases, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -29,8 +40,8 @@ const CardOrder = ({ purchases }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {purchases.map((purchase, index) => (
-            <Tr key={index}>
+          {purchases.map((purchase) => (
+            <Tr key={purchase.id}>
               <Td>
                 <Image src={purchase.image} boxSize="80px" objectFit="cover" />
               </Td>
@@ -46,7 +57,13 @@ const CardOrder = ({ purchases }) => {
                     variant="outline"
                     onClick={() => setIsOpen(true)}
                   />
-                  <Components.ReviewModal artworkId={purchase.id} userId={purchase.userId} onSubmit={onSubmit} isOpen={isOpen} onClose={onClose} />
+                  <Components.ReviewModal
+                    artworkId={purchase.id}
+                    userId={purchase.userId}
+                    onSubmit={onSubmit}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                  />
                 </Td>
               ) : (
                 <Td>
