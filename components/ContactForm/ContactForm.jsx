@@ -6,6 +6,7 @@ import { sendEmail } from "../../helpers/email_sendEmail";
 import { contactForm } from "../../helpers/email_templates";
 import * as Components from "..";
 import React from "react";
+import * as ReactQuery from "@tanstack/react-query";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -50,14 +51,20 @@ const ContactForm = () => {
     html: contactForm(name, email, message),
   };
 
+  const emailMutation = ReactQuery.useMutation(sendEmail, {
+    onSuccess: () => {
+      setIsMessageSent(true);
+      setMessage("");
+    },
+    onError: () => {
+      setIsMessageSent(false);
+    },
+  });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const sended = await sendEmail(emailData);
-    sended.success
-      ? (setIsMessageSent(true), setMessage(""))
-      : setIsMessageSent(false);
+    emailMutation.mutate(emailData);
   };
-
   return (
     <>
       <Chakra.Text
@@ -146,7 +153,7 @@ const ContactForm = () => {
               background={"var(--color2)"}
               _hover={{ background: "var(--color1)", color: "var(--color5)" }}
             />
-            {isMessageSent ? (
+            {emailMutation.isSuccess && isMessageSent === true ? (
               <Chakra.Alert
                 status="success"
                 variant="subtle"
@@ -171,7 +178,7 @@ const ContactForm = () => {
                   Pronto nos pondremos en contacto contigo.
                 </Chakra.AlertDescription>
               </Chakra.Alert>
-            ) : isMessageSent === false ? (
+            ) : emailMutation.isError && !isMessageSent === false ? (
               <Chakra.Alert
                 status="error"
                 variant="subtle"
@@ -414,13 +421,23 @@ const ContactForm = () => {
                     </Chakra.Modal>
                   </>
                 )}
-                <Chakra.Button
-                  colorScheme="lotus"
-                  type="submit"
-                  _hover={{ transform: "translateY(-4px)" }}
-                >
-                  Enviar
-                </Chakra.Button>
+                {!emailMutation.isLoading ? (
+                  <Chakra.Button
+                    colorScheme="lotus"
+                    type="submit"
+                    _hover={{ transform: "translateY(-4px)" }}
+                  >
+                    Enviar
+                  </Chakra.Button>
+                ) : (
+                  <Chakra.Button
+                    colorScheme="lotus"
+                    type="submit"
+                    cursor={"default"}
+                  >
+                    <Components.Loading fill={"var(--color5)"} />
+                  </Chakra.Button>
+                )}
               </Chakra.Flex>
             </form>
           </Chakra.ModalBody>
