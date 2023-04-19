@@ -22,7 +22,7 @@ const Carousel = ({ images, ...props }) => {
       height={"100vh"}
       minH={"440px"}
       maxH={"480px"}
-      // position="relative"
+      position="relative"
       {...props}
       // onMouseEnter={() => setShowArrows(true)}
       // onMouseLeave={() => setShowArrows(false)}
