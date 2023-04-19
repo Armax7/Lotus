@@ -109,7 +109,7 @@ export async function postArtwork({
         currency: "usd",
         unit_amount: price * 100,
       },
-      active: available,
+      active: available && stock > 0,
       unit_label: stock,
     });
 
@@ -253,13 +253,13 @@ export async function updateArtwork({
   }
 }
 
-export async function deleteArtworkLogically({ id: artworkId }) {
+export async function deleteArtwork({ id: artworkId }) {
   const response = { supa: {}, stripe: {}, error: null };
 
   try {
     const supaResponse = await supabase
       .from("artworks")
-      .update({ available: false })
+      .delete()
       .eq("id", artworkId);
 
     if (supaResponse.error) {
