@@ -29,13 +29,13 @@ function UpdateArtworkForm({
   const [imageFile, setImageFile] = useState(null);
   const [formData, setFormData] = useState({
     name: artwork.name,
-    description: undefined,
-    size: undefined,
+    description: "",
+    size: "",
     price: undefined,
-    author: artwork.author_id,
-    category: artwork.category_id,
-    technique: artwork.technique_id,
-    support: artwork.support_id,
+    author_id: artwork.author_id,
+    category_id: artwork.category_id,
+    technique_id: artwork.technique_id,
+    support_id: artwork.support_id,
     stock: artwork.stock,
     available: artwork.available,
   });
@@ -130,10 +130,10 @@ function UpdateArtworkForm({
           description: "",
           size: "",
           price: undefined,
-          author: artwork.author_id,
-          category: artwork.category_id,
-          technique: artwork.technique_id,
-          support: artwork.support_id,
+          author_id: artwork.author_id,
+          category_id: artwork.category_id,
+          technique_id: artwork.technique_id,
+          support_id: artwork.support_id,
           stock: artwork.stock,
           available: artwork.available,
         });
@@ -267,8 +267,8 @@ function UpdateArtworkForm({
               <Chakra.FormControl id="author_update">
                 <Components.Dropdown
                   options={authors.data}
-                  name={"author"}
-                  value={formData.author}
+                  name={"author_id"}
+                  value={formData.author_id}
                   onChange={handleInputOnChange}
                   bgColor={"var(--color5)"}
                   w={"fit-content"}
@@ -289,8 +289,8 @@ function UpdateArtworkForm({
               <Chakra.FormControl id="category_update">
                 <Components.Dropdown
                   options={categories.data}
-                  name={"category"}
-                  value={formData.category}
+                  name={"category_id"}
+                  value={formData.category_id}
                   onChange={handleInputOnChange}
                   bgColor={"var(--color5)"}
                   w={"fit-content"}
@@ -311,8 +311,8 @@ function UpdateArtworkForm({
               <Chakra.FormControl id="technique_update">
                 <Components.Dropdown
                   options={techniques.data}
-                  name={"technique"}
-                  value={formData.technique}
+                  name={"technique_id"}
+                  value={formData.technique_id}
                   onChange={handleInputOnChange}
                   bgColor={"var(--color5)"}
                   w={"fit-content"}
@@ -333,8 +333,8 @@ function UpdateArtworkForm({
               <Chakra.FormControl id="support_update">
                 <Components.Dropdown
                   options={supports.data}
-                  name={"support"}
-                  value={formData.support}
+                  name={"support_id"}
+                  value={formData.support_id}
                   onChange={handleInputOnChange}
                   bgColor={"var(--color5)"}
                   w={"fit-content"}
