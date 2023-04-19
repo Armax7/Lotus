@@ -1,13 +1,17 @@
 import axios from "axios";
 
 export function sendEmail(emailData) {
-  axios
+  const email = axios
     .post("/api/nodemailer", {
       to: emailData.email,
       subject: emailData.subject,
       text: emailData.text,
       html: emailData.html,
     })
-    .then((r) => console.log(r))
+    .then((r) => {
+      console.log(r);
+      return { success: r };
+    })
     .catch((e) => console.log(e));
+  return email;
 }
