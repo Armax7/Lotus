@@ -297,3 +297,20 @@ export async function updateReview(rating, comment, id) {
   return res;
 }
 
+export async function postReview(userId, artworkId, rating, comment) {
+  const res = await axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/api/reviews/profile`,
+     {rating, comment, artwork_id: artworkId, user_id: userId} )
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
+
