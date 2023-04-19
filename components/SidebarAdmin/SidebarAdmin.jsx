@@ -14,14 +14,14 @@ function SidebarAdmin() {
 
   const links = [
     { href: "/dashboard/", label: "Obras", icon: FiImage },
-    {
+   /*  {
       href: "/dashboard/",
       label: "Propiedades de las Obras",
       icon: FiSlack,
-    },
+    }, */
     { href: "/dashboard", label: "Usuarios", icon: FiUser },
     { href: "/dashboard", label: "Reviews", icon: FiStar },
-    { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare },
+    /* { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare }, */
 
     { href: "/", label: "Home", icon: FiHome },
   ];
