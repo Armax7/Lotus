@@ -11,6 +11,7 @@ import axios from "axios";
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
 import { MdFavoriteBorder } from "react-icons/md";
+import { FiStar } from "react-icons/fi";
 
 function NavBar({
   classname,
@@ -202,19 +203,33 @@ function NavBar({
               </Chakra.Button>
             </Link>
 
-            <div>
-              {logged === true ? (
-                <Link href="/profile">
-                  <a>
-                    <MdFavoriteBorder
-                      color="#80467491"
-                      cursor="pointer"
-                      size={27}
-                    />
-                  </a>
-                </Link>
-              ) : null}
-            </div>
+            {logged === true ? (
+              <Link href={"/favorite"}>
+                <Chakra.Button
+                  borderRadius={"100px"}
+                  w={"100%"}
+                  fontSize={"16px"}
+                  maxW={"300px"}
+                  id="home"
+                  margin={"0 8px"}
+                  background="var(--color3)"
+                  color="var(--black)"
+                  _hover={{
+                    background: "var(--color1)",
+                    color: "var(--color5)",
+                    transform: "translateY(-4px)",
+                  }}
+                  isActive={router.pathname === "/favorite"}
+                  _active={{
+                    background: "var(--color1)",
+                    color: "var(--color5)",
+                  }}
+                >
+                  <Chakra.Icon as={FiStar} m={"0 4px"} />
+                  {isLargerThan730 && `Favoritos`}
+                </Chakra.Button>
+              </Link>
+            ) : null}
 
             {logged == true ? (
               <div className="logedContainer">
