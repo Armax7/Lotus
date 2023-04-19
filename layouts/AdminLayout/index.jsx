@@ -16,7 +16,6 @@ function AdminLayout({ children }) {
     [QueryKeys.QK_USER_ID],
     QueryFns.getUserIdQuery,
     {
-      onSuccess: (query) => console.log(query),
       onError: (error) => console.log(error),
     }
   );
@@ -43,9 +42,7 @@ function AdminLayout({ children }) {
         description={`${userIdQuery.error ?? userRole.error}`}
       />
     );
-  }
-
-  if (userRole !== "admin") {
+  }else if (userRole.data !== "admin") {
     return (
       <Chakra.Box>
         <Components.Alert
