@@ -282,6 +282,9 @@ function NavBar({
                         <Link href="/formCreate">
                           <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
                         </Link>
+                        <Link href="/my-purchases">
+                          <Chakra.MenuItem>Mis Compras</Chakra.MenuItem>
+                        </Link>
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
                         </Chakra.Flex>
