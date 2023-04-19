@@ -34,3 +34,5 @@ export { default as UpdateArtworkForm } from "./UpdateArtworkForm/UpdateArtworkF
 export { default as ReviewModal } from "./ReviewModal/ReviewModal"
 export { default as CardOrder } from "./CardOrder/CardOrder"
 export { default as CardOrderContainer } from "./CardOrderContainer/CardOrderContainer"
+export { default as FavoriteEmpty } from "./FavoriteEmpty/FavoriteEmpty"
+
