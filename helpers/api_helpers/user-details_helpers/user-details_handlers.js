@@ -10,9 +10,9 @@ export async function handleGet(req, res) {
 }
 
 export async function handleGetById(req, res) {
-  const body = req.body;
+  const query = req.query;
   try {
-    const response = await Controllers.getUserDetailById(body);
+    const response = await Controllers.getUserDetailById(query);
     return res.status(response.status).json(response.data);
   } catch (response) {
     return res.status(response.status).json({ error: response.error.message });
