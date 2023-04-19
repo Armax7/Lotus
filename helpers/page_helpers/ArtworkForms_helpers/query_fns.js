@@ -13,3 +13,17 @@ export async function updateArtworkAxios(data) {
     });
   return response;
 }
+
+export async function postArtworkAxios(data) {
+  const response = await axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/api/artworks`, data)
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+  return response;
+}
