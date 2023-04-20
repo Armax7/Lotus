@@ -5,7 +5,7 @@ import { AdminLayout } from "../../../layouts";
 import * as Chakra from "@chakra-ui/react";
 function users() {
   return (
-    <Chakra.Box w={"80%"}>
+    <Chakra.Box w={"100%"}>
       <Components.UsersAdmin baseHref={"/dashboard/users"} />
     </Chakra.Box>
   );
