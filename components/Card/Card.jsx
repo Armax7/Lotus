@@ -7,7 +7,7 @@ import { largeTextHandler } from "../../helpers/utils";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 import { getUserId } from "../../helpers/supabase_helpers/user_management";
-import { updateFavorite } from "../../helpers/page_helpers/Home_helpers/query_fn"
+import { updateFavorite } from "../../helpers/page_helpers/Home_helpers/query_fn";
 
 function Card({
   artwork,
@@ -35,11 +35,12 @@ function Card({
   const [value, setValue] = useState(1);
   const [isMaxQuantity, setIsMaxQuantity] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [click, setClick] = useState(false);
 
   const guardarProductoEnFavoritos = async () => {
-    
     const userId = await getUserId();
-    const FavoriteItems = JSON.parse(localStorage.getItem("favoriteItems")) || [];
+    const FavoriteItems =
+      JSON.parse(localStorage.getItem("favoriteItems")) || [];
 
     const index = FavoriteItems.findIndex((item) => item.name === name);
 
@@ -54,6 +55,23 @@ function Card({
       stock,
     };
 
+    if (!click) {
+      Swal.fire({
+        text: "Añadido a favoritos",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      setClick(true);
+    } else {
+      /*  Swal.fire({
+        text: "Eliminado de favoritos",
+        icon: "warning",
+        confirmButtonText: "OK",
+      }); */
+      setIsAddedToCart(false);
+      setClick(false);
+    }
+
     if (index !== -1) {
       const updatedFavoriteItems = [...FavoriteItems];
       const existingFavoriteItem = updatedFavoriteItems[index];
@@ -61,10 +79,13 @@ function Card({
         setIsMaxQuantity(true);
       } else {
         existingFavoriteItem.quantity += value;
-        localStorage.setItem("favoriteItems", JSON.stringify(updatedFavoriteItems));
-        if(userId){  
-        updateFavorite(userId, updatedFavoriteItems) 
-      }
+        localStorage.setItem(
+          "favoriteItems",
+          JSON.stringify(updatedFavoriteItems)
+        );
+        if (userId) {
+          updateFavorite(userId, updatedFavoriteItems);
+        }
         setIsMaxQuantity(false);
         setIsAddedToCart(true);
         setTimeout(() => setIsAddedToCart(false), 2000);
@@ -72,30 +93,22 @@ function Card({
     } else {
       const newFavoritesItems = [...FavoriteItems, newFavoriteItem];
       localStorage.setItem("favoriteItems", JSON.stringify(newFavoritesItems));
-      if(userId){ 
-        updateFavorite(userId, newFavoritesItems) 
+      if (userId) {
+        updateFavorite(userId, newFavoritesItems);
       }
       setIsMaxQuantity(false);
       setIsAddedToCart(true);
       setTimeout(() => setIsAddedToCart(false), 2000);
     }
-  }
-  
+  };
 
   //const userId = await getUserId();
   //const CartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  
 
   const handleLinkClick = async () => {
     const data = await SupaHelpers.loggedStatus();
     if (data === true) {
-     
-      guardarProductoEnFavoritos()
-      Swal.fire({
-        text: "Añadido a favoritos",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      guardarProductoEnFavoritos();
     } else {
       Swal.fire({
         text: "Necesitas iniciar sesión para agregar Obras a favoritos",
@@ -137,13 +150,25 @@ function Card({
                   <span className={style.coin}>USD</span>
                 </Chakra.Text>
                 <Chakra.Flex justifyContent="end" rounded="md" px={1}>
-                  <Chakra.Icon
-                    as={MdFavoriteBorder}
-                    color="#80467491"
-                    cursor="pointer"
-                    boxSize={27}
-                    onClick={handleLinkClick}
-                  />
+                  {click ? (
+                    <Chakra.Icon
+                      /*  as={click ? MdFavorite : MdFavoriteBorder} */
+                      as={MdFavorite}
+                      color="#80467491"
+                      cursor="pointer"
+                      boxSize={27}
+                      onClick={handleLinkClick}
+                    />
+                  ) : (
+                    <Chakra.Icon
+                      /*  as={click ? MdFavorite : MdFavoriteBorder} */
+                      as={MdFavoriteBorder}
+                      color="#80467491"
+                      cursor="pointer"
+                      boxSize={27}
+                      onClick={handleLinkClick}
+                    />
+                  )}
                 </Chakra.Flex>
               </div>
             </Chakra.CardBody>
