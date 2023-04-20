@@ -82,9 +82,9 @@ function SignUp({ className = style.HStack, ...props }) {
     const currentErrors = validate(localData);
     setSubmitted(true);
     setShowAlert(true);
-    setTimeout(() => {
+    /* setTimeout(() => {
       location.reload();
-    }, 4000);
+    }, 4000);*/
 
     if (Object.values(currentErrors).length <= 0) {
       const signUpData = await UserAuth.userEmailSignUp({
