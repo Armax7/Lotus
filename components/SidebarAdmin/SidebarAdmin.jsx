@@ -18,11 +18,11 @@ function SidebarAdmin() {
       href: "/dashboard/",
       label: "Propiedades de las Obras",
       icon: FiSlack,
-    }, */
-    { href: "/dashboard", label: "Usuarios", icon: FiUser },
-    { href: "/dashboard", label: "Reviews", icon: FiStar },
+    },
     /* { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare }, */
-
+    
+    { href: "/dashboard/users", label: "Usuarios", icon: FiUser },
+    { href: "/dashboard", label: "Reviews", icon: FiStar },
     { href: "/", label: "Home", icon: FiHome },
   ];
   return (

@@ -37,3 +37,4 @@ export { default as CardOrderContainer } from "./CardOrderContainer/CardOrderCon
 export { default as FavoriteEmpty } from "./FavoriteEmpty/FavoriteEmpty";
 export { default as RecoveryForm } from "./RecoveryForm/RecoveryForm";
 export { default as ChangePasswordForm } from "./ChangePasswordForm/ChangePasswordForm";
+export { default as UsersAdmin } from "./UsersAdmin/UsersAdmin";
