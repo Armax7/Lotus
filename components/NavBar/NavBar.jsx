@@ -51,10 +51,12 @@ function NavBar({
   };
   useEffect(() => {
     async function fetchUserRole() {
-      const { userName, userId } = await datosUsuario();
-      const role = await AdminHelpers.getUserRole(userId);
-      setUserRole(role);
-      return role;
+      if(logged){
+        const { userName, userId } = await datosUsuario();
+        const role = await AdminHelpers.getUserRole(userId);
+        setUserRole(role);
+        return role;
+      }
     }
     //console.log("userData", userData);
     fetchUserRole();
