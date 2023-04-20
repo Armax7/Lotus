@@ -93,7 +93,7 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   
 
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+    <form id="sign_in" onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
      
 
       {showAlert && (
