@@ -139,17 +139,44 @@ function PostArtworkForm({
   }
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form
+      onSubmit={handleOnSubmit}
+      style={{ maxWidth: "1000px", margin: "auto" }}
+    >
       <Chakra.Flex
         className={classNameProp}
         justifyContent={justifyContentProp}
-        bgColor={bgColorProp}
+        bgColor={"var(--color5)"}
+        borderRadius={"12px"}
+        padding={"12px"}
+        color={"var(--color2)"}
         {...props}
       >
-        <Chakra.Flex flexDirection={"column"}>
-          <Chakra.Box fontSize={"4xl"}>Editar obra</Chakra.Box>
-          <Chakra.Flex>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+        <Chakra.Flex
+          flexDirection={"column"}
+          fontFamily={"Poppins"}
+          fontSize={"16px"}
+          pr={"12px"}
+        >
+          <Chakra.Box
+            fontSize={"26px"}
+            fontWeight={"800"}
+            color={"var(--color1)"}
+          >
+            Editar obra
+          </Chakra.Box>
+          <hr style={{ borderColor: "var(--color2)" }} />
+          <Chakra.Flex
+            alignItems={"center"}
+            justifyContent={"left"}
+            m={"6px 0"}
+          >
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Nombre de la obra:
             </Chakra.FormLabel>
             <Chakra.FormControl id="name_update" isInvalid={!!errors.name}>
@@ -158,9 +185,14 @@ function PostArtworkForm({
                 value={formData.name}
                 onChange={handleInputOnChange}
                 placeholder={"Nombre de la obra"}
-                bgColor={"var(--color5)"}
-                mx={"5px"}
-                maxW={"500px"}
+                bgColor={"var(--color4)"}
+                color={"var(--black)"}
+                borderColor={"var(--color2)"}
+                _focusVisible={{
+                  borderColor: "var(--color1)",
+                }}
+                w={"100%"}
+                maxW={"400px"}
                 minW={"100px"}
               />
               {!!errors.name ? (
@@ -168,41 +200,29 @@ function PostArtworkForm({
               ) : null}
             </Chakra.FormControl>
           </Chakra.Flex>
-          <Chakra.FormLabel m={"5px"} fontSize={"2xl"} whiteSpace={"nowrap"}>
-            Descripción de la obra:
-          </Chakra.FormLabel>
-          <Chakra.FormControl id="description_update">
-            <Chakra.Textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputOnChange}
-              placeholder={"Descripción de la obra"}
-              maxLength={255}
-              bgColor={"var(--color5)"}
-              mx={"5px"}
-              maxH={"150"}
-              maxW={"500px"}
-              minW={"100px"}
-            />
-          </Chakra.FormControl>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Imagen de la obra:
             </Chakra.FormLabel>
-            <Chakra.FormControl
-              id="image_update"
-              maxW={"340px"}
-              minW={"100px"}
-              isInvalid={!!errors.imageUrl}
-            >
+            <Chakra.FormControl id="image_update" isInvalid={!!errors.imageUrl}>
               <Chakra.Input
                 name="image"
                 type={"file"}
                 onChange={handleImageOnChange}
-                bgColor={"var(--color5)"}
-                p={"5px"}
-                mx={"5px"}
-                maxW={"340px"}
+                bgColor={"var(--color4)"}
+                color={"var(--black)"}
+                borderColor={"var(--color2)"}
+                _focusVisible={{
+                  borderColor: "var(--color1)",
+                }}
+                w={"100%"}
+                maxW={"400px"}
                 minW={"100px"}
               />
               {!!errors.imageUrl ? (
@@ -210,8 +230,14 @@ function PostArtworkForm({
               ) : null}
             </Chakra.FormControl>
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Tamaño de la obra:
             </Chakra.FormLabel>
             <Chakra.FormControl id="size_update" isInvalid={!!errors.size}>
@@ -220,10 +246,14 @@ function PostArtworkForm({
                 value={formData.size}
                 onChange={handleInputOnChange}
                 placeholder={"Dimensiones de la obra; ej. 35x50 cm"}
-                bgColor={"var(--color5)"}
-                p={"5px"}
-                mx={"5px"}
-                maxW={"300px"}
+                bgColor={"var(--color4)"}
+                color={"var(--black)"}
+                borderColor={"var(--color2)"}
+                _focusVisible={{
+                  borderColor: "var(--color1)",
+                }}
+                w={"100%"}
+                maxW={"400px"}
                 minW={"100px"}
               />
               {!!errors.size ? (
@@ -231,8 +261,14 @@ function PostArtworkForm({
               ) : null}
             </Chakra.FormControl>
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Precio de la obra (USD):
             </Chakra.FormLabel>
             <Chakra.FormControl id="price_update" isInvalid={!!errors.price}>
@@ -245,8 +281,16 @@ function PostArtworkForm({
                 onKeyDown={(e) => (e.key === "Enter" ? e.target.blur() : null)}
                 min={0}
                 precision={2}
-                bgColor={"var(--color5)"}
+                bgColor={"var(--color4)"}
+                color={"var(--black)"}
+                borderColor={"var(--color2)"}
+                _focusVisible={{
+                  borderColor: "var(--color1)",
+                }}
                 borderRadius={"5px"}
+                w={"100%"}
+                maxW={"400px"}
+                minW={"100px"}
               >
                 <Chakra.NumberInputField placeholder={0.0} />
                 <Chakra.NumberInputStepper>
@@ -259,8 +303,14 @@ function PostArtworkForm({
               ) : null}
             </Chakra.FormControl>
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Autor de la obra:
             </Chakra.FormLabel>
             {authors.isLoading ? (
@@ -277,8 +327,14 @@ function PostArtworkForm({
                   name={"author_id"}
                   value={formData.author_id}
                   onChange={handleInputOnChange}
-                  bgColor={"var(--color5)"}
-                  w={"fit-content"}
+                  bgColor={"var(--color4)"}
+                  color={"var(--black)"}
+                  borderColor={"var(--color2)"}
+                  _focusVisible={{
+                    borderColor: "var(--color1)",
+                  }}
+                  w={"100%"}
+                  maxW={"400px"}
                   minW={"100px"}
                 />
                 {!!errors.author ? (
@@ -287,8 +343,14 @@ function PostArtworkForm({
               </Chakra.FormControl>
             )}
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Categoría de la obra:
             </Chakra.FormLabel>
             {categories.isLoading ? (
@@ -305,8 +367,14 @@ function PostArtworkForm({
                   name={"category_id"}
                   value={formData.category_id}
                   onChange={handleInputOnChange}
-                  bgColor={"var(--color5)"}
-                  w={"fit-content"}
+                  bgColor={"var(--color4)"}
+                  color={"var(--black)"}
+                  borderColor={"var(--color2)"}
+                  _focusVisible={{
+                    borderColor: "var(--color1)",
+                  }}
+                  w={"100%"}
+                  maxW={"400px"}
                   minW={"100px"}
                 />
                 {!!errors.category ? (
@@ -317,8 +385,14 @@ function PostArtworkForm({
               </Chakra.FormControl>
             )}
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Técnica de la obra:
             </Chakra.FormLabel>
             {techniques.isLoading ? (
@@ -335,8 +409,14 @@ function PostArtworkForm({
                   name={"technique_id"}
                   value={formData.technique_id}
                   onChange={handleInputOnChange}
-                  bgColor={"var(--color5)"}
-                  w={"fit-content"}
+                  bgColor={"var(--color4)"}
+                  color={"var(--black)"}
+                  borderColor={"var(--color2)"}
+                  _focusVisible={{
+                    borderColor: "var(--color1)",
+                  }}
+                  w={"100%"}
+                  maxW={"400px"}
                   minW={"100px"}
                 />
                 {!!errors.technique ? (
@@ -347,8 +427,14 @@ function PostArtworkForm({
               </Chakra.FormControl>
             )}
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"}>
-            <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.FormLabel
+              w={"100%"}
+              maxW={"250px"}
+              mb={"none"}
+              fontSize={"20px"}
+            >
               Soporte de la obra:
             </Chakra.FormLabel>
             {supports.isLoading ? (
@@ -365,8 +451,14 @@ function PostArtworkForm({
                   name={"support_id"}
                   value={formData.support_id}
                   onChange={handleInputOnChange}
-                  bgColor={"var(--color5)"}
-                  w={"fit-content"}
+                  bgColor={"var(--color4)"}
+                  color={"var(--black)"}
+                  borderColor={"var(--color2)"}
+                  _focusVisible={{
+                    borderColor: "var(--color1)",
+                  }}
+                  w={"100%"}
+                  maxW={"400px"}
                   minW={"100px"}
                 />
                 {!!errors.support ? (
@@ -377,14 +469,15 @@ function PostArtworkForm({
               </Chakra.FormControl>
             )}
           </Chakra.Flex>
-          <Chakra.Flex m={"5px"} gap={"30px"}>
-            <Chakra.Flex>
-              <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+
+          <Chakra.Flex m={"6px 0"}>
+            <Chakra.Flex width={"100%"}>
+              <Chakra.FormLabel mb={"none"} fontSize={"20px"}>
                 Stock:
               </Chakra.FormLabel>
               <Chakra.FormControl
                 id="stock_update"
-                maxW={"100px"}
+                maxW={"180px"}
                 minW={"75px"}
                 isInvalid={!!errors.stock}
               >
@@ -399,7 +492,12 @@ function PostArtworkForm({
                   }
                   min={0}
                   precision={0}
-                  bgColor={"var(--color5)"}
+                  bgColor={"var(--color4)"}
+                  color={"var(--black)"}
+                  borderColor={"var(--color2)"}
+                  _focusVisible={{
+                    borderColor: "var(--color1)",
+                  }}
                   borderRadius={"5px"}
                 >
                   <Chakra.NumberInputField placeholder={formData.stock} />
@@ -413,8 +511,8 @@ function PostArtworkForm({
                 ) : null}
               </Chakra.FormControl>
             </Chakra.Flex>
-            <Chakra.Flex>
-              <Chakra.FormLabel fontSize={"2xl"} whiteSpace={"nowrap"}>
+            <Chakra.Flex w={"100%"} alignItems={"center"}>
+              <Chakra.FormLabel fontSize={"20px"} mb={"none"}>
                 Disponible?{" "}
               </Chakra.FormLabel>
               <Chakra.FormControl mt={"6px"} isInvalid={!!errors.available}>
@@ -434,22 +532,63 @@ function PostArtworkForm({
               </Chakra.FormControl>
             </Chakra.Flex>
           </Chakra.Flex>
-          <Chakra.Button type="submit" bgColor={"#38761D"} color={"white"}>
-            Submit
-          </Chakra.Button>
-          <Chakra.Button
-            onClick={onCloseProp}
-            bgColor={"#820000"}
-            textColor={"white"}
-            mx={"28%"}
-            w={"250px"}
-            minW={"100px"}
-            my={"10px"}
+
+          <Chakra.FormLabel
+            w={"100%"}
+            maxW={"250px"}
+            mb={"none"}
+            fontSize={"20px"}
           >
-            Cancelar
-          </Chakra.Button>
+            Descripción de la obra:
+          </Chakra.FormLabel>
+          <Chakra.FormControl
+            id="description_update"
+            padding={"6px 0 12px 12px"}
+          >
+            <Chakra.Textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputOnChange}
+              placeholder={"Descripción de la obra"}
+              maxLength={255}
+              bgColor={"var(--color4)"}
+              color={"var(--black)"}
+              borderColor={"var(--color2)"}
+              _focusVisible={{
+                borderColor: "var(--color1)",
+              }}
+              w={"100%"}
+              minW={"100px"}
+            />
+          </Chakra.FormControl>
+
+          <Chakra.Flex alignItems={"center"} justifyContent={"space-evenly"} >
+            <Chakra.Button type="submit" bgColor={"#38761D"} color={"white"} 
+              w={"250px"}>
+              Submit
+            </Chakra.Button>
+            <Chakra.Button
+              onClick={onCloseProp}
+              bgColor={"#820000"}
+              textColor={"white"}
+              // mx={"28%"}
+              w={"250px"}
+              minW={"100px"}
+              // my={"10px"}
+            >
+              Cancelar
+            </Chakra.Button>
+          </Chakra.Flex>
         </Chakra.Flex>
-        <Chakra.Flex flexDirection={"column"} w={"30%"} alignSelf={"center"}>
+
+        <Chakra.Flex
+          flexDirection={"column"}
+          w={"100%"}
+          maxW={"400px"}
+          minW={"200px"}
+          alignSelf={"center"}
+          p={"12px"}
+        >
           <Chakra.Image
             m={"auto"}
             src={imageFile ? URL.createObjectURL(imageFile) : undefined}
