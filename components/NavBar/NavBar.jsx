@@ -51,8 +51,8 @@ function NavBar({
   };
   useEffect(() => {
     async function fetchUserRole() {
-      if(logged){
-        const { userName, userId } = await datosUsuario();
+      const { userName, userId } = await datosUsuario();
+      if(!!userId){
         const role = await AdminHelpers.getUserRole(userId);
         setUserRole(role);
         return role;
