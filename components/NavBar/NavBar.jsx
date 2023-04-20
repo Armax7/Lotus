@@ -253,7 +253,6 @@ function NavBar({
                         rounded={"full"}
                         variant={"link"}
                         cursor={"pointer"}
-                        // minW={0}
                       >
                         <Chakra.Center marginLeft="12px">
                           <Chakra.Avatar
@@ -344,8 +343,6 @@ function NavBar({
                   color={router.pathname === "/search" ? "black" : "black"}
                   solid="true"
                   className={style.button}
-                  // ml="30px"
-                  // mr="30px"
                 >
                   Crear cuenta
                 </Chakra.Button>
@@ -741,6 +738,35 @@ function NavBar({
                       {isLargerThan730 && `Carrito`}
                     </Chakra.Button>
                   </Link>
+
+                  {logged === true ? (
+                    <Link href={"/favorite"}>
+                      <Chakra.Button
+                      onClick={onClose}
+                      borderRadius="0 100px 100px 0"
+                      maxW={"200px"}
+                      w={"100%"}
+                        fontSize={"16px"}
+                        id="home"
+                        margin={"0 8px 24px"}
+                        background="var(--color3)"
+                        color="var(--black)"
+                        _hover={{
+                          background: "var(--color1)",
+                          color: "var(--color5)",
+                          transform: "translateY(-4px)",
+                        }}
+                        isActive={router.pathname === "/favorite"}
+                        _active={{
+                          background: "var(--color1)",
+                          color: "var(--color5)",
+                        }}
+                      >
+                        <Chakra.Icon as={FiStar} m={"0 4px"} />
+                        {isLargerThan730 && `Favoritos`}
+                      </Chakra.Button>
+                    </Link>
+                  ) : null}
                 </Chakra.Box>
               </Chakra.DrawerContent>
             </Chakra.Drawer>
