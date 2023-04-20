@@ -58,7 +58,10 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
       try {
         const data = await UserAuth.userEmailLogIn(formData);
         console.log(data);
-        location.reload();
+        setShowAlert(true);
+         setTimeout(() => {
+          location.reload();
+        }, 2000); 
       } catch (error) {
         console.log(error);
       }
@@ -85,8 +88,34 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
     });
   }
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowAlert(true);
+  };
+
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+      <button onClick={handleButtonClick}>Show alert</button>
+
+      {showAlert && (
+        <chakra.Alert
+          status="success"
+          variant="subtle"
+          justifyContent="center"
+          borderRadius={"2xl"}
+          color="blackAlpha"
+          display={"flex"}
+          flexDir={"column"}
+          m={"0 0 12px"}
+        >
+          <chakra.AlertIcon />
+          <span style={{ fontWeight: "bold" }}>
+            Bienvenido a Lotus ¡Has iniciado sesión exitosamente!
+          </span>
+        </chakra.Alert>
+      )}
+
       <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
           w="100%"
