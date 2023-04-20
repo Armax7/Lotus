@@ -63,11 +63,11 @@ function Card({
       });
       setClick(true);
     } else {
-        Swal.fire({
+    /*     Swal.fire({
         text: "Puedes eliminarlo desde favoritos",
         icon: "warning",
         confirmButtonText: "OK",
-      }); 
+      }); */ 
       setIsAddedToCart(false);
       setClick(false);
     }
