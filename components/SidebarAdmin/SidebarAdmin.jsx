@@ -20,9 +20,9 @@ function SidebarAdmin() {
       icon: FiSlack,
     },
     /* { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare }, */
+    // { href: "/dashboard", label: "Reviews", icon: FiStar },
     
     { href: "/dashboard/users", label: "Usuarios", icon: FiUser },
-    { href: "/dashboard", label: "Reviews", icon: FiStar },
     { href: "/", label: "Home", icon: FiHome },
   ];
   return (
