@@ -158,6 +158,24 @@ export async function postUserDetailsAxios(data) {
   return result;
 }
 
+export async function updateFavorite(user_id, items) {
+  const result = await axios
+    .put(`${process.env.NEXT_PUBLIC_HOST}/api/favorite`, {user_id, items})
+    .then((res) => res.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+
+return result;
+}
+
+
+
 export async function getCartById(id) {
   const res = await axios
     .get(`${process.env.NEXT_PUBLIC_HOST}/api/cart?user_id=${id}`)
@@ -296,4 +314,21 @@ export async function updateReview(rating, comment, id) {
 
   return res;
 }
+
+export async function postReview(userId, artworkId, rating, comment) {
+  const res = await axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/api/reviews/profile`,
+     {rating, comment, artwork_id: artworkId, user_id: userId} )
+    .then((resp) => resp.data)
+    .catch((error) => {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw error.toJSON();
+      }
+    });
+
+  return res;
+}
+
 

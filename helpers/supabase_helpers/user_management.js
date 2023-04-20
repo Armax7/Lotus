@@ -79,6 +79,27 @@ export async function loggedStatus() {
   return !!session;
 }
 
+export async function getCurrentSession() {
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+
+  if (error) throw error;
+
+  return session;
+}
+
+export async function sendPasswordReset({ email }) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${process.env.NEXT_PUBLIC_HOST}/update-password`,
+  });
+
+  if (error) throw error;
+
+  return data;
+}
+
 /**
  * Allows you to change email or password of the current user
  *

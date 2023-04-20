@@ -11,6 +11,8 @@ import axios from "axios";
 import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
 import { MdFavoriteBorder } from "react-icons/md";
+import { FiStar } from "react-icons/fi";
+import * as AdminHelpers from "../../helpers/page_helpers/AdminLayout_helpers/query_fns";
 
 function NavBar({
   classname,
@@ -28,6 +30,7 @@ function NavBar({
   const btnRef = React.useRef();
 
   const [logged, setLogged] = useState(false);
+  const [userRole, setUserRole] = useState("user");
 
   const loguearse = async () => {
     let data = await SupaHelpers.loggedStatus();
@@ -41,12 +44,20 @@ function NavBar({
   const [userData, setUserData] = useState("");
 
   const datosUsuario = async () => {
-    let user = await SupaHelpers.getUserName();
-    setUserData(user);
+    const userName = await SupaHelpers.getUserName();
+    const userId = await SupaHelpers.getUserId();
+    setUserData(userName);
+    return { userName, userId };
   };
   useEffect(() => {
-    datosUsuario();
+    async function fetchUserRole() {
+      const { userName, userId } = await datosUsuario();
+      const role = await AdminHelpers.getUserRole(userId);
+      setUserRole(role);
+      return role;
+    }
     //console.log("userData", userData);
+    fetchUserRole();
   }, []);
 
   const [userData2, setUserData2] = useState(null);
@@ -202,19 +213,33 @@ function NavBar({
               </Chakra.Button>
             </Link>
 
-            <div>
-              {logged === true ? (
-                <Link href="/profile">
-                  <a>
-                    <MdFavoriteBorder
-                      color="#80467491"
-                      cursor="pointer"
-                      size={27}
-                    />
-                  </a>
-                </Link>
-              ) : null}
-            </div>
+            {logged === true ? (
+              <Link href={"/favorite"}>
+                <Chakra.Button
+                  borderRadius={"100px"}
+                  w={"100%"}
+                  fontSize={"16px"}
+                  maxW={"300px"}
+                  id="home"
+                  margin={"0 8px"}
+                  background="var(--color3)"
+                  color="var(--black)"
+                  _hover={{
+                    background: "var(--color1)",
+                    color: "var(--color5)",
+                    transform: "translateY(-4px)",
+                  }}
+                  isActive={router.pathname === "/favorite"}
+                  _active={{
+                    background: "var(--color1)",
+                    color: "var(--color5)",
+                  }}
+                >
+                  <Chakra.Icon as={FiStar} m={"0 4px"} />
+                  {isLargerThan730 && `Favoritos`}
+                </Chakra.Button>
+              </Link>
+            ) : null}
 
             {logged == true ? (
               <div className="logedContainer">
@@ -282,6 +307,14 @@ function NavBar({
                         <Link href="/formCreate">
                           <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
                         </Link>
+                        <Link href="/my-purchases">
+                          <Chakra.MenuItem>Mis Compras</Chakra.MenuItem>
+                        </Link>
+                        {userRole === "admin" ? (
+                          <Link href="/dashboard">
+                            <Chakra.MenuItem>Dashboard</Chakra.MenuItem>
+                          </Link>
+                        ) : null}
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
                         </Chakra.Flex>
@@ -398,7 +431,7 @@ function NavBar({
                       bgPosition="center bottom 80px"
                       bgSize="26%"
                     >
-                      <Components.SignIn />
+                      <Components.SignIn onClose={SignIn.onClose} />
                     </Chakra.DrawerBody>
                   </Chakra.DrawerContent>
                 </Chakra.Drawer>
@@ -508,6 +541,14 @@ function NavBar({
                             <Link href="/formCreate">
                               <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
                             </Link>
+                            <Link href="/my-purchases">
+                              <Chakra.MenuItem>Mis Compras</Chakra.MenuItem>
+                            </Link>
+                            {userRole === "admin" ? (
+                              <Link href="/dashboard">
+                                <Chakra.MenuItem>Dashboard</Chakra.MenuItem>
+                              </Link>
+                            ) : null}
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
                             </Chakra.Flex>
