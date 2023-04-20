@@ -118,13 +118,11 @@ function SignUp({ className = style.HStack, ...props }) {
 
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowAlert(true);
-  };
+ 
 
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
-      <button onClick={handleButtonClick}>Crear cuenta</button>
+      
 
       {showAlert && (
         <Chakra.Alert

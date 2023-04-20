@@ -90,13 +90,11 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
 
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowAlert(true);
-  };
+  
 
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
-      <button onClick={handleButtonClick}>Show alert</button>
+     
 
       {showAlert && (
         <chakra.Alert
