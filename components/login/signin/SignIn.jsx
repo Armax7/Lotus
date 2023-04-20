@@ -59,9 +59,9 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
         const data = await UserAuth.userEmailLogIn(formData);
         console.log(data);
         setShowAlert(true);
-        /* setTimeout(() => {
+       
           location.reload();
-        }, 2000); */
+      
       } catch (error) {
         console.log(error);
       }
