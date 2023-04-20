@@ -2,6 +2,7 @@
   background: var(--color5);
   font-family: "Poppins";
   padding-bottom: 12px;
+  min-height: calc(100vh - 200px);
 }
 
 .main {

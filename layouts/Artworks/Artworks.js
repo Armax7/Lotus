@@ -70,7 +70,7 @@ function Artworks({
     formRef.current.focus();
   };
   return (
-    <div style={{ background: "var(--color5)", paddingBottom: "12px" }}>
+    <div style={{ background: "var(--color5)", paddingBottom: "12px", minHeight:"calc(100vh - 200px)" }}>
       <Chakra.Box
         maxW={"1200px"}
         m={"auto"}
