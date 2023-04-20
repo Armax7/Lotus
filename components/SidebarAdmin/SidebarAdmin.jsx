@@ -14,21 +14,31 @@ function SidebarAdmin() {
 
   const links = [
     { href: "/dashboard/", label: "Obras", icon: FiImage },
-   /*  {
+    /*  {
       href: "/dashboard/",
       label: "Propiedades de las Obras",
       icon: FiSlack,
-    }, */
-    { href: "/dashboard", label: "Usuarios", icon: FiUser },
-    { href: "/dashboard", label: "Reviews", icon: FiStar },
+    },
     /* { href: "/dashboard", label: "Comentarios", icon: FiMessageSquare }, */
-
+    
+    { href: "/dashboard/users", label: "Usuarios", icon: FiUser },
+    { href: "/dashboard", label: "Reviews", icon: FiStar },
     { href: "/", label: "Home", icon: FiHome },
   ];
   return (
-    <Chakra.Box w="20%" h="100vh" bg="white" p="6">
-      <br></br>
-      <Chakra.VStack spacing="6" align="stretch">
+    <Chakra.Box
+      w="100%"
+      maxW={"300px"}
+      minW={"200px"}
+      h="100vh"
+      bg={"var(--color4)"}
+      p="12px"
+      fontFamily={"Poppins"}
+      color={"var(--color5)"}
+      position={"sticky"}
+      top={"0"}
+    >
+      <Chakra.VStack h={"100%"}>
         <svg
           style={{ maxWidth: "340px" }}
           xmlns="http://www.w3.org/2000/svg"
@@ -72,37 +82,57 @@ function SidebarAdmin() {
             </g>
           </g>
         </svg>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <Chakra.Stack spacing="12" ml="6" m="4">
+        <Chakra.Text
+          color={"var(--color1)"}
+          fontSize={"16px"}
+          fontWeight={"500"}
+          w={"100%"}
+          textAlign={"center"}
+          display={"flex"}
+          alignItems={"center"}
+          letterSpacing={"4px"}
+        >
+          <hr
+            style={{
+              margin: "0 4px",
+              width: "100%",
+              borderColor: "var(--color2)",
+            }}
+          />
+          ADMIN
+          <hr
+            style={{
+              margin: "0 4px",
+              width: "100%",
+              borderColor: "var(--color2)",
+            }}
+          />
+        </Chakra.Text>
+        <Chakra.Stack h={"100%"} justifyContent={"space-evenly"}>
           {links.map((link, index) => (
             <Chakra.Box
               key={index}
               as="button"
+              w={"100%"}
+              maxW={"max-content"}
+              minW={"180px"}
               onClick={() => router.push(link.href)}
-              p="10"
-              fontFamily={"Poppins"}
-              fontSize={"22px"}
-              borderRadius="md"
+              fontSize={"20px"}
+              borderRadius="12px"
               bg={
                 router.pathname === link.href
                   ? "var(--color1-3)"
                   : "var(--color1-3)"
               }
-              _hover={{ bg: "var(--color2)" }}
-              cursor="pointer"
+              _hover={{ bg: "var(--color2)", transform: "translateY(-4px)" }}
               display="flex"
               alignItems="center"
-              justifyContent="flex-start"
+              justifyContent="left"
+              fontWeight={"400"}
+              p={"16px 12px"}
             >
               <link.icon />
-              <Chakra.Box mt="22" ml="18">
-                {link.label}
-              </Chakra.Box>
+              <Chakra.Box ml={"8px"}>{link.label}</Chakra.Box>
             </Chakra.Box>
           ))}
         </Chakra.Stack>

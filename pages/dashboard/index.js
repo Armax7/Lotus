@@ -43,14 +43,19 @@ function Dashboard() {
   }
 
   return (
-    <Chakra.Flex direction={"column"} w={"80%"} pt={"2rem"}>
-      <Chakra.Box mx={"75%"}>
+    <Chakra.Flex direction={"column"} w={"100%"} mt={"12px"}>
+      <Chakra.Box w={"100%"} textAlign={"center"}>
         <Chakra.Button
           onClick={onOpen}
           bgColor={"var(--color1)"}
-          textColor={"white"}
-          w={"250px"}
+          color={"var(--color5)"}
+          w={"100%"}
+          maxW={"250px"}
           minW={"100px"}
+          _hover={{
+            background: "var(--color2)",
+            transform: "translateY(-4px)",
+          }}
         >
           Agregar obra
         </Chakra.Button>
@@ -66,12 +71,23 @@ function Dashboard() {
         isOpen={isOpen}
         placement={"top"}
         onClose={onClose}
-        size={"full"}
+        // size={"full"}
       >
         <Chakra.DrawerOverlay />
-        <Chakra.DrawerContent bgColor={"var(--color3)"}>
+        <Chakra.DrawerContent bgColor={"transparent"} >
+          <Chakra.DrawerCloseButton
+            backgroundColor="var(--color1)"
+            color="var(--color3)"
+            _hover={{
+              background: "var(--color3)",
+              color: "var(--color1)",
+            }}
+          />
           <Chakra.DrawerBody>
-            <Components.PostArtworkForm onSubmit={artworkPostMutation.mutate} onClose={onClose} />
+              <Components.PostArtworkForm
+              onSubmit={artworkPostMutation.mutate}
+              onClose={onClose}
+            />
           </Chakra.DrawerBody>
         </Chakra.DrawerContent>
       </Chakra.Drawer>

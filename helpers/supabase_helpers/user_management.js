@@ -1,4 +1,5 @@
 import { supabase } from "../../lib/supabaseClient";
+import { supaAdmin } from "../../lib/supabaseClient";
 
 /**
  * Allows you to sign up using email and password, also sends confirmation email.
@@ -240,5 +241,19 @@ export async function getUser() {
   } catch (error) {
     console.log(`Unable to retrieve name, there might be no user logged in.`);
     return undefined;
+  }
+}
+
+export async function getAllUsersEmail() {
+  try {
+    const {
+      data: { users },
+      error,
+    } = await supaAdmin.auth.admin.listUsers();
+    if (error) throw error;
+    return users;
+  } catch (error) {
+    console.log("Error al obtener los usuarios:", error.message);
+    return null;
   }
 }
