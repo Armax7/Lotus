@@ -46,12 +46,15 @@ function Cart() {
       // si el usuario está logueado, obtiene el carrito desde la API
       const localStorageCart = getLocalStorageCart();
       const databaseCart = await getDatabaseCart();
-      var cart = databaseCart
-      cart.items = [...databaseCart.items, ...localStorageCart.items]
+      var cart = databaseCart;
+      cart.items = [...databaseCart.items, ...localStorageCart.items];
       cart.items = cart.items.filter((item, index) => {
-        return index === cart.items.findIndex(obj => {
-          return obj.name === item.name;
-        });
+        return (
+          index ===
+          cart.items.findIndex((obj) => {
+            return obj.name === item.name;
+          })
+        );
       });
 
       var source = databaseCart.source;
@@ -116,20 +119,22 @@ function Cart() {
   async function handleCheckout(event) {
     event.preventDefault();
 
-    try {
-      const {
-        data: { id },
-      } = await axios.post("/api/checkout", { items: stripeItems });
-      const stripe = await getStripe();
-      const result = await stripe.redirectToCheckout({ sessionId: id });
-    } catch (error) {
-      console.log(error);
-      console.log(
-        error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
-      );
-      setNotAvailable(
-        error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
-      );
+    if (logged) {
+      try {
+        const {
+          data: { id },
+        } = await axios.post("/api/checkout", { items: stripeItems });
+        const stripe = await getStripe();
+        const result = await stripe.redirectToCheckout({ sessionId: id });
+      } catch (error) {
+        console.log(error);
+        console.log(
+          error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
+        );
+        setNotAvailable(
+          error.response.data.message.endsWith(ErrorStr.PRODUCT_NOT_ACTIVE)
+        );
+      }
     }
   }
 
@@ -139,7 +144,7 @@ function Cart() {
     <div className={style.container}>
       {cart.length ? (
         <div className={style.wrapper}>
-          <div className={style.cards} >
+          <div className={style.cards}>
             {cart.map((cartItem, index) => {
               return (
                 <Components.CartCard
@@ -150,7 +155,7 @@ function Cart() {
               );
             })}
           </div>
-          <form className={style.form} onSubmit={handleCheckout}>
+          <form id="pay_form" className={style.form} onSubmit={handleCheckout}>
             <Chakra.Flex>
               <Chakra.Box>
                 <Chakra.FormControl display={"flex"} flexDir={"column"}>
@@ -161,7 +166,7 @@ function Cart() {
                   {logged ? (
                     <Chakra.Button
                       type="submit"
-                      role="link"
+                      form="pay_form"
                       bg={"var(--color1)"}
                       color={"var(--color5)"}
                       _hover={{
