@@ -216,6 +216,23 @@ export async function hasUserDetails(userId) {
   return !!user_details.at(0);
 }
 
+export async function postUserDetails({
+  id,
+  name,
+  image = null,
+  address = null,
+  is_banned = false,
+}) {
+  const { data, error } = await supabase
+    .from("user_details")
+    .insert({ id, name, image, address, is_banned })
+    .select();
+
+  if (error) throw error;
+
+  return data;
+}
+
 export async function getUser() {
   try {
     const { data, error } = await supabase.auth.getUser();
