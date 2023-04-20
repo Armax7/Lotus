@@ -1,4 +1,5 @@
 import style from "../../../styles/login/signin.module.css";
+import Link from "next/link";
 import { useState } from "react";
 import * as chakra from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
@@ -7,7 +8,7 @@ import validate from "./validation";
 import { supabase } from "../../../lib/supabaseClient";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 
-export default function SignIn({ ...props }) {
+export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -192,7 +193,9 @@ export default function SignIn({ ...props }) {
               >
                 Recuerdame
               </chakra.Checkbox>
-              <chakra.Link>¿Olvidaste tu contraseña?</chakra.Link>
+              <Link href={"/password-recovery"}>
+                <a onClick={onCloseProp}>¿Olvidaste tu contraseña?</a>
+              </Link>
             </chakra.Stack>
 
             <chakra.Button
@@ -212,5 +215,4 @@ export default function SignIn({ ...props }) {
       </chakra.HStack>
     </form>
   );
-  
 }

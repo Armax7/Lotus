@@ -31,5 +31,9 @@ export { default as DeleteArtworkAdmin } from "./DeleteArtworkAdmin/DeleteArtwor
 export { default as Opinions } from "./Opinions/Opinions";
 export { default as EditOpinion } from "./EditOpinion/EditOpinion";
 export { default as UpdateArtworkForm } from "./UpdateArtworkForm/UpdateArtworkForm";
-export { default as FavoriteEmpty } from "./FavoriteEmpty/FavoriteEmpty"
-
+export { default as ReviewModal } from "./ReviewModal/ReviewModal";
+export { default as CardOrder } from "./CardOrder/CardOrder";
+export { default as CardOrderContainer } from "./CardOrderContainer/CardOrderContainer";
+export { default as FavoriteEmpty } from "./FavoriteEmpty/FavoriteEmpty";
+export { default as RecoveryForm } from "./RecoveryForm/RecoveryForm";
+export { default as ChangePasswordForm } from "./ChangePasswordForm/ChangePasswordForm";

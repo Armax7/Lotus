@@ -9,7 +9,10 @@ export async function getAllUsersDetails() {
 }
 
 export async function getUserDetailById({ id: userId }) {
-  const response = await supabase.from("user_details").select("id", userId);
+  const response = await supabase
+    .from("user_details")
+    .select()
+    .eq("id", userId);
 
   if (response.error) throw response;
 
