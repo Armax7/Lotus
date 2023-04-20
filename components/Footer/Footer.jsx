@@ -67,7 +67,7 @@ function Footer() {
               </Chakra.ListItem>
               <Chakra.ListItem>
                 <Chakra.Text _hover={{ color: "var(--color3)" }} mt={"4px"}>
-                  Términos y condiciones
+                  {/* {Términos y condiciones} */}
                 </Chakra.Text>
               </Chakra.ListItem>
             </Chakra.List>
