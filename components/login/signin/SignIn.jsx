@@ -8,6 +8,7 @@ import validate from "./validation";
 import { supabase } from "../../../lib/supabaseClient";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
 import { useRouter } from "next/router";
+
 export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   const [formData, setFormData] = useState({
     email: "",
