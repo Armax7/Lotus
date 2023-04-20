@@ -43,7 +43,6 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   async function handleOnSubmit(event) {
     event.preventDefault();
 
-    console.log("sign in submit press with no functionality");
     const localData = {
       ...formData,
       email: formData.email.trim(),
@@ -86,7 +85,7 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   }
 
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+    <form id="sign_in" onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
       <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
           w="100%"
@@ -206,6 +205,7 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
                 transform: "translateY(-4px)",
               }}
               type="submit"
+              form="sign_in"
               onClick={handleOnSubmit}
             >
               Ingresar
