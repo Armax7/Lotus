@@ -236,7 +236,6 @@ function FormUserCreate({ onSubmit: onSubmitProp = defaultPostOnSubmit }) {
                     name="image"
                     accept=".jpg, .jpeg, .png"
                     onChange={(e) => handleImageOnChange(e)}
-                    className={styles.fileInput}
                   />
                   {imageFile && (
                     <div className={styles.selectedFile}>
