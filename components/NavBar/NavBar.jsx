@@ -12,6 +12,7 @@ import { AiFillHome } from "react-icons/ai";
 import { TbPhotoHeart } from "react-icons/tb";
 import { MdFavoriteBorder } from "react-icons/md";
 import { FiStar } from "react-icons/fi";
+import * as AdminHelpers from "../../helpers/page_helpers/AdminLayout_helpers/query_fns";
 
 function NavBar({
   classname,
@@ -29,6 +30,7 @@ function NavBar({
   const btnRef = React.useRef();
 
   const [logged, setLogged] = useState(false);
+  const [userRole, setUserRole] = useState("user");
 
   const loguearse = async () => {
     let data = await SupaHelpers.loggedStatus();
@@ -42,12 +44,20 @@ function NavBar({
   const [userData, setUserData] = useState("");
 
   const datosUsuario = async () => {
-    let user = await SupaHelpers.getUserName();
-    setUserData(user);
+    const userName = await SupaHelpers.getUserName();
+    const userId = await SupaHelpers.getUserId();
+    setUserData(userName);
+    return { userName, userId };
   };
   useEffect(() => {
-    datosUsuario();
+    async function fetchUserRole() {
+      const { userName, userId } = await datosUsuario();
+      const role = await AdminHelpers.getUserRole(userId);
+      setUserRole(role);
+      return role;
+    }
     //console.log("userData", userData);
+    fetchUserRole();
   }, []);
 
   const [userData2, setUserData2] = useState(null);
@@ -300,6 +310,11 @@ function NavBar({
                         <Link href="/my-purchases">
                           <Chakra.MenuItem>Mis Compras</Chakra.MenuItem>
                         </Link>
+                        {userRole === "admin" ? (
+                          <Link href="/dashboard">
+                            <Chakra.MenuItem>Dashboard</Chakra.MenuItem>
+                          </Link>
+                        ) : null}
                         <Chakra.Flex align={"center"} justify={"center"}>
                           <Components.LogOutButton />
                         </Chakra.Flex>
@@ -526,6 +541,14 @@ function NavBar({
                             <Link href="/formCreate">
                               <Chakra.MenuItem>Sube tu obra</Chakra.MenuItem>
                             </Link>
+                            <Link href="/my-purchases">
+                              <Chakra.MenuItem>Mis Compras</Chakra.MenuItem>
+                            </Link>
+                            {userRole === "admin" ? (
+                              <Link href="/dashboard">
+                                <Chakra.MenuItem>Dashboard</Chakra.MenuItem>
+                              </Link>
+                            ) : null}
                             <Chakra.Flex align={"center"} justify={"center"}>
                               <Components.LogOutButton />
                             </Chakra.Flex>

@@ -10,8 +10,6 @@ import Link from "next/link";
 function AdminLayout({ children }) {
   const queryClient = ReactQuery.useQueryClient();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
   const userIdQuery = ReactQuery.useQuery(
     [QueryKeys.QK_USER_ID],
     QueryFns.getUserIdQuery,
