@@ -63,7 +63,7 @@ function UsersAdmin() {
   }, []);
 
   if (allData.length === 0 || MailUsuarios.length === 0) {
-    return <div>Loading...</div>;
+    return <Components.Loading />;
   }
 
   const userObject = {};
@@ -78,19 +78,19 @@ function UsersAdmin() {
 
   const handleDeleteUser = async (id) => {
     try {
-     /* const { data:userDetails, error:userDetailsError} = await supabase
+      /* const { data:userDetails, error:userDetailsError} = await supabase
       .from("user_details")
       .delete()
       .eq("id",id) */
-      const { data, error } = await supaAdmin.auth.admin.deleteUser(id)
-      
+      const { data, error } = await supaAdmin.auth.admin.deleteUser(id);
+
       if (error) {
         throw error;
       }
-//      if(userDetailsError){
-// throw error;
+      //      if(userDetailsError){
+      // throw error;
 
-//       }
+      //       }
       const updatedData = allData.filter((user) => user.id !== id);
       setAllData(updatedData);
       setUserToDelete(null); // resetear el usuario a eliminar
@@ -106,26 +106,73 @@ function UsersAdmin() {
   };
 
   return (
-    <Table variant="simple">
-      <Thead>
+    <Table variant="simple" fontFamily={"Poppins"}>
+      <Thead background={"var(--color4)"}>
         <Tr>
-          <Th>Nombre del usuario</Th>
-          <Th>Email del usuario</Th>
-          <Th>Rol del usuario</Th>
-          <Th>Eliminar usuarios</Th>
+          <Th
+            color={"var(--color1)"}
+            fontFamily={"Poppins"}
+            textAlign={"center"}
+          >
+            Nombre del usuario
+          </Th>
+          <Th
+            color={"var(--color1)"}
+            fontFamily={"Poppins"}
+            textAlign={"center"}
+          >
+            Email del usuario
+          </Th>
+          <Th
+            color={"var(--color1)"}
+            fontFamily={"Poppins"}
+            textAlign={"center"}
+          >
+            Rol del usuario
+          </Th>
+          <Th
+            color={"var(--color1)"}
+            fontFamily={"Poppins"}
+            textAlign={"center"}
+          >
+            Eliminar usuarios
+          </Th>
         </Tr>
       </Thead>
-      <Tbody>
+      <Tbody color={"var(--black)"}>
         {data
           .sort((a, b) => a.name.localeCompare(b.name))
-          .map((user) => (
+          .map((user, i) => (
             <Tr key={user.id}>
-              <Td>{user.name}</Td>
-              <Td>{user.email}</Td>
-              <Td>{user.role}</Td>
-              <Td>
+              <Td
+                textAlign={"center"}
+                bg={i % 2 === 0 ? "var(--color3)" : "var(--color4)"}
+              >
+                {user.name}
+              </Td>
+              <Td
+                textAlign={"center"}
+                bg={i % 2 === 0 ? "var(--color3)" : "var(--color4)"}
+              >
+                {user.email}
+              </Td>
+              <Td
+                textAlign={"center"}
+                bg={i % 2 === 0 ? "var(--color3)" : "var(--color4)"}
+              >
+                {user.role}
+              </Td>
+              <Td
+                textAlign={"center"}
+                bg={i % 2 === 0 ? "var(--color3)" : "var(--color4)"}
+              >
                 <Chakra.Button
+                  p={"0 28px"}
+                  borderRadius={"12px"}
                   colorScheme="red"
+                  _hover={{
+                    transform: "translateY(-4px)",
+                  }}
                   onClick={() => {
                     setUserToDelete(user.id);
                     setShowDeleteModal(true);
@@ -140,26 +187,43 @@ function UsersAdmin() {
 
       {showDeleteModal && (
         <Chakra.Modal
+          isCentered
           isOpen={showDeleteModal}
           onClose={() => setShowDeleteModal(false)}
         >
           <Chakra.ModalOverlay />
-          <Chakra.ModalContent>
+          <Chakra.ModalContent
+            bg={"var(--color5)"}
+            color={"var(--color1)"}
+            fontFamily={"Poppins"}
+            borderRadius={"12px"}
+          >
             <Chakra.ModalHeader>Eliminar usuario</Chakra.ModalHeader>
-            <Chakra.ModalCloseButton />
-            <Chakra.ModalBody>
+            <Chakra.ModalCloseButton
+              _hover={{ background: "var(--color2)", color: "var(--color5)" }}
+            />
+            <Chakra.ModalBody color={"var(--black)"}>
               ¿Está seguro que desea eliminar al usuario seleccionado?
             </Chakra.ModalBody>
             <Chakra.ModalFooter>
               <Chakra.Button
-                colorScheme="red"
+                colorScheme="lotus"
+                p={"0 28px"}
                 mr={3}
+                _hover={{ transform: "translateY(-4px)" }}
                 onClick={() => handleDeleteUser(userToDelete)}
               >
                 Sí
               </Chakra.Button>
+
               <Chakra.Button
                 variant="ghost"
+                p={"0 28px"}
+                _hover={{
+                  transform: "translateY(-4px)",
+                  background: "var(--color2)",
+                  color: "var(--color5)",
+                }}
                 onClick={() => setShowDeleteModal(false)}
               >
                 No
