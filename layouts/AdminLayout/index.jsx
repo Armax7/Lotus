@@ -10,13 +10,10 @@ import Link from "next/link";
 function AdminLayout({ children }) {
   const queryClient = ReactQuery.useQueryClient();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
   const userIdQuery = ReactQuery.useQuery(
     [QueryKeys.QK_USER_ID],
     QueryFns.getUserIdQuery,
     {
-      onSuccess: (query) => console.log(query),
       onError: (error) => console.log(error),
     }
   );
@@ -43,9 +40,7 @@ function AdminLayout({ children }) {
         description={`${userIdQuery.error ?? userRole.error}`}
       />
     );
-  }
-
-  if (userRole !== "admin") {
+  }else if (userRole.data !== "admin") {
     return (
       <Chakra.Box>
         <Components.Alert
