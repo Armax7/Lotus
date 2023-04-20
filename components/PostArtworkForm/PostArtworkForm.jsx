@@ -163,7 +163,7 @@ function PostArtworkForm({
             fontWeight={"800"}
             color={"var(--color1)"}
           >
-            Editar obra
+            Subir obra
           </Chakra.Box>
           <hr style={{ borderColor: "var(--color2)" }} />
           <Chakra.Flex
