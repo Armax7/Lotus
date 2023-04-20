@@ -2,7 +2,7 @@ import * as SupaHelpers from "../../helpers/supabase_helpers/user_management";
 import * as Chakra from "@chakra-ui/react";
 import * as Components from "../../components";
 import React, { useEffect, useState, useRef } from "react";
-import { supabase } from "../../lib/supabaseClient";
+import { supaAdmin, supabase } from "../../lib/supabaseClient";
 import axios from "axios";
 import {
   Table,
@@ -73,18 +73,24 @@ function UsersAdmin() {
 
   const data = allData.map((user) => {
     const mailUser = MailUsuarios.find((mail) => mail.id === user.id);
-    return { ...user, email: mailUser.email };
+    return { ...user, email: mailUser?.email };
   });
 
   const handleDeleteUser = async (id) => {
     try {
-      const { data, error } = await supabase
-        .from("user_details")
-        .delete()
-        .match({ id: id });
+     /* const { data:userDetails, error:userDetailsError} = await supabase
+      .from("user_details")
+      .delete()
+      .eq("id",id) */
+      const { data, error } = await supaAdmin.auth.admin.deleteUser(id)
+      
       if (error) {
         throw error;
       }
+//      if(userDetailsError){
+// throw error;
+
+//       }
       const updatedData = allData.filter((user) => user.id !== id);
       setAllData(updatedData);
       setUserToDelete(null); // resetear el usuario a eliminar

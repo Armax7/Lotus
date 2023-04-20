@@ -1,7 +1,7 @@
 import React from "react";
-import * as Layouts from "../../layouts";
-import * as Components from "../../components";
-import { UsersAdminLayout } from "../../layouts";
+import * as Layouts from "../../../layouts";
+import * as Components from "../../../components";
+import { AdminLayout } from "../../../layouts";
 import * as Chakra from "@chakra-ui/react";
 function users() {
   return (
@@ -12,7 +12,7 @@ function users() {
 }
 
 users.getLayout = function PageLayout(page) {
-  return <UsersAdminLayout>{page}</UsersAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default users;
