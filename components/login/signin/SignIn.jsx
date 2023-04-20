@@ -7,7 +7,7 @@ import { FaFacebook } from "react-icons/fa";
 import validate from "./validation";
 import { supabase } from "../../../lib/supabaseClient";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
-
+import { useRouter } from "next/router";
 export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   const [formData, setFormData] = useState({
     email: "",
@@ -58,6 +58,8 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
       try {
         const data = await UserAuth.userEmailLogIn(formData);
         console.log(data);
+        setShowAlert(true);
+
         location.reload();
       } catch (error) {
         console.log(error);
@@ -85,8 +87,32 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
     });
   }
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowAlert(true);
+  };
+
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+      <button onClick={handleButtonClick}>Show alert</button>
+
+      {showAlert && (
+        <chakra.Alert
+          status="success"
+          variant="subtle"
+          justifyContent="center"
+          borderRadius={"2xl"}
+          color="blackAlpha"
+          display={"flex"}
+          flexDir={"column"}
+          m={"0 0 12px"}
+        >
+          <chakra.AlertIcon />
+          Bienvenido a Lotus ¡Has iniciado sesión exitosamente!
+        </chakra.Alert>
+      )}
+
       <chakra.HStack className={style.HStack} {...props}>
         <chakra.Flex
           w="100%"

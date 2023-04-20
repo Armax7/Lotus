@@ -81,6 +81,9 @@ function SignUp({ className = style.HStack, ...props }) {
     setErrors(validate({ ...localData }));
     const currentErrors = validate(localData);
     setSubmitted(true);
+    setShowAlert(true);
+
+    location.reload();
 
     if (Object.values(currentErrors).length <= 0) {
       const signUpData = await UserAuth.userEmailSignUp({
@@ -112,8 +115,34 @@ function SignUp({ className = style.HStack, ...props }) {
       });
     }
   }
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowAlert(true);
+  };
+
   return (
     <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+      <button onClick={handleButtonClick}>Crear cuenta</button>
+
+      {showAlert && (
+        <Chakra.Alert
+          status="success"
+          variant="subtle"
+          justifyContent="center"
+          borderRadius={"2xl"}
+          color="blackAlpha"
+          display={"flex"}
+          flexDir={"column"}
+          m={"0 0 12px"}
+        >
+          <Chakra.AlertIcon />
+          "Tu cuenta ha sido creada con éxito. Para completar el proceso de
+          registro, revisa tu correo electrónico y sigue las instrucciones para
+          confirmar tu dirección de correo electrónico."
+        </Chakra.Alert>
+      )}
       <Chakra.HStack className={className} {...props}>
         <Chakra.Flex
           w="100%"
