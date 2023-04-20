@@ -9,7 +9,7 @@ const CardOrderContainer = ({ order, ...props }) => {
 
   return (
     <Box
-      margin="20px"
+      mx="20px"
       borderWidth="3px"
       borderRadius="lg"
       p="4"

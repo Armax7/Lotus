@@ -23,7 +23,7 @@ function Purchase({ success, session_id }) {
     async () => await QueryFns.getCheckoutSessionByIdAxios(session_id),
     {
       onSuccess: (data) => {
-        localStorage.removeItem("cartItems");
+        // localStorage.removeItem("cartItems");
       },
     }
   );
