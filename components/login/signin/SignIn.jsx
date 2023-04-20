@@ -7,7 +7,7 @@ import { FaFacebook } from "react-icons/fa";
 import validate from "./validation";
 import { supabase } from "../../../lib/supabaseClient";
 import * as UserAuth from "../../../helpers/supabase_helpers/user_management";
-
+import { useRouter } from "next/router";
 export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
   const [formData, setFormData] = useState({
     email: "",
@@ -59,9 +59,8 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
         const data = await UserAuth.userEmailLogIn(formData);
         console.log(data);
         setShowAlert(true);
-       
-          location.reload();
-      
+
+        location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -110,9 +109,7 @@ export default function SignIn({ onClose: onCloseProp = () => {}, ...props }) {
           m={"0 0 12px"}
         >
           <chakra.AlertIcon />
-          <span style={{ fontWeight: "bold" }}>
-            Bienvenido a Lotus ¡Has iniciado sesión exitosamente!
-          </span>
+          Bienvenido a Lotus ¡Has iniciado sesión exitosamente!
         </chakra.Alert>
       )}
 

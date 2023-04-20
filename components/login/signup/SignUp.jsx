@@ -82,9 +82,8 @@ function SignUp({ className = style.HStack, ...props }) {
     const currentErrors = validate(localData);
     setSubmitted(true);
     setShowAlert(true);
-    
-      location.reload();
-    
+
+    location.reload();
 
     if (Object.values(currentErrors).length <= 0) {
       const signUpData = await UserAuth.userEmailSignUp({
@@ -139,11 +138,9 @@ function SignUp({ className = style.HStack, ...props }) {
           m={"0 0 12px"}
         >
           <Chakra.AlertIcon />
-          <span style={{ fontWeight: "bold" }}>
-            "Tu cuenta ha sido creada con éxito. Para completar el proceso de
-            registro, revisa tu correo electrónico y sigue las instrucciones
-            para confirmar tu dirección de correo electrónico."
-          </span>
+          "Tu cuenta ha sido creada con éxito. Para completar el proceso de
+          registro, revisa tu correo electrónico y sigue las instrucciones para
+          confirmar tu dirección de correo electrónico."
         </Chakra.Alert>
       )}
       <Chakra.HStack className={className} {...props}>
