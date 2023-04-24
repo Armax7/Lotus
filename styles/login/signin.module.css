@@ -1,0 +1,35 @@
+.HStack {
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 22px;
+  background: var(--color3);
+  color: var(--color1);
+}
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.hr {
+  border-color: var(--color1);
+  width: 150px;
+}
+.separator_text {
+  color: var(--color1-1);
+  font-weight: bold;
+}
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.form {
+  width: 100%;
+  border-radius: 22px;
+}
+
+.button {
+  background-color: var(--color1);
+}

@@ -1,11 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --color1: #804674;
+  --color1-1: #80467491;
+  --color1-2: #804674c0;
+  --color1-3: #804674ec;
+  --color1-4: #80467441;
+  --color2: #ae6b79;
+  --color2-1: #e2ced2;
+  --color2-2: #ae6b79e1;
+  --color2-3: #ae6b79a6;
+  --color3: #eddbc7;
+  --color3-1: #eddbc78f;
+  --color4: #f8ead8;
+  --color5: #f9f5e7;
+  --white: #fff;
+  --black: #1f1f1fde;
+  --black-1: #1f1f1fa6;
+  --black-2: #1f1f1f81;
+}
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: "Poppins"; */
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+*:focus{
+  border: none;
+  box-shadow: none;
+}
 a {
   color: inherit;
   text-decoration: none;

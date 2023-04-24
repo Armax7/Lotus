@@ -1,0 +1,25 @@
+.button {
+  border-radius: 1000px;
+  font-family: "Poppins";
+ 
+}
+.navLogo {
+  width: 100%;
+  min-width: 42px;
+  max-width: 52px;
+  margin-right: 16px;
+  fill: var(--color1);
+  transition: transform 0.2s;
+  cursor: pointer;
+  
+}
+.navLogo:hover {
+  transform: translateY(-4px);
+  fill: var(--color2);
+}
+.nav_560{
+  width: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
