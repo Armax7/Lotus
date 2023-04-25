@@ -113,7 +113,11 @@ function SignUp({ className = style.HStack, ...props }) {
     }
   }
   return (
-    <form onSubmit={(e) => handleOnSubmit(e)} className={style.form}>
+    <form
+      id="sign_up"
+      onSubmit={(e) => handleOnSubmit(e)}
+      className={style.form}
+    >
       <Chakra.HStack className={className} {...props}>
         <Chakra.Flex
           w="100%"
@@ -330,6 +334,7 @@ function SignUp({ className = style.HStack, ...props }) {
 
             <Chakra.Button
               type="submit"
+              form="sign_up"
               bg="var(--color1)"
               color="var(--color5)"
               _hover={{

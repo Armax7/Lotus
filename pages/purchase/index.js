@@ -23,7 +23,7 @@ function Purchase({ success, session_id }) {
     async () => await QueryFns.getCheckoutSessionByIdAxios(session_id),
     {
       onSuccess: (data) => {
-        localStorage.removeItem("cartItems");
+        // localStorage.removeItem("cartItems");
       },
     }
   );
@@ -33,13 +33,13 @@ function Purchase({ success, session_id }) {
   let htmlToSend = boughtTemplateToSend(allCards);
 
   let emailData = {
-    email: session.data?.customer_details.email,
-    subject: `Lotus - Hola ${session.data?.customer_details.name} Gracias por tu compra!`,
+    email: session?.data?.customer_details?.email,
+    subject: `Lotus - Hola ${session?.data?.customer_details?.name} Gracias por tu compra!`,
     text: "Lotus - Gracias por tu compra!",
     html: htmlToSend,
   };
 
-  session.data?.payment_status === "paid" && cart?.length
+  session?.data?.payment_status === "paid" && cart?.length
     ? sendEmail(emailData)
     : null;
 
@@ -47,21 +47,21 @@ function Purchase({ success, session_id }) {
   async function postOrder() {
 
     const userId = cart[0].userId
-    const paymentStatus = session.data?.payment_status
-    const total = session.data.amount_total
+    const paymentStatus = session?.data?.payment_status
+    const total = session?.data?.amount_total
     
     await QueryFns.postOrderDetails(userId, cart, paymentStatus, total )
    }
 
    function handlePaymentSuccess() {
-    if (session.data?.payment_status === "paid" && cart?.length) {
+    if (session?.data?.payment_status === "paid" && cart?.length) {
       postOrder();
     }
   }
 
   useEffect(() => {
     handlePaymentSuccess();
-  }, [session.data?.payment_status]);
+  }, [session?.data?.payment_status]);
    
  
 
